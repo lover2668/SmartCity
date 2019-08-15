@@ -23,7 +23,7 @@ import io.reactivex.functions.Function;
  * @Function: RxJava 重试机制--retryWhen操作符{@link Observable#retryWhen(Function)}
  * @Description: 1、2019-1-7 17:57:09 新增Context参数以检查网络连接状态定向重试机制
  */
-public class FrameRetryWhen implements Function<Observable<? extends Throwable>, ObservableSource<?>> {
+public class RetryWhen implements Function<Observable<? extends Throwable>, ObservableSource<?>> {
 
     private Context mContext;
     /**
@@ -40,17 +40,17 @@ public class FrameRetryWhen implements Function<Observable<? extends Throwable>,
     private int mRetryCount;
     private String TAG = getClass().getSimpleName();
 
-    public FrameRetryWhen(Context context, int retryMaxTime, long retryDelay) {
+    public RetryWhen(Context context, int retryMaxTime, long retryDelay) {
         this.mContext = context;
         this.mRetryMaxTime = retryMaxTime;
         this.mRetryDelay = retryDelay;
     }
 
-    public FrameRetryWhen(Context context) {
+    public RetryWhen(Context context) {
         this(context, 3, 500);
     }
 
-    public FrameRetryWhen() {
+    public RetryWhen() {
         this(null);
     }
 
@@ -60,7 +60,7 @@ public class FrameRetryWhen implements Function<Observable<? extends Throwable>,
      * @param delay
      * @return
      */
-    public FrameRetryWhen setRetryDelay(long delay) {
+    public RetryWhen setRetryDelay(long delay) {
         mRetryDelay = delay;
         return this;
     }
@@ -71,7 +71,7 @@ public class FrameRetryWhen implements Function<Observable<? extends Throwable>,
      * @param time
      * @return
      */
-    public FrameRetryWhen setRetryMaxTime(int time) {
+    public RetryWhen setRetryMaxTime(int time) {
         mRetryMaxTime = time;
         return this;
     }

@@ -92,10 +92,6 @@ private void test(int userId,int page){
                 public void _onNext(BaseResult<BasePageBean<MessageBean>> entity) {
                     UiManager.getInstance().getHttpRequestControl().httpRequestSuccess(getIHttpRequestControl(), entity.data == null ? new ArrayList<>() : entity.data.getElements(), null);
                 }
-
-
-
-
             });
 }
 

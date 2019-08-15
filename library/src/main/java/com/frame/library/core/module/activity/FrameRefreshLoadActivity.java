@@ -32,7 +32,7 @@ public abstract class FrameRefreshLoadActivity<T>
     protected int mDefaultPageSize = 10;
 
     protected FrameRefreshLoadDelegate<T> mFrameRefreshLoadDelegate;
-    private Class<?> mClass;
+    protected Class<?> mClass;
 
     @Override
     public void beforeInitView(Bundle savedInstanceState) {

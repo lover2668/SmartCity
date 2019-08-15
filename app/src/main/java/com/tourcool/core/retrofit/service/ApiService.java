@@ -1,6 +1,7 @@
 package com.tourcool.core.retrofit.service;
 
 
+import com.tourcool.core.base.BaseEntity;
 import com.tourcool.core.constant.ApiConstant;
 import com.tourcool.core.entity.BasePageBean;
 import com.tourcool.core.entity.BaseResult;
@@ -58,4 +59,15 @@ public interface ApiService {
      */
     @POST("message/owner/msg")
     Observable<BaseResult<BasePageBean<MessageBean>>> requestMsgList1(@Body Map<String, Object> map);
+
+
+
+    /**
+     * 系统消息列表
+     *
+     * @param map
+     * @return
+     */
+    @POST("message/owner/msg")
+    Observable<BaseEntity<BasePageBean<MessageBean>>> requestMsgList(@Body Map<String, Object> map);
 }

@@ -1,5 +1,6 @@
 package com.tourcool.core.retrofit.repository;
 
+import com.tourcool.core.base.BaseEntity;
 import com.tourcool.core.entity.BasePageBean;
 import com.tourcool.core.entity.BaseResult;
 import com.tourcool.core.entity.MessageBean;
@@ -9,7 +10,7 @@ import com.frame.library.core.util.TourCooUtil;
 import com.tourcool.core.MyApplication;
 import com.tourcool.core.base.BaseMovieEntity;
 import com.tourcool.core.retrofit.service.ApiService;
-import com.frame.library.core.retrofit.FrameRetryWhen;
+import com.frame.library.core.retrofit.RetryWhen;
 import com.frame.library.core.retrofit.FrameTransformer;
 
 import java.util.HashMap;
@@ -61,7 +62,7 @@ public class ApiRepository extends BaseRepository {
         params.put("apikey","0b2bdeda43b5688921839c8ecb20399b");
         params.put("start", start);
         params.put("count", count);
-        return FrameTransformer.switchSchedulers(getApiService().getMovie(url, params).retryWhen(new FrameRetryWhen()));
+        return FrameTransformer.switchSchedulers(getApiService().getMovie(url, params).retryWhen(new RetryWhen()));
     }
 
     /**
@@ -73,7 +74,7 @@ public class ApiRepository extends BaseRepository {
         Map<String, Object> params = new HashMap<>(2);
         params.put("versionCode", TourCooUtil.getVersionCode(MyApplication.getContext()));
         params.put("versionName", TourCooUtil.getVersionName(MyApplication.getContext()));
-        return FrameTransformer.switchSchedulers(getApiService().updateApp(params).retryWhen(new FrameRetryWhen()));
+        return FrameTransformer.switchSchedulers(getApiService().updateApp(params).retryWhen(new RetryWhen()));
     }
 
     /**
@@ -87,7 +88,21 @@ public class ApiRepository extends BaseRepository {
         params.put("ownerId", ownerId);
         params.put("pageIndex", pageIndex + "");
         params.put("pageSize", 10 + "");
-        return FrameTransformer.switchSchedulers(getApiService().requestMsgList1(params).retryWhen(new FrameRetryWhen()));
+        return FrameTransformer.switchSchedulers(getApiService().requestMsgList1(params).retryWhen(new RetryWhen()));
     }
 
+
+    /**
+     * 消息列表
+     *
+     * @param ownerId
+     * @return
+     */
+    public Observable<BaseEntity<BasePageBean<MessageBean>>> requestMsgList(int ownerId, int pageIndex) {
+        Map<String, Object> params = new HashMap<>(3);
+        params.put("ownerId", ownerId);
+        params.put("pageIndex", pageIndex + "");
+        params.put("pageSize", 10 + "");
+        return FrameTransformer.switchSchedulers(getApiService().requestMsgList(params).retryWhen(new RetryWhen()));
+    }
 }

@@ -4,7 +4,7 @@ import android.accounts.NetworkErrorException;
 
 import com.tourcool.core.base.BaseEntity;
 import com.frame.library.core.retrofit.FrameNullException;
-import com.frame.library.core.retrofit.FrameRetryWhen;
+import com.frame.library.core.retrofit.RetryWhen;
 import com.frame.library.core.retrofit.FrameTransformer;
 
 import io.reactivex.Observable;
@@ -26,7 +26,7 @@ public abstract class BaseRepository {
      */
     protected <T> Observable<T> transform(Observable<BaseEntity<T>> observable) {
         return FrameTransformer.switchSchedulers(
-                observable.retryWhen(new FrameRetryWhen())
+                observable.retryWhen(new RetryWhen())
                         .flatMap((Function<BaseEntity<T>, ObservableSource<T>>) result -> {
                             if (result == null) {
                                 return Observable.error(new NetworkErrorException());

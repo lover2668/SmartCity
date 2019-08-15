@@ -41,6 +41,7 @@ import com.aries.ui.util.StatusBarUtil;
 import com.aries.ui.view.title.TitleBarView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.tourcool.ui.mvp.MessageListActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -255,7 +256,7 @@ public class MineFragment extends BaseTitleFragment implements IFrameRefreshView
         switch (view.getId()) {
             case R.id.stv_setting:
 //                TourCooUtil.startActivity(mContext, SettingActivity.class);
-                TourCooUtil.startActivity(mContext, MessageListActivity1.class);
+                TourCooUtil.startActivity(mContext, MessageListActivity.class);
 
                 break;
             case R.id.stv_libraryMine:
