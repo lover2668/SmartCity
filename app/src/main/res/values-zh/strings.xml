@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">智慧城市</string>
+    <string name="home">主页</string>
+    <string name="web_app">WebApp</string>
+    <string name="activity">活动</string>
+    <string name="mine">我的</string>
+    <string name="home_list_content">点击查看示例</string>
+    <string name="swipe_back_style">点击跳转滑动返回Activity</string>
+    <string name="toast_system">系统Toast</string>
+    <string name="toast_normal">常规Toast</string>
+    <string name="toast_success">成功Toast</string>
+    <string name="toast_failed">失败Toast</string>
+    <string name="toast_warning">提醒Toast</string>
+    <string name="setting">设置</string>
+    <string name="find">发现</string>
+    <string name="third_part">第三方库</string>
+    <string name="share">分享</string>
+    <string name="share_content">分享给你一个超给力的Android快速开发库FastLib;Demo下载链接:	http://fir.im/hju8 项目地址:https://github.com/JenkinsZhou/FastLib</string>
+    <string name="activity_tab_sliding">活动页滑动Tab</string>
+    <string name="activity_tab_segment">活动页分段Tab</string>
+    <string name="library_address">项目地址</string>
+    <string name="test_status">模拟非FastLib三方库且未实现状态栏沉浸效果</string>
+    <string name="update">检查新版本</string>
+    <string name="checking">检查新版本中...</string>
+    <string name="update_now">立即更新</string>
+    <string name="upload_file">上传文件演示</string>
+    <string name="tip">Work Harder,Live Better!</string>
+
+
+</resources>

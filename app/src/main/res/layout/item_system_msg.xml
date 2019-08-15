@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:background="@drawable/bg_radius_5_gray"
+        android:id="@+id/tvMsgTime"
+        android:text="2019年2月14日"
+        android:layout_marginTop="@dimen/dp_12"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_28" />
+
+    <RelativeLayout
+        android:padding="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tvMsgContent"
+            android:background="@drawable/bg_radius_5_white"
+            android:text="水温异常，故障报警，已为你推荐最近的修理厂"
+            android:layout_marginTop="@dimen/dp_10"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:gravity="center_vertical"
+            android:textColor="#333333"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="@dimen/dp_18"
+            android:paddingBottom="@dimen/dp_18"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvRedDot"
+            android:layout_alignTop="@id/tvMsgContent"
+            android:background="@drawable/bg_circle_red"
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/dp_8"
+            android:layout_height="@dimen/dp_8" />
+    </RelativeLayout>
+
+
+</LinearLayout>

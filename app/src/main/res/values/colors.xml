@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorAccent">#393939</color>
+    <!--不设置style里
+    <item name="colorAccent">@color/colorAccent</item>
+    属性指向可单独设置改颜色用于达到相同效果-->
+    <!--<color name="accent_material_light">#b640ff</color>-->
+
+    <!--滑动返回windowBackground-->
+
+    <color name="colorMainAli">#1b81d1</color>
+
+    <color name="colorMainNews">#2B61BF</color>
+
+    <color name="colorQQBackgroundStart">#4e8cfc</color>
+    <color name="colorQQBackgroundEnd">#33bafc</color>
+    <color name="colorQQBackgroundCenter">#34b0fc</color>
+    <!--Activity滑动返回背景-->
+    <color name="colorSwipeBackBackground">#3b3b3b</color>
+
+
+
+
+    <color name="green06FBFE">#06FBFE</color>
+
+
+</resources>

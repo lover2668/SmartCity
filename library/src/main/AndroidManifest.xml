@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.aries.library.fast">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <!--8.0开启安装应用权限-->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+
+    <application android:networkSecurityConfig="@xml/fast_network_security_config">
+        <provider
+            android:name="com.frame.library.core.FrameFileProvider"
+            android:authorities="${applicationId}.FrameFileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/fast_file_path"/>
+        </provider>
+        <!--增加纵横比 全面屏适配-->
+        <meta-data android:name="android.max_aspect"  android:value="2.1"/>
+        <activity
+            android:name="com.frame.library.core.crash.CrashErrorActivity"
+            android:configChanges="locale|layoutDirection|mcc|mnc"
+            android:label="崩溃页面"/>
+    </application>
+</manifest>

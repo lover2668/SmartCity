@@ -1,0 +1,8 @@
+{
+	"versionCode": 243,
+	"versionName": "2.2.13_beta13",
+	"url": "https://raw.githubusercontent.com/JenkinsZhou/FastLib/dev/apk/sample.apk",
+	"force": true,
+	"size": "3.75M",
+	"message": "1、升级部分三方库增强稳定性"
+}

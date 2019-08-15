@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="arrays_tab_activity">
+        <item>正在热映</item>
+        <item>即将上映</item>
+        <item>Top250</item>
+    </string-array>
+    <array name="fast_arrays_web_more">
+        <item>刷新</item>
+        <item>复制链接</item>
+        <item>分享</item>
+    </array>
+    <array name="arrays_home_list_title">
+        <item>模拟快速下拉刷新及TitleBarView统一设置</item>
+        <item>微信滑动返回样式效果</item>
+        <item>QQ默认主题TitleBar背景渐变效果</item>
+        <item>支付宝主界面效果</item>
+        <item>腾讯新闻主界面效果</item>
+        <item>@string/test_status</item>
+        <item>Activity直接嵌套Fragment效果</item>
+        <item>ToastUtil工具类示例</item>
+        <item>Title+EditText示例</item>
+    </array>
+
+    <array name="arrays_tab_ali">
+        <item>首页</item>
+        <item>口碑</item>
+        <item>朋友</item>
+        <item>我的</item>
+    </array>
+
+    <array name="arrays_tab_news">
+        <item>新闻</item>
+        <item>推荐</item>
+        <item>直播</item>
+        <item>我的</item>
+    </array>
+    <array name="arrays_news_news_sliding">
+        <item>要闻</item>
+        <item>视频</item>
+        <item>体育</item>
+        <item>NBA</item>
+        <item>财经</item>
+        <item>汽车</item>
+        <item>科技</item>
+        <item>社会</item>
+        <item>军事</item>
+        <item>国际</item>
+        <item>时尚</item>
+        <item>游戏</item>
+        <item>图片</item>
+        <item>数码</item>
+        <item>电影</item>
+        <item>教育</item>
+        <item>理财</item>
+        <item>综艺</item>
+        <item>韩流</item>
+        <item>足球</item>
+        <item>宠物</item>
+        <item>政务</item>
+    </array>
+
+    <array name="arrays_news_live_sliding">
+        <item>精选</item>
+        <item>咨询</item>
+        <item>文艺</item>
+        <item>娱乐</item>
+        <item>财经</item>
+        <item>娱乐</item>
+        <item>财经</item>
+        <item>电视台</item>
+        <item>体育</item>
+        <item>生活</item>
+    </array>
+
+    <array name="arrays_library_list_title">
+        <item>Glide</item>
+        <item>Logger</item>
+        <item>ButterKnife</item>
+        <item>RxJava</item>
+        <item>RxAndroid</item>
+        <item>Retrofit</item>
+        <item>Gson</item>
+        <item>RxLifeCycle</item>
+        <item>BaseRecyclerViewAdapterHelper</item>
+        <item>BGASwipeBackLayout</item>
+        <item>TabLayout-forked from FlycoTabLayout</item>
+        <item>StatusLayoutManager</item>
+        <item>UIWidget</item>
+        <item>SmartRefreshLayout</item>
+        <item>AndroidEventBus</item>
+        <item>AgentWeb</item>
+    </array>
+
+    <array name="arrays_library_list_content">
+        <item>Google推荐使用图片加载框架,对比之前3.0版本增加图片全圆、圆角工具类,FastLib库封装调用管理类GlideManager可供参考</item>
+        <item>一款使用日志打印工具类.FastLib库封装调用管理类LoggerManager可供参考</item>
+        <item>这个不需要多介绍吧</item>
+        <item>用就好</item>
+        <item>RxJava对Android系统扩展(目前用到网络线程与UI线程转换)</item>
+        <item>网络请求框架</item>
+        <item>数据解析</item>
+        <item>网络请求生命周期绑定</item>
+        <item>非常好用的RecyclerView适配器帮助类</item>
+        <item>不错的滑动关闭Activity库</item>
+        <item>不错的主界面tab、滑动tab、分段选择器tab功能库</item>
+        <item>方便快速实现加载中、加载失败、网络错误、无数据等四种状态布局</item>
+        <item>常用控件库包括(TitleBarView、RadiusView、UIAlertView、UIActionSheetView、UIProgressView)</item>
+        <item>非常不错的下拉刷新库支持多款刷新头与自定义刷新头方便使用</item>
+        <item>方便使用的Android界面事件分发库(支持TAG)</item>
+        <item>基于Android WebView 一个功能完善小型浏览器库.使用很方便;集成进你应用,只需几行代码</item>
+    </array>
+
+    <array name="arrays_library_list_url">
+        <item>https://github.com/bumptech/glide</item>
+        <item>https://github.com/orhanobut/logger</item>
+        <item>https://github.com/JakeWharton/butterknife</item>
+        <item>https://github.com/ReactiveX/RxJava/tree/2.x</item>
+        <item>https://github.com/ReactiveX/RxAndroid/tree/2.x</item>
+        <item>https://github.com/square/retrofit</item>
+        <item>https://github.com/google/gson</item>
+        <item>https://github.com/trello/RxLifecycle</item>
+        <item>https://github.com/CymChad/BaseRecyclerViewAdapterHelper</item>
+        <item>https://github.com/bingoogolapple/BGASwipeBackLayout-Android</item>
+        <item>https://github.com/JenkinsZhou/UIWidget</item>
+        <item>https://github.com/Bakumon/StatusLayoutManager</item>
+        <item>https://github.com/JenkinsZhou/UIWidget</item>
+        <item>https://github.com/scwang90/SmartRefreshLayout</item>
+        <item>https://github.com/hehonghui/AndroidEventBus</item>
+        <item>https://github.com/Justson/AgentWeb</item>
+    </array>
+    <array name="arrays_banner_all">
+        <item>https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=4270981572,1990926314&amp;fm=26&amp;gp=0.jpg</item>
+        <item>https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1502003928365&amp;di=839014a9b6059219d80c108f9079b553&amp;imgtype=0&amp;src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F4%2F50a1e758d65ee.jpg</item>
+        <item>https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=885351950,1427114975&amp;fm=26&amp;gp=0.jpg</item>
+        <item>https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1502192405480&amp;di=10a20e434187443b0af76d3a2046de0e&amp;imgtype=jpg&amp;src=http%3A%2F%2Fimg1.imgtn.bdimg.com%2Fit%2Fu%3D2960727712%2C2672600794%26fm%3D214%26gp%3D0.jpg</item>
+        <item>https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1502192405269&amp;di=89623856f896879f764d0a3316d1db74&amp;imgtype=0&amp;src=http%3A%2F%2Fp2.gexing.com%2Fshaitu%2F20130512%2F1823%2F518f6d8447363.jpg</item>
+        <item>https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1502192405268&amp;di=542a54fb3f2b50f1941965c25517869f&amp;imgtype=0&amp;src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F1%2F57a2fa3c59b53.jpg</item>
+        <item>https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1502008608181&amp;di=09ad460e1c901ed3097d60d7c8461a92&amp;imgtype=0&amp;src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F3%2F5880197169c04.jpg</item>
+        <item>https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2060246906,3265914169&amp;fm=26&amp;gp=0.jpg</item>
+    </array>
+
+    <array name="arrays_animation">
+        <item>ALPHAIN-渐显</item>
+        <item>SCALEIN-缩放</item>
+        <item>SLIDEIN_BOTTOM-从下往上</item>
+        <item>SLIDEIN_LEFT-从左往右</item>
+        <item>SLIDEIN_RIGHT-从右往左</item>
+    </array>
+    <array name="arrays_transition">
+        <item>Default</item>
+        <item>Alpha</item>
+        <item>Rotate</item>
+        <item>Cube</item>
+        <item>Flip</item>
+        <item>Accordion</item>
+        <item>ZoomFade</item>
+        <item>Fade</item>
+        <item>ZoomCenter</item>
+        <item>ZoomStack</item>
+        <item>Stack</item>
+        <item>Depth</item>
+        <item>Zoom</item>
+    </array>
+</resources>
