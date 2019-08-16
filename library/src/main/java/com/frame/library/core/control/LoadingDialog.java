@@ -3,6 +3,8 @@ package com.frame.library.core.control;
 import android.app.Activity;
 import androidx.annotation.Nullable;
 
+import com.frame.library.core.widget.LoadingDialogWrapper;
+
 /**
  * @Author: JenkinsZhou on 2018/7/23 10:39
  * @E-Mail: 971613168@qq.com
@@ -18,5 +20,5 @@ public interface LoadingDialog {
      * @return
      */
     @Nullable
-    com.frame.library.core.widget.LoadingDialog createLoadingDialog(@Nullable Activity activity);
+    LoadingDialogWrapper createLoadingDialog(@Nullable Activity activity);
 }

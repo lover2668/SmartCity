@@ -18,7 +18,7 @@ import com.tourcool.core.config.RequestConfig;
 import com.tourcool.core.constant.ApiConstant;
 import com.tourcool.core.constant.SPConstant;
 import com.tourcool.core.impl.ActivityControlImpl;
-import com.tourcool.core.impl.AppImpl;
+import com.tourcool.core.impl.AppConfigImpl;
 import com.tourcool.core.impl.HttpRequestControlImpl;
 import com.tourcool.core.impl.SwipeBackControlImpl;
 import com.tourcool.core.module.WebViewActivity;
@@ -84,7 +84,7 @@ public class MyApplication extends MultiDexApplication {
 //         UiManager.init(this);
         //以下为更丰富自定义方法
         //全局UI配置参数-按需求设置
-        AppImpl impl = new AppImpl(mContext);
+        AppConfigImpl impl = new AppConfigImpl(mContext);
         ActivityControlImpl activityControl = new ActivityControlImpl();
         UiManager.getInstance()
                 //设置Adapter加载更多视图--默认设置了FastLoadMoreView

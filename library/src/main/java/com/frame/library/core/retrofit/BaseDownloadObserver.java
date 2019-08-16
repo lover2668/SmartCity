@@ -115,8 +115,10 @@ public abstract class BaseDownloadObserver extends BaseObserver<ResponseBody> {
         });
     }
 
+
+
     @Override
-    public void _onNext(ResponseBody entity) {
+    public void onRequestNext(ResponseBody entity) {
 
     }
 

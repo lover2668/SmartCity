@@ -20,6 +20,7 @@ import com.aries.ui.view.title.TitleBarView;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 
 import androidx.core.content.ContextCompat;
+
 import butterknife.BindView;
 
 /**
@@ -30,9 +31,12 @@ import butterknife.BindView;
  */
 public class SplashActivity extends FrameTitleActivity {
 
-    @BindView(R.id.tv_appSplash) TextView tvApp;
-    @BindView(R.id.tv_versionSplash) TextView tvVersion;
-    @BindView(R.id.tv_copyRightSplash) TextView tvCopyRight;
+    @BindView(R.id.tv_appSplash)
+    TextView tvApp;
+    @BindView(R.id.tv_versionSplash)
+    TextView tvVersion;
+    @BindView(R.id.tv_copyRightSplash)
+    TextView tvCopyRight;
 
     @Override
     public void beforeSetContentView() {
@@ -77,14 +81,15 @@ public class SplashActivity extends FrameTitleActivity {
                 .compose(bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new BaseObserver<Long>() {
                     @Override
-                    public void _onNext(Long entity) {
-                    }
-
-                    @Override
                     public void onComplete() {
                         super.onComplete();
                         TourCooUtil.startActivity(mContext, MainActivity.class);
                         finish();
+                    }
+
+                    @Override
+                    public void onRequestNext(Long entity) {
+
                     }
                 });
     }

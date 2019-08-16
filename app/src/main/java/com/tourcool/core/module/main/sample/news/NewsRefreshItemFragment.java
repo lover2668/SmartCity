@@ -48,9 +48,10 @@ public class NewsRefreshItemFragment extends BaseRefreshLoadFragment {
                 .compose(bindUntilEvent(FragmentEvent.DESTROY))
                 .subscribe(new BaseObserver<Long>() {
                     @Override
-                    public void _onNext(Long entity) {
+                    public void onRequestNext(Long entity) {
                         mRefreshLayout.finishRefresh();
                     }
+
                 });
     }
 

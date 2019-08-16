@@ -18,13 +18,13 @@ import com.tourcool.core.helper.CheckVersionHelper;
 import com.tourcool.core.helper.ImagePickerHelper;
 import com.tourcool.core.helper.TitleBarViewHelper;
 import com.tourcool.core.module.WebViewActivity;
+import com.tourcool.core.module.activity.MessageListActivity1;
 import com.tourcool.core.util.SpanTool;
 import com.tourcool.core.widget.OverScrollView;
 import com.tourcool.core.widget.ProgressDialog;
-import com.frame.library.core.widget.LoadingDialog;
+import com.frame.library.core.widget.LoadingDialogWrapper;
 import com.tourcool.core.MyApplication;
 import com.aries.library.fast.demo.R;
-import com.tourcool.core.module.activity.MessageListActivity1;
 import com.frame.library.core.control.IFrameRefreshView;
 import com.frame.library.core.manager.GlideManager;
 import com.frame.library.core.manager.LoggerManager;
@@ -223,9 +223,9 @@ public class MineFragment extends BaseTitleFragment implements IFrameRefreshView
         //上传地址需自行设置
         FrameRetrofit.getInstance().uploadFile("http://XXXX/v1/ftp/upload-files", requestBody)
                 .compose(FrameTransformer.switchSchedulers())
-                .subscribe(new BaseLoadingObserver<ResponseBody>(new LoadingDialog(mContext, mProgressDialog)) {
+                .subscribe(new BaseLoadingObserver<ResponseBody>(new LoadingDialogWrapper(mContext, mProgressDialog)) {
                     @Override
-                    public void _onNext(ResponseBody entity) {
+                    public void onRequestNext(ResponseBody entity) {
                         String message = "上传返回:";
                         try {
                             message += entity.string();
@@ -239,6 +239,7 @@ public class MineFragment extends BaseTitleFragment implements IFrameRefreshView
                                 .create()
                                 .show();
                     }
+
                 });
     }
 

@@ -28,7 +28,7 @@ import com.frame.library.core.retrofit.BaseLoadingObserver;
 import com.frame.library.core.retrofit.BaseObserver;
 import com.frame.library.core.util.TourCooUtil;
 import com.frame.library.core.util.ToastUtil;
-import com.frame.library.core.widget.LoadingDialog;
+import com.frame.library.core.widget.LoadingDialogWrapper;
 import com.aries.ui.widget.progress.UIProgressDialog;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
 
@@ -143,8 +143,8 @@ public class UiManager {
             sInstance.setLoadingDialog(new com.frame.library.core.control.LoadingDialog() {
                 @Nullable
                 @Override
-                public LoadingDialog createLoadingDialog(@Nullable Activity activity) {
-                    return new LoadingDialog(activity,
+                public LoadingDialogWrapper createLoadingDialog(@Nullable Activity activity) {
+                    return new LoadingDialogWrapper(activity,
                             new UIProgressDialog.WeBoBuilder(activity)
                                     .setMessage(R.string.fast_loading)
                                     .create());

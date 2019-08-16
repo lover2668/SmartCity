@@ -8,8 +8,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.aries.library.fast.demo.R;
+import com.frame.library.core.control.LoadingDialog;
 import com.frame.library.core.retrofit.BaseObserver;
-import com.frame.library.core.widget.LoadingDialog;
+import com.frame.library.core.widget.LoadingDialogWrapper;
 import com.tourcool.core.module.WebAppActivity;
 import com.tourcool.core.retrofit.repository.BaseRepository;
 import com.frame.library.core.control.FrameObserverControl;
@@ -42,7 +43,6 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import io.reactivex.Observable;
 import me.bakumon.statuslayoutmanager.library.StatusLayoutManager;
@@ -54,14 +54,14 @@ import me.bakumon.statuslayoutmanager.library.StatusLayoutManager;
  * Description:
  * 1、新增友盟统计功能对接
  */
-public class AppImpl implements DefaultRefreshHeaderCreator, LoadMoreFoot,
-        FrameRecyclerViewControl, MultiStatusView, com.frame.library.core.control.LoadingDialog,
+public class AppConfigImpl implements DefaultRefreshHeaderCreator, LoadMoreFoot,
+        FrameRecyclerViewControl, MultiStatusView, LoadingDialog,
         TitleBarViewControl, QuitAppControl, ToastControl, FrameObserverControl {
 
     private Context mContext;
     private String TAG = this.getClass().getSimpleName();
 
-    public AppImpl(@Nullable Context context) {
+    public AppConfigImpl(@Nullable Context context) {
         this.mContext = context;
     }
 
@@ -157,15 +157,15 @@ public class AppImpl implements DefaultRefreshHeaderCreator, LoadMoreFoot,
      */
     @Nullable
     @Override
-    public LoadingDialog createLoadingDialog(@Nullable Activity activity) {
-        return new LoadingDialog(activity,
+    public LoadingDialogWrapper createLoadingDialog(@Nullable Activity activity) {
+        return new LoadingDialogWrapper(activity,
                 new UIProgressDialog.WeBoBuilder(activity)
                         .setMessage("加载中")
                         .create())
                 .setCanceledOnTouchOutside(false)
                 .setMessage("请求数据中,请稍候...");
         //注意使用UIProgressDialog时最好在Builder里设置提示文字setMessage不然后续再设置文字信息也不会显示
-//        return new LoadingDialog(activity, new UIProgressDialog.WeChatBuilder(activity)
+//        return new LoadingDialogWrapper(activity, new UIProgressDialog.WeChatBuilder(activity)
 //                .setBackgroundColor(Color.parseColor("#FCFCFC"))
 ////                .setMinHeight(SizeUtil.dp2px(140))
 ////                .setMinWidth(SizeUtil.dp2px(270))
@@ -178,8 +178,8 @@ public class AppImpl implements DefaultRefreshHeaderCreator, LoadMoreFoot,
 //                .setIndeterminateDrawable(TourCooUtil.getTintDrawable(ContextCompat.getDrawable(mContext, R.drawable.dialog_loading), ContextCompat.getColor(mContext, R.color.colorTitleText)))
 //                .setBackgroundRadius(SizeUtil.dp2px(6f))
 //                .create());
-//        Dialog dialog = new PictureDialog(activity);
-//        return new LoadingDialog(activity, dialog)
+//        Dialog dialog = new FrameLoadingDialog(activity);
+//        return new LoadingDialogWrapper(activity, dialog)
 //                .setCancelable(true)
 //                .setCanceledOnTouchOutside(true);
     }
@@ -217,7 +217,8 @@ public class AppImpl implements DefaultRefreshHeaderCreator, LoadMoreFoot,
         if (activity instanceof WebAppActivity) {
             return false;
         }
-        ViewCompat.setElevation(titleBar, mContext.getResources().getDimension(R.dimen.dp_elevation));
+        //海拔效果
+//        ViewCompat.setElevation(titleBar, mContext.getResources().getDimension(R.dimen.dp_elevation));
         return false;
     }
 

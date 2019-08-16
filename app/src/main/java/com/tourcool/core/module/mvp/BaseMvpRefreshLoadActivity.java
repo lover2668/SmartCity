@@ -21,7 +21,7 @@ import com.trello.rxlifecycle3.android.ActivityEvent;
  */
 public abstract class BaseMvpRefreshLoadActivity<P extends BasePresenter, T> extends FrameRefreshLoadActivity<T> implements IBaseView {
     protected P presenter;
-    protected PictureDialog loadingDialog;
+
 
 
     @Override
@@ -58,7 +58,7 @@ public abstract class BaseMvpRefreshLoadActivity<P extends BasePresenter, T> ext
     public void showLoading(String msg) {
         if (loadingDialog != null && !loadingDialog.isShowing()) {
             if (!TextUtils.isEmpty(msg)) {
-//                loadingDialog.setLoadingText(msg);
+                loadingDialog.setLoadingText(msg);
             }
             loadingDialog.show();
         }

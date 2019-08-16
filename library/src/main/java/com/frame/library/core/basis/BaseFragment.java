@@ -16,6 +16,7 @@ import com.frame.library.core.retrofit.BaseObserver;
 import com.frame.library.core.util.TourCooUtil;
 import com.frame.library.core.manager.LoggerManager;
 import com.frame.library.core.manager.RxJavaManager;
+import com.frame.library.core.widget.dialog.FrameLoadingDialog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.trello.rxlifecycle3.android.FragmentEvent;
 import com.trello.rxlifecycle3.components.support.RxFragment;
@@ -38,6 +39,7 @@ import butterknife.Unbinder;
  */
 public abstract class BaseFragment extends RxFragment implements IBaseView {
 
+    protected FrameLoadingDialog loadingDialog;
     protected Activity mContext;
     protected View mContentView;
     protected boolean mIsFirstShow;
@@ -104,6 +106,7 @@ public abstract class BaseFragment extends RxFragment implements IBaseView {
         LoggerManager.i(TAG, TAG + ";mIsVisibleChanged:" + mIsVisibleChanged
                 + ";getUserVisibleHint:" + getUserVisibleHint()
                 + ";isHidden:" + isHidden() + ";isVisible:" + isVisible());
+        loadingDialog = new FrameLoadingDialog(mContext,"加载中...");
         return mContentView;
     }
 
@@ -170,7 +173,7 @@ public abstract class BaseFragment extends RxFragment implements IBaseView {
                     .compose(bindUntilEvent(FragmentEvent.DESTROY))
                     .subscribe(new BaseObserver<Long>() {
                         @Override
-                        public void _onNext(Long entity) {
+                        public void onRequestNext(Long entity) {
                             onHiddenChanged(hidden);
                         }
                     });
@@ -192,7 +195,7 @@ public abstract class BaseFragment extends RxFragment implements IBaseView {
                     .compose(bindUntilEvent(FragmentEvent.DESTROY))
                     .subscribe(new BaseObserver<Long>() {
                         @Override
-                        public void _onNext(Long entity) {
+                        public void onRequestNext(Long entity) {
                             setUserVisibleHint(isVisibleToUser);
                         }
                     });
@@ -225,7 +228,7 @@ public abstract class BaseFragment extends RxFragment implements IBaseView {
                         .compose(bindUntilEvent(FragmentEvent.DESTROY))
                         .subscribe(new BaseObserver<Long>() {
                             @Override
-                            public void _onNext(Long entity) {
+                            public void onRequestNext(Long entity) {
                                 onVisibleChanged(true);
                             }
                         });

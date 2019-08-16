@@ -20,6 +20,7 @@ import com.frame.library.core.util.StackUtil;
 import com.frame.library.core.util.TourCooUtil;
 import com.frame.library.core.manager.RxJavaManager;
 import com.frame.library.core.retrofit.BaseObserver;
+import com.frame.library.core.widget.dialog.FrameLoadingDialog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
@@ -50,7 +51,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IBaseV
     protected Activity mContext;
     protected View mContentView;
     protected Unbinder mUnBinder;
-
+    protected FrameLoadingDialog loadingDialog;
     protected Bundle mSavedInstanceState;
     protected boolean mIsViewLoaded = false;
     protected boolean mIsFirstShow = true;
@@ -87,6 +88,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IBaseV
         mIsViewLoaded = true;
         beforeInitView(savedInstanceState);
         initView(savedInstanceState);
+        loadingDialog = new FrameLoadingDialog(mContext,"加载中...");
     }
 
     @Override
@@ -269,9 +271,11 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IBaseV
                     .compose(this.<Long>bindUntilEvent(ActivityEvent.DESTROY))
                     .subscribe(new BaseObserver<Long>() {
                         @Override
-                        public void _onNext(Long entity) {
+                        public void onRequestNext(Long entity) {
                             beforeFastLazyLoad();
                         }
+
+
                     });
         } else {
             fastLazyLoad();
@@ -307,7 +311,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IBaseV
                     .compose(this.<Long>bindUntilEvent(ActivityEvent.DESTROY))
                     .subscribe(new BaseObserver<Long>() {
                         @Override
-                        public void _onNext(Long entity) {
+                        public void onRequestNext(Long entity) {
                             mIsFirstBack = true;
                         }
                     });

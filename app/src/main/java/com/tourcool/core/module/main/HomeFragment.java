@@ -201,7 +201,7 @@ public class HomeFragment extends BaseTitleRefreshLoadFragment<WidgetEntity> {
                 .compose(bindUntilEvent(FragmentEvent.DESTROY))
                 .subscribe(new BaseObserver<List<WidgetEntity>>() {
                     @Override
-                    public void _onNext(List<WidgetEntity> entity) {
+                    public void onRequestNext(List<WidgetEntity> entity) {
                         UiManager.getInstance().getHttpRequestControl().httpRequestSuccess(getIHttpRequestControl(), entity, null);
                     }
                 });

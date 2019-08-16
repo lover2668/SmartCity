@@ -45,12 +45,12 @@ public abstract class BaseObserver<T> extends DefaultObserver<T> {
         if (UiManager.getInstance().getHttpRequestControl() != null) {
             UiManager.getInstance().getHttpRequestControl().httpRequestError(mHttpRequestControl, e);
         }
-        _onError(e);
+        onRequestError(e);
     }
 
     @Override
     public void onNext(T entity) {
-        _onNext(entity);
+        onRequestNext(entity);
     }
 
     /**
@@ -58,8 +58,8 @@ public abstract class BaseObserver<T> extends DefaultObserver<T> {
      *
      * @param entity 可能为null
      */
-    public abstract void _onNext(T entity);
+    public abstract void onRequestNext(T entity);
 
-    public void _onError(Throwable e) {
+    public void onRequestError(Throwable e) {
     }
 }

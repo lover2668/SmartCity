@@ -91,7 +91,7 @@ public class MainActivity extends FrameMainActivity {
                 .compose(bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new BaseObserver<Long>() {
                     @Override
-                    public void _onNext(Long entity) {
+                    public void onRequestNext(Long entity) {
                         requestPermission();
                     }
                 });

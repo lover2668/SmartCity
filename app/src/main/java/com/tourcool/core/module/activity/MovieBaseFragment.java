@@ -137,7 +137,7 @@ public class MovieBaseFragment extends BaseRefreshLoadFragment<SubjectsEntity> {
                 .compose(bindUntilEvent(FragmentEvent.DESTROY))
                 .subscribe(new BaseObserver<BaseMovieEntity>(getIHttpRequestControl()) {
                     @Override
-                    public void _onNext(BaseMovieEntity entity) {
+                    public void onRequestNext(BaseMovieEntity entity) {
                         LoggerManager.i("url:" + mUrl);
                         mStatusManager.showSuccessLayout();
                         UiManager.getInstance().getHttpRequestControl().httpRequestSuccess(getIHttpRequestControl(), entity == null || entity.subjects == null ? new ArrayList<>() : entity.subjects, null);

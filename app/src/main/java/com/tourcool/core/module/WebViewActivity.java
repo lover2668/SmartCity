@@ -149,7 +149,7 @@ public class WebViewActivity extends FrameWebActivity implements IFrameRefreshVi
                         RxJavaManager.getInstance().setTimer(100)
                                 .subscribe(new BaseObserver<Long>() {
                                     @Override
-                                    public void _onNext(Long entity) {
+                                    public void onRequestNext(Long entity) {
                                         NavigationBarUtil.setNavigationBarDarkMode(mContext);
                                     }
                                 });

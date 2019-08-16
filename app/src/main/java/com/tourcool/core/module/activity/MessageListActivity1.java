@@ -62,7 +62,6 @@ public class MessageListActivity1 extends FrameRefreshLoadActivity<MessageBean> 
         return null;
     }
 
-  
 
     @Override
     public boolean isLoadMoreEnable() {
@@ -77,7 +76,7 @@ public class MessageListActivity1 extends FrameRefreshLoadActivity<MessageBean> 
 
     @Override
     public void loadData(int page) {
-        test(3,page);
+        test(3, page);
     }
 
     @Override
@@ -85,15 +84,15 @@ public class MessageListActivity1 extends FrameRefreshLoadActivity<MessageBean> 
         titleBar.setTitleMainText("普通MVC模式");
     }
 
-private void test(int userId,int page){
-    ApiRepository.getInstance().requestMsgList1(userId,page).compose(bindUntilEvent(ActivityEvent.DESTROY)).
-            subscribe(new BaseObserver<BaseResult<BasePageBean<MessageBean>>>(getIHttpRequestControl()) {
-                @Override
-                public void _onNext(BaseResult<BasePageBean<MessageBean>> entity) {
-                    UiManager.getInstance().getHttpRequestControl().httpRequestSuccess(getIHttpRequestControl(), entity.data == null ? new ArrayList<>() : entity.data.getElements(), null);
-                }
-            });
-}
+    private void test(int userId, int page) {
+        ApiRepository.getInstance().requestMsgList1(userId, page).compose(bindUntilEvent(ActivityEvent.DESTROY)).
+                subscribe(new BaseObserver<BaseResult<BasePageBean<MessageBean>>>(getIHttpRequestControl()) {
+                    @Override
+                    public void onRequestNext(BaseResult<BasePageBean<MessageBean>> entity) {
+                        UiManager.getInstance().getHttpRequestControl().httpRequestSuccess(getIHttpRequestControl(), entity.data == null ? new ArrayList<>() : entity.data.getElements(), null);
+                    }
+                });
+    }
 
     @Override
     public View getMultiStatusContentView() {

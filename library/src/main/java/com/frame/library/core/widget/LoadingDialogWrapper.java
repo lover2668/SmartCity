@@ -20,24 +20,24 @@ import java.lang.ref.WeakReference;
  * 1、2018-7-30 10:08:30 将默认Dialog变更为ProgressDialog及新增构造方式
  * 2、2018-8-23 11:19:29 修改{@link #setMessage(CharSequence)}实现方式
  */
-public class LoadingDialog {
+public class LoadingDialogWrapper {
 
     private Dialog mDialog = null;
 
     private Activity mActivity;
     private final WeakReference<Activity> mReference;
 
-    public LoadingDialog() {
+    public LoadingDialogWrapper() {
         this(StackUtil.getInstance().getCurrent());
     }
 
-    public LoadingDialog(Activity activity) {
+    public LoadingDialogWrapper(Activity activity) {
         this(activity, new ProgressDialog.Builder(activity)
                 .setMessage(R.string.fast_loading)
                 .create());
     }
 
-    public LoadingDialog(Activity activity, Dialog dialog) {
+    public LoadingDialogWrapper(Activity activity, Dialog dialog) {
         this.mReference = new WeakReference<>(activity);
         this.mDialog = dialog;
     }
@@ -48,7 +48,7 @@ public class LoadingDialog {
      * @param enable
      * @return
      */
-    public LoadingDialog setCancelable(boolean enable) {
+    public LoadingDialogWrapper setCancelable(boolean enable) {
         if (mDialog != null) {
             mDialog.setCancelable(enable);
         }
@@ -61,7 +61,7 @@ public class LoadingDialog {
      * @param enable
      * @return
      */
-    public LoadingDialog setCanceledOnTouchOutside(boolean enable) {
+    public LoadingDialogWrapper setCanceledOnTouchOutside(boolean enable) {
         if (mDialog != null) {
             mDialog.setCanceledOnTouchOutside(enable);
         }
@@ -72,7 +72,7 @@ public class LoadingDialog {
      * @param msg
      * @return
      */
-    public LoadingDialog setMessage(CharSequence msg) {
+    public LoadingDialogWrapper setMessage(CharSequence msg) {
         if (mDialog == null) {
             return this;
         }
@@ -91,7 +91,7 @@ public class LoadingDialog {
      * @param msg
      * @return
      */
-    public LoadingDialog setMessage(int msg) {
+    public LoadingDialogWrapper setMessage(int msg) {
         mActivity = mReference.get();
         if (mActivity != null) {
             return setMessage(mActivity.getText(msg));
@@ -103,7 +103,7 @@ public class LoadingDialog {
      * @param enable 设置全透明
      * @return
      */
-    public LoadingDialog setFullTrans(boolean enable) {
+    public LoadingDialogWrapper setFullTrans(boolean enable) {
         if (mDialog != null) {
             WindowManager.LayoutParams lp = mDialog.getWindow().getAttributes();
             // 黑暗度

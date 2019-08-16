@@ -63,37 +63,39 @@ public class CheckVersionHelper extends BaeHelper {
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(loading ?
                         new BaseLoadingObserver<UpdateEntity>(R.string.checking) {
-                            @Override
-                            public void _onNext(@NonNull UpdateEntity entity) {
-                                if (entity == null) {
-                                    ToastUtil.show("当前已是最新版本");
-                                    return;
-                                }
-                                checkVersion(entity);
-                            }
 
                             @Override
                             public void onError(Throwable e) {
                                 if (mIsLoading) {
                                     super.onError(e);
                                 }
+                            }
+
+                            @Override
+                            public void onRequestNext(UpdateEntity entity) {
+                                if (entity == null) {
+                                    ToastUtil.show("当前已是最新版本");
+                                    return;
+                                }
+                                checkVersion(entity);
                             }
                         } :
                         new BaseObserver<UpdateEntity>() {
-                            @Override
-                            public void _onNext(@NonNull UpdateEntity entity) {
-                                if (entity == null) {
-                                    ToastUtil.show("当前已是最新版本");
-                                    return;
-                                }
-                                checkVersion(entity);
-                            }
 
                             @Override
                             public void onError(Throwable e) {
                                 if (mIsLoading) {
                                     super.onError(e);
                                 }
+                            }
+
+                            @Override
+                            public void onRequestNext(UpdateEntity entity) {
+                                if (entity == null) {
+                                    ToastUtil.show("当前已是最新版本");
+                                    return;
+                                }
+                                checkVersion(entity);
                             }
                         });
     }

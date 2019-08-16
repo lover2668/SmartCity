@@ -6,7 +6,7 @@ import android.app.Activity;
 import com.frame.library.core.UiManager;
 import com.frame.library.core.control.IHttpRequestControl;
 import com.frame.library.core.util.StackUtil;
-import com.frame.library.core.widget.LoadingDialog;
+import com.frame.library.core.widget.LoadingDialogWrapper;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -23,7 +23,7 @@ public abstract class BaseLoadingObserver<T> extends BaseObserver<T> {
     /**
      * Dialog
      */
-    private LoadingDialog mDialog;
+    private LoadingDialogWrapper mDialog;
 
     /**
      * 用于全局配置
@@ -78,11 +78,11 @@ public abstract class BaseLoadingObserver<T> extends BaseObserver<T> {
         this(StackUtil.getInstance().getCurrent());
     }
 
-    public BaseLoadingObserver(LoadingDialog dialog) {
+    public BaseLoadingObserver(LoadingDialogWrapper dialog) {
         this(dialog, null);
     }
 
-    public BaseLoadingObserver(LoadingDialog dialog, IHttpRequestControl httpRequestControl) {
+    public BaseLoadingObserver(LoadingDialogWrapper dialog, IHttpRequestControl httpRequestControl) {
         super(httpRequestControl);
         this.mDialog = dialog;
     }

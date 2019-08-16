@@ -118,7 +118,7 @@ public class ThirdLibraryActivity extends FrameRefreshLoadActivity<WidgetEntity>
                 .compose(bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new BaseLoadingObserver<List<WidgetEntity>>("我就试一试不好用") {
                     @Override
-                    public void _onNext(List<WidgetEntity> entity) {
+                    public void onRequestNext(List<WidgetEntity> entity) {
                         mAdapter.openLoadAnimation(animationIndex);
                         mStatusManager.showSuccessLayout();
                         mRefreshLayout.finishRefresh();

@@ -5,6 +5,7 @@ package com.tourcool.ui.mvp.presenter;
 import com.frame.library.core.UiManager;
 import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.retrofit.BaseLoadingObserver;
+import com.frame.library.core.retrofit.BaseObserver;
 import com.tourcool.core.base.BaseEntity;
 import com.tourcool.core.entity.BasePageBean;
 import com.tourcool.core.entity.MessageBean;
@@ -37,18 +38,15 @@ public class MessagePresenter extends BasePresenter<MessageContract.MessageModel
 
     @Override
     public void getMessageList(int userId, int pageIndex) {
-        getModule().getMessagePageList(new BaseLoadingObserver<BaseEntity<BasePageBean<MessageBean>>>(getView().getIHttpRequestControl1()) {
+        if (!isViewAttached()) {
+            return;
+        }
+        getModule().getMessagePageList(new BaseLoadingObserver<BaseEntity<BasePageBean<MessageBean>>>(getView().getIHttpRequestControl()) {
             @Override
-            public void _onNext(BaseEntity<BasePageBean<MessageBean>> entity) {
-                UiManager.getInstance().getHttpRequestControl().httpRequestSuccess(getView().getIHttpRequestControl1(), entity == null || entity.data == null ? new ArrayList<>() : entity.data.getElements(), null);
+            public void onRequestNext(BaseEntity<BasePageBean<MessageBean>> entity) {
+                UiManager.getInstance().getHttpRequestControl().httpRequestSuccess(getView().getIHttpRequestControl(), entity == null || entity.data == null ? new ArrayList<>() : entity.data.getElements(), null);
                 TourCooLogUtil.i("服务器返回的数据",entity);
             }
-
-          /*  @Override
-            public void onRequestNext(BaseEntity<BasePageBean<MessageBean>> entity) {
-
-
-            }*/
         }, userId, pageIndex);
     }
 }

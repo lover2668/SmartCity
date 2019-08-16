@@ -7,6 +7,7 @@ import com.frame.library.core.control.IHttpRequestControl;
 import com.frame.library.core.delegate.FrameRefreshLoadDelegate;
 import com.frame.library.core.delegate.FrameTitleDelegate;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.frame.library.core.module.activity.FrameTitleActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
@@ -23,7 +24,7 @@ import me.bakumon.statuslayoutmanager.library.StatusLayoutManager;
  * 3、2019-4-19 09:41:28 修改IFastTitleView 逻辑
  */
 public abstract class BaseRefreshLoadActivity<T>
-        extends BaseTitleActivity implements IFrameRefreshLoadView<T> {
+        extends FrameTitleActivity implements IFrameRefreshLoadView<T> {
     protected SmartRefreshLayout mRefreshLayout;
     protected RecyclerView mRecyclerView;
     protected StatusLayoutManager mStatusManager;

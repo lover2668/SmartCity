@@ -3,6 +3,7 @@ package com.tourcool.ui.mvp.contract;
 
 import com.frame.library.core.control.IHttpRequestControl;
 import com.frame.library.core.retrofit.BaseLoadingObserver;
+import com.frame.library.core.retrofit.BaseObserver;
 import com.tourcool.core.base.BaseEntity;
 import com.tourcool.core.entity.BasePageBean;
 import com.tourcool.core.entity.MessageBean;
@@ -18,12 +19,11 @@ import com.tourcool.core.module.mvp.IBaseView;
  */
 public interface MessageContract {
     interface MessageModel extends IBaseModel {
-        void getMessagePageList(BaseLoadingObserver<BaseEntity<BasePageBean<MessageBean>>> observer, int userId, int pageIndex);
+        void getMessagePageList(BaseObserver<BaseEntity<BasePageBean<MessageBean>>> observer, int userId, int pageIndex);
     }
 
     interface View extends IBaseView {
-        void setDataList(BasePageBean<MessageBean> pageBean);
-        IHttpRequestControl getIHttpRequestControl1();
+        IHttpRequestControl getIHttpRequestControl();
 
     }
 
