@@ -54,7 +54,7 @@ public class MainActivity extends FrameMainActivity {
         tabEntities.add(new FrameTabEntity(R.string.home, R.drawable.ic_home_normal, R.drawable.ic_home_selected, HomeFragment.newInstance()));
         tabEntities.add(new FrameTabEntity(R.string.web_app, R.drawable.ic_app_normal, R.drawable.ic_app_selected, WebAppFragment.newInstance()));
         tabEntities.add(new FrameTabEntity(R.string.activity, R.drawable.ic_activity_normal, R.drawable.ic_activity_selected, ActivityFragment.newInstance()));
-        tabEntities.add(new FrameTabEntity(R.string.mine, R.drawable.ic_mine_normal, R.drawable.ic_mine_selected, MineFragment.newInstance()));
+        tabEntities.add(new FrameTabEntity(R.string.mine, R.drawable.ic_mine_normal, R.drawable.ic_mine_selected, com.tourcool.ui.main.HomeFragment.newInstance()));
         return tabEntities;
     }
 
