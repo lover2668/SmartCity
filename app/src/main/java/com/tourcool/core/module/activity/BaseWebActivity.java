@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat;
 
 import com.frame.library.core.UiManager;
 import com.frame.library.core.control.TitleBarViewControl;
+import com.frame.library.core.module.activity.FrameTitleActivity;
 import com.frame.library.core.util.TourCooUtil;
 import com.frame.library.core.util.ToastUtil;
 import com.aries.library.fast.R;
@@ -40,7 +41,7 @@ import com.just.agentweb.MiddlewareWebChromeBase;
  * 1、调整WebView自适应屏幕代码属性{@link #initAgentWeb()}
  * 2、2019-3-20 11:45:07 增加url自动添加http://功能及规范url
  */
-public abstract class BaseWebActivity extends BaseTitleActivity implements NavigationBarControl {
+public abstract class BaseWebActivity extends FrameTitleActivity implements NavigationBarControl {
 
     protected ViewGroup mContainer;
     /**

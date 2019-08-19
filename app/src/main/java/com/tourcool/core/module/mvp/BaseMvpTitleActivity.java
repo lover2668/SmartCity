@@ -7,8 +7,8 @@ import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
 
+import com.frame.library.core.module.activity.FrameTitleActivity;
 import com.luck.picture.lib.dialog.PictureDialog;
-import com.tourcool.core.module.activity.BaseTitleActivity;
 import com.trello.rxlifecycle3.LifecycleTransformer;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 
@@ -20,7 +20,7 @@ import com.trello.rxlifecycle3.android.ActivityEvent;
  * @Email: 971613168@qq.com
  */
 @SuppressWarnings("unchecked")
-public abstract class BaseMvpTitleActivity<P extends BasePresenter> extends BaseTitleActivity implements IBaseView  {
+public abstract class BaseMvpTitleActivity<P extends BasePresenter> extends FrameTitleActivity implements IBaseView  {
 
     protected P presenter;
     protected PictureDialog loadingDialog;

@@ -95,7 +95,7 @@ public class FrameRetrofit {
             Request.Builder request = chain.request().newBuilder();
             //避免某些服务器配置攻击,请求返回403 forbidden 问题
             addHeader("User-Agent", "Mozilla/5.0 (Android)");
-            addHeader("token", "2627ff98-fb2a-42ca-95b2-0e8ce8681d63");
+            addHeader("token", "50625833-512b-4be1-873d-fb7a7460b423");
             if (mHeaderMap.size() > 0) {
                 for (Map.Entry<String, Object> entry : mHeaderMap.entrySet()) {
                     request.addHeader(entry.getKey(), String.valueOf(entry.getValue()));
