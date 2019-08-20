@@ -26,7 +26,7 @@ import com.frame.library.core.manager.GlideManager;
 import com.frame.library.core.manager.LoggerManager;
 import com.frame.library.core.retrofit.BaseLoadingObserver;
 import com.frame.library.core.retrofit.BaseObserver;
-import com.frame.library.core.util.TourCooUtil;
+import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.util.ToastUtil;
 import com.frame.library.core.widget.LoadingDialogWrapper;
 import com.aries.ui.widget.progress.UIProgressDialog;
@@ -44,7 +44,7 @@ import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
 public class UiManager {
 
     static {
-        Application application = TourCooUtil.getApplication();
+        Application application = FrameUtil.getApplication();
         if (application != null) {
             LoggerManager.i("UiManager", "initSuccess");
             init(application);

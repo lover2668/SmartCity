@@ -20,7 +20,7 @@ import com.tourcool.bean.MatrixBean;
 public class MatrixAdapter extends BaseQuickAdapter<MatrixBean, BaseViewHolder> {
 
     public MatrixAdapter() {
-        super(R.layout.item_matrix);
+        super(R.layout.item_matrix_layout);
     }
 
     @Override

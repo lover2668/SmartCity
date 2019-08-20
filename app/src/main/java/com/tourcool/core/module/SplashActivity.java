@@ -7,8 +7,8 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.aries.library.fast.demo.R;
+import com.frame.library.core.util.FrameUtil;
 import com.tourcool.core.module.main.MainActivity;
-import com.frame.library.core.util.TourCooUtil;
 import com.frame.library.core.manager.LoggerManager;
 import com.frame.library.core.manager.RxJavaManager;
 import com.frame.library.core.module.activity.FrameTitleActivity;
@@ -74,7 +74,7 @@ public class SplashActivity extends FrameTitleActivity {
                 DrawableUtil.setTintDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_launcher).mutate(), Color.WHITE)
                 , null, null);
         mContentView.setBackgroundResource(R.drawable.img_bg_login);
-        tvVersion.setText("V" + TourCooUtil.getVersionName(mContext));
+        tvVersion.setText("V" + FrameUtil.getVersionName(mContext));
         tvVersion.setTextColor(Color.WHITE);
         tvCopyRight.setTextColor(Color.WHITE);
         RxJavaManager.getInstance().setTimer(2000)
@@ -83,7 +83,7 @@ public class SplashActivity extends FrameTitleActivity {
                     @Override
                     public void onComplete() {
                         super.onComplete();
-                        TourCooUtil.startActivity(mContext, MainActivity.class);
+                        FrameUtil.startActivity(mContext, MainActivity.class);
                         finish();
                     }
 

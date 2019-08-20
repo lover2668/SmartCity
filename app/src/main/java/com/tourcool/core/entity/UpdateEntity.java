@@ -2,8 +2,8 @@ package com.tourcool.core.entity;
 
 import android.text.TextUtils;
 
+import com.frame.library.core.util.FrameUtil;
 import com.tourcool.core.MyApplication;
-import com.frame.library.core.util.TourCooUtil;
 
 /**
  * @Author: JenkinsZhou on 2018/11/19 14:17
@@ -32,8 +32,8 @@ public class UpdateEntity {
     public String size;
 
     public boolean isSuccess() {
-        int code = TourCooUtil.getVersionCode(MyApplication.getContext());
-        String name = TourCooUtil.getVersionName(MyApplication.getContext());
+        int code = FrameUtil.getVersionCode(MyApplication.getContext());
+        String name = FrameUtil.getVersionName(MyApplication.getContext());
         if (versionCode > code || (versionCode == code && name.compareTo(versionName) < 0)) {
             return true;
         }

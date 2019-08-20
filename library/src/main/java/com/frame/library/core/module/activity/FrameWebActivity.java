@@ -19,7 +19,7 @@ import androidx.core.content.ContextCompat;
 
 import com.frame.library.core.UiManager;
 import com.frame.library.core.control.TitleBarViewControl;
-import com.frame.library.core.util.TourCooUtil;
+import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.util.ToastUtil;
 import com.aries.library.fast.R;
 import com.aries.ui.helper.navigation.NavigationViewHelper;
@@ -73,7 +73,7 @@ public abstract class FrameWebActivity extends FrameTitleActivity implements Nav
     protected static void start(Context mActivity, Class<? extends FrameWebActivity> activity, String url) {
         Bundle bundle = new Bundle();
         bundle.putString("url", url);
-        TourCooUtil.startActivity(mActivity, activity, bundle);
+        FrameUtil.startActivity(mActivity, activity, bundle);
     }
 
 
@@ -228,11 +228,11 @@ public abstract class FrameWebActivity extends FrameTitleActivity implements Nav
                                     mAgentWeb.getUrlLoader().reload();
                                     break;
                                 case 1:
-                                    TourCooUtil.copyToClipboard(mContext, mCurrentUrl);
+                                    FrameUtil.copyToClipboard(mContext, mCurrentUrl);
                                     ToastUtil.show(R.string.fast_copy_success);
                                     break;
                                 case 2:
-                                    TourCooUtil.startShareText(mContext, mCurrentUrl);
+                                    FrameUtil.startShareText(mContext, mCurrentUrl);
                                     break;
                             }
                         }

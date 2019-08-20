@@ -38,6 +38,7 @@
     <!--LoadMoreView loading颜色-->
     <color name="colorLoadMoreProgress">@color/colorTitleText</color>
     <color name="blueCommonPress">#41baff</color>
+    <color name="whiteCommon">#FFFFFFFF</color>
 
     <!--蓝色区域-->
     <color name="blue4287FF">#4287FF</color>
@@ -52,6 +53,10 @@
     <color name="gray333333">#333333</color>
     <color name="grayEAEAEA">#F4F5F7</color>
     <color name="gray666666">#666666</color>
+    <color name="grayF5F5F5">#F5F5F5</color>
+    <color name="grayE0E0E0">#E0E0E0</color>
+    <color name="grayA2A2A2">#A2A2A2</color>
+
 
     <!--黑色区域-->
     <color name="black333333">#333333</color>

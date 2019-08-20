@@ -14,7 +14,7 @@ android {
         buildConfigField "String", "BASE_URL", "\"https://api.douban.com/\""
         buildConfigField "String", "BASE__UPDATE_URL", "\"https://raw.githubusercontent.com/JenkinsZhou/FastLib/dev/apk/\""
         manifestPlaceholders = [
-                app_channel: "FastLib",
+                app_channel: "smartcity",
                 bugly_id   : "a66ee7eb32",
                 PGYER_ID   : "b88a08387635b27ea95dcf2d6b887a33"
         ]
@@ -84,8 +84,8 @@ dependencies {
     implementation project(':library')
     implementation 'com.alibaba:fastjson:1.2.54'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-1'
-    //以下库FastLib里使用compileOnly只是编译,使用时需根据项目选择相应版本
-    //万能适配器--一般都需要吧
+    //以下库里使用compileOnly只是编译,使用时需根据项目选择相应版本
+    //万能适配器
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.49-androidx'
     //webView库 继承FastWebActivity需要,不需要内置WebView可以不implementation
     implementation 'com.just.agentweb:agentweb:4.1.2'
@@ -111,7 +111,7 @@ dependencies {
     //哆啦A梦
     implementation 'com.didichuxing.doraemonkit:doraemonkit:1.2.1'
     //Multidex 5.0以下
-    implementation 'androidx.multidex:multidex:2.0.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
     //蒲公英
     implementation 'com.pgyersdk:sdk:3.0.5'
     implementation files('libs/commons-lang-2.6.jar')

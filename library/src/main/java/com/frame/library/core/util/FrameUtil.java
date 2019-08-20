@@ -30,6 +30,7 @@ import java.util.Random;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 /**
@@ -44,7 +45,7 @@ import androidx.core.graphics.drawable.DrawableCompat;
  * 5、2019-4-19 17:02:01 修改{@link #getTintDrawable(Drawable, int)}以支持5.0以下版本并增加{@link #getTintDrawable(Drawable, ColorStateList)}
  * 6、2019-4-22 17:44:14 修改{@link #getTintDrawable(Drawable, int)}以支持5.0以下版本并增加{@link #getTintDrawable(Drawable, ColorStateList)}
  */
-public class TourCooUtil {
+public class FrameUtil {
 
     private static int ACTIVITY_SINGLE_FLAG = Intent.FLAG_ACTIVITY_SINGLE_TOP;
 
@@ -89,7 +90,7 @@ public class TourCooUtil {
             int labelRes = packageInfo.applicationInfo.labelRes;
             return context.getResources().getText(labelRes);
         } catch (PackageManager.NameNotFoundException e) {
-            LoggerManager.e("TourCooUtil", "getAppName:" + e.getMessage());
+            LoggerManager.e("FrameUtil", "getAppName:" + e.getMessage());
         }
         return null;
     }
@@ -182,7 +183,7 @@ public class TourCooUtil {
                 }
             }
         } catch (PackageManager.NameNotFoundException e) {
-            LoggerManager.e("TourCooUtil", "getVersionName:" + e.getMessage());
+            LoggerManager.e("FrameUtil", "getVersionName:" + e.getMessage());
         }
         return "";
     }
@@ -201,7 +202,7 @@ public class TourCooUtil {
                 }
             }
         } catch (PackageManager.NameNotFoundException e) {
-            LoggerManager.e("TourCooUtil", "getVersionCode:" + e.getMessage());
+            LoggerManager.e("FrameUtil", "getVersionCode:" + e.getMessage());
         }
         return -1;
     }
@@ -218,7 +219,7 @@ public class TourCooUtil {
             Class<?> cls = Class.forName(className);
             isExit = cls != null;
         } catch (ClassNotFoundException e) {
-            LoggerManager.e("TourCooUtil", "isClassExist:" + e.getMessage());
+            LoggerManager.e("FrameUtil", "isClassExist:" + e.getMessage());
         }
         return isExit;
     }
@@ -288,7 +289,7 @@ public class TourCooUtil {
             marketIntent.setData(Uri.parse(mAddress));
             mContext.startActivity(marketIntent);
         } catch (Exception e) {
-            LoggerManager.e("TourCooUtil", "jumpMarket:" + e.getMessage());
+            LoggerManager.e("FrameUtil", "jumpMarket:" + e.getMessage());
         }
     }
 
@@ -376,4 +377,9 @@ public class TourCooUtil {
             clipboardManager.setPrimaryClip(ClipData.newPlainText("content", str));
         }
     }
+
+
+
+
+
 }

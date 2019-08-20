@@ -84,4 +84,8 @@ dependencies {
     api 'com.github.Bakumon:StatusLayoutManager:1.0.4'
     //日志写入引擎
     api 'com.apkfuns.log2file:log2file:1.1.0'
+    // 状态栏颜色管理 基础依赖包，必须要依赖
+    api 'com.gyf.immersionbar:immersionbar:3.0.0-beta05'
+    // fragment快速实现（可选）
+    api 'com.gyf.immersionbar:immersionbar-components:3.0.0-beta05'
 }

@@ -175,7 +175,7 @@ public class AppConfigImpl implements DefaultRefreshHeaderCreator, LoadMoreFoot,
 //                .setTextSize(SizeUtil.dp2px(16f))
 //                .setTextPadding(SizeUtil.dp2px(10))
 //                .setTextColorResource(R.color.colorTextGray)
-//                .setIndeterminateDrawable(TourCooUtil.getTintDrawable(ContextCompat.getDrawable(mContext, R.drawable.dialog_loading), ContextCompat.getColor(mContext, R.color.colorTitleText)))
+//                .setIndeterminateDrawable(FrameUtil.getTintDrawable(ContextCompat.getDrawable(mContext, R.drawable.dialog_loading), ContextCompat.getColor(mContext, R.color.colorTitleText)))
 //                .setBackgroundRadius(SizeUtil.dp2px(6f))
 //                .create());
 //        Dialog dialog = new FrameLoadingDialog(activity);

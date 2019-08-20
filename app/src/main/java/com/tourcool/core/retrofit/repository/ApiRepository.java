@@ -1,12 +1,12 @@
 package com.tourcool.core.retrofit.repository;
 
+import com.frame.library.core.util.FrameUtil;
 import com.tourcool.core.base.BaseEntity;
 import com.tourcool.core.entity.BasePageBean;
 import com.tourcool.core.entity.BaseResult;
 import com.tourcool.core.entity.MessageBean;
 import com.tourcool.core.entity.UpdateEntity;
 import com.frame.library.core.retrofit.FrameRetrofit;
-import com.frame.library.core.util.TourCooUtil;
 import com.tourcool.core.MyApplication;
 import com.tourcool.core.base.BaseMovieEntity;
 import com.tourcool.core.retrofit.service.ApiService;
@@ -72,8 +72,8 @@ public class ApiRepository extends BaseRepository {
      */
     public Observable<UpdateEntity> updateApp() {
         Map<String, Object> params = new HashMap<>(2);
-        params.put("versionCode", TourCooUtil.getVersionCode(MyApplication.getContext()));
-        params.put("versionName", TourCooUtil.getVersionName(MyApplication.getContext()));
+        params.put("versionCode", FrameUtil.getVersionCode(MyApplication.getContext()));
+        params.put("versionName", FrameUtil.getVersionName(MyApplication.getContext()));
         return FrameTransformer.switchSchedulers(getApiService().updateApp(params).retryWhen(new RetryWhen()));
     }
 

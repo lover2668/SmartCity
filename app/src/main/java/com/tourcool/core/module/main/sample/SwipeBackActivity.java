@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.aries.library.fast.demo.R;
 import com.frame.library.core.module.activity.FrameTitleActivity;
-import com.frame.library.core.util.TourCooUtil;
+import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.util.SizeUtil;
 import com.aries.ui.view.radius.RadiusTextView;
 import com.aries.ui.view.title.TitleBarView;
@@ -30,7 +30,7 @@ public class SwipeBackActivity extends FrameTitleActivity {
     public static void start(Activity mActivity, String title) {
         Bundle bundle = new Bundle();
         bundle.putString("title", title);
-        TourCooUtil.startActivity(mActivity, SwipeBackActivity.class, bundle, false);
+        FrameUtil.startActivity(mActivity, SwipeBackActivity.class, bundle, false);
     }
 
     @Override

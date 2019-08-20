@@ -14,11 +14,11 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 
 import com.allen.library.SuperTextView;
+import com.frame.library.core.util.FrameUtil;
 import com.tourcool.core.helper.CheckVersionHelper;
 import com.tourcool.core.helper.ImagePickerHelper;
 import com.tourcool.core.helper.TitleBarViewHelper;
 import com.tourcool.core.module.WebViewActivity;
-import com.tourcool.core.module.activity.MessageListActivity1;
 import com.tourcool.core.util.SpanTool;
 import com.tourcool.core.widget.OverScrollView;
 import com.tourcool.core.widget.ProgressDialog;
@@ -35,7 +35,6 @@ import com.frame.library.core.retrofit.FrameTransformer;
 import com.frame.library.core.retrofit.FrameUploadRequestBody;
 import com.frame.library.core.retrofit.FrameUploadRequestListener;
 import com.frame.library.core.util.FormatUtil;
-import com.frame.library.core.util.TourCooUtil;
 import com.frame.library.core.util.SizeUtil;
 import com.aries.ui.util.StatusBarUtil;
 import com.aries.ui.view.title.TitleBarView;
@@ -153,7 +152,7 @@ public class MineFragment extends BaseTitleFragment implements IFrameRefreshView
             GlideManager.loadCircleImg(list.get(0), mIvHead);
         }));
 
-        mStvUpdate.setRightString("当前版本:V" + TourCooUtil.getVersionName(mContext));
+        mStvUpdate.setRightString("当前版本:V" + FrameUtil.getVersionName(mContext));
         //根据屏幕宽度重新调整背景图
         int heightCover = SizeUtil.getScreenWidth() * 1 / 2;
         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mTvCover.getLayoutParams();
@@ -256,18 +255,18 @@ public class MineFragment extends BaseTitleFragment implements IFrameRefreshView
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.stv_setting:
-//                TourCooUtil.startActivity(mContext, SettingActivity.class);
-                TourCooUtil.startActivity(mContext, MessageListActivity.class);
+//                FrameUtil.startActivity(mContext, SettingActivity.class);
+                FrameUtil.startActivity(mContext, MessageListActivity.class);
 
                 break;
             case R.id.stv_libraryMine:
                 WebViewActivity.start(mContext, "https://github.com/JenkinsZhou/FastLib/blob/master/README.md");
                 break;
             case R.id.stv_thirdLibMine:
-                TourCooUtil.startActivity(mContext, ThirdLibraryActivity.class);
+                FrameUtil.startActivity(mContext, ThirdLibraryActivity.class);
                 break;
             case R.id.stv_shareMine:
-                TourCooUtil.startShareText(mContext, getString(R.string.share_content));
+                FrameUtil.startShareText(mContext, getString(R.string.share_content));
                 break;
             case R.id.stv_updateMine:
                 //演示大文件下载--王者荣耀

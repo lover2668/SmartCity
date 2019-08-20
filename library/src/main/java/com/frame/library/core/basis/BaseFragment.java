@@ -13,7 +13,7 @@ import com.frame.library.core.UiManager;
 import com.frame.library.core.control.IBaseView;
 import com.frame.library.core.control.IFrameRefreshLoadView;
 import com.frame.library.core.retrofit.BaseObserver;
-import com.frame.library.core.util.TourCooUtil;
+import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.manager.LoggerManager;
 import com.frame.library.core.manager.RxJavaManager;
 import com.frame.library.core.widget.dialog.FrameLoadingDialog;
@@ -79,7 +79,7 @@ public abstract class BaseFragment extends RxFragment implements IBaseView {
         mContentView = inflater.inflate(getContentLayout(), container, false);
         //解决StatusLayoutManager与SmartRefreshLayout冲突
         if (this instanceof IFrameRefreshLoadView) {
-            if (TourCooUtil.isClassExist("com.scwang.smartrefresh.layout.SmartRefreshLayout")) {
+            if (FrameUtil.isClassExist("com.scwang.smartrefresh.layout.SmartRefreshLayout")) {
                 if (mContentView.getClass() == SmartRefreshLayout.class) {
                     FrameLayout frameLayout = new FrameLayout(mContext);
                     if (mContentView.getLayoutParams() != null) {

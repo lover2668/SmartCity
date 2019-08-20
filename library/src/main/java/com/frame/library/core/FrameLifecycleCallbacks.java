@@ -29,8 +29,8 @@ import com.frame.library.core.module.activity.FrameRefreshLoadActivity;
 import com.frame.library.core.module.activity.FrameWebActivity;
 import com.frame.library.core.module.fragment.BaseRefreshLoadFragment;
 import com.frame.library.core.retrofit.BaseObserver;
+import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.util.StackUtil;
-import com.frame.library.core.util.TourCooUtil;
 import com.aries.ui.helper.navigation.KeyboardHelper;
 import com.aries.ui.helper.navigation.NavigationViewHelper;
 import com.aries.ui.helper.status.StatusViewHelper;
@@ -62,7 +62,7 @@ public class FrameLifecycleCallbacks extends FragmentManager.FragmentLifecycleCa
 
     @Override
     public void onActivityCreated(final Activity activity, final Bundle savedInstanceState) {
-        LoggerManager.i(TAG, "onActivityCreated:" + activity.getClass().getSimpleName() + ";contentView:" + TourCooUtil.getRootView(activity));
+        LoggerManager.i(TAG, "onActivityCreated:" + activity.getClass().getSimpleName() + ";contentView:" + FrameUtil.getRootView(activity));
         getControl();
 
         //统一Activity堆栈管理
@@ -91,11 +91,11 @@ public class FrameLifecycleCallbacks extends FragmentManager.FragmentLifecycleCa
 
     @Override
     public void onActivityStarted(Activity activity) {
-        View contentView = TourCooUtil.getRootView(activity);
+        View contentView = FrameUtil.getRootView(activity);
         LoggerManager.i(TAG, "onActivityStarted:" + activity.getClass().getSimpleName() + ";contentView:" + contentView);
         boolean isSet = activity.getIntent().getBooleanExtra(GlobalConstant.IS_SET_CONTENT_VIEW_BACKGROUND, false);
         if (!isSet) {
-            setContentViewBackground(TourCooUtil.getRootView(activity), activity.getClass());
+            setContentViewBackground(FrameUtil.getRootView(activity), activity.getClass());
         }
         //设置状态栏
         setStatusBar(activity);
@@ -333,7 +333,7 @@ public class FrameLifecycleCallbacks extends FragmentManager.FragmentLifecycleCa
         TitleBarView titleBarView = FindViewUtil.getTargetView(activity.getWindow().getDecorView(), TitleBarView.class);
         //不包含TitleBarView处理
         if (titleBarView == null && !(activity instanceof FrameMainActivity)) {
-            View topView = getTopView(TourCooUtil.getRootView(activity));
+            View topView = getTopView(FrameUtil.getRootView(activity));
             LoggerManager.i(TAG, "其它三方库设置状态栏沉浸");
             StatusViewHelper statusViewHelper = StatusViewHelper.with(activity)
                     .setControlEnable(true)
@@ -376,7 +376,7 @@ public class FrameLifecycleCallbacks extends FragmentManager.FragmentLifecycleCa
             return;
         }
         LoggerManager.i(TAG, "setNavigationBars:设置虚拟导航栏");
-        View bottomView = TourCooUtil.getRootView(activity);
+        View bottomView = FrameUtil.getRootView(activity);
         //继承FastMainActivity底部View处理
         if (FrameMainActivity.class.isAssignableFrom(activity.getClass())) {
             CommonTabLayout tabLayout = FindViewUtil.getTargetView(bottomView, CommonTabLayout.class);

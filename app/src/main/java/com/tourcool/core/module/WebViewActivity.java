@@ -20,6 +20,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
 import com.aries.library.fast.demo.R;
+import com.frame.library.core.util.FrameUtil;
 import com.tourcool.core.module.main.MainActivity;
 import com.frame.library.core.control.IFrameRefreshView;
 import com.frame.library.core.manager.LoggerManager;
@@ -30,7 +31,6 @@ import com.frame.library.core.retrofit.BaseObserver;
 import com.frame.library.core.retrofit.FrameRetrofit;
 import com.frame.library.core.util.FrameFileUtil;
 import com.frame.library.core.util.StackUtil;
-import com.frame.library.core.util.TourCooUtil;
 import com.frame.library.core.util.SpUtil;
 import com.frame.library.core.util.SizeUtil;
 import com.frame.library.core.util.ToastUtil;
@@ -200,7 +200,7 @@ public class WebViewActivity extends FrameWebActivity implements IFrameRefreshVi
      * @param url
      */
     private void downImg(String url) {
-        String fileName = "/" + System.currentTimeMillis() + "_" + TourCooUtil.getRandom(100000) + ".jpg";
+        String fileName = "/" + System.currentTimeMillis() + "_" + FrameUtil.getRandom(100000) + ".jpg";
         FrameRetrofit.getInstance().downloadFile(url)
                 .subscribe(new BaseDownloadObserver(mFilePath, fileName) {
                     @Override
@@ -274,7 +274,7 @@ public class WebViewActivity extends FrameWebActivity implements IFrameRefreshVi
     public void onBackPressed() {
         Activity activity = StackUtil.getInstance().getPrevious();
         if (activity == null) {
-            TourCooUtil.startActivity(mContext, MainActivity.class);
+            FrameUtil.startActivity(mContext, MainActivity.class);
         }
         super.onBackPressed();
     }

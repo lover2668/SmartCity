@@ -7,7 +7,7 @@ import com.frame.library.core.UiManager;
 import com.frame.library.core.control.IFrameTitleView;
 import com.frame.library.core.control.TitleBarViewControl;
 import com.frame.library.core.util.StackUtil;
-import com.frame.library.core.util.TourCooUtil;
+import com.frame.library.core.util.FrameUtil;
 import com.aries.library.fast.R;
 import com.frame.library.core.manager.LoggerManager;
 import com.aries.ui.util.FindViewUtil;
@@ -74,7 +74,7 @@ public class FrameTitleDelegate {
      */
     private CharSequence getTitle(Activity activity) {
         if (activity != null) {
-            CharSequence appName = TourCooUtil.getAppName(activity);
+            CharSequence appName = FrameUtil.getAppName(activity);
             CharSequence label = activity.getTitle();
             if (label != null && !label.equals(appName)) {
                 return label;

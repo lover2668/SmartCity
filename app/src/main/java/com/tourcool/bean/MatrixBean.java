@@ -2,7 +2,7 @@ package com.tourcool.bean;
 
 /**
  * @author :JenkinsZhou
- * @description :
+ * @description :矩阵实体
  * @company :翼迈科技股份有限公司
  * @date 2019年08月19日23:03
  * @Email: 971613168@qq.com

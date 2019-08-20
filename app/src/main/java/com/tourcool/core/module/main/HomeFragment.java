@@ -9,12 +9,12 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.frame.library.core.util.FrameUtil;
 import com.tourcool.core.entity.WidgetEntity;
 import com.tourcool.core.helper.CheckVersionHelper;
 import com.tourcool.core.helper.TitleBarViewHelper;
 import com.frame.library.core.UiManager;
 import com.frame.library.core.retrofit.BaseObserver;
-import com.frame.library.core.util.TourCooUtil;
 import com.tourcool.core.MyApplication;
 import com.aries.library.fast.demo.R;
 import com.tourcool.core.adapter.WidgetAdapter;
@@ -250,7 +250,7 @@ public class HomeFragment extends BaseTitleRefreshLoadFragment<WidgetEntity> {
         if (position == 1) {
             SwipeBackActivity.start(mContext, entity.title);
         } else {
-            TourCooUtil.startActivity(mContext, entity.activity);
+            FrameUtil.startActivity(mContext, entity.activity);
         }
     }
 

@@ -26,6 +26,7 @@ import com.aries.library.fast.demo.BuildConfig;
 import com.frame.library.core.basis.BaseActivity;
 import com.frame.library.core.FrameLifecycleCallbacks;
 import com.frame.library.core.basis.BaseFragment;
+import com.frame.library.core.util.FrameUtil;
 import com.tourcool.core.MyApplication;
 import com.aries.library.fast.demo.R;
 import com.tourcool.core.module.SplashActivity;
@@ -37,7 +38,6 @@ import com.frame.library.core.control.ActivityKeyEventControl;
 import com.frame.library.core.impl.FrameActivityLifecycleCallbacks;
 import com.frame.library.core.manager.LoggerManager;
 import com.frame.library.core.util.StackUtil;
-import com.frame.library.core.util.TourCooUtil;
 import com.frame.library.core.util.SizeUtil;
 import com.frame.library.core.util.SnackBarUtil;
 import com.frame.library.core.util.ToastUtil;
@@ -241,7 +241,7 @@ public class ActivityControlImpl implements ActivityFragmentControl, ActivityKey
     }
 
     private KeyboardHelper.OnKeyboardVisibilityChangedListener mOnKeyboardVisibilityChangedListener = (activity, isOpen, heightDiff, navigationHeight) -> {
-        View mContent = TourCooUtil.getRootView(activity);
+        View mContent = FrameUtil.getRootView(activity);
         LoggerManager.i("onKeyboardVisibilityChanged", "activity:" + activity + ";isOpen:" + isOpen + ";heightDiff:" + heightDiff + ";navigationHeight:" + navigationHeight);
         return false;
     };
@@ -388,7 +388,7 @@ public class ActivityControlImpl implements ActivityFragmentControl, ActivityKey
      */
     private void setStatusBarActivity(Activity activity) {
         if (PictureBaseActivity.class.isAssignableFrom(activity.getClass())) {
-            View contentView = TourCooUtil.getRootView(activity);
+            View contentView = FrameUtil.getRootView(activity);
             //该属性会影响适配滑动返回效果
             contentView.setFitsSystemWindows(false);
             ImageView imageView = contentView != null ? contentView.findViewById(R.id.picture_left_back) : null;

@@ -1,5 +1,6 @@
 package com.tourcool.core;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ShortcutInfo;
@@ -14,6 +15,7 @@ import android.util.Log;
 import androidx.multidex.MultiDexApplication;
 
 import com.aries.library.fast.demo.BuildConfig;
+import com.frame.library.core.util.FrameUtil;
 import com.tourcool.core.config.RequestConfig;
 import com.tourcool.core.constant.ApiConstant;
 import com.tourcool.core.constant.SPConstant;
@@ -34,7 +36,6 @@ import com.frame.library.core.retrofit.FrameRetrofit;
 import com.frame.library.core.manager.LoggerManager;
 import com.frame.library.core.util.FormatUtil;
 import com.frame.library.core.util.StackUtil;
-import com.frame.library.core.util.TourCooUtil;
 import com.frame.library.core.util.SpUtil;
 import com.frame.library.core.util.SizeUtil;
 import com.didichuxing.doraemonkit.DoraemonKit;
@@ -59,7 +60,7 @@ import static com.frame.library.core.log.LogConfig.TAG_LOG_PRE_SUFFIX;
  */
 public class MyApplication extends MultiDexApplication {
 
-    private static Context mContext;
+    private static MyApplication mContext;
     private static String TAG = "FastLib";
     private static int imageHeight = 0;
     private long start;
@@ -79,7 +80,7 @@ public class MyApplication extends MultiDexApplication {
         initLog();
         //异常处理初始化
         CrashManager.init(mContext);
-        LoggerManager.i(TAG, "start:" + start + ";Application:" + TourCooUtil.getApplication());
+        LoggerManager.i(TAG, "start:" + start + ";Application:" + FrameUtil.getApplication());
         //最简单UI配置模式-必须进行初始化-最新版本无需初始化FastLib内部自动初始化
 //         UiManager.init(this);
         //以下为更丰富自定义方法
@@ -266,4 +267,8 @@ public class MyApplication extends MultiDexApplication {
                 .configLogFileEngine(new LogFileEngineFactory(this));
     }
 
+
+    public static Application getInstance() {
+        return mContext;
+    }
 }
