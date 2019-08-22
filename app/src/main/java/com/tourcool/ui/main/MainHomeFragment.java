@@ -10,14 +10,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.aries.library.fast.demo.R;
 import com.aries.ui.util.StatusBarUtil;
-import com.aries.ui.view.title.TitleBarView;
 import com.frame.library.core.module.fragment.BaseTitleFragment;
-import com.frame.library.core.util.FrameUtil;
+import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.gyf.immersionbar.ImmersionBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -26,7 +23,8 @@ import com.tourcool.adapter.TwoLevelAdapter;
 import com.tourcool.bean.MatrixBean;
 import com.tourcool.bean.TwoLevelBean;
 import com.tourcool.bean.TwoLevelChildBean;
-import com.tourcool.core.util.TourCoolUtil;
+import com.tourcool.core.util.TourCooUtil;
+import com.tourcool.library.frame.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +36,7 @@ import java.util.List;
  * @date 2019年08月19日21:26
  * @Email: 971613168@qq.com
  */
-public class HomeFragment extends BaseTitleFragment implements OnRefreshListener {
+public class MainHomeFragment extends BaseTitleFragment implements OnRefreshListener {
     private MatrixAdapter matrixAdapter;
     private RecyclerView rvMatrix;
     private SmartRefreshLayout mRefreshLayout;
@@ -55,8 +53,9 @@ public class HomeFragment extends BaseTitleFragment implements OnRefreshListener
         mRefreshLayout = mContentView.findViewById(R.id.smartRefreshCommon);
         mRefreshLayout.setOnRefreshListener(this);
         initSearchView();
-        ClassicsHeader header = new ClassicsHeader(mContext).setAccentColor(TourCoolUtil.getColor(R.color.white));
-        header.setBackgroundColor(TourCoolUtil.getColor(R.color.colorPrimary));
+
+        ClassicsHeader header = new ClassicsHeader(mContext).setAccentColor(TourCooUtil.getColor(R.color.white));
+        header.setBackgroundColor(TourCooUtil.getColor(R.color.colorPrimary));
         mRefreshLayout.setRefreshHeader(header);
         matrixAdapter = new MatrixAdapter();
         rvMatrix.setLayoutManager(new GridLayoutManager(mContext, 5));
@@ -86,9 +85,9 @@ public class HomeFragment extends BaseTitleFragment implements OnRefreshListener
         return matrixBeanList;
     }
 
-    public static HomeFragment newInstance() {
+    public static MainHomeFragment newInstance() {
         Bundle args = new Bundle();
-        HomeFragment fragment = new HomeFragment();
+        MainHomeFragment fragment = new MainHomeFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -103,7 +102,7 @@ public class HomeFragment extends BaseTitleFragment implements OnRefreshListener
 
 
     private void setStatusBar() {
-        ImmersionBar.with(HomeFragment.this)
+        ImmersionBar.with(MainHomeFragment.this)
                 .statusBarDarkFont(false, 0.2f)
                 .init();
     }

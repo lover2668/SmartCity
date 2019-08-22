@@ -22,15 +22,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
-import com.aries.library.fast.demo.BuildConfig;
 import com.frame.library.core.basis.BaseActivity;
 import com.frame.library.core.FrameLifecycleCallbacks;
 import com.frame.library.core.basis.BaseFragment;
 import com.frame.library.core.util.FrameUtil;
 import com.tourcool.core.MyApplication;
-import com.aries.library.fast.demo.R;
 import com.tourcool.core.module.SplashActivity;
-import com.tourcool.core.module.main.MainActivity;
+import com.tourcool.core.module.main.MainTabActivity;
 import com.tourcool.core.module.main.sample.TestStatusActivity;
 import com.frame.library.core.control.ActivityDispatchEventControl;
 import com.frame.library.core.control.ActivityFragmentControl;
@@ -50,6 +48,8 @@ import com.aries.ui.util.StatusBarUtil;
 import com.didichuxing.doraemonkit.ui.UniversalActivity;
 import com.luck.picture.lib.PictureBaseActivity;
 import com.luck.picture.lib.PicturePreviewActivity;
+import com.tourcool.library.frame.BuildConfig;
+import com.tourcool.library.frame.R;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.List;
@@ -213,7 +213,7 @@ public class ActivityControlImpl implements ActivityFragmentControl, ActivityKey
                         FindViewUtil.getTargetView(bottomView, R.id.select_bar_layout) : bottomView)
                 .setNavigationViewColor(isLeak(activity) ? Color.BLACK : Color.argb(NavigationBarUtil.isSupportNavigationBarFontChange() && isPlusView(activity) ? 0 : 102, 0, 0, 0))
                 .setNavigationLayoutColor(ContextCompat.getColor(activity, !isPlusView(activity) ? R.color.transparent : R.color.colorTabBackground));
-        if (!MyApplication.isControlNavigation() && !(activity instanceof MainActivity)) {
+        if (!MyApplication.isControlNavigation() && !(activity instanceof MainTabActivity)) {
             KeyboardHelper.with(activity)
                     .setEnable()
                     .setOnKeyboardVisibilityChangedListener(getOnKeyboardVisibilityChangedListener(activity));

@@ -7,7 +7,7 @@ import android.os.Build;
 import android.os.Environment;
 
 import com.frame.library.core.UiManager;
-import com.aries.library.fast.R;
+import com.tourcool.library.frame.demo.R;
 
 import java.io.File;
 

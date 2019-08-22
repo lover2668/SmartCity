@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
-import com.aries.library.fast.R;
+import com.tourcool.library.frame.demo.R;
 
 
 public class FrameLoadingDialog extends Dialog {

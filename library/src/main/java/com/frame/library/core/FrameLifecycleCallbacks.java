@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
-import com.aries.library.fast.R;
 import com.frame.library.core.control.IFrameTitleView;
 import com.frame.library.core.delegate.FrameRefreshDelegate;
 import com.frame.library.core.delegate.FrameTitleDelegate;
@@ -36,7 +35,8 @@ import com.aries.ui.helper.navigation.NavigationViewHelper;
 import com.aries.ui.helper.status.StatusViewHelper;
 import com.aries.ui.util.FindViewUtil;
 import com.aries.ui.view.tab.CommonTabLayout;
-import com.aries.ui.view.title.TitleBarView;
+import com.frame.library.core.widget.titlebar.TitleBarView;
+import com.tourcool.library.frame.demo.R;
 
 import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
 

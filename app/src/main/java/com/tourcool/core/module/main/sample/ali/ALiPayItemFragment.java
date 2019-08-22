@@ -2,8 +2,8 @@ package com.tourcool.core.module.main.sample.ali;
 
 import android.os.Bundle;
 
-import com.aries.library.fast.demo.R;
-import com.aries.ui.view.title.TitleBarView;
+import com.frame.library.core.widget.titlebar.TitleBarView;
+import com.tourcool.library.frame.R;
 
 /**
  * @Author: JenkinsZhou on 2018/11/19 14:19

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.aries.library.fast.demo">
+          package="com.tourcool.library.frame">
 
     <!--<uses-feature android:name="android.hardware.screen.portrait"/>-->
 
@@ -63,7 +63,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.tourcool.core.module.main.MainActivity"
+            android:name="com.tourcool.core.module.main.MainTabActivity"
             android:launchMode="singleTop"
             android:configChanges="locale|layoutDirection|mcc|mnc|orientation|screenSize"/>
         <!-- 应用内浏览器 -->

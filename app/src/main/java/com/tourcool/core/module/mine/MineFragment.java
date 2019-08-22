@@ -15,6 +15,7 @@ import androidx.core.view.ViewCompat;
 
 import com.allen.library.SuperTextView;
 import com.frame.library.core.util.FrameUtil;
+import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.core.helper.CheckVersionHelper;
 import com.tourcool.core.helper.ImagePickerHelper;
 import com.tourcool.core.helper.TitleBarViewHelper;
@@ -24,7 +25,6 @@ import com.tourcool.core.widget.OverScrollView;
 import com.tourcool.core.widget.ProgressDialog;
 import com.frame.library.core.widget.LoadingDialogWrapper;
 import com.tourcool.core.MyApplication;
-import com.aries.library.fast.demo.R;
 import com.frame.library.core.control.IFrameRefreshView;
 import com.frame.library.core.manager.GlideManager;
 import com.frame.library.core.manager.LoggerManager;
@@ -37,9 +37,9 @@ import com.frame.library.core.retrofit.FrameUploadRequestListener;
 import com.frame.library.core.util.FormatUtil;
 import com.frame.library.core.util.SizeUtil;
 import com.aries.ui.util.StatusBarUtil;
-import com.aries.ui.view.title.TitleBarView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.tourcool.library.frame.R;
 import com.tourcool.ui.mvp.MessageListActivity;
 
 import java.io.File;

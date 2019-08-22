@@ -3,7 +3,6 @@ package com.tourcool.core.helper;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.aries.library.fast.demo.R;
 import com.tourcool.core.base.BaseHelper;
 import com.frame.library.core.manager.LoggerManager;
 import com.aries.ui.util.StatusBarUtil;
@@ -11,6 +10,7 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.tourcool.library.frame.R;
 
 import java.util.ArrayList;
 import java.util.List;

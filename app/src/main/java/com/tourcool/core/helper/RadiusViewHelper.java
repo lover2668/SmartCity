@@ -3,8 +3,8 @@ package com.tourcool.core.helper;
 import androidx.core.content.ContextCompat;
 
 import com.tourcool.core.MyApplication;
-import com.aries.library.fast.demo.R;
 import com.aries.ui.view.radius.delegate.RadiusViewDelegate;
+import com.tourcool.library.frame.R;
 
 /**
  * @Author: JenkinsZhou on 2018/9/30 9:16

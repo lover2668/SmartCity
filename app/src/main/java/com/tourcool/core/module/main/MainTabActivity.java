@@ -1,17 +1,17 @@
 package com.tourcool.core.module.main;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MotionEvent;
+import android.view.VelocityTracker;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.aries.library.fast.demo.BuildConfig;
-import com.aries.library.fast.demo.R;
+import com.aries.ui.view.tab.BuildConfig;
 import com.tourcool.core.module.WebViewActivity;
-import com.tourcool.core.module.activity.ActivityFragment;
-import com.tourcool.core.module.mine.MineFragment;
 import com.tourcool.core.module.web.WebAppFragment;
 import com.frame.library.core.entity.FrameTabEntity;
 import com.frame.library.core.manager.LoggerManager;
@@ -20,6 +20,10 @@ import com.frame.library.core.module.activity.FrameMainActivity;
 import com.frame.library.core.retrofit.BaseObserver;
 import com.aries.ui.view.tab.CommonTabLayout;
 import com.didichuxing.doraemonkit.util.PermissionUtil;
+import com.tourcool.library.frame.R;
+import com.tourcool.ui.main.MainHomeFragment;
+import com.tourcool.ui.main.MainServiceFragment;
+import com.tourcool.ui.main.TestFragment;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 
 import java.util.ArrayList;
@@ -33,7 +37,7 @@ import butterknife.BindView;
  * Function: 示例主页面
  * Description:
  */
-public class MainActivity extends FrameMainActivity {
+public class MainTabActivity extends FrameMainActivity {
 
     @BindView(R.id.tabLayout_commonFastLib)
     CommonTabLayout mTabLayout;
@@ -51,10 +55,10 @@ public class MainActivity extends FrameMainActivity {
     @Override
     public List<FrameTabEntity> getTabList() {
         ArrayList<FrameTabEntity> tabEntities = new ArrayList<>();
-        tabEntities.add(new FrameTabEntity(R.string.home, R.drawable.ic_home_normal, R.drawable.ic_home_selected, HomeFragment.newInstance()));
+        tabEntities.add(new FrameTabEntity(R.string.home, R.drawable.ic_home_normal, R.drawable.ic_home_selected, TestFragment.newInstance()));
         tabEntities.add(new FrameTabEntity(R.string.web_app, R.drawable.ic_app_normal, R.drawable.ic_app_selected, WebAppFragment.newInstance()));
-        tabEntities.add(new FrameTabEntity(R.string.activity, R.drawable.ic_activity_normal, R.drawable.ic_activity_selected, ActivityFragment.newInstance()));
-        tabEntities.add(new FrameTabEntity(R.string.mine, R.drawable.ic_mine_normal, R.drawable.ic_mine_selected, com.tourcool.ui.main.HomeFragment.newInstance()));
+        tabEntities.add(new FrameTabEntity(R.string.activity, R.drawable.ic_activity_normal, R.drawable.ic_activity_selected, HomeFragment.newInstance()));
+        tabEntities.add(new FrameTabEntity(R.string.mine, R.drawable.ic_mine_normal, R.drawable.ic_mine_selected, MainHomeFragment.newInstance()));
         return tabEntities;
     }
 
@@ -103,7 +107,7 @@ public class MainActivity extends FrameMainActivity {
     private void requestPermission() {
         if (BuildConfig.DEBUG && !PermissionUtil.canDrawOverlays(mContext)) {
             new AlertDialog.Builder(mContext)
-                    .setTitle("FastLib温馨提示")
+                    .setTitle("温馨提示")
                     .setMessage("哆啦A梦研发助手需求请求悬浮窗权限,如果需要使用研发助手,请到设置页面开启悬浮窗权限")
                     .setPositiveButton(R.string.ensure, new DialogInterface.OnClickListener() {
                         @Override
@@ -121,4 +125,47 @@ public class MainActivity extends FrameMainActivity {
         super.onDestroy();
         LoggerManager.i(TAG, "onDestroy");
     }
+
+
+    public interface MyTouchListener {
+        boolean dispatchTouchEvent(MotionEvent event);
+    }
+
+    /*
+     * 保存MyTouchListener接口的列表
+     */
+    private ArrayList<MyTouchListener> myTouchListeners = new ArrayList<>();
+
+    /**
+     * 提供给Fragment通过getActivity()方法来注册自己的触摸事件的方法
+     *
+     * @param listener
+     */
+    public void registerMyTouchListener(MyTouchListener listener) {
+        myTouchListeners.add(listener);
+    }
+
+    /**
+     * 提供给Fragment通过getActivity()方法来取消注册自己的触摸事件的方法
+     *
+     * @param listener
+     */
+    public void unRegisterMyTouchListener(MyTouchListener listener) {
+        myTouchListeners.remove(listener);
+    }
+
+    /**
+     * 分发触摸事件给所有注册了MyTouchListener的接口
+     */
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        for (MyTouchListener listener : myTouchListeners) {
+            if (listener != null) {
+                return listener.dispatchTouchEvent(ev);
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+
 }

@@ -4,7 +4,6 @@ import android.accounts.AccountsException;
 import android.accounts.NetworkErrorException;
 
 import com.tourcool.core.MyApplication;
-import com.aries.library.fast.demo.R;
 import com.frame.library.core.control.HttpRequestControl;
 import com.frame.library.core.control.IHttpRequestControl;
 import com.frame.library.core.control.OnHttpRequestListener;
@@ -17,6 +16,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
+import com.tourcool.library.frame.R;
 
 import java.net.ConnectException;
 import java.net.SocketException;

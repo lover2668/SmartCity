@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="TitleBarView">
+        <!--是否沉浸式状态栏,默认true-->
+        <attr name="title_immersible" format="boolean"/>
+        <!--是否增加状态栏高度-->
+        <attr name="title_statusBarPlusEnable" format="boolean"/>
+        <!--内边距(距左右),默认12dp;ToolBar16dp-->
+        <attr name="title_outPadding" format="dimension"/>
+        <!--添加子View 内边距,默认1dp-->
+        <attr name="title_actionPadding" format="dimension"/>
+        <!--标题Layout左对齐时;中间Layout-左边距默认2dp;-->
+        <attr name="title_centerLayoutPadding" format="dimension"/>
+        <!--标题文字是否左对齐,默认false即:标题居中-->
+        <attr name="title_centerGravityLeft" format="boolean"/>
+        <!--标题Layout左对齐时;中间Layout-左边距默认24dp;ToolBar32dp-->
+        <attr name="title_centerGravityLeftPadding" format="dimension"/>
+        <!--是否浅色状态栏(黑色文字及图标)-->
+        <attr name="title_statusBarLightMode" format="boolean"/>
+        <!--View 按下透明度-->
+        <attr name="title_viewPressedAlpha" format="float"/>
+
+        <!--状态栏背景-->
+        <attr name="title_statusBackground" format="color|reference"/>
+        <!--下划线背景-->
+        <attr name="title_dividerBackground" format="color|reference"/>
+        <!--下划线高度,默认0.5dp-->
+        <attr name="title_dividerHeight" format="dimension"/>
+        <!--下划线是否可见,默认true-->
+        <attr name="title_dividerVisible" format="boolean"/>
+
+        <!--左边文字,支持CharSequence及String资源-->
+        <attr name="title_leftText" format="string"/>
+        <!--左边文字大小,默认14dp-->
+        <attr name="title_leftTextSize" format="dimension"/>
+        <!--左边文字颜色,默认Color.BLACK-->
+        <attr name="title_leftTextColor" format="color|reference"/>
+        <!--左边文字背景-->
+        <attr name="title_leftTextBackground" format="color|reference"/>
+        <!--左边文字drawable资源-->
+        <attr name="title_leftTextDrawable" format="reference"/>
+        <!--左边文字drawable资源drawableTint-->
+        <attr name="title_leftTextDrawableTint" format="color|reference"/>
+        <!--左边文字drawable资源drawableTintMode-->
+        <attr name="title_leftTextDrawableTintMode">
+            <enum name="src_over" value="3"/>
+            <enum name="src_in" value="5"/>
+            <enum name="src_atop" value="9"/>
+            <enum name="multiply" value="14"/>
+            <enum name="screen" value="15"/>
+            <enum name="add" value="16"/>
+        </attr>
+        <!--左边文字drawable资源宽度,默认drawable原始宽度-->
+        <attr name="title_leftTextDrawableWidth" format="dimension"/>
+        <!--左边文字drawable资源高度,默认drawable原始高度-->
+        <attr name="title_leftTextDrawableHeight" format="dimension"/>
+        <!--左边文字与drawable资源边距,默认1dp-->
+        <attr name="title_leftTextDrawablePadding" format="dimension"/>
+
+        <!--主标题文字,支持CharSequence及String资源-->
+        <attr name="title_titleMainText" format="string"/>
+        <!--主标题文字大小,默认18dp-->
+        <attr name="title_titleMainTextSize" format="dimension"/>
+        <!--主标题文字颜色,默认Color.BLACK-->
+        <attr name="title_titleMainTextColor" format="color|reference"/>
+        <!--主标题文字背景-->
+        <attr name="title_titleMainTextBackground" format="color|reference"/>
+        <!--主标题文字是否粗体,默认false-->
+        <attr name="title_titleMainTextFakeBold" format="boolean"/>
+        <!--主标题文字是否跑马灯,默认false-->
+        <attr name="title_titleMainTextMarquee" format="boolean"/>
+
+        <!--副标题文字,支持CharSequence及String资源-->
+        <attr name="title_titleSubText" format="string"/>
+        <!--副标题文字大小,默认12dp-->
+        <attr name="title_titleSubTextSize" format="dimension"/>
+        <!--副标题文字颜色,默认Color.BLACK-->
+        <attr name="title_titleSubTextColor" format="color|reference"/>
+        <!--副标题文字背景-->
+        <attr name="title_titleSubTextBackground" format="color|reference"/>
+        <!--副标题文字是否粗体,默认false-->
+        <attr name="title_titleSubTextFakeBold" format="boolean"/>
+        <!--副标题文字是否跑马灯,默认false-->
+        <attr name="title_titleSubTextMarquee" format="boolean"/>
+
+        <!--右边边文字,支持CharSequence及String资源-->
+        <attr name="title_rightText" format="string"/>
+        <!--右边文字大小,默认14dp-->
+        <attr name="title_rightTextSize" format="dimension"/>
+        <!--右边文字颜色,默认Color.BLACK-->
+        <attr name="title_rightTextColor" format="color|reference"/>
+        <!--右边文字背景-->
+        <attr name="title_rightTextBackground" format="color|reference"/>
+        <!--右边文字drawable资源-->
+        <attr name="title_rightTextDrawable" format="reference"/>
+        <!--右边文字drawable资源drawableTint-->
+        <attr name="title_rightTextDrawableTint" format="color|reference"/>
+        <!--右边文字drawable资源drawableTintMode-->
+        <attr name="title_rightTextDrawableTintMode">
+            <enum name="src_over" value="3"/>
+            <enum name="src_in" value="5"/>
+            <enum name="src_atop" value="9"/>
+            <enum name="multiply" value="14"/>
+            <enum name="screen" value="15"/>
+            <enum name="add" value="16"/>
+        </attr>
+        <!--右边文字drawable资源宽度,默认drawable原始宽度-->
+        <attr name="title_rightTextDrawableWidth" format="dimension"/>
+        <!--右边文字drawable资源高度,默认drawable原始高度-->
+        <attr name="title_rightTextDrawableHeight" format="dimension"/>
+        <!--右边文字与drawable资源边距,默认1dp-->
+        <attr name="title_rightTextDrawablePadding" format="dimension"/>
+
+        <!--添加TextView文字大小,默认14dp-->
+        <attr name="title_actionTextSize" format="dimension"/>
+        <!--添加TextView文字颜色,默认Color.BLACK-->
+        <attr name="title_actionTextColor" format="color|reference"/>
+        <!--添加TextView文字背景-->
+        <attr name="title_actionTextBackground" format="color|reference"/>
+
+        <!--添加的ImageView/TextView drawable资源drawableTint-->
+        <attr name="title_actionTint" format="color|reference"/>
+        <!--添加的ImageView/TextView drawable资源drawableTintMode-->
+        <attr name="title_actionTintMode">
+            <enum name="src_over" value="3"/>
+            <enum name="src_in" value="5"/>
+            <enum name="src_atop" value="9"/>
+            <enum name="multiply" value="14"/>
+            <enum name="screen" value="15"/>
+            <enum name="add" value="16"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="MaterialProgressBar">
+        <!--圆弧颜色-默认Colo.BLUE-->
+        <attr name="progress_arcColor" format="reference|color"/>
+        <!--圆弧宽度-默认3dp-->
+        <attr name="progress_borderWidth" format="reference|dimension"/>
+        <!--圆弧转动时间-越小越快默认600(建议200-1000)-->
+        <attr name="progress_duration" format="reference|integer"/>
+        <!--是否圆角-->
+        <attr name="progress_roundEnable" format="boolean"/>
+    </declare-styleable>
+</resources>

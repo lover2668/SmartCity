@@ -4,13 +4,12 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
-import com.aries.library.fast.demo.R;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.frame.library.core.manager.GlideManager;
-import com.tourcool.bean.TwoLevelBean;
 import com.tourcool.bean.TwoLevelChildBean;
-import com.tourcool.core.util.TourCoolUtil;
+import com.tourcool.core.util.TourCooUtil;
+import com.tourcool.library.frame.R;
 
 /**
  * @author :JenkinsZhou
@@ -30,8 +29,8 @@ public class TwoLevelChildAdapter extends BaseQuickAdapter<TwoLevelChildBean, Ba
         if (item == null) {
             return;
         }
-        helper.setText(R.id.tvChildItemTitle, TourCoolUtil.getNotNullValueLine(item.getChildItemTitle()));
-        helper.setText(R.id.tvChildItemDesc, TourCoolUtil.getNotNullValue(item.getChildItemDesc()));
+        helper.setText(R.id.tvChildItemTitle, TourCooUtil.getNotNullValueLine(item.getChildItemTitle()));
+        helper.setText(R.id.tvChildItemDesc, TourCooUtil.getNotNullValue(item.getChildItemDesc()));
         ImageView imageView = helper.getView(R.id.ivChildItemIcon);
         GlideManager.loadRoundImg(item.getChildItemIcon(), imageView, 2, R.mipmap.img_placeholder_car, true);
 

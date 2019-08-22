@@ -3,11 +3,11 @@ package com.tourcool.core.adapter;
 
 import androidx.annotation.NonNull;
 
-import com.aries.library.fast.demo.R;
 import com.tourcool.core.entity.MessageBean;
 import com.tourcool.core.util.DateUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.tourcool.library.frame.R;
 
 
 /**

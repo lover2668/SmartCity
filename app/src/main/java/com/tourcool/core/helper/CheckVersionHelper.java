@@ -8,7 +8,6 @@ import androidx.appcompat.app.AlertDialog;
 import com.tourcool.core.entity.UpdateEntity;
 import com.frame.library.core.BaeHelper;
 import com.frame.library.core.basis.BaseActivity;
-import com.aries.library.fast.demo.R;
 import com.frame.library.core.retrofit.BaseDownloadObserver;
 import com.frame.library.core.retrofit.FrameRetrofit;
 import com.tourcool.core.retrofit.repository.ApiRepository;
@@ -20,6 +19,7 @@ import com.frame.library.core.util.FrameFileUtil;
 import com.frame.library.core.util.FormatUtil;
 import com.frame.library.core.util.StackUtil;
 import com.frame.library.core.util.ToastUtil;
+import com.tourcool.library.frame.R;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
 

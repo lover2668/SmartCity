@@ -7,7 +7,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.aries.library.fast.R;
 import com.frame.library.core.control.IFrameMainView;
 import com.frame.library.core.entity.FrameTabEntity;
 import com.frame.library.core.manager.TabLayoutManager;
@@ -15,6 +14,7 @@ import com.frame.library.core.manager.LoggerManager;
 import com.aries.ui.util.FindViewUtil;
 import com.aries.ui.view.tab.CommonTabLayout;
 import com.aries.ui.view.tab.listener.CustomTabEntity;
+import com.tourcool.library.frame.demo.R;
 
 import java.util.ArrayList;
 import java.util.List;

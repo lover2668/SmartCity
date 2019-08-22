@@ -22,16 +22,16 @@ import com.frame.library.core.control.TitleBarViewControl;
 import com.frame.library.core.module.activity.FrameTitleActivity;
 import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.util.ToastUtil;
-import com.aries.library.fast.R;
 import com.aries.ui.helper.navigation.NavigationViewHelper;
 import com.aries.ui.util.DrawableUtil;
-import com.aries.ui.view.title.TitleBarView;
 import com.aries.ui.widget.BasisDialog;
 import com.aries.ui.widget.action.sheet.UIActionSheetDialog;
 import com.aries.ui.widget.i.NavigationBarControl;
+import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.DefaultWebCreator;
 import com.just.agentweb.MiddlewareWebChromeBase;
+import com.tourcool.library.frame.R;
 
 /**
  * @Author: JenkinsZhou on 2018/6/28 14:59

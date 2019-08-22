@@ -2,10 +2,10 @@ package com.tourcool.core.module.activity;
 
 import android.os.Bundle;
 
-import com.aries.library.fast.R;
 import com.frame.library.core.basis.BaseActivity;
 import com.frame.library.core.control.IFrameMainView;
 import com.frame.library.core.delegate.FrameMainTabDelegate;
+import com.tourcool.library.frame.R;
 
 /**
  * @Author: JenkinsZhou on 2018/7/23 10:00

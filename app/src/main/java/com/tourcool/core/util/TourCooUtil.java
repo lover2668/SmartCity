@@ -1,5 +1,6 @@
 package com.tourcool.core.util;
 
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 
 import androidx.core.content.ContextCompat;
@@ -13,7 +14,7 @@ import com.tourcool.core.MyApplication;
  * @date 2019年08月20日10:27
  * @Email: 971613168@qq.com
  */
-public class TourCoolUtil  {
+public class TourCooUtil {
 
 
     public static int getColor(int colorId) {
@@ -33,6 +34,12 @@ public class TourCoolUtil  {
             return "--";
         }
         return value;
+    }
+
+
+
+    public static Drawable getDrawable(int drawableId) {
+        return ContextCompat.getDrawable(MyApplication.getInstance(), drawableId);
     }
 
 }

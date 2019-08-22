@@ -6,9 +6,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.aries.library.fast.demo.R;
 import com.frame.library.core.util.FrameUtil;
-import com.tourcool.core.module.main.MainActivity;
+import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.frame.library.core.manager.LoggerManager;
 import com.frame.library.core.manager.RxJavaManager;
 import com.frame.library.core.module.activity.FrameTitleActivity;
@@ -16,7 +15,8 @@ import com.frame.library.core.retrofit.BaseObserver;
 import com.frame.library.core.util.StackUtil;
 import com.aries.ui.util.DrawableUtil;
 import com.aries.ui.util.StatusBarUtil;
-import com.aries.ui.view.title.TitleBarView;
+import com.tourcool.core.module.main.MainTabActivity;
+import com.tourcool.library.frame.R;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 
 import androidx.core.content.ContextCompat;
@@ -83,7 +83,7 @@ public class SplashActivity extends FrameTitleActivity {
                     @Override
                     public void onComplete() {
                         super.onComplete();
-                        FrameUtil.startActivity(mContext, MainActivity.class);
+                        FrameUtil.startActivity(mContext, MainTabActivity.class);
                         finish();
                     }
 

@@ -10,13 +10,13 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AlertDialog;
 
 import com.frame.library.core.util.FrameUtil;
+import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.core.entity.WidgetEntity;
 import com.tourcool.core.helper.CheckVersionHelper;
 import com.tourcool.core.helper.TitleBarViewHelper;
 import com.frame.library.core.UiManager;
 import com.frame.library.core.retrofit.BaseObserver;
 import com.tourcool.core.MyApplication;
-import com.aries.library.fast.demo.R;
 import com.tourcool.core.adapter.WidgetAdapter;
 import com.tourcool.core.constant.GlobalConstant;
 import com.tourcool.core.constant.SPConstant;
@@ -37,9 +37,9 @@ import com.frame.library.core.module.fragment.BaseTitleRefreshLoadFragment;
 import com.frame.library.core.util.SpUtil;
 import com.frame.library.core.util.SizeUtil;
 import com.aries.ui.util.StatusBarUtil;
-import com.aries.ui.view.title.TitleBarView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.tourcool.library.frame.R;
 import com.trello.rxlifecycle3.android.FragmentEvent;
 
 import java.util.ArrayList;

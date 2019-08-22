@@ -2,10 +2,10 @@ package com.tourcool.core.module.main.sample.news;
 
 import android.os.Bundle;
 
-import com.aries.library.fast.demo.R;
 import com.frame.library.core.entity.FrameTabEntity;
 import com.frame.library.core.module.activity.FrameMainActivity;
 import com.aries.ui.view.tab.CommonTabLayout;
+import com.tourcool.library.frame.R;
 
 import java.util.ArrayList;
 import java.util.List;

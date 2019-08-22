@@ -15,8 +15,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.aries.library.fast.R;
 import com.frame.library.core.log.TourCooLogUtil;
+import com.tourcool.library.frame.demo.R;
 
 
 /**

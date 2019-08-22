@@ -14,7 +14,6 @@ import android.util.Log;
 
 import androidx.multidex.MultiDexApplication;
 
-import com.aries.library.fast.demo.BuildConfig;
 import com.frame.library.core.util.FrameUtil;
 import com.tourcool.core.config.RequestConfig;
 import com.tourcool.core.constant.ApiConstant;
@@ -24,10 +23,9 @@ import com.tourcool.core.impl.AppConfigImpl;
 import com.tourcool.core.impl.HttpRequestControlImpl;
 import com.tourcool.core.impl.SwipeBackControlImpl;
 import com.tourcool.core.module.WebViewActivity;
-import com.tourcool.core.module.main.MainActivity;
+import com.tourcool.core.module.main.MainTabActivity;
 import com.tourcool.core.util.NotificationUtil;
 import com.frame.library.core.UiManager;
-import com.aries.library.fast.demo.R;
 import com.frame.library.core.crash.CrashManager;
 import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.log.widget.LogFileEngineFactory;
@@ -42,6 +40,8 @@ import com.didichuxing.doraemonkit.DoraemonKit;
 import com.didichuxing.doraemonkit.kit.webdoor.WebDoorManager;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.tencent.bugly.crashreport.CrashReport;
+import com.tourcool.library.frame.BuildConfig;
+import com.tourcool.library.frame.R;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -195,11 +195,11 @@ public class MyApplication extends MultiDexApplication {
             ShortcutInfo shortGit;
             ShortcutInfo shortBlog;
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.jianshu.com/u/a229eee96115"));
-            intent.setClassName(getPackageName(), MainActivity.class.getName());
+            intent.setClassName(getPackageName(), MainTabActivity.class.getName());
             intent.putExtra("url", "https://www.jianshu.com/u/a229eee96115");
 
             Intent intentGit = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/JenkinsZhou"));
-            intentGit.setClassName(getPackageName(), MainActivity.class.getName());
+            intentGit.setClassName(getPackageName(), MainTabActivity.class.getName());
             intentGit.putExtra("url", "https://github.com/JenkinsZhou");
 
 

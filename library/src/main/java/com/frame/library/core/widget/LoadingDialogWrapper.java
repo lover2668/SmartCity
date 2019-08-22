@@ -6,9 +6,9 @@ import android.app.ProgressDialog;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.aries.library.fast.R;
 import com.frame.library.core.util.StackUtil;
 import com.aries.ui.util.FindViewUtil;
+import com.tourcool.library.frame.demo.R;
 
 import java.lang.ref.WeakReference;
 

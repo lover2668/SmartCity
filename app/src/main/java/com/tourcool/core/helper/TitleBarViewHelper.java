@@ -3,13 +3,13 @@ package com.tourcool.core.helper;
 import android.app.Activity;
 import android.view.View;
 
+import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.core.util.ViewColorUtil;
 import com.tourcool.core.base.BaseHelper;
 import com.tourcool.core.widget.OverScrollView;
 import com.frame.library.core.manager.LoggerManager;
 import com.frame.library.core.util.SizeUtil;
 import com.aries.ui.util.StatusBarUtil;
-import com.aries.ui.view.title.TitleBarView;
 
 import androidx.recyclerview.widget.RecyclerView;
 

@@ -4,11 +4,11 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
 
-import com.aries.library.fast.demo.R;
 import com.aries.ui.util.StatusBarUtil;
-import com.aries.ui.view.title.TitleBarView;
+import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.tourcool.library.frame.R;
 
 /**
  * @Author: JenkinsZhou on 2019/4/24 13:41

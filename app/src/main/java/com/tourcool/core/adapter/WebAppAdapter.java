@@ -4,11 +4,11 @@ import android.view.ViewGroup;
 
 import com.tourcool.core.entity.WebAppEntity;
 import com.tourcool.core.MyApplication;
-import com.aries.library.fast.demo.R;
 import com.frame.library.core.util.SizeUtil;
 import com.aries.ui.view.radius.RadiusTextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.tourcool.library.frame.R;
 
 /**
  * @Author: JenkinsZhou on 2019/4/24 14:43

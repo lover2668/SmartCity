@@ -3,9 +3,10 @@ package com.tourcool.core.module.main.sample;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.aries.library.fast.demo.R;
 
 import androidx.annotation.Nullable;
+
+import com.tourcool.library.frame.R;
 
 /**
  * @Author: JenkinsZhou on 2018/11/19 14:23

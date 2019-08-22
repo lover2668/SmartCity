@@ -13,8 +13,8 @@ import android.widget.Toast;
 import com.frame.library.core.GlobalConstant;
 import com.frame.library.core.UiManager;
 import com.frame.library.core.control.ToastControl;
-import com.aries.library.fast.R;
 import com.aries.ui.view.radius.RadiusTextView;
+import com.tourcool.library.frame.demo.R;
 
 import androidx.annotation.ColorInt;
 import io.reactivex.Observable;

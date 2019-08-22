@@ -7,7 +7,6 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
-import com.aries.library.fast.R;
 import com.frame.library.core.delegate.FrameRefreshDelegate;
 import com.frame.library.core.delegate.FrameRefreshLoadDelegate;
 import com.frame.library.core.control.ActivityDispatchEventControl;
@@ -31,6 +30,7 @@ import com.frame.library.core.util.ToastUtil;
 import com.frame.library.core.widget.LoadingDialogWrapper;
 import com.aries.ui.widget.progress.UIProgressDialog;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
+import com.tourcool.library.frame.demo.R;
 
 import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
 

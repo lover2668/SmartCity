@@ -7,10 +7,10 @@ import android.os.Build;
 import android.view.View;
 import android.widget.Toast;
 
-import com.aries.library.fast.demo.R;
 import com.frame.library.core.control.LoadingDialog;
 import com.frame.library.core.retrofit.BaseObserver;
 import com.frame.library.core.widget.LoadingDialogWrapper;
+import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.core.module.WebAppActivity;
 import com.tourcool.core.retrofit.repository.BaseRepository;
 import com.frame.library.core.control.FrameObserverControl;
@@ -31,7 +31,6 @@ import com.frame.library.core.widget.FrameLoadMoreView;
 import com.aries.ui.util.DrawableUtil;
 import com.aries.ui.util.StatusBarUtil;
 import com.aries.ui.view.radius.RadiusTextView;
-import com.aries.ui.view.title.TitleBarView;
 import com.aries.ui.widget.progress.UIProgressDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.loadmore.LoadMoreView;
@@ -39,6 +38,7 @@ import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.tourcool.library.frame.R;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

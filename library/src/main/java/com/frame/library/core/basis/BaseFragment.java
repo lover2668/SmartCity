@@ -4,6 +4,7 @@ package com.frame.library.core.basis;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.manager.LoggerManager;
 import com.frame.library.core.manager.RxJavaManager;
 import com.frame.library.core.widget.dialog.FrameLoadingDialog;
+import com.gyf.immersionbar.ImmersionBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.trello.rxlifecycle3.android.FragmentEvent;
 import com.trello.rxlifecycle3.components.support.RxFragment;
@@ -24,6 +26,7 @@ import com.trello.rxlifecycle3.components.support.RxFragment;
 import org.simple.eventbus.EventBus;
 
 import androidx.fragment.app.FragmentManager;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -39,6 +42,7 @@ import butterknife.Unbinder;
  */
 public abstract class BaseFragment extends RxFragment implements IBaseView {
 
+    private Handler mRootHandler = new Handler();
     protected FrameLoadingDialog loadingDialog;
     protected Activity mContext;
     protected View mContentView;
@@ -106,7 +110,7 @@ public abstract class BaseFragment extends RxFragment implements IBaseView {
         LoggerManager.i(TAG, TAG + ";mIsVisibleChanged:" + mIsVisibleChanged
                 + ";getUserVisibleHint:" + getUserVisibleHint()
                 + ";isHidden:" + isHidden() + ";isVisible:" + isVisible());
-        loadingDialog = new FrameLoadingDialog(mContext,"加载中...");
+        loadingDialog = new FrameLoadingDialog(mContext, "加载中...");
         return mContentView;
     }
 
@@ -243,5 +247,18 @@ public abstract class BaseFragment extends RxFragment implements IBaseView {
             mIsFirstShow = false;
             loadData();
         }
+    }
+
+
+    protected void setStatusBarModeWhite(RxFragment fragment) {
+        mRootHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ImmersionBar.with(fragment)
+                        .statusBarDarkFont(false, 0.2f)
+                        .init();
+            }
+        },50);
+
     }
 }

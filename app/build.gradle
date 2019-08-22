@@ -97,7 +97,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
-    //以上库FastLib里使用compileOnly只是编译,使用时需根据项目选择相应版本
+    //以上库Lib里使用compileOnly只是编译,使用时需根据项目选择相应版本
     implementation 'cn.bingoogolapple:bga-banner:2.1.7@aar'
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-andx-14'
     implementation 'com.github.lygttpod:SuperTextView:2.1.8'

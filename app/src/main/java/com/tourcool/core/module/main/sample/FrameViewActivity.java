@@ -4,13 +4,13 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
-import com.aries.library.fast.demo.R;
 import com.frame.library.core.control.IFrameRefreshView;
 import com.frame.library.core.control.IFrameTitleView;
-import com.aries.ui.view.title.TitleBarView;
+import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.tourcool.library.frame.R;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;

@@ -9,13 +9,13 @@ import android.view.View;
 import android.widget.CompoundButton;
 
 import com.allen.library.SuperTextView;
-import com.aries.library.fast.demo.R;
+import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.core.constant.EventConstant;
 import com.tourcool.core.constant.GlobalConstant;
 import com.tourcool.core.constant.SPConstant;
 import com.frame.library.core.module.activity.FrameTitleActivity;
 import com.frame.library.core.util.SpUtil;
-import com.aries.ui.view.title.TitleBarView;
+import com.tourcool.library.frame.R;
 
 import org.simple.eventbus.EventBus;
 

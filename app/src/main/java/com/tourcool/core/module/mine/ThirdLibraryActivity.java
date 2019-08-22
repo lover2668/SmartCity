@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.aries.library.fast.demo.R;
+import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.core.entity.WidgetEntity;
 import com.tourcool.core.module.WebViewActivity;
 import com.tourcool.core.touch.ItemTouchHelperCallback;
@@ -18,11 +18,11 @@ import com.frame.library.core.module.activity.FrameRefreshLoadActivity;
 import com.frame.library.core.retrofit.BaseLoadingObserver;
 import com.frame.library.core.util.SpUtil;
 import com.frame.library.core.util.ToastUtil;
-import com.aries.ui.view.title.TitleBarView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
+import com.tourcool.library.frame.R;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 
 import java.util.ArrayList;

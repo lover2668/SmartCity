@@ -5,10 +5,10 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
-import com.aries.library.fast.demo.R;
 import com.frame.library.core.module.activity.FrameTitleActivity;
 import com.frame.library.core.util.ToastUtil;
-import com.aries.ui.view.title.TitleBarView;
+import com.frame.library.core.widget.titlebar.TitleBarView;
+import com.tourcool.library.frame.R;
 
 import butterknife.OnClick;
 

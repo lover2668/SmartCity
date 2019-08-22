@@ -13,9 +13,9 @@ import java.util.List;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
-import com.aries.library.fast.R;
 import com.frame.library.core.module.activity.FrameMainActivity;
 import com.frame.library.core.module.fragment.BaseMainFragment;
+import com.tourcool.library.frame.demo.R;
 
 /**
  * @Author: JenkinsZhou on 2018/7/20 17:07

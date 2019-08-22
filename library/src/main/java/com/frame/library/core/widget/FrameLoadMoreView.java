@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.aries.library.fast.R;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.loadmore.LoadMoreView;
+import com.tourcool.library.frame.demo.R;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;

@@ -6,12 +6,12 @@ import android.view.ViewGroup;
 
 import com.frame.library.core.UiManager;
 import com.frame.library.core.control.IFrameRefreshView;
-import com.aries.library.fast.R;
 import com.frame.library.core.manager.LoggerManager;
 import com.aries.ui.util.FindViewUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.tourcool.library.frame.demo.R;
 
 /**
  * @Author: JenkinsZhou on 2019/3/22 14:18

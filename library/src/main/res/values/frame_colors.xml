@@ -41,9 +41,13 @@
     <color name="whiteCommon">#FFFFFFFF</color>
 
     <!--蓝色区域-->
+
+    <color name="blue5593FF">#5593FF</color>
     <color name="blue4287FF">#4287FF</color>
+    <color name="blue55A9FF">#55A9FF</color>
     <color name="blue41baff">#41baff</color>
     <color name="blueCommon">#4287FF</color>
+    <color name="blue5E8FEB">#5E8FEB</color>
 
 
     <!--灰色区域-->

@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aries.ui.util.DrawableUtil;
-import com.aries.ui.view.title.TitleBarView;
+import com.frame.library.core.widget.titlebar.TitleBarView;
 
 /**
  * @Author: JenkinsZhou on 2018/11/2 13:27

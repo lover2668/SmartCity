@@ -3,9 +3,10 @@ package com.tourcool.core.module.main.sample;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import com.aries.library.fast.demo.R;
 import com.frame.library.core.module.activity.FrameTitleActivity;
-import com.aries.ui.view.title.TitleBarView;
+import com.frame.library.core.widget.titlebar.TitleBarView;
+import com.tourcool.library.frame.R;
+
 /**
  * @Author: JenkinsZhou on 2018/9/19 10:37
  * @E-Mail: 971613168@qq.com

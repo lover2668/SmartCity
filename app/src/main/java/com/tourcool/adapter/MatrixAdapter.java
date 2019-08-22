@@ -4,11 +4,11 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
-import com.aries.library.fast.demo.R;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.frame.library.core.manager.GlideManager;
 import com.tourcool.bean.MatrixBean;
+import com.tourcool.library.frame.R;
 
 /**
  * @author :JenkinsZhou

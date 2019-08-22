@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/blue4287FF</color>
+    <color name="colorPrimary">@color/blue5593FF</color>
     <color name="colorPrimaryDark">#FFFFFF</color>
     <color name="colorAccent">#393939</color>
     <!--不设置style里
@@ -20,9 +20,13 @@
     <!--Activity滑动返回背景-->
     <color name="colorSwipeBackBackground">#3b3b3b</color>
 
+    <color name="colorGray">#bbbbbb</color>
 
 
-
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorPurple">#6F0AEE</color>
+    <color name="colorDarkBlue">#0091EA</color>
+    <color name="colorLightBlue">#81D4FA</color>
     <color name="green06FBFE">#06FBFE</color>
 
 

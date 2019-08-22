@@ -13,6 +13,15 @@ public class TwoLevelChildBean implements Serializable {
     private String childItemIcon;
     private String childItemTitle;
     private String childItemDesc;
+    private String childItemTitleIcon;
+
+    public String getChildItemTitleIcon() {
+        return childItemTitleIcon;
+    }
+
+    public void setChildItemTitleIcon(String childItemTitleIcon) {
+        this.childItemTitleIcon = childItemTitleIcon;
+    }
 
     public String getChildItemIcon() {
         return childItemIcon;

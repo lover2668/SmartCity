@@ -2,7 +2,6 @@ package com.tourcool.core.module.main.sample.news;
 
 import android.os.Bundle;
 
-import com.aries.library.fast.demo.R;
 import com.frame.library.core.retrofit.BaseObserver;
 import com.tourcool.core.adapter.WidgetAdapter;
 import com.frame.library.core.manager.RxJavaManager;
@@ -10,6 +9,7 @@ import com.frame.library.core.module.fragment.BaseRefreshLoadFragment;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.tourcool.library.frame.R;
 import com.trello.rxlifecycle3.android.FragmentEvent;
 
 /**

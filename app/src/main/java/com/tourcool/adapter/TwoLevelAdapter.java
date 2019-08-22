@@ -4,11 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.aries.library.fast.demo.R;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tourcool.bean.TwoLevelBean;
-import com.tourcool.core.util.TourCoolUtil;
+import com.tourcool.core.util.TourCooUtil;
+import com.tourcool.library.frame.R;
 
 /**
  * @author :JenkinsZhou
@@ -25,7 +25,7 @@ public class TwoLevelAdapter extends BaseQuickAdapter<TwoLevelBean, BaseViewHold
 
     @Override
     protected void convert(@NonNull BaseViewHolder helper, TwoLevelBean item) {
-        helper.setText(R.id.tvGroupName, TourCoolUtil.getNotNullValue(item.getGroupName()));
+        helper.setText(R.id.tvGroupName, TourCooUtil.getNotNullValue(item.getGroupName()));
         RecyclerView childRecyclerView = helper.getView(R.id.rvCommonChild);
         TwoLevelChildAdapter adapter = new TwoLevelChildAdapter();
         //二级布局为网格布局

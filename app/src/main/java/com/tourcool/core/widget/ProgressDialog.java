@@ -14,7 +14,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.aries.library.fast.demo.R;
+
+import com.tourcool.library.frame.R;
 
 import java.text.NumberFormat;
 

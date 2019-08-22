@@ -4,16 +4,16 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
+import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.core.entity.WebAppEntity;
 import com.frame.library.core.UiManager;
-import com.aries.library.fast.demo.R;
 import com.tourcool.core.adapter.WebAppAdapter;
 import com.tourcool.core.module.WebAppActivity;
 import com.frame.library.core.module.fragment.BaseTitleRefreshLoadFragment;
 import com.aries.ui.util.StatusBarUtil;
-import com.aries.ui.view.title.TitleBarView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.tourcool.library.frame.R;
 
 import java.util.ArrayList;
 import java.util.List;

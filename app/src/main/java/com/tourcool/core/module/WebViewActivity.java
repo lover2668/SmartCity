@@ -19,9 +19,9 @@ import android.webkit.WebView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
-import com.aries.library.fast.demo.R;
 import com.frame.library.core.util.FrameUtil;
-import com.tourcool.core.module.main.MainActivity;
+import com.frame.library.core.widget.titlebar.TitleBarView;
+import com.tourcool.core.module.main.MainTabActivity;
 import com.frame.library.core.control.IFrameRefreshView;
 import com.frame.library.core.manager.LoggerManager;
 import com.frame.library.core.manager.RxJavaManager;
@@ -38,7 +38,6 @@ import com.aries.ui.helper.navigation.NavigationBarUtil;
 import com.aries.ui.helper.navigation.NavigationViewHelper;
 import com.aries.ui.util.DrawableUtil;
 import com.aries.ui.util.RomUtil;
-import com.aries.ui.view.title.TitleBarView;
 import com.aries.ui.widget.action.sheet.UIActionSheetDialog;
 import com.download.library.DownloadImpl;
 import com.download.library.DownloadListenerAdapter;
@@ -56,6 +55,7 @@ import com.just.agentweb.WebListenerManager;
 import com.scwang.smartrefresh.header.StoreHouseHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.tourcool.library.frame.R;
 
 import java.io.File;
 
@@ -187,7 +187,7 @@ public class WebViewActivity extends FrameWebActivity implements IFrameRefreshVi
                             break;
                     }
                 })
-                .setCancel(com.aries.library.fast.R.string.fast_cancel)
+                .setCancel(R.string.fast_cancel)
                 .setNavigationBarControl(this)
                 .setTextSizeUnit(TypedValue.COMPLEX_UNIT_DIP)
                 .create();
@@ -274,7 +274,7 @@ public class WebViewActivity extends FrameWebActivity implements IFrameRefreshVi
     public void onBackPressed() {
         Activity activity = StackUtil.getInstance().getPrevious();
         if (activity == null) {
-            FrameUtil.startActivity(mContext, MainActivity.class);
+            FrameUtil.startActivity(mContext, MainTabActivity.class);
         }
         super.onBackPressed();
     }

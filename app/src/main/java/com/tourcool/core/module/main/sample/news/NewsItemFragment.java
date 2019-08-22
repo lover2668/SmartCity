@@ -7,12 +7,12 @@ import androidx.viewpager.widget.ViewPager;
 import android.util.TypedValue;
 import android.view.View;
 
-import com.aries.library.fast.demo.R;
 import com.frame.library.core.manager.TabLayoutManager;
 import com.frame.library.core.module.fragment.BaseTitleFragment;
 import com.aries.ui.util.StatusBarUtil;
-import com.aries.ui.view.title.TitleBarView;
 import com.aries.ui.view.tab.SlidingTabLayout;
+import com.frame.library.core.widget.titlebar.TitleBarView;
+import com.tourcool.library.frame.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;

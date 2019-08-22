@@ -5,20 +5,20 @@ import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.core.adapter.SystemMsgAdapter;
 import com.tourcool.core.entity.BasePageBean;
 import com.tourcool.core.entity.BaseResult;
 import com.tourcool.core.entity.MessageBean;
 import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.frame.library.core.UiManager;
-import com.aries.library.fast.demo.R;
 import com.frame.library.core.module.activity.FrameRefreshLoadActivity;
 import com.frame.library.core.retrofit.BaseObserver;
-import com.aries.ui.view.title.TitleBarView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.loadmore.LoadMoreView;
 
+import com.tourcool.library.frame.R;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 
 import java.util.ArrayList;

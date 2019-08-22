@@ -1,17 +1,16 @@
 package com.tourcool.ui.mvp;
 
 import android.os.Bundle;
-import android.view.View;
 
-import com.aries.library.fast.demo.R;
-import com.aries.ui.view.title.TitleBarView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
+import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.core.adapter.SystemMsgAdapter;
 
 import com.tourcool.core.entity.MessageBean;
 import com.tourcool.core.module.mvp.BaseMvpRefreshLoadActivity;
+import com.tourcool.library.frame.R;
 import com.tourcool.ui.mvp.contract.MessageContract;
 import com.tourcool.ui.mvp.presenter.MessagePresenter;
 

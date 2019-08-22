@@ -2,11 +2,11 @@ package com.frame.library.core.module.fragment;
 
 import android.os.Bundle;
 
-import com.aries.library.fast.R;
 import com.frame.library.core.basis.BaseFragment;
 import com.frame.library.core.control.IFrameMainView;
 import com.frame.library.core.delegate.FrameMainTabDelegate;
 import com.aries.ui.view.tab.listener.OnTabSelectListener;
+import com.tourcool.library.frame.demo.R;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;

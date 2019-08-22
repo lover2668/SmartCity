@@ -21,7 +21,7 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-import com.aries.library.fast.R;
+import com.tourcool.library.frame.demo.R;
 
 
 public class PictureSpinView extends ImageView implements PictureIndeterminate {

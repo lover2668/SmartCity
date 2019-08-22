@@ -15,9 +15,9 @@ import android.os.Bundle;
 import android.util.Log;
 
 
-import com.aries.library.fast.R;
 import com.frame.library.core.crash.imp.ISave;
 import com.frame.library.core.log.TourCooLogUtil;
+import com.tourcool.library.frame.demo.R;
 
 import java.io.PrintWriter;
 import java.io.Serializable;

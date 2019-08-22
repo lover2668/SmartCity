@@ -2,7 +2,6 @@ package com.tourcool.core.adapter;
 
 import android.view.View;
 
-import com.aries.library.fast.demo.R;
 import com.tourcool.core.base.BaseItemTouchQuickAdapter;
 import com.tourcool.core.base.BaseItemTouchViewHolder;
 import com.tourcool.core.entity.SubjectsEntity;
@@ -11,6 +10,7 @@ import com.frame.library.core.manager.GlideManager;
 import com.frame.library.core.manager.LoggerManager;
 import com.aries.ui.view.radius.RadiusRelativeLayout;
 import com.flyco.labelview.LabelView;
+import com.tourcool.library.frame.R;
 
 /**
  * @Author: JenkinsZhou on 2018/8/10 9:53

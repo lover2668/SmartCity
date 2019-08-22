@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import com.aries.library.fast.demo.R;
 import com.frame.library.core.module.activity.FrameTitleActivity;
-import com.aries.ui.view.title.TitleBarView;
+import com.frame.library.core.widget.titlebar.TitleBarView;
+import com.tourcool.library.frame.R;
 
 import butterknife.BindView;
 

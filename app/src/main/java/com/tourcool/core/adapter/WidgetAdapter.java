@@ -2,12 +2,12 @@ package com.tourcool.core.adapter;
 
 import android.view.ViewGroup;
 
-import com.aries.library.fast.demo.R;
 import com.tourcool.core.base.BaseItemTouchQuickAdapter;
 import com.tourcool.core.base.BaseItemTouchViewHolder;
 import com.tourcool.core.entity.WidgetEntity;
 import com.tourcool.core.helper.RadiusViewHelper;
 import com.aries.ui.view.radius.RadiusRelativeLayout;
+import com.tourcool.library.frame.R;
 
 import java.util.ArrayList;
 

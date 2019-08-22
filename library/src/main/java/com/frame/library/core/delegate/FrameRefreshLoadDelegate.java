@@ -11,11 +11,11 @@ import com.frame.library.core.UiManager;
 import com.frame.library.core.control.IFrameRefreshLoadView;
 import com.frame.library.core.manager.LoggerManager;
 import com.frame.library.core.widget.FrameLoadMoreView;
-import com.aries.library.fast.R;
 import com.aries.ui.util.FindViewUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.tourcool.library.frame.demo.R;
 
 import me.bakumon.statuslayoutmanager.library.OnStatusChildClickListener;
 import me.bakumon.statuslayoutmanager.library.StatusLayoutManager;

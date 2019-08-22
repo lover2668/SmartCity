@@ -8,10 +8,10 @@ import com.frame.library.core.control.IFrameTitleView;
 import com.frame.library.core.control.TitleBarViewControl;
 import com.frame.library.core.util.StackUtil;
 import com.frame.library.core.util.FrameUtil;
-import com.aries.library.fast.R;
 import com.frame.library.core.manager.LoggerManager;
 import com.aries.ui.util.FindViewUtil;
-import com.aries.ui.view.title.TitleBarView;
+import com.frame.library.core.widget.titlebar.TitleBarView;
+import com.tourcool.library.frame.demo.R;
 
 /**
  * @Author: JenkinsZhou on 2018/7/13 17:53

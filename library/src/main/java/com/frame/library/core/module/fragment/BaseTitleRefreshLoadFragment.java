@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.frame.library.core.control.IFrameTitleView;
 import com.frame.library.core.delegate.FrameTitleDelegate;
-import com.aries.ui.view.title.TitleBarView;
+import com.frame.library.core.widget.titlebar.TitleBarView;
 
 /**
  * @Author: JenkinsZhou on 2018/7/23 10:34

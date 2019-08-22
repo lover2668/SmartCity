@@ -5,12 +5,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
-import com.aries.library.fast.demo.R;
 import com.frame.library.core.module.activity.FrameTitleActivity;
 import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.util.SizeUtil;
 import com.aries.ui.view.radius.RadiusTextView;
-import com.aries.ui.view.title.TitleBarView;
+import com.frame.library.core.widget.titlebar.TitleBarView;
+import com.tourcool.library.frame.R;
 
 import butterknife.BindView;
 import butterknife.OnClick;

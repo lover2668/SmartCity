@@ -7,7 +7,7 @@ import com.frame.library.core.FrameLifecycleCallbacks;
 import com.frame.library.core.control.IFrameTitleView;
 import com.frame.library.core.basis.BaseActivity;
 import com.aries.ui.util.FindViewUtil;
-import com.aries.ui.view.title.TitleBarView;
+import com.frame.library.core.widget.titlebar.TitleBarView;
 
 /**
  * @Author: JenkinsZhou on 2018/7/23 10:35
