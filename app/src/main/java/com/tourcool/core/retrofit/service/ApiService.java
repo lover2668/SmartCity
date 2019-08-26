@@ -1,10 +1,9 @@
 package com.tourcool.core.retrofit.service;
 
 
-import com.tourcool.core.base.BaseEntity;
+import com.tourcool.core.base.BaseResult;
 import com.tourcool.core.constant.ApiConstant;
 import com.tourcool.core.entity.BasePageBean;
-import com.tourcool.core.entity.BaseResult;
 import com.tourcool.core.entity.MessageBean;
 import com.tourcool.core.entity.UpdateEntity;
 import com.frame.library.core.retrofit.FrameRetrofit;
@@ -50,6 +49,15 @@ public interface ApiService {
     Observable<UpdateEntity> updateApp(@QueryMap Map<String, Object> map);
 
 
+    /**
+     * 系统消息列表
+     *
+     * @param map
+     * @return
+     */
+    @POST("message/owner/msg")
+    Observable<com.tourcool.core.entity.BaseResult> requestMsgList1(@Body Map<String, Object> map);
+
 
     /**
      * 系统消息列表
@@ -58,16 +66,18 @@ public interface ApiService {
      * @return
      */
     @POST("message/owner/msg")
-    Observable<BaseResult<BasePageBean<MessageBean>>> requestMsgList1(@Body Map<String, Object> map);
-
+    Observable<BaseResult<BasePageBean<MessageBean>>> requestMsgList(@Body Map<String, Object> map);
 
 
     /**
-     * 系统消息列表
+     * 首页接口
      *
      * @param map
      * @return
      */
-    @POST("message/owner/msg")
-    Observable<BaseEntity<BasePageBean<MessageBean>>> requestMsgList(@Body Map<String, Object> map);
+    @POST("test")
+    Observable<BaseResult<Object>> requestHomeInfo(@QueryMap Map<String, Object> map);
+
 }
+
+

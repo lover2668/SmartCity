@@ -5,12 +5,16 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
+import com.frame.library.core.manager.GlideManager;
 import com.frame.library.core.module.fragment.BaseTitleFragment;
+import com.frame.library.core.util.ToastUtil;
 import com.frame.library.core.widget.linkage.LinkageRecyclerView;
 import com.frame.library.core.widget.linkage.adapter.viewholder.LinkagePrimaryViewHolder;
 import com.frame.library.core.widget.linkage.adapter.viewholder.LinkageSecondaryFooterViewHolder;
@@ -36,7 +40,7 @@ import java.util.List;
  * @Email: 971613168@qq.com
  */
 public class TestFragment extends BaseTitleFragment {
-    private static final int SPAN_COUNT_FOR_GRID_MODE = 2;
+    private static final int SPAN_COUNT_FOR_GRID_MODE = 3;
     private static final int MARQUEE_REPEAT_LOOP_MODE = -1;
     private static final int MARQUEE_REPEAT_NONE_MODE = 0;
 
@@ -62,7 +66,6 @@ public class TestFragment extends BaseTitleFragment {
     }
 
 
-
     public static TestFragment newInstance() {
         Bundle args = new Bundle();
         TestFragment fragment = new TestFragment();
@@ -77,6 +80,7 @@ public class TestFragment extends BaseTitleFragment {
                 }.getType());
 
         linkage.init(items, new ElemePrimaryAdapterConfig(), new ElemeSecondaryAdapterConfig());
+        linkage.setGridMode(true);
     }
 
     private static class ElemePrimaryAdapterConfig implements ILinkagePrimaryAdapterConfig {
@@ -89,12 +93,12 @@ public class TestFragment extends BaseTitleFragment {
 
         @Override
         public int getLayoutId() {
-            return R.layout.default_adapter_linkage_primary;
+            return R.layout.item_service_category_layout;
         }
 
         @Override
         public int getGroupTitleViewId() {
-            return R.id.tv_group;
+            return R.id.tvCategoryName;
         }
 
         @Override
@@ -106,13 +110,10 @@ public class TestFragment extends BaseTitleFragment {
         public void onBindViewHolder(LinkagePrimaryViewHolder holder, boolean selected, String title) {
             TextView tvTitle = ((TextView) holder.mGroupTitle);
             tvTitle.setText(title);
-
-            tvTitle.setBackgroundColor(mContext.getResources().getColor(
-                    selected ? R.color.colorPurple : R.color.colorWhite));
+            RelativeLayout layoutGroup = holder.getView(R.id.layout_group);
             tvTitle.setTextColor(ContextCompat.getColor(mContext,
-                    selected ? R.color.colorWhite : R.color.colorGray));
-            tvTitle.setEllipsize(selected ? TextUtils.TruncateAt.MARQUEE : TextUtils.TruncateAt.END);
-            tvTitle.setFocusable(selected);
+                    selected ? R.color.black333333 : R.color.grayA2A2A2));
+            layoutGroup.setBackground(selected ? TourCooUtil.getDrawable(R.drawable.tab) : TourCooUtil.getDrawable(R.color.grayF5F5F5));
             tvTitle.setFocusableInTouchMode(selected);
             tvTitle.setMarqueeRepeatLimit(selected ? MARQUEE_REPEAT_LOOP_MODE : MARQUEE_REPEAT_NONE_MODE);
         }
@@ -134,7 +135,7 @@ public class TestFragment extends BaseTitleFragment {
 
         @Override
         public int getGridLayoutId() {
-            return 0;
+            return R.layout.item_matrix_layout;
         }
 
         @Override
@@ -165,23 +166,33 @@ public class TestFragment extends BaseTitleFragment {
         @Override
         public void onBindViewHolder(LinkageSecondaryViewHolder holder,
                                      BaseGroupedItem<ElemeGroupedItem.ItemInfo> item) {
-
-            ((TextView) holder.getView(R.id.iv_goods_name)).setText(item.info.getTitle());
-            Glide.with(mContext).load(item.info.getImgUrl()).into((ImageView) holder.getView(R.id.iv_goods_img));
+            ImageView imageView = holder.getView(R.id.ivMatrixIcon);
+            TextView tvMatrixIconName = holder.getView(R.id.tvMatrixIconName);
+//            ((TextView) holder.getView(R.id.iv_goods_name)).setText(item.info.getTitle());
+           /* Glide.with(mContext).load(item.info.getImgUrl()).into((ImageView) holder.getView(R.id.iv_goods_img));
             holder.getView(R.id.iv_goods_item).setOnClickListener(v -> {
                 //TODO
-            });
+            });*/
 
-            holder.getView(R.id.iv_goods_add).setOnClickListener(v -> {
+            /*holder.getView(R.id.iv_goods_add).setOnClickListener(v -> {
                 //TODO
+            });*/
+            holder.getView(R.id.llMatrix).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ToastUtil.show("点击了" + item.info.getTitle());
+                }
             });
+            tvMatrixIconName.setText(item.info.getTitle());
+            GlideManager.loadImg(R.mipmap.img_placeholder_car, imageView);
         }
 
         @Override
         public void onBindHeaderViewHolder(LinkageSecondaryHeaderViewHolder holder,
                                            BaseGroupedItem<ElemeGroupedItem.ItemInfo> item) {
-
-//            ((TextView) holder.getView(R.id.secondary_header)).setText(item.header);
+            ((TextView) holder.getView(R.id.secondary_header)).setText(item.header);
+            ImageView imageView = holder.getView(R.id.ivHeaderImage);
+            GlideManager.loadImg(R.mipmap.icon_service_group, imageView);
         }
 
         @Override

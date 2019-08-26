@@ -22,7 +22,7 @@ import com.aries.ui.view.tab.CommonTabLayout;
 import com.didichuxing.doraemonkit.util.PermissionUtil;
 import com.tourcool.library.frame.R;
 import com.tourcool.ui.main.MainHomeFragment;
-import com.tourcool.ui.main.MainServiceFragment;
+import com.tourcool.ui.main.MainMineFragment;
 import com.tourcool.ui.main.TestFragment;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 
@@ -55,10 +55,10 @@ public class MainTabActivity extends FrameMainActivity {
     @Override
     public List<FrameTabEntity> getTabList() {
         ArrayList<FrameTabEntity> tabEntities = new ArrayList<>();
-        tabEntities.add(new FrameTabEntity(R.string.home, R.drawable.ic_home_normal, R.drawable.ic_home_selected, TestFragment.newInstance()));
-        tabEntities.add(new FrameTabEntity(R.string.web_app, R.drawable.ic_app_normal, R.drawable.ic_app_selected, WebAppFragment.newInstance()));
-        tabEntities.add(new FrameTabEntity(R.string.activity, R.drawable.ic_activity_normal, R.drawable.ic_activity_selected, HomeFragment.newInstance()));
-        tabEntities.add(new FrameTabEntity(R.string.mine, R.drawable.ic_mine_normal, R.drawable.ic_mine_selected, MainHomeFragment.newInstance()));
+        tabEntities.add(new FrameTabEntity(R.string.home, R.drawable.ic_home_normal, R.drawable.ic_home_selected, MainHomeFragment.newInstance()));
+//        tabEntities.add(new FrameTabEntity(R.string.web_app, R.drawable.ic_app_normal, R.drawable.ic_app_selected, MainMineFragment.newInstance()));
+        tabEntities.add(new FrameTabEntity("服务", R.drawable.ic_activity_normal, R.drawable.ic_activity_selected, TestFragment.newInstance()));
+        tabEntities.add(new FrameTabEntity("我的", R.drawable.ic_mine_normal, R.drawable.ic_mine_selected, MainMineFragment.newInstance()));
         return tabEntities;
     }
 

@@ -5,11 +5,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.alibaba.fastjson.JSON;
 import com.frame.library.core.UiManager;
 import com.frame.library.core.control.IBaseView;
 import com.frame.library.core.control.IFrameRefreshLoadView;
@@ -18,6 +20,11 @@ import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.manager.LoggerManager;
 import com.frame.library.core.manager.RxJavaManager;
 import com.frame.library.core.widget.dialog.FrameLoadingDialog;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.gyf.immersionbar.ImmersionBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.trello.rxlifecycle3.android.FragmentEvent;
@@ -26,6 +33,9 @@ import com.trello.rxlifecycle3.components.support.RxFragment;
 import org.simple.eventbus.EventBus;
 
 import androidx.fragment.app.FragmentManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -258,7 +268,43 @@ public abstract class BaseFragment extends RxFragment implements IBaseView {
                         .statusBarDarkFont(false, 0.2f)
                         .init();
             }
-        },50);
+        }, 50);
+    }
 
+
+    protected <T> T parseJavaBean(Object data, Class<T> tClass) {
+        try {
+            return JSON.parseObject(JSON.toJSONString(data), tClass);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+
+    protected <T> List<T> parseListJavaBean(Object data, Class<T> type) {
+        List<T> result = null;
+        Gson gson = new GsonBuilder().create();
+        if (data != null) {
+            try {
+                JsonParser parser = new JsonParser();
+                JsonArray array = parser.parse(gson.toJson(data)).getAsJsonArray();
+                if (array != null) {
+                    result = new ArrayList<>();
+                    for (JsonElement obj : array) {
+                        try {
+                            T cse = gson.fromJson(obj, type);
+                            result.add(cse);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                gson = null;
+            }
+        }
+        return result;
     }
 }

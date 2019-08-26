@@ -16,12 +16,14 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/grayF5F5F5">
 
             <LinearLayout
+                android:id="@+id/llContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -144,62 +146,7 @@
                         android:src="@mipmap/icon_real_name" />
                 </RelativeLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvMatrix"
-                    android:background="@color/whiteCommon"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
-                </androidx.recyclerview.widget.RecyclerView>
-
-                <!-- 滚动轮播广告条 -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:minHeight="@dimen/dp_60"
-                    android:background="@color/whiteCommon"
-                    android:paddingTop="@dimen/dp_10"
-                    android:paddingBottom="@dimen/dp_10">
-
-                    <ImageView
-                        android:id="@+id/ivBulletin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:src="@mipmap/img_news_title" />
-
-
-                    <View
-                        android:layout_width="0.5dp"
-                        android:layout_height="15dp"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:background="#E5E5E5">
-
-                    </View>
-                    <!-- 滚动轮播广告条-->
-                    <ViewFlipper
-                        android:id="@+id/homeViewFlipper"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:autoStart="true"
-                        android:flipInterval="2000"
-                        android:inAnimation="@anim/anim_marquee_in"
-                        android:outAnimation="@anim/anim_marquee_out" />
-
-                </LinearLayout>
-
-                <!--列表2-->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvCommon2"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                </androidx.recyclerview.widget.RecyclerView>
 
 
 

@@ -2,7 +2,7 @@ package com.tourcool.core.retrofit.repository;
 
 import android.accounts.NetworkErrorException;
 
-import com.tourcool.core.base.BaseEntity;
+import com.tourcool.core.base.BaseResult;
 import com.frame.library.core.retrofit.FrameNullException;
 import com.frame.library.core.retrofit.RetryWhen;
 import com.frame.library.core.retrofit.FrameTransformer;
@@ -24,10 +24,10 @@ public abstract class BaseRepository {
      * @param <T>
      * @return
      */
-    protected <T> Observable<T> transform(Observable<BaseEntity<T>> observable) {
+    protected <T> Observable<T> transform(Observable<BaseResult<T>> observable) {
         return FrameTransformer.switchSchedulers(
                 observable.retryWhen(new RetryWhen())
-                        .flatMap((Function<BaseEntity<T>, ObservableSource<T>>) result -> {
+                        .flatMap((Function<BaseResult<T>, ObservableSource<T>>) result -> {
                             if (result == null) {
                                 return Observable.error(new NetworkErrorException());
                             } else {

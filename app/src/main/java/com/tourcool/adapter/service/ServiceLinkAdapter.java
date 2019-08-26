@@ -43,7 +43,7 @@ public class ServiceLinkAdapter implements ILinkagePrimaryAdapterConfig {
 
     @Override
     public int getRootViewId() {
-        return R.id.layoutGroup;
+        return R.id.layout_group;
     }
 
     @Override

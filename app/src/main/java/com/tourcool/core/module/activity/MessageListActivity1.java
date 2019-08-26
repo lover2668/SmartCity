@@ -76,7 +76,7 @@ public class MessageListActivity1 extends FrameRefreshLoadActivity<MessageBean> 
 
     @Override
     public void loadData(int page) {
-        test(3, page);
+//        test(3, page);
     }
 
     @Override
@@ -84,7 +84,7 @@ public class MessageListActivity1 extends FrameRefreshLoadActivity<MessageBean> 
         titleBar.setTitleMainText("普通MVC模式");
     }
 
-    private void test(int userId, int page) {
+    /*private void test(int userId, int page) {
         ApiRepository.getInstance().requestMsgList1(userId, page).compose(bindUntilEvent(ActivityEvent.DESTROY)).
                 subscribe(new BaseObserver<BaseResult<BasePageBean<MessageBean>>>(getIHttpRequestControl()) {
                     @Override
@@ -92,7 +92,7 @@ public class MessageListActivity1 extends FrameRefreshLoadActivity<MessageBean> 
                         UiManager.getInstance().getHttpRequestControl().httpRequestSuccess(getIHttpRequestControl(), entity.data == null ? new ArrayList<>() : entity.data.getElements(), null);
                     }
                 });
-    }
+    }*/
 
     @Override
     public View getMultiStatusContentView() {

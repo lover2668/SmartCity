@@ -1,9 +1,8 @@
 package com.tourcool.core.retrofit.repository;
 
 import com.frame.library.core.util.FrameUtil;
-import com.tourcool.core.base.BaseEntity;
+import com.tourcool.core.base.BaseResult;
 import com.tourcool.core.entity.BasePageBean;
-import com.tourcool.core.entity.BaseResult;
 import com.tourcool.core.entity.MessageBean;
 import com.tourcool.core.entity.UpdateEntity;
 import com.frame.library.core.retrofit.FrameRetrofit;
@@ -59,7 +58,7 @@ public class ApiRepository extends BaseRepository {
      */
     public Observable<BaseMovieEntity> getMovie(String url, int start, int count) {
         Map<String, Object> params = new HashMap<>(3);
-        params.put("apikey","0b2bdeda43b5688921839c8ecb20399b");
+        params.put("apikey", "0b2bdeda43b5688921839c8ecb20399b");
         params.put("start", start);
         params.put("count", count);
         return FrameTransformer.switchSchedulers(getApiService().getMovie(url, params).retryWhen(new RetryWhen()));
@@ -83,7 +82,7 @@ public class ApiRepository extends BaseRepository {
      * @param ownerId
      * @return
      */
-    public Observable<BaseResult<BasePageBean<MessageBean>>> requestMsgList1(int ownerId, int pageIndex) {
+    public Observable<com.tourcool.core.entity.BaseResult> requestMsgList1(int ownerId, int pageIndex) {
         Map<String, Object> params = new HashMap<>(3);
         params.put("ownerId", ownerId);
         params.put("pageIndex", pageIndex + "");
@@ -98,11 +97,19 @@ public class ApiRepository extends BaseRepository {
      * @param ownerId
      * @return
      */
-    public Observable<BaseEntity<BasePageBean<MessageBean>>> requestMsgList(int ownerId, int pageIndex) {
+    public Observable<BaseResult<BasePageBean<MessageBean>>> requestMsgList(int ownerId, int pageIndex) {
         Map<String, Object> params = new HashMap<>(3);
         params.put("ownerId", ownerId);
         params.put("pageIndex", pageIndex + "");
         params.put("pageSize", 10 + "");
         return FrameTransformer.switchSchedulers(getApiService().requestMsgList(params).retryWhen(new RetryWhen()));
     }
+
+    public Observable<BaseResult<Object>> requestHomeInfo(String city, boolean random) {
+        Map<String, Object> params = new HashMap<>(2);
+        params.put("city", city);
+        params.put("random", random);
+        return FrameTransformer.switchSchedulers(getApiService().requestHomeInfo(params).retryWhen(new RetryWhen()));
+    }
+
 }

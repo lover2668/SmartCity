@@ -26,16 +26,18 @@ public class RequestConfig {
     /**
      * 正式环境
      */
-    public static final String BASE_URL = "http://47.104.168.189:8080/iov/";
+//    public static final String BASE_URL = "http://47.104.168.189:8080/iov/";
+
+    public static final String BASE_URL = "http://47.94.142.231:8080/";
 
     public static final String BASE_URL_NO_LINE = "http://47.104.168.189:8080/iov";
 
     /**
      * 接口URL
      */
-    public static final String BASE_URL_API = BASE_URL + "api/";
+    public static final String BASE_URL_API = BASE_URL + "gunsApi/";
 
-    public static final int CODE_REQUEST_SUCCESS = 1;
+    public static final int CODE_REQUEST_SUCCESS = 200;
 
     public static final int CODE_REQUEST_TOKEN_INVALID = 2;
     public static final int CODE_REQUEST_SUCCESS_NOT_REGISTER = -100;

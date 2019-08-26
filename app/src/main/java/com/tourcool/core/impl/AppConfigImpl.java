@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.frame.library.core.control.LoadingDialog;
 import com.frame.library.core.retrofit.BaseObserver;
 import com.frame.library.core.widget.LoadingDialogWrapper;
+import com.frame.library.core.widget.dialog.FrameLoadingDialog;
 import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.core.module.WebAppActivity;
 import com.tourcool.core.retrofit.repository.BaseRepository;
@@ -44,6 +45,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
 import io.reactivex.Observable;
 import me.bakumon.statuslayoutmanager.library.StatusLayoutManager;
 
@@ -158,30 +160,8 @@ public class AppConfigImpl implements DefaultRefreshHeaderCreator, LoadMoreFoot,
     @Nullable
     @Override
     public LoadingDialogWrapper createLoadingDialog(@Nullable Activity activity) {
-        return new LoadingDialogWrapper(activity,
-                new UIProgressDialog.WeBoBuilder(activity)
-                        .setMessage("加载中")
-                        .create())
-                .setCanceledOnTouchOutside(false)
-                .setMessage("请求数据中,请稍候...");
-        //注意使用UIProgressDialog时最好在Builder里设置提示文字setMessage不然后续再设置文字信息也不会显示
-//        return new LoadingDialogWrapper(activity, new UIProgressDialog.WeChatBuilder(activity)
-//                .setBackgroundColor(Color.parseColor("#FCFCFC"))
-////                .setMinHeight(SizeUtil.dp2px(140))
-////                .setMinWidth(SizeUtil.dp2px(270))
-//                .setTextSizeUnit(TypedValue.COMPLEX_UNIT_PX)
-//                .setMessage(R.string.fast_loading)
-//                .setLoadingSize(SizeUtil.dp2px(30))
-//                .setTextSize(SizeUtil.dp2px(16f))
-//                .setTextPadding(SizeUtil.dp2px(10))
-//                .setTextColorResource(R.color.colorTextGray)
-//                .setIndeterminateDrawable(FrameUtil.getTintDrawable(ContextCompat.getDrawable(mContext, R.drawable.dialog_loading), ContextCompat.getColor(mContext, R.color.colorTitleText)))
-//                .setBackgroundRadius(SizeUtil.dp2px(6f))
-//                .create());
-//        Dialog dialog = new FrameLoadingDialog(activity);
-//        return new LoadingDialogWrapper(activity, dialog)
-//                .setCancelable(true)
-//                .setCanceledOnTouchOutside(true);
+        return new LoadingDialogWrapper(activity, new FrameLoadingDialog(activity, "请求数据中,请稍候..."));
+
     }
 
     /**

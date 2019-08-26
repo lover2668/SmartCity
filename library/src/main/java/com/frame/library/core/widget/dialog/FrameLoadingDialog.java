@@ -30,7 +30,7 @@ public class FrameLoadingDialog extends Dialog {
         super(context, R.style.frame_loading_dialog);
         this.context = context;
         this.loadingText = loadingText;
-        setCancelable(true);
+        setCancelable(false);
         setCanceledOnTouchOutside(false);
         Window window = getWindow();
         if (window != null) {

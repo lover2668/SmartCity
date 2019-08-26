@@ -30,12 +30,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.widget.linkage.adapter.LinkagePrimaryAdapter;
 import com.frame.library.core.widget.linkage.adapter.LinkageSecondaryAdapter;
 import com.frame.library.core.widget.linkage.adapter.viewholder.LinkagePrimaryViewHolder;
@@ -121,6 +123,7 @@ public class LinkageRecyclerView<T extends BaseGroupedItem.ItemInfo> extends Rel
             mSecondaryLayoutManager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false);
         }
         mRvSecondary.setLayoutManager(mSecondaryLayoutManager);
+        mRvSecondary.setBackgroundColor(ContextCompat.getColor(mContext, R.color.whiteCommon));
     }
 
     private void initRecyclerView(ILinkagePrimaryAdapterConfig primaryAdapterConfig,
@@ -157,7 +160,7 @@ public class LinkageRecyclerView<T extends BaseGroupedItem.ItemInfo> extends Rel
         if (mTvHeader == null && mSecondaryAdapter.getConfig() != null) {
             ILinkageSecondaryAdapterConfig config = mSecondaryAdapter.getConfig();
             int layout = config.getHeaderLayoutId();
-            if(layout <= 0){
+            if (layout <= 0) {
                 return;
             }
             View view = LayoutInflater.from(mContext).inflate(layout, null);

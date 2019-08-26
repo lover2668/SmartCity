@@ -6,10 +6,10 @@ package com.tourcool.core.base;
  * @Function:
  * @Description:
  */
-public class BaseEntity<T> {
+public class BaseResult<T> {
 
     public boolean success;
     public int code;
-    public String msg;
+    public String message;
     public T data;
 }

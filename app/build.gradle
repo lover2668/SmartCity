@@ -82,7 +82,6 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':library')
-    implementation 'com.alibaba:fastjson:1.2.54'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-1'
     //以下库里使用compileOnly只是编译,使用时需根据项目选择相应版本
     //万能适配器

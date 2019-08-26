@@ -58,7 +58,7 @@ public class FrameUtil {
         try {
             //兼容android P，直接调用@hide注解的方法来获取application对象
             Application app = ActivityThread.currentApplication();
-            LoggerManager.e("getApplication0:"+app);
+            LoggerManager.e("getApplication0:" + app);
             if (app != null) {
                 return app;
             }
@@ -67,7 +67,7 @@ public class FrameUtil {
         try {
             //兼容android P，直接调用@hide注解的方法来获取application对象
             Application app = AppGlobals.getInitialApplication();
-            LoggerManager.e("getApplication1:"+app);
+            LoggerManager.e("getApplication1:" + app);
             if (app != null) {
                 return app;
             }
@@ -378,8 +378,12 @@ public class FrameUtil {
         }
     }
 
-
-
+    public static Drawable getDrawable(int drawableId) {
+        if (getApplication() != null) {
+            return ContextCompat.getDrawable(getApplication(), drawableId);
+        }
+        return null;
+    }
 
 
 }

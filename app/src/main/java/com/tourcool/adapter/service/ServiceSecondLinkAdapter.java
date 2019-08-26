@@ -7,14 +7,13 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.frame.library.core.manager.GlideManager;
 import com.frame.library.core.widget.linkage.adapter.viewholder.LinkageSecondaryFooterViewHolder;
 import com.frame.library.core.widget.linkage.adapter.viewholder.LinkageSecondaryHeaderViewHolder;
 import com.frame.library.core.widget.linkage.adapter.viewholder.LinkageSecondaryViewHolder;
 import com.frame.library.core.widget.linkage.bean.BaseGroupedItem;
 import com.frame.library.core.widget.linkage.contract.ILinkageSecondaryAdapterConfig;
-import com.tourcool.adapter.MatrixAdapter;
+import com.tourcool.adapter.MatrixOldAdapter;
 import com.tourcool.bean.ServiceGroupItem;
 import com.tourcool.library.frame.R;
 
@@ -68,7 +67,7 @@ public class ServiceSecondLinkAdapter implements ILinkageSecondaryAdapterConfig<
         ImageView imageView = holder.getView(R.id.ivGroupIcon);
         GlideManager.loadImg(R.mipmap.icon_service_group, imageView);
         RecyclerView childRecyclerView = holder.getView(R.id.rvItemGrid);
-        MatrixAdapter adapter = new MatrixAdapter();
+        MatrixOldAdapter adapter = new MatrixOldAdapter();
         //二级布局为网格布局
         childRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
         adapter.bindToRecyclerView(childRecyclerView);

@@ -3,6 +3,8 @@ package com.frame.library.core.retrofit;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.manager.LoggerManager;
 import com.frame.library.core.util.SsLUtil;
 
@@ -438,7 +440,7 @@ public class FrameRetrofit {
                         boolean isJson = message.startsWith("[") || message.startsWith("{");
                         isJson = isJson && mLogJsonEnable;
                         if (isJson) {
-                            LoggerManager.json(finalTag, message);
+                            TourCooLogUtil.json(finalTag, message);
                             return;
                         }
                         Log.d(finalTag, message);
