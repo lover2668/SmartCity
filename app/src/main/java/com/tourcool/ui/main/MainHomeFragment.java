@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
-import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,14 +31,11 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tourcool.adapter.MatrixAdapter;
-import com.tourcool.adapter.MatrixOldAdapter;
 import com.tourcool.adapter.TwoLevelChildAdapter;
-import com.tourcool.bean.MatrixBean;
-import com.tourcool.bean.TwoLevelBean;
-import com.tourcool.bean.TwoLevelChildBean;
 import com.tourcool.bean.home.HomeBean;
 import com.tourcool.bean.home.HomeChildBean;
 import com.tourcool.bean.home.HomeChildItem;
+import com.tourcool.bean.home.Weather;
 import com.tourcool.core.base.BaseResult;
 import com.tourcool.core.constant.ItemConstant;
 import com.tourcool.core.retrofit.repository.ApiRepository;
@@ -76,7 +72,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
 
     @Override
     public int getContentLayout() {
-        return R.layout.fragment_home_yi_xing;
+        return R.layout.fragment_home_yi_xing_new;
     }
 
     @Override
@@ -87,6 +83,8 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         initSearchView();
         ClassicsHeader header = new ClassicsHeader(mContext).setAccentColor(TourCooUtil.getColor(R.color.white));
         header.setBackgroundColor(TourCooUtil.getColor(R.color.colorPrimary));
+        mRefreshLayout.setEnableHeaderTranslationContent(true)
+                .setEnableOverScrollDrag(true);
         mRefreshLayout.setRefreshHeader(header);
         getHomeInfo();
     }
@@ -107,7 +105,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
 
     private void initSearchView() {
         RelativeLayout rlSearch = mContentView.findViewById(R.id.rlSearch);
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) rlSearch.getLayoutParams();
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) rlSearch.getLayoutParams();
         params.setMargins(0, StatusBarUtil.getStatusBarHeight(), 0, 0);
         rlSearch.setLayoutParams(params);
     }
@@ -134,7 +132,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
     }
 
     private void getHomeInfo() {
-        ApiRepository.getInstance().requestHomeInfo("宜兴", true).compose(bindUntilEvent(FragmentEvent.DESTROY)).
+        ApiRepository.getInstance().requestHomeInfo("宜兴", false).compose(bindUntilEvent(FragmentEvent.DESTROY)).
                 subscribe(new BaseLoadingObserver<BaseResult>() {
                     @Override
                     public void onRequestNext(BaseResult entity) {
@@ -183,29 +181,28 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         }
         switch (homeBean.getType()) {
             case ITEM_TYPE_WEATHER:
-                TourCooLogUtil.d("");
+                TourCooLogUtil.d("加载天气布局");
+                //天气布局
+                loadWeatherLayout(homeBean);
                 break;
             case ITEM_TYPE_HORIZONTAL_BANNER:
                 TourCooLogUtil.d("ITEM_TYPE_HORIZONTAL_BANNER");
                 break;
             case ITEM_TYPE_VERTICAL_BANNER:
-                TourCooLogUtil.i("执行了");
                 loadHomeViewFlipperData(homeBean);
                 break;
             case ITEM_TYPE_CONTAINS_SUBLISTS:
                 //二级列表
-                TourCooLogUtil.i("执行了");
                 loadSecondList(homeBean);
                 break;
             case ITEM_TYPE_IMAGE_TEXT_LIST:
                 //矩阵样式
-                TourCooLogUtil.i("执行了");
                 loadMatrixList(homeBean);
                 break;
             case ITEM_TYPE_IMAGE:
-                TourCooLogUtil.i("执行了");
                 loadImageView(homeBean);
                 break;
+
             default:
                 break;
         }
@@ -223,12 +220,13 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         }
         View viewFlipperRoot = LayoutInflater.from(mContext).inflate(R.layout.view_flipper_layout, null);
         ImageView ivBulletin = viewFlipperRoot.findViewById(R.id.ivBulletin);
-        GlideManager.loadImg(homeBean.getData().getIcon(), ivBulletin, R.mipmap.img_placeholder_car);
+        HomeChildBean homeChildBean = (HomeChildBean) homeBean.getData();
+        GlideManager.loadImg(homeChildBean.getIcon(), ivBulletin, R.mipmap.img_placeholder_car);
         View contentLayout;
 //        ImageView ivNewsIcon;
         TextView tvNewsContent;
         ViewFlipper homeViewFlipper = viewFlipperRoot.findViewById(R.id.viewFlipper);
-        for (HomeChildItem newsBean : homeBean.getData().getChildList()) {
+        for (HomeChildItem newsBean : homeChildBean.getChildList()) {
             if (newsBean == null || TextUtils.isEmpty(newsBean.getTitle())) {
                 continue;
             }
@@ -265,19 +263,21 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
      * @param homeBean
      */
     private void loadSecondList(HomeBean homeBean) {
-        boolean illegal = homeBean == null || !ItemConstant.ITEM_TYPE_CONTAINS_SUBLISTS.equalsIgnoreCase(homeBean.getType()) || homeBean.getData() == null || homeBean.getData().getChildList() == null || homeBean.getData().getChildList().isEmpty();
+        boolean illegal = homeBean == null || !ItemConstant.ITEM_TYPE_CONTAINS_SUBLISTS.equalsIgnoreCase(homeBean.getType()) || homeBean.getData() == null ||((HomeChildBean)homeBean.getData()).getChildList() == null || ((HomeChildBean)homeBean.getData()).getChildList().isEmpty();
         if (illegal) {
             return;
         }
+
         View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_two_level_layout, null);
         TextView tvGroupName = rootView.findViewById(R.id.tvGroupName);
-        tvGroupName.setText(homeBean.getData().getTitle());
+        HomeChildBean homeChildBean = (HomeChildBean) homeBean.getData();
+        tvGroupName.setText(homeChildBean.getTitle());
         RecyclerView rvCommonChild = rootView.findViewById(R.id.rvCommonChild);
         TwoLevelChildAdapter adapter = new TwoLevelChildAdapter();
         //二级布局为网格布局
         rvCommonChild.setLayoutManager(new GridLayoutManager(mContext, 2));
         adapter.bindToRecyclerView(rvCommonChild);
-        adapter.setNewData(homeBean.getData().getChildList());
+        adapter.setNewData(homeChildBean.getChildList());
         llContainer.addView(rootView);
         viewList.add(rootView);
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) rootView.getLayoutParams();
@@ -325,7 +325,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
      * @param homeBean
      */
     private void loadMatrixList(HomeBean homeBean) {
-        if (homeBean == null || !ITEM_TYPE_IMAGE_TEXT_LIST.equalsIgnoreCase(homeBean.getType()) || homeBean.getData().getChildList() == null) {
+        if (homeBean == null || !ITEM_TYPE_IMAGE_TEXT_LIST.equalsIgnoreCase(homeBean.getType()) || ((HomeChildBean)homeBean.getData()).getChildList() == null) {
             return;
         }
         RecyclerView recyclerView = (RecyclerView) LayoutInflater.from(mContext).inflate(R.layout.home_recycler_view, null);
@@ -337,7 +337,8 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         //二级布局为网格布局
         recyclerView.setLayoutManager(new GridLayoutManager(mContext, 5));
         adapter.bindToRecyclerView(recyclerView);
-        adapter.setNewData(homeBean.getData().getChildList());
+        HomeChildBean homeChildBean = (HomeChildBean) homeBean.getData();
+        adapter.setNewData(homeChildBean.getChildList());
         viewList.add(recyclerView);
         llContainer.addView(recyclerView);
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) recyclerView.getLayoutParams();
@@ -350,7 +351,8 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
             return;
         }
         ImageView imageView = (ImageView) LayoutInflater.from(mContext).inflate(R.layout.image_view_layout, null);
-        GlideManager.loadRoundImg(homeBean.getData().getIcon(), imageView, 5, R.mipmap.img_placeholder_car, true);
+        HomeChildBean homeChildBean = (HomeChildBean) homeBean.getData();
+        GlideManager.loadRoundImg(homeChildBean.getIcon(), imageView, 5, R.mipmap.img_placeholder_car, true);
         llContainer.addView(imageView);
         viewList.add(imageView);
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
@@ -363,5 +365,30 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
             llContainer.removeView(view);
         }
         viewList.clear();
+    }
+
+
+    private void loadWeatherLayout(HomeBean homeBean) {
+        if (homeBean == null || !ITEM_TYPE_WEATHER.equalsIgnoreCase(homeBean.getType()) || homeBean.getWeather() == null) {
+            return;
+        }
+        Weather weather = homeBean.getWeather();
+        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_weather_layout, null);
+        TextView tvTemperature = rootView.findViewById(R.id.tvTemperature);
+        TextView tvWeatherDesc = rootView.findViewById(R.id.tvWeatherDesc);
+        TextView tvAirQuality = rootView.findViewById(R.id.tvAirQuality);
+        TextView tvDate = rootView.findViewById(R.id.tvDate);
+        tvWeatherDesc.setText(weather.getWea());
+        tvAirQuality.setText(weather.getAir_level());
+        tvTemperature.setText(weather.getTem());
+        tvDate.setText("[" + weather.getDate() + "]");
+        llContainer.addView(rootView);
+        viewList.add(rootView);
+    }
+
+    /**
+     * 监听滚动
+     */
+    private void listenScoll(){
     }
 }

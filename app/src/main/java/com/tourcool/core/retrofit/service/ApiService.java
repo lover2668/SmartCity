@@ -75,7 +75,7 @@ public interface ApiService {
      * @param map
      * @return
      */
-    @POST("test")
+    @GET("test")
     Observable<BaseResult<Object>> requestHomeInfo(@QueryMap Map<String, Object> map);
 
 }

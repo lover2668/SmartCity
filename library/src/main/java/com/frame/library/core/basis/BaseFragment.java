@@ -12,9 +12,11 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.alibaba.fastjson.JSON;
+import com.blankj.utilcode.util.LogUtils;
 import com.frame.library.core.UiManager;
 import com.frame.library.core.control.IBaseView;
 import com.frame.library.core.control.IFrameRefreshLoadView;
+import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.retrofit.BaseObserver;
 import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.manager.LoggerManager;
@@ -295,6 +297,7 @@ public abstract class BaseFragment extends RxFragment implements IBaseView {
                             T cse = gson.fromJson(obj, type);
                             result.add(cse);
                         } catch (Exception e) {
+                            TourCooLogUtil.e("parseListJavaBean--->"+e.toString());
                             e.printStackTrace();
                         }
                     }

@@ -28,14 +28,14 @@ public class RequestConfig {
      */
 //    public static final String BASE_URL = "http://47.104.168.189:8080/iov/";
 
-    public static final String BASE_URL = "http://47.94.142.231:8080/";
-
+//    public static final String BASE_URL = "http://47.94.142.231:8080/";
+    public static final String BASE_URL = "http://192.168.1.201:8080/";
     public static final String BASE_URL_NO_LINE = "http://47.104.168.189:8080/iov";
 
     /**
-     * 接口URL
+     * 接口URL + ""
      */
-    public static final String BASE_URL_API = BASE_URL + "gunsApi/";
+    public static final String BASE_URL_API = BASE_URL+"gunsApi/" ;
 
     public static final int CODE_REQUEST_SUCCESS = 200;
 

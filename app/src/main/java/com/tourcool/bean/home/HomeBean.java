@@ -24,7 +24,7 @@ public class HomeBean {
      */
     private HomeChildBean data;
     private String type;
-    private String weather;
+    private Weather weather;
 
 
     public HomeChildBean getData() {
@@ -35,6 +35,14 @@ public class HomeBean {
         this.data = data;
     }
 
+    public Weather getWeather() {
+        return weather;
+    }
+
+    public void setWeather(Weather weather) {
+        this.weather = weather;
+    }
+
     public String getType() {
         return type;
     }
@@ -43,11 +51,5 @@ public class HomeBean {
         this.type = type;
     }
 
-    public String getWeather() {
-        return weather;
-    }
 
-    public void setWeather(String weather) {
-        this.weather = weather;
-    }
 }
