@@ -151,7 +151,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
                     public void onRequestError(Throwable e) {
                         super.onRequestError(e);
                         ToastUtil.showFailed("请求失败");
-                        mRefreshLayout.finishLoadMore();
+                        mRefreshLayout.finishRefresh(false);
                     }
                 });
     }
@@ -167,8 +167,6 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
             if (homeBean == null) {
                 continue;
             }
-            TourCooLogUtil.d("UI类型:" + homeBean.getType());
-            LogUtils.i("UI类型:" + homeBean.getType());
             //  根据home实体类型加载数据
             loadUiByHomeBean(homeBean);
         }
@@ -267,7 +265,6 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         if (illegal) {
             return;
         }
-
         View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_two_level_layout, null);
         TextView tvGroupName = rootView.findViewById(R.id.tvGroupName);
         HomeChildBean homeChildBean = (HomeChildBean) homeBean.getData();
@@ -290,7 +287,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
             @Override
             public void run() {
                 //调试发现 该方法解析javaBean比较耗时 导致主线程短暂卡顿 因此放到子线程解析
-                List<HomeBean> homeList = parseListJavaBean(data, HomeBean.class);
+                List<HomeBean> homeList = parseJsonToBeanList(data, HomeBean.class);
                 if (homeList != null) {
                     runMainThread(new Runnable() {
                         @Override

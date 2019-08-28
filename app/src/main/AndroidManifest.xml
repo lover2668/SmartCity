@@ -122,6 +122,7 @@
             android:label="@string/third_part"/>
         <activity android:name="com.tourcool.core.module.activity.MessageListActivity1" />
         <activity android:name="com.tourcool.ui.mvp.MessageListActivity" />
+        <activity android:name="com.tourcool.ui.main.MyAppManageActivity" />
     </application>
 
 </manifest>

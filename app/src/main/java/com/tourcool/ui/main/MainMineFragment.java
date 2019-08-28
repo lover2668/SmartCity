@@ -2,6 +2,7 @@ package com.tourcool.ui.main;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.frame.library.core.module.fragment.BaseTitleFragment;
+import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -61,6 +63,12 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
         titleBar.setRightTextDrawable(TourCooUtil.getDrawable(R.mipmap.ic_setting));
         mainText.setTextColor(TourCooUtil.getColor(R.color.white));
         mainText.setCompoundDrawablesWithIntrinsicBounds(null, null, TourCooUtil.getDrawable(R.mipmap.icon_title_name), null);
+        titleBar.setOnRightTextClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FrameUtil.startActivity(mContext,MyAppManageActivity.class);
+            }
+        });
     }
 
 

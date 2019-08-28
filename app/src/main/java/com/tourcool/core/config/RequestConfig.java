@@ -28,8 +28,8 @@ public class RequestConfig {
      */
 //    public static final String BASE_URL = "http://47.104.168.189:8080/iov/";
 
-//    public static final String BASE_URL = "http://47.94.142.231:8080/";
-    public static final String BASE_URL = "http://192.168.1.201:8080/";
+    public static final String BASE_URL = "http://47.94.142.231:8080/";
+//    public static final String BASE_URL = "http://192.168.1.201:8080/";
     public static final String BASE_URL_NO_LINE = "http://47.104.168.189:8080/iov";
 
     /**

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/whiteCommon"
+    android:padding="@dimen/dp_5"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tvGroupName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10"
+        android:text="我的应用"
+        android:textColor="@color/black333333"
+        android:textSize="@dimen/sp_14"
+        android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvModuleGrid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>
