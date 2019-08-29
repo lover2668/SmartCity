@@ -114,5 +114,6 @@ dependencies {
     //蒲公英
     implementation 'com.pgyersdk:sdk:3.0.5'
     implementation files('libs/commons-lang-2.6.jar')
+    implementation 'com.github.hackware1993:MagicIndicator:1.6.0'
 
 }

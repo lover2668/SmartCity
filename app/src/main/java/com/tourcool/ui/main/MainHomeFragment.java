@@ -277,8 +277,9 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         adapter.setNewData(homeChildBean.getChildList());
         llContainer.addView(rootView);
         viewList.add(rootView);
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) rootView.getLayoutParams();
-        layoutParams.setMargins(0, SizeUtil.dp2px(10f), 0, 0);
+        rootView.setPadding(0, SizeUtil.dp2px(10f), 0, 0);
+//        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) rootView.getLayoutParams();
+//        layoutParams.setMargins(0, SizeUtil.dp2px(10f), 0, 0);
     }
 
 
@@ -338,8 +339,9 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         adapter.setNewData(homeChildBean.getChildList());
         viewList.add(recyclerView);
         llContainer.addView(recyclerView);
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) recyclerView.getLayoutParams();
-        layoutParams.setMargins(0, SizeUtil.dp2px(10f), 0, 0);
+        recyclerView.setPadding(0, SizeUtil.dp2px(10f), 0, 0);
+      /*  LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) recyclerView.getLayoutParams();
+        layoutParams.setMargins(0, SizeUtil.dp2px(10f), 0, 0);*/
     }
 
 
@@ -355,6 +357,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
         int marginValue = SizeUtil.dp2px(10f);
         layoutParams.setMargins(marginValue, marginValue, marginValue, marginValue);
+//        imageView.setPadding(marginValue, marginValue, marginValue, marginValue);
     }
 
     private void removeView() {

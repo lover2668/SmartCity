@@ -15,6 +15,15 @@ public class HomeChildBean {
     private String icon;
     private String title;
     private List<HomeChildItem> childList;
+    private boolean parentItem = true;
+
+    public boolean isParentItem() {
+        return parentItem;
+    }
+
+    public void setParentItem(boolean parentItem) {
+        this.parentItem = parentItem;
+    }
 
     public String getClickLink() {
         return clickLink;

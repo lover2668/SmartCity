@@ -1,5 +1,7 @@
 package com.tourcool.bean.home;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -14,7 +16,23 @@ import java.io.Serializable;
  * @date 2019年08月26日14:19
  * @Email: 971613168@qq.com
  */
-public class HomeChildItem implements Serializable, Cloneable {
+public class HomeChildItem implements Serializable, Cloneable, MultiItemEntity {
+    private boolean select;
+
+    public boolean isSelect() {
+        return select;
+    }
+
+    public void setSelect(boolean select) {
+        this.select = select;
+    }
+
+    private int itemType=0;
+
+    public void setItemType(int itemType) {
+        this.itemType = itemType;
+    }
+
     /**
      * 还未添加
      */
@@ -150,4 +168,11 @@ public class HomeChildItem implements Serializable, Cloneable {
     protected HomeChildItem clone() throws CloneNotSupportedException {
         return (HomeChildItem) super.clone();
     }
+
+    @Override
+    public int getItemType() {
+        return itemType;
+    }
+
+
 }
