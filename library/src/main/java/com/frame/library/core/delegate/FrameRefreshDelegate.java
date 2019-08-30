@@ -74,7 +74,7 @@ public class FrameRefreshDelegate {
      * @return
      */
     private void getRefreshLayout(View rootView) {
-        mRefreshLayout = rootView.findViewById(R.id.smartLayout_rootFastLib);
+        mRefreshLayout = rootView.findViewById(R.id.smartLayoutRootLib);
         if (mRefreshLayout == null) {
             mRefreshLayout = FindViewUtil.getTargetView(rootView, SmartRefreshLayout.class);
         }

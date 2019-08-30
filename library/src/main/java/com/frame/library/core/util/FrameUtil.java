@@ -385,5 +385,10 @@ public class FrameUtil {
         return null;
     }
 
-
+    public static int getColor(int colorId) {
+        if (getApplication() != null) {
+            return ContextCompat.getColor(getApplication(), colorId);
+        }
+        return -1;
+    }
 }

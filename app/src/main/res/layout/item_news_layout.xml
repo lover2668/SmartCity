@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:padding="@dimen/dp_10"
+    android:layout_marginBottom="@dimen/dp_5"
+    android:background="@color/whiteCommon"
+    android:layout_height="wrap_content">
+<LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+<RelativeLayout
+    android:layout_weight="1"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvNewsDesc"
+        android:text="持续绿色发展底色,持续绿色发展底色持续绿色发展底色持续绿色发展底色"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/black171717"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_60"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="置顶"
+            android:background="@drawable/bg_radius_5_red_hollow"
+            android:textColor="@color/redF35757"
+            android:paddingStart="@dimen/dp_8"
+            android:textSize="@dimen/sp_10"
+            android:paddingEnd="@dimen/dp_8"
+            android:layout_width="wrap_content"
+            android:paddingTop="@dimen/dp_2"
+            android:paddingBottom="@dimen/dp_2"
+            android:layout_height="wrap_content"/>
+      <!--  <ImageView
+            android:id="@+id/ivTopTag"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/ic_mine_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>-->
+        <ImageView
+            android:id="@+id/ivPublisherAvatar"
+            android:src="@mipmap/img_news_title"
+            android:layout_width="wrap_content"
+            android:scaleType="centerInside"
+            android:layout_marginStart="-10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_height="@dimen/dp_10"/>
+
+        <TextView
+            android:text="宜兴发布"
+            android:textSize="@dimen/sp_12"
+            android:id="@+id/tvPublishNickName"
+            android:layout_marginStart="@dimen/dp_5"
+            android:layout_marginEnd="@dimen/dp_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:text="今天"
+            android:textSize="@dimen/sp_12"
+            android:id="@+id/tvPublishDate"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</RelativeLayout>
+
+<ImageView
+   android:id="@+id/ivNewsIcon"
+    android:src="@mipmap/error_image"
+    android:layout_marginStart="@dimen/dp_5"
+    android:layout_width="@dimen/dp_120"
+    android:layout_gravity="center_vertical"
+    android:layout_height="@dimen/dp_70"/>
+</LinearLayout>
+</LinearLayout>

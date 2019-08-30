@@ -3,8 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/llMatrix"
-    android:layout_marginTop="@dimen/dp_10"
-    android:layout_marginBottom="@dimen/dp_10"
+    android:paddingTop="@dimen/dp_10"
+    android:background="@color/whiteCommon"
+    android:paddingBottom="@dimen/dp_10"
     android:orientation="vertical">
 
     <ImageView

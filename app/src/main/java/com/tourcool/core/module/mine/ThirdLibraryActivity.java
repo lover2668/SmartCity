@@ -41,7 +41,7 @@ import butterknife.BindView;
 public class ThirdLibraryActivity extends FrameRefreshLoadActivity<WidgetEntity> {
 
     @BindView(R.id.rv_contentFastLib) RecyclerView mRvContent;
-    @BindView(R.id.smartLayout_rootFastLib) SmartRefreshLayout mSmartLayout;
+    @BindView(R.id.smartLayoutRootLib) SmartRefreshLayout mSmartLayout;
     private WidgetAdapter mAdapter;
     private int animationIndex = GlobalConstant.GLOBAL_ADAPTER_ANIMATION_VALUE;
 

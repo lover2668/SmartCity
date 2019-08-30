@@ -3,6 +3,7 @@ package com.tourcool.adapter;
 
 import android.os.Handler;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -172,10 +173,10 @@ public class ModuleListAdapter extends BaseQuickAdapter<HomeChildBean, BaseViewH
                 }
             }
         }
-        adapter.getData().remove(index);
-        adapter.notifyItemRemoved(index);
         //等子列表的动画执行完毕后再刷新
         mHandler.postDelayed(this::notifyDataSetChanged, 500);
+        adapter.getData().remove(index);
+        adapter.notifyItemRemoved(index);
     }
 
     /**
@@ -202,5 +203,8 @@ public class ModuleListAdapter extends BaseQuickAdapter<HomeChildBean, BaseViewH
         }
     }
 
-
+    @Override
+    protected View getItemView(int layoutResId, ViewGroup parent) {
+        return super.getItemView(layoutResId, parent);
+    }
 }

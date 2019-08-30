@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aries.ui.util.StatusBarUtil;
-import com.blankj.utilcode.util.LogUtils;
 import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.manager.GlideManager;
 import com.frame.library.core.module.fragment.BaseTitleFragment;
@@ -110,7 +109,6 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         rlSearch.setLayoutParams(params);
     }
 
-
     private void setStatusBar(boolean isDarkFont) {
         ImmersionBar.with(MainHomeFragment.this)
                 .statusBarDarkFont(isDarkFont, 0.2f)
@@ -163,17 +161,26 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         }
         //先移除view 防止重复加载
         removeView();
-        for (HomeBean homeBean : homeList) {
+        boolean needTranslate;
+        HomeBean homeBean;
+        for (int i = 0; i < homeList.size(); i++) {
+            homeBean = homeList.get(i);
             if (homeBean == null) {
                 continue;
             }
+            if (i <= 3) {
+                needTranslate = true;
+            } else {
+                needTranslate = false;
+            }
             //  根据home实体类型加载数据
-            loadUiByHomeBean(homeBean);
+            loadUiByHomeBean(homeBean, needTranslate);
         }
+
     }
 
 
-    private void loadUiByHomeBean(HomeBean homeBean) {
+    private void loadUiByHomeBean(HomeBean homeBean, boolean translate) {
         if (homeBean == null) {
             return;
         }
@@ -181,26 +188,25 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
             case ITEM_TYPE_WEATHER:
                 TourCooLogUtil.d("加载天气布局");
                 //天气布局
-                loadWeatherLayout(homeBean);
+                loadWeatherLayout(homeBean, translate);
                 break;
             case ITEM_TYPE_HORIZONTAL_BANNER:
                 TourCooLogUtil.d("ITEM_TYPE_HORIZONTAL_BANNER");
                 break;
             case ITEM_TYPE_VERTICAL_BANNER:
-                loadHomeViewFlipperData(homeBean);
+                loadHomeViewFlipperData(homeBean, translate);
                 break;
             case ITEM_TYPE_CONTAINS_SUBLISTS:
                 //二级列表
-                loadSecondList(homeBean);
+                loadSecondList(homeBean, translate);
                 break;
             case ITEM_TYPE_IMAGE_TEXT_LIST:
                 //矩阵样式
-                loadMatrixList(homeBean);
+                loadMatrixList(homeBean, translate);
                 break;
             case ITEM_TYPE_IMAGE:
-                loadImageView(homeBean);
+                loadImageView(homeBean, translate);
                 break;
-
             default:
                 break;
         }
@@ -212,7 +218,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
      *
      * @param homeBean
      */
-    private void loadHomeViewFlipperData(HomeBean homeBean) {
+    private void loadHomeViewFlipperData(HomeBean homeBean, boolean translate) {
         if (homeBean == null || !ItemConstant.ITEM_TYPE_VERTICAL_BANNER.equalsIgnoreCase(homeBean.getType()) || homeBean.getData() == null) {
             return;
         }
@@ -252,7 +258,13 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
             //todo
         }
         viewList.add(viewFlipperRoot);
+        View lineView = createLineView();
+        viewList.add(lineView);
         llContainer.addView(viewFlipperRoot);
+        llContainer.addView(lineView);
+        if (translate) {
+            llContainer.setBackgroundColor(TourCooUtil.getColor(R.color.transparent));
+        }
     }
 
     /**
@@ -260,8 +272,8 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
      *
      * @param homeBean
      */
-    private void loadSecondList(HomeBean homeBean) {
-        boolean illegal = homeBean == null || !ItemConstant.ITEM_TYPE_CONTAINS_SUBLISTS.equalsIgnoreCase(homeBean.getType()) || homeBean.getData() == null ||((HomeChildBean)homeBean.getData()).getChildList() == null || ((HomeChildBean)homeBean.getData()).getChildList().isEmpty();
+    private void loadSecondList(HomeBean homeBean, boolean translate) {
+        boolean illegal = homeBean == null || !ItemConstant.ITEM_TYPE_CONTAINS_SUBLISTS.equalsIgnoreCase(homeBean.getType()) || homeBean.getData() == null || ((HomeChildBean) homeBean.getData()).getChildList() == null || ((HomeChildBean) homeBean.getData()).getChildList().isEmpty();
         if (illegal) {
             return;
         }
@@ -277,9 +289,13 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         adapter.setNewData(homeChildBean.getChildList());
         llContainer.addView(rootView);
         viewList.add(rootView);
+        View lineView = createLineView();
+        llContainer.addView(lineView);
+        viewList.add(lineView);
         rootView.setPadding(0, SizeUtil.dp2px(10f), 0, 0);
-//        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) rootView.getLayoutParams();
-//        layoutParams.setMargins(0, SizeUtil.dp2px(10f), 0, 0);
+        if (translate) {
+            llContainer.setBackgroundColor(TourCooUtil.getColor(R.color.transparent));
+        }
     }
 
 
@@ -322,8 +338,8 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
      *
      * @param homeBean
      */
-    private void loadMatrixList(HomeBean homeBean) {
-        if (homeBean == null || !ITEM_TYPE_IMAGE_TEXT_LIST.equalsIgnoreCase(homeBean.getType()) || ((HomeChildBean)homeBean.getData()).getChildList() == null) {
+    private void loadMatrixList(HomeBean homeBean, boolean translate) {
+        if (homeBean == null || !ITEM_TYPE_IMAGE_TEXT_LIST.equalsIgnoreCase(homeBean.getType()) || ((HomeChildBean) homeBean.getData()).getChildList() == null) {
             return;
         }
         RecyclerView recyclerView = (RecyclerView) LayoutInflater.from(mContext).inflate(R.layout.home_recycler_view, null);
@@ -335,29 +351,37 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         //二级布局为网格布局
         recyclerView.setLayoutManager(new GridLayoutManager(mContext, 5));
         adapter.bindToRecyclerView(recyclerView);
-        HomeChildBean homeChildBean = (HomeChildBean) homeBean.getData();
+        HomeChildBean homeChildBean = homeBean.getData();
         adapter.setNewData(homeChildBean.getChildList());
         viewList.add(recyclerView);
         llContainer.addView(recyclerView);
+        View lineView = createLineView();
+        llContainer.addView(lineView);
+        viewList.add(lineView);
         recyclerView.setPadding(0, SizeUtil.dp2px(10f), 0, 0);
-      /*  LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) recyclerView.getLayoutParams();
-        layoutParams.setMargins(0, SizeUtil.dp2px(10f), 0, 0);*/
+        if (translate) {
+            recyclerView.setBackgroundColor(TourCooUtil.getColor(R.color.transparent));
+        }
     }
 
 
-    private void loadImageView(HomeBean homeBean) {
+    private void loadImageView(HomeBean homeBean, boolean translate) {
         if (homeBean == null || homeBean.getData() == null || !ITEM_TYPE_IMAGE.equalsIgnoreCase(homeBean.getType())) {
             return;
         }
         ImageView imageView = (ImageView) LayoutInflater.from(mContext).inflate(R.layout.image_view_layout, null);
-        HomeChildBean homeChildBean = (HomeChildBean) homeBean.getData();
+        HomeChildBean homeChildBean = homeBean.getData();
         GlideManager.loadRoundImg(homeChildBean.getIcon(), imageView, 5, R.mipmap.img_placeholder_car, true);
         llContainer.addView(imageView);
         viewList.add(imageView);
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
+        View lineView = createLineView();
+        llContainer.addView(lineView);
+        viewList.add(lineView);
         int marginValue = SizeUtil.dp2px(10f);
-        layoutParams.setMargins(marginValue, marginValue, marginValue, marginValue);
-//        imageView.setPadding(marginValue, marginValue, marginValue, marginValue);
+        imageView.setPadding(marginValue, 0, marginValue, 0);
+        if (translate) {
+            imageView.setBackgroundColor(TourCooUtil.getColor(R.color.transparent));
+        }
     }
 
     private void removeView() {
@@ -368,7 +392,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
     }
 
 
-    private void loadWeatherLayout(HomeBean homeBean) {
+    private void loadWeatherLayout(HomeBean homeBean, boolean translate) {
         if (homeBean == null || !ITEM_TYPE_WEATHER.equalsIgnoreCase(homeBean.getType()) || homeBean.getWeather() == null) {
             return;
         }
@@ -384,11 +408,15 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         tvDate.setText("[" + weather.getDate() + "]");
         llContainer.addView(rootView);
         viewList.add(rootView);
+        if (translate) {
+            llContainer.setBackgroundColor(TourCooUtil.getColor(R.color.transparent));
+        }
     }
 
     /**
-     * 监听滚动
+     * 分割线
      */
-    private void listenScoll(){
+    private View createLineView() {
+        return LayoutInflater.from(mContext).inflate(R.layout.line_view_verticle_layout, null);
     }
 }

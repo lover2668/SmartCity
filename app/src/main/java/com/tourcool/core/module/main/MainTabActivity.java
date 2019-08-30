@@ -1,18 +1,15 @@
 package com.tourcool.core.module.main;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MotionEvent;
-import android.view.VelocityTracker;
 
 import androidx.appcompat.app.AlertDialog;
 
 import com.aries.ui.view.tab.BuildConfig;
 import com.tourcool.core.module.WebViewActivity;
-import com.tourcool.core.module.web.WebAppFragment;
 import com.frame.library.core.entity.FrameTabEntity;
 import com.frame.library.core.manager.LoggerManager;
 import com.frame.library.core.manager.RxJavaManager;
@@ -23,8 +20,8 @@ import com.didichuxing.doraemonkit.util.PermissionUtil;
 import com.tourcool.library.frame.R;
 import com.tourcool.ui.main.MainHomeFragment;
 import com.tourcool.ui.main.MainMineFragment;
+import com.tourcool.ui.main.TabFragment;
 import com.tourcool.ui.main.TestFragment;
-import com.tourcool.ui.main.TestHomeFragment;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 
 import java.util.ArrayList;
@@ -57,7 +54,7 @@ public class MainTabActivity extends FrameMainActivity {
     public List<FrameTabEntity> getTabList() {
         ArrayList<FrameTabEntity> tabEntities = new ArrayList<>();
         tabEntities.add(new FrameTabEntity(R.string.home, R.drawable.ic_home_normal, R.drawable.ic_home_selected, MainHomeFragment.newInstance()));
-        tabEntities.add(new FrameTabEntity("测试", R.drawable.ic_app_normal, R.drawable.ic_app_selected, TestHomeFragment.newInstance()));
+        tabEntities.add(new FrameTabEntity("资讯", R.drawable.ic_app_normal, R.drawable.ic_app_selected, TabFragment.newInstance()));
         tabEntities.add(new FrameTabEntity("服务", R.drawable.ic_activity_normal, R.drawable.ic_activity_selected, TestFragment.newInstance()));
         tabEntities.add(new FrameTabEntity("我的", R.drawable.ic_mine_normal, R.drawable.ic_mine_selected, MainMineFragment.newInstance()));
         return tabEntities;

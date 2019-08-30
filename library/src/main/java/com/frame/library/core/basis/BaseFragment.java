@@ -264,16 +264,31 @@ public abstract class BaseFragment extends RxFragment implements IBaseView {
 
 
     protected void setStatusBarModeWhite(RxFragment fragment) {
+        setStatusBar(fragment, false);
+    }
+
+    protected void setStatusBarModeDark(RxFragment fragment) {
+        setStatusBar(fragment, true);
+    }
+    protected void setStatusBarColor(RxFragment fragment,int color) {
+        if(color <= 0){
+            return;
+        }
+        mRootHandler.postDelayed(() -> ImmersionBar.with(fragment)
+                .statusBarColor(color)
+                .init(), 50);
+    }
+
+    private void setStatusBar(RxFragment fragment, boolean isDarkFont) {
         mRootHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 ImmersionBar.with(fragment)
-                        .statusBarDarkFont(false, 0.2f)
+                        .statusBarDarkFont(isDarkFont, 0.2f)
                         .init();
             }
-        }, 50);
+        }, 1);
     }
-
 
     protected <T> T parseJavaBean(Object data, Class<T> tClass) {
         try {
@@ -313,7 +328,7 @@ public abstract class BaseFragment extends RxFragment implements IBaseView {
     }
 
 
-    protected   <T> List<T> parseJsonToBeanList(Object data, Class<T> model) {
+    protected <T> List<T> parseJsonToBeanList(Object data, Class<T> model) {
         try {
             return JSONArray.parseArray(JSON.toJSONString(data), model);
         } catch (Exception e) {
