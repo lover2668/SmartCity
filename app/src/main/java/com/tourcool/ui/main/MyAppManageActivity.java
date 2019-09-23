@@ -42,7 +42,7 @@ public class MyAppManageActivity extends BaseTitleActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        RecyclerView rvContentFastLib = findViewById(R.id.rv_contentFastLib);
+        RecyclerView rvContentFastLib = findViewById(R.id.rvContentFrameLib);
         rvContentFastLib.setLayoutManager(new LinearLayoutManager(mContext));
         HomeChildItem homeChildItem = new HomeChildItem();
         homeChildItem.setTitle("测试00");

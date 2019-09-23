@@ -1,5 +1,7 @@
 package com.tourcool.bean.home;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 import java.util.List;
 
 /**
@@ -9,11 +11,17 @@ import java.util.List;
  * @date 2019年08月26日14:20
  * @Email: 971613168@qq.com
  */
-public class HomeChildBean {
+public class HomeChildBean implements MultiItemEntity {
     private String clickLink;
     private String clickType;
     private String icon;
     private String title;
+    private int itemType;
+
+    public void setItemType(int itemType) {
+        this.itemType = itemType;
+    }
+
     private List<HomeChildItem> childList;
     private boolean parentItem = true;
 
@@ -63,5 +71,10 @@ public class HomeChildBean {
 
     public void setChildList(List<HomeChildItem> childList) {
         this.childList = childList;
+    }
+
+    @Override
+    public int getItemType() {
+        return 0;
     }
 }

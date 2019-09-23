@@ -1,6 +1,7 @@
 package com.frame.library.core.module.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -25,7 +26,7 @@ import androidx.fragment.app.FragmentManager;
  * 1、2019-3-25 17:03:43 推荐使用{@link IFrameTitleView}通过接口方式由FrameLib自动处理{@link FrameLifecycleCallbacks#onFragmentStarted(FragmentManager, Fragment)}
  */
 public abstract class BaseTitleFragment extends BaseFragment implements IFrameTitleView {
-
+    protected Handler baseHandler = new Handler();
     protected TitleBarView mTitleBar;
 
     @Override
@@ -57,8 +58,15 @@ public abstract class BaseTitleFragment extends BaseFragment implements IFrameTi
             params.setMargins(0, StatusBarUtil.getStatusBarHeight(), 0, 0);
             containerView.setLayoutParams(params);
         }
-
-
     }
 
+
+    @Override
+    public void onDestroy() {
+        if(baseHandler != null){
+            baseHandler.removeCallbacksAndMessages(null);
+        }
+        super.onDestroy();
+
+    }
 }

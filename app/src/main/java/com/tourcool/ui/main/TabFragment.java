@@ -3,6 +3,7 @@ package com.tourcool.ui.main;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -14,8 +15,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.module.fragment.BaseTitleFragment;
+import com.frame.library.core.threadpool.ThreadPoolManager;
 import com.frame.library.core.util.SizeUtil;
+import com.frame.library.core.util.ToastUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.gyf.immersionbar.ImmersionBar;
 import com.tourcool.bean.home.HomeBean;
@@ -43,6 +48,8 @@ import java.util.List;
  * @Email: 971613168@qq.com
  */
 public class TabFragment extends BaseTitleFragment {
+    public static final String TAG = "TabFragment";
+
     @Override
     public int getContentLayout() {
         return R.layout.fragment_tab_layout;
@@ -82,19 +89,22 @@ public class TabFragment extends BaseTitleFragment {
         llContainer.addView(rootView);
         ViewPager viewPager = rootView.findViewById(R.id.vpContainer);
         MagicIndicator magicIndicator = rootView.findViewById(R.id.magicIndicator);
+        List<String> titleList = new ArrayList<>();
         List<Fragment> fragmentList = new ArrayList<>();
-        int size = 7;
+        int size = 1;
         for (int i = 0; i < size; i++) {
             fragmentList.add(NewsFragment.newInstance());
         }
-        List<String> titleList = new ArrayList<>();
         for (int i = 0; i < fragmentList.size(); i++) {
             titleList.add("热点资讯" + i);
         }
-        viewPager.setOffscreenPageLimit(size);
-        MyPagerAdapter pagerAdapter = new MyPagerAdapter(getChildFragmentManager(), fragmentList);
-        viewPager.setAdapter(pagerAdapter);
-        initTabLayout(magicIndicator, viewPager, titleList);
+        ThreadPoolManager.getThreadPoolProxy().execute(() -> {
+            viewPager.setOffscreenPageLimit(size);
+            MyPagerAdapter pagerAdapter = new MyPagerAdapter(getChildFragmentManager(), fragmentList);
+            viewPager.setAdapter(pagerAdapter);
+            initTabLayout(magicIndicator, viewPager, titleList);
+
+        });
     }
 
 
@@ -158,5 +168,14 @@ public class TabFragment extends BaseTitleFragment {
         });
         mMagicIndicator.setNavigator(mCommonNavigator);
         ViewPagerHelper.bind(mMagicIndicator, viewPager);
+    }
+
+    private long computeConsuming(long startTime, long endTime) {
+        return endTime - startTime;
+    }
+
+
+
+    private void loadViewPager(ViewPager viewPager, int limitSize) {
     }
 }

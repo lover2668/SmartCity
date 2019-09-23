@@ -165,7 +165,7 @@ public class FrameRefreshLoadDelegate<T> {
      * @param rootView
      */
     private void getRecyclerView(View rootView) {
-        mRecyclerView = rootView.findViewById(R.id.rv_contentFastLib);
+        mRecyclerView = rootView.findViewById(R.id.rvContentFrameLib);
         if (mRecyclerView == null) {
             mRecyclerView = FindViewUtil.getTargetView(rootView, RecyclerView.class);
         }

@@ -1,8 +1,11 @@
 package com.tourcool.ui.main;
 
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -10,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.module.fragment.BaseTitleFragment;
 import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
@@ -19,12 +23,15 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tourcool.adapter.MineMenuAdapter;
 import com.tourcool.bean.MatrixBean;
+import com.tourcool.core.util.ProgressDrawable;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.helper.EmiRecycleViewDivider;
 import com.tourcool.library.frame.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.view.View.VISIBLE;
 
 /**
  * @author :JenkinsZhou
@@ -66,7 +73,8 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
         titleBar.setOnRightTextClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FrameUtil.startActivity(mContext,MyAppManageActivity.class);
+//                FrameUtil.startActivity(mContext,MyAppManageActivity.class);
+                FrameUtil.startActivity(mContext,TestAppActivity.class);
             }
         });
     }
@@ -114,5 +122,6 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
             }
         }, 300);
     }
+
 
 }

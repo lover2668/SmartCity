@@ -123,6 +123,7 @@
         <activity android:name="com.tourcool.core.module.activity.MessageListActivity1" />
         <activity android:name="com.tourcool.ui.mvp.MessageListActivity" />
         <activity android:name="com.tourcool.ui.main.MyAppManageActivity" />
+        <activity android:name="com.tourcool.ui.main.TestAppActivity" />
     </application>
 
 </manifest>

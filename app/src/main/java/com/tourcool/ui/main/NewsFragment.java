@@ -55,7 +55,7 @@ public class NewsFragment extends BaseFragment {
     private List<HomeChildItem> getNewsList(){
         List<HomeChildItem> homeChildItemList = new ArrayList<>();
         HomeChildItem homeChildItem ;
-        int size = 5;
+        int size = 50;
         for (int i = 0; i < size; i++) {
             homeChildItem = new HomeChildItem();
             if(i % 2 == 0){

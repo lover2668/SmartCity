@@ -131,7 +131,7 @@ public class MyApplication extends MultiDexApplication {
 //                .setLogEnable(BuildConfig.DEBUG, TAG, HttpLoggingInterceptor.Level.BODY)
                 //设置统一超时--也可单独调用read/write/connect超时(可以设置时间单位TimeUnit)
                 //默认30 s
-                .setTimeout(30);
+                .setTimeout(5);
 
         //注意设置baseUrl要以/ 结尾 service 里的方法不要以/打头不然拦截到的url会有问题
         //以下为配置多BaseUrl--默认方式一优先级高 可通过FastRetrofit.getInstance().setHeaderPriorityEnable(true);设置方式二优先级
@@ -255,7 +255,7 @@ public class MyApplication extends MultiDexApplication {
      */
     private void initLog() {
         TourCooLogUtil.getLogConfig()
-                .configAllowLog(BuildConfig.DEBUG)
+                .configAllowLog(true)
                 .configTagPrefix(TAG_LOG_PRE_SUFFIX)
                 .configShowBorders(false).
                 configLevel(LogLevel.TYPE_VERBOSE);

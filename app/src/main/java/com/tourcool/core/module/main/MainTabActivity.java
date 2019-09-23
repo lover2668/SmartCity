@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import androidx.appcompat.app.AlertDialog;
 
 import com.aries.ui.view.tab.BuildConfig;
+import com.frame.library.core.log.TourCooLogUtil;
 import com.tourcool.core.module.WebViewActivity;
 import com.frame.library.core.entity.FrameTabEntity;
 import com.frame.library.core.manager.LoggerManager;

@@ -17,6 +17,12 @@ import java.io.Serializable;
  * @Email: 971613168@qq.com
  */
 public class HomeChildItem implements Serializable, Cloneable, MultiItemEntity {
+
+    public static final int ITEM_TYPE_TITLE = 1;
+
+
+    public static final int ITEM_TYPE_CONTENT = 0;
+
     private boolean select;
 
     public boolean isSelect() {
@@ -27,7 +33,7 @@ public class HomeChildItem implements Serializable, Cloneable, MultiItemEntity {
         this.select = select;
     }
 
-    private int itemType=0;
+    private int itemType = 0;
 
     public void setItemType(int itemType) {
         this.itemType = itemType;
@@ -63,6 +69,15 @@ public class HomeChildItem implements Serializable, Cloneable, MultiItemEntity {
     private String subTitle;
     private String title;
     private int status;
+    private String groupTitle;
+
+    public String getGroupTitle() {
+        return groupTitle;
+    }
+
+    public void setGroupTitle(String groupTitle) {
+        this.groupTitle = groupTitle;
+    }
 
     public int getStatus() {
         return status;
@@ -126,10 +141,10 @@ public class HomeChildItem implements Serializable, Cloneable, MultiItemEntity {
      *
      * @return
      */
-    public HomeChildItem copy()  {
+    public HomeChildItem copy() {
         //将对象写入流中
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ObjectOutputStream objectOutputStream ;
+        ObjectOutputStream objectOutputStream;
         try {
             objectOutputStream = new ObjectOutputStream(outputStream);
         } catch (IOException e) {
@@ -144,7 +159,7 @@ public class HomeChildItem implements Serializable, Cloneable, MultiItemEntity {
         }
         //从流中取出
         ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
-        ObjectInputStream objectInputStream ;
+        ObjectInputStream objectInputStream;
         try {
             objectInputStream = new ObjectInputStream(inputStream);
         } catch (IOException e) {
