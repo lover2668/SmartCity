@@ -24,6 +24,9 @@ public abstract class FrameTitleActivity extends BaseActivity implements IFrameT
     public void beforeInitView(Bundle savedInstanceState) {
         super.beforeInitView(savedInstanceState);
         mTitleBar = FindViewUtil.getTargetView(mContentView, TitleBarView.class);
+        if (mTitleBar != null) {
+            mTitleBar.setTextBoldMode(isBoldTitle());
+        }
     }
 
     @Override

@@ -27,6 +27,8 @@ import com.tourcool.core.util.ProgressDrawable;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.helper.EmiRecycleViewDivider;
 import com.tourcool.library.frame.R;
+import com.tourcool.ui.mvp.account.LoginActivity;
+import com.tourcool.ui.mvp.account.RegisterActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +76,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
             @Override
             public void onClick(View v) {
 //                FrameUtil.startActivity(mContext,MyAppManageActivity.class);
-                FrameUtil.startActivity(mContext,TestAppActivity.class);
+                FrameUtil.startActivity(mContext, LoginActivity.class);
             }
         });
     }
@@ -115,12 +117,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                refreshLayout.finishRefresh();
-            }
-        }, 300);
+        new Handler().postDelayed(refreshLayout::finishRefresh, 300);
     }
 
 

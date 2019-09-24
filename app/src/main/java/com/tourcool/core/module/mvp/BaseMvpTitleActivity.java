@@ -20,7 +20,7 @@ import com.trello.rxlifecycle3.android.ActivityEvent;
  * @Email: 971613168@qq.com
  */
 @SuppressWarnings("unchecked")
-public abstract class BaseMvpTitleActivity<P extends BasePresenter> extends FrameTitleActivity implements IBaseView  {
+public abstract class BaseMvpTitleActivity<P extends BasePresenter> extends FrameTitleActivity implements IBaseView {
 
     protected P presenter;
     protected PictureDialog loadingDialog;

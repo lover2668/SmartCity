@@ -16,6 +16,7 @@ import com.frame.library.core.control.ActivityKeyEventControl;
 import com.frame.library.core.control.IBaseView;
 import com.frame.library.core.control.IFrameRefreshLoadView;
 import com.frame.library.core.control.QuitAppControl;
+import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.util.StackUtil;
 import com.frame.library.core.manager.RxJavaManager;
@@ -316,5 +317,22 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IBaseV
                         }
                     });
         }
+    }
+
+
+    protected void setViewVisible(View view,boolean visible){
+        if(view == null){
+            TourCooLogUtil.e(TAG,"setViewVisible()--->View==null！");
+            return;
+        }
+        view.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    protected void setViewGone(View view,boolean visible){
+        if(view == null){
+            TourCooLogUtil.e(TAG,"setViewGone()--->View==null！");
+            return;
+        }
+        view.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 }

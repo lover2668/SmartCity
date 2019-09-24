@@ -124,6 +124,8 @@
         <activity android:name="com.tourcool.ui.mvp.MessageListActivity" />
         <activity android:name="com.tourcool.ui.main.MyAppManageActivity" />
         <activity android:name="com.tourcool.ui.main.TestAppActivity" />
+        <activity android:name="com.tourcool.ui.mvp.account.RegisterActivity" />
+        <activity android:name="com.tourcool.ui.mvp.account.LoginActivity" />
     </application>
 
 </manifest>

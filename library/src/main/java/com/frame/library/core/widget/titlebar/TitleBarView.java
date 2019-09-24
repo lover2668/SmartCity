@@ -8,6 +8,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -31,6 +32,7 @@ import com.aries.ui.util.ResourceUtil;
 import com.aries.ui.util.StatusBarUtil;
 import com.aries.ui.view.alpha.AlphaImageView;
 import com.aries.ui.view.alpha.AlphaTextView;
+import com.frame.library.core.log.TourCooLogUtil;
 
 /**
  * @Author: JenkinsZhou on 2018/7/19 10:21
@@ -1901,7 +1903,25 @@ public class TitleBarView extends ViewGroup {
     }
 
 
-    public TextView getMainTitleTextView(){
+    public TextView getMainTitleTextView() {
         return mTvTitleMain;
+    }
+
+
+    /**
+     * 标题加粗模式
+     *
+     * @param isBold
+     * @return
+     */
+    public TitleBarView setTextBoldMode(boolean isBold) {
+        if (mTvTitleMain != null) {
+            if (isBold) {
+                mTvTitleMain.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+            } else {
+                mTvTitleMain.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+            }
+        }
+        return this;
     }
 }

@@ -7,8 +7,6 @@ import android.text.TextUtils;
 import androidx.annotation.Nullable;
 
 import com.frame.library.core.module.activity.FrameRefreshLoadActivity;
-import com.luck.picture.lib.dialog.PictureDialog;
-import com.tourcool.core.module.activity.BaseRefreshLoadActivity;
 import com.trello.rxlifecycle3.LifecycleTransformer;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 

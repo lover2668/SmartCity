@@ -29,4 +29,12 @@ public interface IFrameTitleView {
      */
     void setTitleBar(TitleBarView titleBar);
 
+    /**
+     * 主标题是否加粗
+     * @return
+     */
+    default boolean isBoldTitle() {
+        return true;
+    }
+
 }

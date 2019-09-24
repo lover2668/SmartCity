@@ -5,6 +5,8 @@ import com.frame.library.core.retrofit.FrameTransformer;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * @Author: JenkinsZhou on 2018/7/23 11:02
@@ -73,6 +75,32 @@ public class RxJavaManager {
      */
     public Observable<Long> setTimer(long delayTime) {
         return getDelayObservable(delayTime, delayTime, TimeUnit.MILLISECONDS);
+    }
+
+
+    /**
+     * milliseconds毫秒后执行next操作(倒计时)
+     *
+     * @param milliseconds
+     * @param
+     */
+    public void doEventCountDown(long milliseconds, Observer<Long> observer) {
+        Observable.timer(milliseconds, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+
+    /**
+     * 每隔milliseconds毫秒 执行一次命令
+     *
+     * @param milliseconds
+     * @param observable
+     */
+    public void doEventByInterval(long milliseconds, Observer<Long> observable) {
+        Observable.interval(milliseconds, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observable);
     }
 
 }
