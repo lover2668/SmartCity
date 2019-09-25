@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import androidx.annotation.Nullable;
 
 import com.frame.library.core.module.activity.FrameTitleActivity;
-import com.luck.picture.lib.dialog.PictureDialog;
+import com.tourcool.ui.base.FrameCommonTitleActivity;
 import com.trello.rxlifecycle3.LifecycleTransformer;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 
@@ -20,10 +20,9 @@ import com.trello.rxlifecycle3.android.ActivityEvent;
  * @Email: 971613168@qq.com
  */
 @SuppressWarnings("unchecked")
-public abstract class BaseMvpTitleActivity<P extends BasePresenter> extends FrameTitleActivity implements IBaseView {
+public abstract class BaseMvpTitleActivity<P extends BasePresenter> extends FrameCommonTitleActivity implements IBaseView {
 
     protected P presenter;
-    protected PictureDialog loadingDialog;
 
 
     @Override
@@ -61,7 +60,7 @@ public abstract class BaseMvpTitleActivity<P extends BasePresenter> extends Fram
     public void showLoading(String msg) {
         if (loadingDialog != null && !loadingDialog.isShowing()) {
             if (!TextUtils.isEmpty(msg)) {
-//                loadingDialog.setLoadingText(msg);
+                loadingDialog.setLoadingText(msg);
             }
             loadingDialog.show();
         }
@@ -69,7 +68,7 @@ public abstract class BaseMvpTitleActivity<P extends BasePresenter> extends Fram
 
     @Override
     public void closeLoading() {
-        if (loadingDialog != null && loadingDialog.isShowing()) {
+        if (loadingDialog != null ) {
             loadingDialog.dismiss();
         }
     }

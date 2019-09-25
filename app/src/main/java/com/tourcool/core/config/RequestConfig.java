@@ -8,6 +8,8 @@ package com.tourcool.core.config;
  * @Email: 971613168@qq.com
  */
 public class RequestConfig {
+
+
     /**
      * 测试环境
      */

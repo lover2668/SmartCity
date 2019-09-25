@@ -30,11 +30,19 @@ public interface IFrameTitleView {
     void setTitleBar(TitleBarView titleBar);
 
     /**
-     * 主标题是否加粗
+     * 是否加粗
      * @return
      */
-    default boolean isBoldTitle() {
+    default boolean isBoldMode() {
         return true;
     }
 
+
+    /**
+     * 是否白色字体
+     * @return
+     */
+    default boolean isWhiteText() {
+        return true;
+    }
 }

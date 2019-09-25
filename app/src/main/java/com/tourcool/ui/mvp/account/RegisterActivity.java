@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.frame.library.core.manager.RxJavaManager;
 import com.frame.library.core.util.FrameUtil;
+import com.frame.library.core.util.StringUtil;
 import com.frame.library.core.util.ToastUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.core.base.BaseResult;
@@ -27,6 +28,9 @@ import java.util.List;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
+import static com.tourcool.core.constant.TimeConstant.COUNT;
+import static com.tourcool.core.constant.TimeConstant.ONE_SECOND;
+
 /**
  * @author :JenkinsZhou
  * @description :
@@ -35,10 +39,8 @@ import io.reactivex.disposables.Disposable;
  * @Email: 971613168@qq.com
  */
 public class RegisterActivity extends BaseMvpTitleActivity<RegisterPresenter> implements RegisterContract.LoginView, View.OnClickListener {
-    private static final int COUNT = 60;
     private TextView tvGetCode;
     private int timeCount = COUNT;
-    private static final long SECOND = 1000;
     private List<Disposable> disposableList = new ArrayList<>();
     private Handler mHandler = new Handler();
 
@@ -68,10 +70,11 @@ public class RegisterActivity extends BaseMvpTitleActivity<RegisterPresenter> im
         EditText etPassword = findViewById(R.id.etPassword);
         EditText etPhone = findViewById(R.id.etPhone);
         EditText etPasswordConfirm = findViewById(R.id.etPasswordConfirm);
+        ImageView ivPhoneValid = findViewById(R.id.ivPhoneValid);
         listenInput(etPhone, ivClearPhone);
         listenInput(etPassword, ivClearPass);
         listenInput(etPasswordConfirm, ivClearPassConfirm);
-
+        listenInputPhoneValid(etPhone, ivPhoneValid);
     }
 
     @Override
@@ -156,8 +159,8 @@ public class RegisterActivity extends BaseMvpTitleActivity<RegisterPresenter> im
     private void countDownTime() {
         reset();
         setClickEnable(false);
-        mHandler.postDelayed(() -> tvGetCode.setTextColor(FrameUtil.getColor(R.color.grayA2A2A2)), SECOND);
-        RxJavaManager.getInstance().doEventByInterval(SECOND, new Observer<Long>() {
+        mHandler.postDelayed(() -> tvGetCode.setTextColor(FrameUtil.getColor(R.color.grayA2A2A2)), ONE_SECOND);
+        RxJavaManager.getInstance().doEventByInterval(ONE_SECOND, new Observer<Long>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposableList.add(d);
@@ -198,4 +201,30 @@ public class RegisterActivity extends BaseMvpTitleActivity<RegisterPresenter> im
             }
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        cancelTime();
+        super.onDestroy();
+    }
+
+    private void listenInputPhoneValid(EditText editText, ImageView imageView) {
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                setViewGone(imageView, StringUtil.isPhoneNumber(s.toString()));
+            }
+        });
+    }
+
 }

@@ -2,12 +2,18 @@ package com.frame.library.core.module.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.TextView;
 
 import com.frame.library.core.FrameLifecycleCallbacks;
 import com.frame.library.core.control.IFrameTitleView;
 import com.frame.library.core.basis.BaseActivity;
 import com.aries.ui.util.FindViewUtil;
+import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
+
 
 /**
  * @Author: JenkinsZhou on 2018/7/23 10:35
@@ -20,12 +26,14 @@ public abstract class FrameTitleActivity extends BaseActivity implements IFrameT
 
     protected TitleBarView mTitleBar;
 
+    protected Handler mHandler = new Handler();
+
     @Override
     public void beforeInitView(Bundle savedInstanceState) {
         super.beforeInitView(savedInstanceState);
         mTitleBar = FindViewUtil.getTargetView(mContentView, TitleBarView.class);
         if (mTitleBar != null) {
-            mTitleBar.setTextBoldMode(isBoldTitle());
+            mTitleBar.setTextBoldMode(isBoldMode());
         }
     }
 
@@ -34,4 +42,22 @@ public abstract class FrameTitleActivity extends BaseActivity implements IFrameT
         mTitleBar = null;
         super.onDestroy();
     }
+
+
+    protected void setClickEnable(View view, boolean clickEnable) {
+        if (view == null) {
+            TourCooLogUtil.e(TAG, "setViewClickEnable() ----> textView或 字符串为空");
+            return;
+        }
+        view.setEnabled(clickEnable);
+    }
+
+    protected void setText(TextView textView, String text) {
+        if (textView == null || TextUtils.isEmpty(text)) {
+            TourCooLogUtil.e(TAG, "setText() ----> textView或 字符串为空");
+            return;
+        }
+        textView.setText(text);
+    }
+
 }

@@ -1916,12 +1916,11 @@ public class TitleBarView extends ViewGroup {
      */
     public TitleBarView setTextBoldMode(boolean isBold) {
         if (mTvTitleMain != null) {
-            if (isBold) {
-                mTvTitleMain.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-            } else {
-                mTvTitleMain.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-            }
+            mTvTitleMain.setTypeface(isBold ? Typeface.defaultFromStyle(Typeface.BOLD) : Typeface.defaultFromStyle(Typeface.NORMAL));
         }
         return this;
     }
+
+
+
 }

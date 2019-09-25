@@ -66,9 +66,11 @@
                     android:src="@mipmap/ic_clean_up" />
 
                 <ImageView
+                    android:id="@+id/ivPhoneValid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:visibility="gone"
                     android:layout_marginStart="@dimen/dp_5"
                     android:src="@mipmap/ic_checked" />
             </LinearLayout>
@@ -222,7 +224,7 @@
                 android:id="@+id/tvRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/selector_blue_4287ff"
+                android:background="@drawable/selector_radius_25_blue_4287ff"
                 android:gravity="center"
                 android:minHeight="@dimen/dp_44"
                 android:text="注册"
