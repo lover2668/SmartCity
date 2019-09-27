@@ -59,4 +59,14 @@ public interface IBaseView {
     default void loadData() {
 
     }
+
+
+
+    /**
+     * 状态栏是否是黑色字体模式(默认是白色)
+     * @return
+     */
+    default boolean isStatusBarDarkMode() {
+        return false;
+    }
 }

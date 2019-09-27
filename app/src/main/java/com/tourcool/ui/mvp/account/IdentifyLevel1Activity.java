@@ -1,11 +1,20 @@
 package com.tourcool.ui.mvp.account;
 
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.aries.ui.helper.navigation.KeyboardHelper;
+import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.manager.RxJavaManager;
 import com.frame.library.core.util.FrameUtil;
+import com.frame.library.core.util.SizeUtil;
 import com.frame.library.core.util.ToastUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.core.module.mvp.BaseMvpTitleActivity;
@@ -32,6 +41,7 @@ public class IdentifyLevel1Activity extends BaseMvpTitleActivity implements View
     private List<Disposable> disposableList = new ArrayList<>();
     private int timeCount = COUNT;
     private TextView tvGetCode;
+
     @Override
     protected void loadPresenter() {
 
@@ -51,14 +61,14 @@ public class IdentifyLevel1Activity extends BaseMvpTitleActivity implements View
     public void initView(Bundle savedInstanceState) {
         tvGetCode = findViewById(R.id.tvGetCode);
         tvGetCode.setOnClickListener(this);
+        findViewById(R.id.tvConfirm).setOnClickListener(this);
     }
 
     @Override
     public void setTitleBar(TitleBarView titleBar) {
-            super.setTitleBar(titleBar);
+        super.setTitleBar(titleBar);
         titleBar.setTitleMainText("Lv1认证");
     }
-
 
 
     /**
@@ -66,7 +76,7 @@ public class IdentifyLevel1Activity extends BaseMvpTitleActivity implements View
      */
     private void countDownTime(TextView textView) {
         reset(textView);
-        setClickEnable(textView,false);
+        setClickEnable(textView, false);
         mHandler.postDelayed(() -> textView.setTextColor(FrameUtil.getColor(R.color.grayA2A2A2)), ONE_SECOND);
         RxJavaManager.getInstance().doEventByInterval(ONE_SECOND, new Observer<Long>() {
             @Override
@@ -99,16 +109,12 @@ public class IdentifyLevel1Activity extends BaseMvpTitleActivity implements View
 
 
     private void reset(TextView textView) {
-        setClickEnable(textView,true);
+        setClickEnable(textView, true);
         timeCount = COUNT;
         setText("发送验证码");
         textView.setTextColor(FrameUtil.getColor(R.color.blue55A9FF));
     }
 
-
-    private void setClickEnable(boolean clickEnable) {
-        tvGetCode.setEnabled(clickEnable);
-    }
 
     private void setText(String text) {
         tvGetCode.setText(text);
@@ -147,8 +153,17 @@ public class IdentifyLevel1Activity extends BaseMvpTitleActivity implements View
                     countDownTime(tvGetCode);
                 }, 1000);
                 break;
+            case R.id.tvConfirm:
+                Intent intent = new Intent();
+                intent.setClass(mContext, IdentifyLevel2Activity.class);
+                startActivity(intent);
+                break;
             default:
                 break;
         }
     }
+
+
+
+
 }

@@ -251,4 +251,9 @@ public class LoginActivity extends BaseMvpTitleActivity implements View.OnClickL
         });
     }
 
+
+    @Override
+    public boolean isStatusBarDarkMode() {
+        return true;
+    }
 }

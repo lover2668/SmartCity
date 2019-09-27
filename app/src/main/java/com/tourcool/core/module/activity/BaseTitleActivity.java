@@ -7,7 +7,11 @@ import com.frame.library.core.FrameLifecycleCallbacks;
 import com.frame.library.core.control.IFrameTitleView;
 import com.frame.library.core.basis.BaseActivity;
 import com.aries.ui.util.FindViewUtil;
+import com.frame.library.core.log.TourCooLogUtil;
+import com.frame.library.core.util.SizeUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
+
+import static com.tourcool.core.config.AppConfig.TITLE_MAIN_TITLE_SIZE;
 
 /**
  * @Author: JenkinsZhou on 2018/7/23 10:35

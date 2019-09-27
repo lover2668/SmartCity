@@ -2,14 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:background="@color/grayF5F5F5"
+    android:id="@+id/llRootView"
     android:layout_height="match_parent">
     <include layout="@layout/frame_layout_title_bar" />
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/llContentView"
         android:orientation="vertical"
-        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="wrap_content"
+        >
 
 
         <LinearLayout
@@ -26,19 +28,20 @@
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_marginBottom="@dimen/dp_18"
+            android:layout_marginBottom="@dimen/dp_13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
                 android:text="手机号"
-                style="@style/StyleTextBold14spBlack333333"
+                style="@style/TextBold14spBlack333333"
                 />
             <EditText
                 android:id="@+id/etPhone"
                 android:textSize="@dimen/sp_14"
                 android:maxLength="11"
                 android:padding="@dimen/dp_5"
+                android:letterSpacing="0.1"
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_width="0dp"
                 android:gravity="right"
@@ -62,13 +65,14 @@
 
             <TextView
                 android:text="验证码"
-                style="@style/StyleTextBold14spBlack333333"
+                style="@style/TextBold14spBlack333333"
                 />
             <EditText
                 android:padding="@dimen/dp_5"
                 android:textSize="@dimen/sp_14"
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_width="0dp"
+                android:letterSpacing="0.1"
                 android:gravity="right"
                 android:hint="验证码"
                 android:textColor="@color/black333333"
@@ -82,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:minWidth="@dimen/dp_60"
+                android:minWidth="@dimen/dp_70"
                 android:paddingStart="@dimen/dp_5"
                 android:paddingTop="@dimen/dp_5"
                 android:paddingBottom="@dimen/dp_5"
@@ -92,16 +96,28 @@
         </LinearLayout>
         </LinearLayout>
 
-    </LinearLayout>
-
-    <TextView
-        android:minHeight="@dimen/dp_48"
-        android:textColor="@color/whiteCommon"
-        android:text="确认"
-        android:textSize="@dimen/sp_16"
-        android:clickable="true"
-        android:gravity="center"
-        android:background="@drawable/selector_blue_5593ff"
+    <RelativeLayout
+        android:id="@+id/llBottom"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:textColor="@color/whiteCommon"
+            android:text="确认"
+            android:textSize="@dimen/sp_16"
+            android:layout_alignParentBottom="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:id="@+id/tvConfirm"
+            android:gravity="center"
+            android:background="@drawable/selector_blue_5593ff"
+            android:layout_width="match_parent"
+            android:minHeight="@dimen/dp_48"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    </RelativeLayout>
+
+
 </LinearLayout>

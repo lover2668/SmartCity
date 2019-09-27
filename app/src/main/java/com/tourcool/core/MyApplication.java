@@ -242,7 +242,7 @@ public class MyApplication extends MultiDexApplication {
      */
     public static boolean isControlNavigation() {
         LoggerManager.i(TAG, "mode:" + Build.MODEL);
-        return true;
+        return false;
     }
 
     public static Context getContext() {

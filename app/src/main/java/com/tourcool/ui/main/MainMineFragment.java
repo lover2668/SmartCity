@@ -1,5 +1,6 @@
 package com.tourcool.ui.main;
 
+import android.content.Intent;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.module.fragment.BaseTitleFragment;
 import com.frame.library.core.util.FrameUtil;
@@ -27,6 +29,7 @@ import com.tourcool.core.util.ProgressDrawable;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.helper.EmiRecycleViewDivider;
 import com.tourcool.library.frame.R;
+import com.tourcool.ui.mvp.account.CertificationRealNameActivity;
 import com.tourcool.ui.mvp.account.LoginActivity;
 import com.tourcool.ui.mvp.account.RegisterActivity;
 
@@ -112,6 +115,17 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
         menuAdapter = new MineMenuAdapter();
         menuAdapter.bindToRecyclerView(rvCommon);
         menuAdapter.setNewData(getMatrixList());
+        menuAdapter.setOnItemClickListener((adapter, view, position) -> {
+            switch (position) {
+                case 0:
+                    Intent intent = new Intent();
+                    intent.setClass(mContext, CertificationRealNameActivity.class);
+                    startActivity(intent);
+                    break;
+                default:
+                    break;
+            }
+        });
     }
 
 

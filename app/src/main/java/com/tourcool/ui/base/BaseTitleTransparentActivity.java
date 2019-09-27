@@ -1,34 +1,29 @@
 package com.tourcool.ui.base;
 
-import android.os.Bundle;
-import android.os.Handler;
 
-import com.frame.library.core.manager.RxJavaManager;
 import com.frame.library.core.module.activity.FrameTitleActivity;
 import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.library.frame.R;
 
+import static com.tourcool.core.config.AppConfig.TITLE_MAIN_TITLE_SIZE;
+
 
 /**
  * @author :JenkinsZhou
- * @description :普通蓝色背景栏
+ * @description :透明白字状态栏
  * @company :途酷科技
- * @date 2019年09月25日15:02
+ * @date 2019年09月27日14:50
  * @Email: 971613168@qq.com
  */
-public abstract class FrameCommonTitleActivity extends FrameTitleActivity {
-
+public abstract class BaseTitleTransparentActivity extends FrameTitleActivity {
     @Override
     public void setTitleBar(TitleBarView titleBar) {
         if (mTitleBar != null) {
-            mTitleBar.setBgResource(R.drawable.bg_gradient_title_common);
+            mTitleBar.setBackgroundColor(FrameUtil.getColor(R.color.transparent));
             mTitleBar.setLeftTextDrawable(R.drawable.ic_back_white);
             mTitleBar.setTitleMainTextColor(FrameUtil.getColor(R.color.whiteCommon));
+            mTitleBar.getMainTitleTextView().setTextSize(TITLE_MAIN_TITLE_SIZE);
         }
     }
-
-
-
-
 }

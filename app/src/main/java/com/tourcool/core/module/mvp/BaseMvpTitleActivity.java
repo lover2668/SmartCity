@@ -7,8 +7,7 @@ import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
 
-import com.frame.library.core.module.activity.FrameTitleActivity;
-import com.tourcool.ui.base.FrameCommonTitleActivity;
+import com.tourcool.ui.base.BaseCommonTitleActivity;
 import com.trello.rxlifecycle3.LifecycleTransformer;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 
@@ -20,7 +19,7 @@ import com.trello.rxlifecycle3.android.ActivityEvent;
  * @Email: 971613168@qq.com
  */
 @SuppressWarnings("unchecked")
-public abstract class BaseMvpTitleActivity<P extends BasePresenter> extends FrameCommonTitleActivity implements IBaseView {
+public abstract class BaseMvpTitleActivity<P extends BasePresenter> extends BaseCommonTitleActivity implements IBaseView {
 
     protected P presenter;
 

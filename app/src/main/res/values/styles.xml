@@ -76,11 +76,42 @@
     </style>
 
 
-    <style name="StyleTextBold14spBlack333333">
+    <style name="TextBold14spBlack333333">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/sp_14</item>
         <item name="android:textColor">@color/black333333</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text11spGraya2a2a2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/sp_11</item>
+        <item name="android:textColor">@color/grayA2A2A2</item>
+    </style>
+
+
+    <style name="Text18spWhiteFFFFFF">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/sp_18</item>
+        <item name="android:textColor">@color/whiteCommon</item>
+    </style>
+
+    <style name="Text14spWhiteFFFFFF">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/whiteCommon</item>
+    </style>
+
+
+    <style name="Text12spWhiteFFFFFF">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:textColor">@color/whiteCommon</item>
     </style>
 </resources>

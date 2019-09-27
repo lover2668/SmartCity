@@ -92,7 +92,15 @@
             android:name="com.tourcool.ui.mvp.account.RegisterActivity"
             android:launchMode="singleTask" />
         <activity android:name="com.tourcool.ui.mvp.account.LoginActivity" />
-        <activity android:name="com.tourcool.ui.mvp.account.IdentifyLevel1Activity" />
+        <activity android:name="com.tourcool.ui.mvp.account.IdentifyLevel1Activity"
+            />
+        <activity android:name="com.tourcool.ui.mvp.account.IdentifyLevel2Activity"
+            />
+        <activity android:name="com.tourcool.ui.mvp.account.IdentifyLevel3Activity"
+            />
+        <activity android:name="com.tourcool.ui.mvp.account.CertificationRealNameActivity" />
+        <activity android:name="com.tourcool.ui.mvp.weather.WeatherActivity" />
+        <activity android:name="com.tourcool.ui.base.BaseTitleTransparentActivity" />
 
         <meta-data
             android:name="BUGLY_APPID"

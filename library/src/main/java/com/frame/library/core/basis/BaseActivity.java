@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,15 +23,19 @@ import com.frame.library.core.util.StackUtil;
 import com.frame.library.core.manager.RxJavaManager;
 import com.frame.library.core.retrofit.BaseObserver;
 import com.frame.library.core.widget.dialog.FrameLoadingDialog;
+import com.gyf.immersionbar.ImmersionBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.tourcool.library.frame.demo.R;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle3.components.support.RxFragment;
 
 import org.simple.eventbus.EventBus;
 
 import java.util.List;
 
 import androidx.fragment.app.Fragment;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -48,7 +53,7 @@ import butterknife.Unbinder;
  * 7、2018-9-26 16:59:59 新增按键监听统一处理
  */
 public abstract class BaseActivity extends RxAppCompatActivity implements IBaseView {
-
+    protected Handler baseHandler = new Handler();
     protected Activity mContext;
     protected View mContentView;
     protected Unbinder mUnBinder;
@@ -87,9 +92,10 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IBaseV
         setContentView(mContentView);
         mUnBinder = ButterKnife.bind(this);
         mIsViewLoaded = true;
+        setStatusBarDarkMode(mContext,isStatusBarDarkMode());
         beforeInitView(savedInstanceState);
         initView(savedInstanceState);
-        loadingDialog = new FrameLoadingDialog(mContext,"加载中...");
+        loadingDialog = new FrameLoadingDialog(mContext, "加载中...");
     }
 
     @Override
@@ -320,19 +326,36 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IBaseV
     }
 
 
-    protected void setViewVisible(View view,boolean visible){
-        if(view == null){
-            TourCooLogUtil.e(TAG,"setViewVisible()--->View==null！");
+    protected void setViewVisible(View view, boolean visible) {
+        if (view == null) {
+            TourCooLogUtil.e(TAG, "setViewVisible()--->View==null！");
             return;
         }
         view.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
     }
 
-    protected void setViewGone(View view,boolean visible){
-        if(view == null){
-            TourCooLogUtil.e(TAG,"setViewGone()--->View==null！");
+    protected void setViewGone(View view, boolean visible) {
+        if (view == null) {
+            TourCooLogUtil.e(TAG, "setViewGone()--->View==null！");
             return;
         }
         view.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
+
+    protected void setStatusBarColor(Activity activity, int color) {
+        if (color <= 0) {
+            return;
+        }
+        baseHandler.postDelayed(() -> ImmersionBar.with(activity)
+                .statusBarColor(color)
+                .init(), 50);
+    }
+
+
+    protected void setStatusBarDarkMode(Activity activity, boolean isDarkFont) {
+        baseHandler.postDelayed(() -> ImmersionBar.with(activity)
+                .statusBarDarkFont(isDarkFont, 0.9f)
+                .init(), 50);
     }
 }

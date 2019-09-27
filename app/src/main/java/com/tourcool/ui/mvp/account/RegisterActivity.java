@@ -227,4 +227,9 @@ public class RegisterActivity extends BaseMvpTitleActivity<RegisterPresenter> im
         });
     }
 
+
+    @Override
+    public boolean isStatusBarDarkMode() {
+        return true;
+    }
 }

@@ -30,7 +30,7 @@ public class FrameTitleDelegate {
     private TitleBarViewControl mTitleBarViewControl;
 
     public FrameTitleDelegate(View rootView, IFrameTitleView iTitleBarView, final Class<?> cls) {
-        mTitleBar = rootView.findViewById(R.id.titleBar_headFastLib);
+        mTitleBar = rootView.findViewById(R.id.frameTitleBar);
         if (mTitleBar == null) {
             mTitleBar = FindViewUtil.getTargetView(rootView, TitleBarView.class);
         }

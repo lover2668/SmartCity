@@ -25,6 +25,7 @@ import androidx.fragment.app.FragmentManager;
 import com.frame.library.core.basis.BaseActivity;
 import com.frame.library.core.FrameLifecycleCallbacks;
 import com.frame.library.core.basis.BaseFragment;
+import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.util.FrameUtil;
 import com.tourcool.core.MyApplication;
 import com.tourcool.core.module.SplashActivity;
@@ -208,7 +209,7 @@ public class ActivityControlImpl implements ActivityFragmentControl, ActivityKey
         helper.setLogEnable(BuildConfig.DEBUG)
                 .setPlusNavigationViewEnable(true, !isPlusView(activity), true)
                 .setNavigationBarLightMode(NavigationBarUtil.isSupportNavigationBarFontChange() && isPlusView(activity))
-                .setOnKeyboardVisibilityChangedListener(getOnKeyboardVisibilityChangedListener(activity))
+//                .setOnKeyboardVisibilityChangedListener(getOnKeyboardVisibilityChangedListener(activity))
                 .setBottomView(PicturePreviewActivity.class.isAssignableFrom(activity.getClass()) ?
                         FindViewUtil.getTargetView(bottomView, R.id.select_bar_layout) : bottomView)
                 .setNavigationViewColor(isLeak(activity) ? Color.BLACK : Color.argb(NavigationBarUtil.isSupportNavigationBarFontChange() && isPlusView(activity) ? 0 : 102, 0, 0, 0))
