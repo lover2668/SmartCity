@@ -22,12 +22,16 @@
 
     <color name="colorGray">#bbbbbb</color>
 
-
+    <!--灰色字体通用-->
+    <color name="grayCommon">#999999</color>
+    <!--浅灰色字体通用-->
+    <color name="grayLittleCommon">#999999</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorPurple">#6F0AEE</color>
     <color name="colorDarkBlue">#0091EA</color>
     <color name="colorLightBlue">#81D4FA</color>
     <color name="green06FBFE">#06FBFE</color>
-
+    <color name="greenCommon">#2BC475</color>
+    <color name="greenCommonPress">#2BC436</color>
 
 </resources>

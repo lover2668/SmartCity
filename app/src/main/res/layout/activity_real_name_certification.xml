@@ -310,6 +310,7 @@
                 android:textStyle="normal"
                 />
             <TextView
+                android:id="@+id/tvBankCard"
                 style="@style/Text11spGraya2a2a2"
                 android:text="未认证"
                 android:layout_gravity="center_vertical"
@@ -368,6 +369,7 @@
                 android:textStyle="normal"
                 />
             <TextView
+                android:id="@+id/tvFace"
                 style="@style/Text11spGraya2a2a2"
                 android:text="未认证"
                 android:layout_gravity="center_vertical"

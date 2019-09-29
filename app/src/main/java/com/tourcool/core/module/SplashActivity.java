@@ -77,7 +77,7 @@ public class SplashActivity extends FrameTitleActivity {
         tvVersion.setText("V" + FrameUtil.getVersionName(mContext));
         tvVersion.setTextColor(Color.WHITE);
         tvCopyRight.setTextColor(Color.WHITE);
-        RxJavaManager.getInstance().setTimer(2000)
+        RxJavaManager.getInstance().setTimer(500)
                 .compose(bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new BaseObserver<Long>() {
                     @Override

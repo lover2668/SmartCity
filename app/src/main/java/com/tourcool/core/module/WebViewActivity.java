@@ -361,4 +361,9 @@ public class WebViewActivity extends FrameWebActivity implements IFrameRefreshVi
             }
         };
     }
+
+    @Override
+    public boolean isStatusBarDarkMode() {
+        return true;
+    }
 }

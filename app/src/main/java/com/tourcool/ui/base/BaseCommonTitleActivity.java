@@ -11,7 +11,7 @@ import static com.tourcool.core.config.AppConfig.TITLE_MAIN_TITLE_SIZE;
 
 /**
  * @author :JenkinsZhou
- * @description :普通纯蓝色背景栏
+ * @description :普通蓝色渐变背景标题栏
  * @company :途酷科技
  * @date 2019年09月25日15:02
  * @Email: 971613168@qq.com

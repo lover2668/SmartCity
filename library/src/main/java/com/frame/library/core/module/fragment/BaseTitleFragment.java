@@ -2,6 +2,7 @@ package com.frame.library.core.module.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -13,7 +14,6 @@ import com.frame.library.core.basis.BaseFragment;
 import com.frame.library.core.control.IFrameTitleView;
 import com.aries.ui.util.FindViewUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
-import com.tourcool.library.frame.demo.R;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -63,10 +63,28 @@ public abstract class BaseTitleFragment extends BaseFragment implements IFrameTi
 
     @Override
     public void onDestroy() {
-        if(baseHandler != null){
+        if (baseHandler != null) {
             baseHandler.removeCallbacksAndMessages(null);
         }
         super.onDestroy();
-
     }
+
+
+    protected void showLoading(String msg) {
+        if (loadingDialog != null && !loadingDialog.isShowing()) {
+            if (!TextUtils.isEmpty(msg)) {
+                loadingDialog.setLoadingText(msg);
+            }
+            loadingDialog.show();
+        }
+    }
+
+    protected void closeLoading() {
+        baseHandler.post(() -> {
+            if (loadingDialog != null && loadingDialog.isShowing()) {
+                loadingDialog.dismiss();
+            }
+        });
+    }
+
 }

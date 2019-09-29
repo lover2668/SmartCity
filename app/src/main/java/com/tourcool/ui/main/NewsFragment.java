@@ -35,13 +35,7 @@ public class NewsFragment extends BaseFragment {
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        newsAdapter = new NewsAdapter();
-        mSmartRefresh = mContentView.findViewById(R.id.mSmartRefresh);
-        mSmartRefresh.setRefreshHeader(new ClassicsHeader(mContext));
-        recyclerView = mContentView.findViewById(R.id.recyclerNews);
-        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        newsAdapter.bindToRecyclerView(recyclerView);
-        newsAdapter.setNewData(getNewsList());
+
     }
 
     public static NewsFragment newInstance() {
@@ -64,5 +58,16 @@ public class NewsFragment extends BaseFragment {
             homeChildItemList.add(homeChildItem);
         }
         return homeChildItemList;
+    }
+
+    @Override
+    public void loadData() {
+        newsAdapter = new NewsAdapter();
+        mSmartRefresh = mContentView.findViewById(R.id.mSmartRefresh);
+        mSmartRefresh.setRefreshHeader(new ClassicsHeader(mContext));
+        recyclerView = mContentView.findViewById(R.id.recyclerNews);
+        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        newsAdapter.bindToRecyclerView(recyclerView);
+        newsAdapter.setNewData(getNewsList());
     }
 }

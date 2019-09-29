@@ -57,8 +57,20 @@ public class TabFragment extends BaseTitleFragment {
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        setViewToBelowStatusBar(mContentView.findViewById(R.id.llContainer));
-        loadTab(null);
+        showLoading("加载中");
+      baseHandler.postDelayed(() -> {
+          long startTime = System.currentTimeMillis();
+          setViewToBelowStatusBar(mContentView.findViewById(R.id.llContainer));
+          loadTab(null);
+          long endTime = System.currentTimeMillis();
+          TourCooLogUtil.i("数据加载耗时:"+(endTime-startTime));
+          closeLoading();
+      },2500);
+    }
+
+    @Override
+    public void loadData() {
+
     }
 
     @Override
@@ -91,20 +103,22 @@ public class TabFragment extends BaseTitleFragment {
         MagicIndicator magicIndicator = rootView.findViewById(R.id.magicIndicator);
         List<String> titleList = new ArrayList<>();
         List<Fragment> fragmentList = new ArrayList<>();
-        int size = 1;
+        int size = 10;
         for (int i = 0; i < size; i++) {
             fragmentList.add(NewsFragment.newInstance());
         }
         for (int i = 0; i < fragmentList.size(); i++) {
             titleList.add("热点资讯" + i);
         }
+
+
         ThreadPoolManager.getThreadPoolProxy().execute(() -> {
             viewPager.setOffscreenPageLimit(size);
             MyPagerAdapter pagerAdapter = new MyPagerAdapter(getChildFragmentManager(), fragmentList);
             viewPager.setAdapter(pagerAdapter);
             initTabLayout(magicIndicator, viewPager, titleList);
-
         });
+
     }
 
 
