@@ -13,7 +13,7 @@ import com.frame.library.core.module.fragment.BaseTitleRefreshLoadFragment;
 import com.aries.ui.util.StatusBarUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,6 +114,10 @@ public class WebAppFragment extends BaseTitleRefreshLoadFragment<WebAppEntity> {
     @Override
     public void onItemClicked(BaseQuickAdapter<WebAppEntity, BaseViewHolder> adapter, View view, int position) {
         WebAppEntity item = adapter.getItem(position);
-        WebAppActivity.start(mContext, item.url, item.color);
+        WebAppActivity.start(mContext,"http://www.baidu.com", item.color);
     }
+
+
+
+
 }

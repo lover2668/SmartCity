@@ -15,7 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 import java.text.NumberFormat;
 

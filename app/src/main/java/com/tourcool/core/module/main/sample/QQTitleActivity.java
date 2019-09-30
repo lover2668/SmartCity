@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.frame.library.core.module.activity.FrameTitleActivity;
 import com.frame.library.core.widget.titlebar.TitleBarView;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 /**
  * @Author: JenkinsZhou on 2018/9/19 10:37

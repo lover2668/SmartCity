@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat;
 import com.frame.library.core.widget.linkage.adapter.viewholder.LinkagePrimaryViewHolder;
 import com.frame.library.core.widget.linkage.contract.ILinkagePrimaryAdapterConfig;
 import com.tourcool.core.util.TourCooUtil;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 /**
  * @author :JenkinsZhou

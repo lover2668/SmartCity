@@ -4,7 +4,7 @@ package com.tourcool.ui.base;
 import com.frame.library.core.module.activity.FrameTitleActivity;
 import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 import static com.tourcool.core.config.AppConfig.TITLE_MAIN_TITLE_SIZE;
 

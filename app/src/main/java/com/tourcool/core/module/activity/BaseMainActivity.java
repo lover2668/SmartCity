@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.frame.library.core.basis.BaseActivity;
 import com.frame.library.core.control.IFrameMainView;
 import com.frame.library.core.delegate.FrameMainTabDelegate;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 /**
  * @Author: JenkinsZhou on 2018/7/23 10:00

@@ -39,7 +39,7 @@ import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

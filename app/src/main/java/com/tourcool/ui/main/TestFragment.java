@@ -28,7 +28,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.tourcool.bean.ElemeGroupedItem;
 import com.tourcool.core.util.TourCooUtil;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 import java.util.List;
 

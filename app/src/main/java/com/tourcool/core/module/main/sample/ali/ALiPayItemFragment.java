@@ -3,7 +3,7 @@ package com.tourcool.core.module.main.sample.ali;
 import android.os.Bundle;
 
 import com.frame.library.core.widget.titlebar.TitleBarView;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 /**
  * @Author: JenkinsZhou on 2018/11/19 14:19

@@ -49,8 +49,8 @@ import com.aries.ui.util.StatusBarUtil;
 import com.didichuxing.doraemonkit.ui.UniversalActivity;
 import com.luck.picture.lib.PictureBaseActivity;
 import com.luck.picture.lib.PicturePreviewActivity;
-import com.tourcool.library.frame.BuildConfig;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.BuildConfig;
+import com.tourcool.smartcity.R;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.List;

@@ -16,7 +16,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 import java.net.ConnectException;
 import java.net.SocketException;

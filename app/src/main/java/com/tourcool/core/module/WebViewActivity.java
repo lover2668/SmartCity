@@ -55,7 +55,7 @@ import com.just.agentweb.WebListenerManager;
 import com.scwang.smartrefresh.header.StoreHouseHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 import java.io.File;
 

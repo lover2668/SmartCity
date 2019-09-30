@@ -10,7 +10,7 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 import java.util.ArrayList;
 import java.util.List;

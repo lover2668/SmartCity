@@ -28,7 +28,7 @@ import com.tourcool.bean.MatrixBean;
 import com.tourcool.core.util.ProgressDrawable;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.helper.EmiRecycleViewDivider;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 import com.tourcool.ui.mvp.account.CertificationRealNameActivity;
 import com.tourcool.ui.mvp.account.LoginActivity;
 import com.tourcool.ui.mvp.account.RegisterActivity;

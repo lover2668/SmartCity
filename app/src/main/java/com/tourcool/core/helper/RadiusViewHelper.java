@@ -4,7 +4,7 @@ import androidx.core.content.ContextCompat;
 
 import com.tourcool.core.MyApplication;
 import com.aries.ui.view.radius.delegate.RadiusViewDelegate;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 /**
  * @Author: JenkinsZhou on 2018/9/30 9:16

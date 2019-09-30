@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tourcool.helper.drag.OnDragVHListener;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 /**
  * @author :JenkinsZhou

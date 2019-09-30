@@ -1,13 +1,12 @@
 package com.tourcool.ui.mvp.account;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 
 import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.core.module.mvp.BaseMvpTitleActivity;
 import com.tourcool.core.module.mvp.BasePresenter;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 /**
  * @author :JenkinsZhou

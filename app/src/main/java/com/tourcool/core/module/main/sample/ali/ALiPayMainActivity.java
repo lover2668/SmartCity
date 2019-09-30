@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.frame.library.core.entity.FrameTabEntity;
 import com.frame.library.core.module.activity.FrameMainActivity;
 import com.aries.ui.view.tab.CommonTabLayout;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 import java.util.ArrayList;
 import java.util.List;

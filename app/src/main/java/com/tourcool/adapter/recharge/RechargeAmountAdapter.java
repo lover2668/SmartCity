@@ -7,7 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tourcool.bean.recharge.RechargeEntity;
 import com.tourcool.core.util.ResourceUtil;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 import java.util.List;
 

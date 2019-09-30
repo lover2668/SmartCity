@@ -6,7 +6,8 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
+
 
 /**
  * @Author: JenkinsZhou on 2018/11/19 14:23

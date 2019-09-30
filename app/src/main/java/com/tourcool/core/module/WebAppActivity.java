@@ -8,7 +8,7 @@ import com.aries.ui.util.StatusBarUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 /**
  * @Author: JenkinsZhou on 2019/4/24 13:41

@@ -6,7 +6,7 @@ import com.frame.library.core.UiManager;
 import com.tourcool.core.MyApplication;
 import com.frame.library.core.control.SwipeBackControl;
 import com.aries.ui.helper.navigation.NavigationBarUtil;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
 import cn.bingoogolapple.swipebacklayout.BGASwipeBackLayout;

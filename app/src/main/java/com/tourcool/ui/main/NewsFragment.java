@@ -10,7 +10,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.tourcool.adapter.news.NewsAdapter;
 import com.tourcool.bean.home.HomeChildItem;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,7 +7,7 @@ import android.util.TypedValue;
 import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.core.constant.ApiConstant;
 import com.frame.library.core.module.activity.FrameTitleActivity;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 /**
  * @Author: JenkinsZhou on 2018/11/19 14:22

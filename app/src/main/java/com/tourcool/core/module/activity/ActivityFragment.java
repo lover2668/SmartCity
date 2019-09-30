@@ -17,7 +17,7 @@ import com.frame.library.core.util.SpUtil;
 import com.aries.ui.util.StatusBarUtil;
 import com.aries.ui.view.tab.SegmentTabLayout;
 import com.aries.ui.view.tab.SlidingTabLayout;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 import org.simple.eventbus.Subscriber;
 import org.simple.eventbus.ThreadMode;

@@ -8,7 +8,7 @@ import android.widget.Toast;
 import com.frame.library.core.module.activity.FrameTitleActivity;
 import com.frame.library.core.util.ToastUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 import butterknife.OnClick;
 

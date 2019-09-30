@@ -19,7 +19,7 @@ import com.frame.library.core.util.FrameFileUtil;
 import com.frame.library.core.util.FormatUtil;
 import com.frame.library.core.util.StackUtil;
 import com.frame.library.core.util.ToastUtil;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
 

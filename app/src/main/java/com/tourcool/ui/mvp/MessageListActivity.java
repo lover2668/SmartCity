@@ -10,7 +10,7 @@ import com.tourcool.core.adapter.SystemMsgAdapter;
 
 import com.tourcool.core.entity.MessageBean;
 import com.tourcool.core.module.mvp.BaseMvpRefreshLoadActivity;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 import com.tourcool.ui.mvp.contract.MessageContract;
 import com.tourcool.ui.mvp.presenter.MessagePresenter;
 

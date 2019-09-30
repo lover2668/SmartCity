@@ -9,7 +9,7 @@ import com.frame.library.core.module.fragment.BaseRefreshLoadFragment;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 import com.trello.rxlifecycle3.android.FragmentEvent;
 
 /**

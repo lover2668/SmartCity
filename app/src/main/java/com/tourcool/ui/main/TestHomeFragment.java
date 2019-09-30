@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.frame.library.core.basis.BaseFragment;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 /**
  * @author :JenkinsZhou

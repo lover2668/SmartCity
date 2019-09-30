@@ -1,14 +1,12 @@
 package com.tourcool.adapter;
 
-import android.view.View;
 
 import androidx.annotation.NonNull;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tourcool.bean.MatrixBean;
-import com.tourcool.library.frame.R;
-import com.tourcool.ui.mvp.contract.MessageContract;
+import com.tourcool.smartcity.R;
 
 /**
  * @author :JenkinsZhou

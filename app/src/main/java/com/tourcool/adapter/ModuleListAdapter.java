@@ -18,7 +18,7 @@ import com.frame.library.core.util.ToastUtil;
 import com.tourcool.adapter.drag.GridModuleAdapter;
 import com.tourcool.bean.home.HomeChildBean;
 import com.tourcool.bean.home.HomeChildItem;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 
 import java.util.ArrayList;

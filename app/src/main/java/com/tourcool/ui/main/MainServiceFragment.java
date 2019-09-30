@@ -21,7 +21,7 @@ import com.tourcool.bean.TwoLevelBean;
 import com.tourcool.bean.TwoLevelChildBean;
 import com.tourcool.core.module.main.MainTabActivity;
 import com.tourcool.core.util.TourCooUtil;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 import java.util.ArrayList;
 import java.util.List;

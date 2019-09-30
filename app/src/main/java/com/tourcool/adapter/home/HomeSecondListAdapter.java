@@ -7,10 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tourcool.adapter.TwoLevelChildAdapter;
-import com.tourcool.bean.TwoLevelBean;
 import com.tourcool.bean.home.HomeChildBean;
 import com.tourcool.core.util.TourCooUtil;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 /**
  * @author :JenkinsZhou

@@ -18,7 +18,7 @@ import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.core.base.BaseResult;
 import com.tourcool.core.entity.MessageBean;
 import com.tourcool.core.module.mvp.BaseMvpTitleActivity;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 import com.tourcool.ui.mvp.account.contract.RegisterContract;
 import com.tourcool.ui.mvp.account.presenter.RegisterPresenter;
 

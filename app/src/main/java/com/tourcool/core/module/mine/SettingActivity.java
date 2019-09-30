@@ -15,7 +15,7 @@ import com.tourcool.core.constant.GlobalConstant;
 import com.tourcool.core.constant.SPConstant;
 import com.frame.library.core.module.activity.FrameTitleActivity;
 import com.frame.library.core.util.SpUtil;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 import org.simple.eventbus.EventBus;
 

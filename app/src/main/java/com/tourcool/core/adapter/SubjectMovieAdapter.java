@@ -10,7 +10,7 @@ import com.frame.library.core.manager.GlideManager;
 import com.frame.library.core.manager.LoggerManager;
 import com.aries.ui.view.radius.RadiusRelativeLayout;
 import com.flyco.labelview.LabelView;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 /**
  * @Author: JenkinsZhou on 2018/8/10 9:53

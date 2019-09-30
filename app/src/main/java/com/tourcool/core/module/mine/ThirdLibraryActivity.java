@@ -22,7 +22,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 
 import java.util.ArrayList;

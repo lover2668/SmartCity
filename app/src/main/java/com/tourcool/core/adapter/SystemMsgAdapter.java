@@ -7,7 +7,7 @@ import com.tourcool.core.entity.MessageBean;
 import com.tourcool.core.util.DateUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 
 /**

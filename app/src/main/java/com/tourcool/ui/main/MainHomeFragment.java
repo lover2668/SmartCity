@@ -39,7 +39,7 @@ import com.tourcool.core.base.BaseResult;
 import com.tourcool.core.constant.ItemConstant;
 import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.TourCooUtil;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 import com.trello.rxlifecycle3.android.FragmentEvent;
 
 import java.util.ArrayList;

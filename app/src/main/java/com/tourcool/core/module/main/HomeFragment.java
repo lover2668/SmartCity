@@ -39,7 +39,7 @@ import com.frame.library.core.util.SizeUtil;
 import com.aries.ui.util.StatusBarUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 import com.trello.rxlifecycle3.android.FragmentEvent;
 
 import java.util.ArrayList;

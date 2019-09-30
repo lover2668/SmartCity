@@ -31,7 +31,7 @@ import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.DefaultWebCreator;
 import com.just.agentweb.MiddlewareWebChromeBase;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 /**
  * @Author: JenkinsZhou on 2018/6/28 14:59

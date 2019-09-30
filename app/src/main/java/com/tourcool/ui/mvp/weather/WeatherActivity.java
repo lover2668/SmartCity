@@ -3,12 +3,9 @@ package com.tourcool.ui.mvp.weather;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
-import com.frame.library.core.log.TourCooLogUtil;
-import com.frame.library.core.util.SizeUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 import com.tourcool.ui.base.BaseTitleTransparentActivity;
 
 /**

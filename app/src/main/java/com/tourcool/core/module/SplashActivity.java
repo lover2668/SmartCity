@@ -16,7 +16,7 @@ import com.frame.library.core.util.StackUtil;
 import com.aries.ui.util.DrawableUtil;
 import com.aries.ui.util.StatusBarUtil;
 import com.tourcool.core.module.main.MainTabActivity;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 
 import androidx.core.content.ContextCompat;

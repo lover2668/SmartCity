@@ -25,7 +25,7 @@ import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.gyf.immersionbar.ImmersionBar;
 import com.tourcool.bean.home.HomeBean;
 import com.tourcool.core.util.TourCooUtil;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -116,7 +116,7 @@ public class TabFragment extends BaseTitleFragment {
             viewPager.setOffscreenPageLimit(size);
             MyPagerAdapter pagerAdapter = new MyPagerAdapter(getChildFragmentManager(), fragmentList);
             viewPager.setAdapter(pagerAdapter);
-            initTabLayout(magicIndicator, viewPager, titleList);
+           baseHandler.post(() -> initTabLayout(magicIndicator, viewPager, titleList));
         });
 
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tourcool.library.frame">
+    package="com.tourcool.smartcity">
 
     <!--<uses-feature android:name="android.hardware.screen.portrait"/>-->
 
@@ -102,6 +102,9 @@
         <activity android:name="com.tourcool.ui.mvp.weather.WeatherActivity" />
         <activity android:name="com.tourcool.ui.base.BaseTitleTransparentActivity" />
         <activity android:name="com.tourcool.ui.mvp.recharge.RechargeActivity" />
+        <activity android:name="com.tourcool.ui.WebViewActivityTest"
+            android:hardwareAccelerated="false"
+            />
 
         <meta-data
             android:name="BUGLY_APPID"

@@ -4,7 +4,7 @@ package com.tourcool.ui.main;
 import android.os.Bundle;
 
 import com.frame.library.core.basis.BaseFragment;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 /**
  * @author :JenkinsZhou

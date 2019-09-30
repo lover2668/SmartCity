@@ -39,7 +39,7 @@ import com.frame.library.core.util.SizeUtil;
 import com.aries.ui.util.StatusBarUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 import com.tourcool.ui.mvp.MessageListActivity;
 
 import java.io.File;

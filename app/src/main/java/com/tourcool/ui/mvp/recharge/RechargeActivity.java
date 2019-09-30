@@ -20,7 +20,7 @@ import com.tourcool.adapter.recharge.RechargeAmountAdapter;
 import com.tourcool.bean.recharge.RechargeEntity;
 import com.tourcool.core.module.mvp.BaseMvpTitleActivity;
 import com.tourcool.core.module.mvp.BasePresenter;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 import com.tourcool.util.MoneyTextWatcher;
 
 import java.util.ArrayList;

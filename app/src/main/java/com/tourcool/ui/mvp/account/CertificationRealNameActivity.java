@@ -10,7 +10,8 @@ import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.core.module.WebViewActivity;
 import com.tourcool.core.module.mvp.BaseMvpTitleActivity;
 import com.tourcool.core.module.mvp.BasePresenter;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
+import com.tourcool.ui.WebViewActivityTest;
 import com.tourcool.ui.mvp.recharge.RechargeActivity;
 import com.tourcool.ui.mvp.weather.WeatherActivity;
 
@@ -72,7 +73,10 @@ public class CertificationRealNameActivity extends BaseMvpTitleActivity implemen
                 startActivity(rechargeIntent);
                 break;
             case R.id.tvFace:
-                WebViewActivity.start(mContext, "http://www.baidu.com/");
+                Intent webIntent = new Intent();
+                webIntent.setClass(mContext, WebViewActivityTest.class);
+                startActivity(webIntent);
+//                WebViewActivity.start(mContext, "http://www.baidu.com/");
                 break;
             default:
                 break;

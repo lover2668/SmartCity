@@ -19,7 +19,7 @@ import com.frame.library.core.util.ToastUtil;
 import com.tourcool.bean.home.HomeChildItem;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.helper.drag.OnDragVHListener;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 import java.util.List;
 

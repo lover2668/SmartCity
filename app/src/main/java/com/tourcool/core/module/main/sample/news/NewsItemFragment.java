@@ -12,7 +12,7 @@ import com.frame.library.core.module.fragment.BaseTitleFragment;
 import com.aries.ui.util.StatusBarUtil;
 import com.aries.ui.view.tab.SlidingTabLayout;
 import com.frame.library.core.widget.titlebar.TitleBarView;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -15,7 +15,7 @@ import com.frame.library.core.widget.linkage.bean.BaseGroupedItem;
 import com.frame.library.core.widget.linkage.contract.ILinkageSecondaryAdapterConfig;
 import com.tourcool.adapter.MatrixOldAdapter;
 import com.tourcool.bean.ServiceGroupItem;
-import com.tourcool.library.frame.R;
+import com.tourcool.smartcity.R;
 
 /**
  * @author :JenkinsZhou

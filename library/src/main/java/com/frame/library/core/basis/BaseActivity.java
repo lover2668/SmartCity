@@ -355,7 +355,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IBaseV
 
     protected void setStatusBarDarkMode(Activity activity, boolean isDarkFont) {
         baseHandler.postDelayed(() -> ImmersionBar.with(activity)
-                .statusBarDarkFont(isDarkFont, 0.9f)
+                .statusBarDarkFont(isDarkFont, 0.2f)
                 .init(), 50);
     }
 }
