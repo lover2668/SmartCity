@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.aries.ui.util.StatusBarUtil;
 import com.frame.library.core.FrameLifecycleCallbacks;
 import com.frame.library.core.control.IFrameTitleView;
 import com.frame.library.core.basis.BaseActivity;
@@ -23,7 +24,7 @@ import com.frame.library.core.widget.titlebar.TitleBarView;
  * 1、2019-3-25 17:03:43 推荐使用{@link IFrameTitleView}通过接口方式由FastLib自动处理{@link FrameLifecycleCallbacks#onActivityStarted(Activity)}
  */
 public abstract class FrameTitleActivity extends BaseActivity implements IFrameTitleView {
-
+    protected int statusBarHeight;
     protected TitleBarView mTitleBar;
 
     protected Handler mHandler = new Handler();
@@ -31,6 +32,7 @@ public abstract class FrameTitleActivity extends BaseActivity implements IFrameT
     @Override
     public void beforeInitView(Bundle savedInstanceState) {
         super.beforeInitView(savedInstanceState);
+        statusBarHeight = StatusBarUtil.getStatusBarHeight();
         mTitleBar = FindViewUtil.getTargetView(mContentView, TitleBarView.class);
         if (mTitleBar != null) {
             mTitleBar.setTextBoldMode(isTitleBold());

@@ -3,22 +3,38 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/dp_12"
-    android:layout_marginRight="@dimen/dp_5"
-    android:layout_marginLeft="@dimen/dp_5"
+    android:id="@+id/llRechargeMoney"
+    android:background="@drawable/bg_radius_5_gray_hollow_selected"
+    android:paddingLeft="@dimen/dp_10"
+    android:paddingTop="@dimen/dp_10"
+    android:layout_marginStart="@dimen/dp_7"
+    android:layout_marginEnd="@dimen/dp_7"
+    android:paddingRight="@dimen/dp_10"
+    android:paddingBottom="@dimen/dp_10"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvRechargeMoney"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_radius_5_gray_hollow_selected"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:paddingLeft="@dimen/dp_10"
-        android:paddingTop="@dimen/dp_18"
-        android:paddingRight="@dimen/dp_10"
-        android:paddingBottom="@dimen/dp_18"
-        android:text="200元"
-        android:textColor="@color/grayCommon"
-        android:textSize="@dimen/sp_18" />
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tvRechargeMoney"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="200元"
+            android:textColor="@color/grayCommon"
+            android:textSize="@dimen/sp_18" />
+
+        <TextView
+            android:text="售价:10.00元"
+            android:id="@+id/tvRechargeDesc"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_gravity="center"
+            android:textSize="@dimen/sp_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
 </LinearLayout>

@@ -9,6 +9,8 @@ import com.tourcool.bean.recharge.RechargeEntity;
 import com.tourcool.core.util.ResourceUtil;
 import com.tourcool.smartcity.R;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 /**
@@ -27,16 +29,18 @@ public class RechargeAmountAdapter extends BaseQuickAdapter<RechargeEntity, Base
     protected void convert(BaseViewHolder helper, RechargeEntity item) {
         helper.setText(R.id.tvRechargeMoney, (int) item.rechargeMoney + "元");
         if (item.selected) {
-            helper.setBackgroundRes(R.id.tvRechargeMoney, R.drawable.selector_bg_radius_5_green_hollow);
+            helper.setBackgroundRes(R.id.llRechargeMoney, R.drawable.selector_bg_radius_5_blue_hollow);
             helper.setTextColor(R.id.tvRechargeMoney, ResourceUtil.getColor(R.color.colorPrimary));
+            helper.setTextColor(R.id.tvRechargeDesc, ResourceUtil.getColor(R.color.colorPrimary));
         } else {
-            helper.setBackgroundRes(R.id.tvRechargeMoney, R.drawable.selector_bg_radius_5_gray_hollow);
+            helper.setBackgroundRes(R.id.llRechargeMoney, R.drawable.selector_bg_radius_5_gray_hollow);
             helper.setTextColor(R.id.tvRechargeMoney, ResourceUtil.getColor(R.color.grayCommon));
+            helper.setTextColor(R.id.tvRechargeDesc, ResourceUtil.getColor(R.color.grayCommon));
         }
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+    public void onAttachedToRecyclerView(@NotNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
 }

@@ -83,5 +83,8 @@ public class CertificationRealNameActivity extends BaseMvpTitleActivity implemen
         }
     }
 
-
+    @Override
+    public boolean isTitleBold() {
+        return false;
+    }
 }

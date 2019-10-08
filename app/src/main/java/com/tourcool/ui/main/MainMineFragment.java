@@ -32,6 +32,7 @@ import com.tourcool.smartcity.R;
 import com.tourcool.ui.mvp.account.CertificationRealNameActivity;
 import com.tourcool.ui.mvp.account.LoginActivity;
 import com.tourcool.ui.mvp.account.RegisterActivity;
+import com.tourcool.ui.mvp.account.SystemSettingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +80,8 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
             @Override
             public void onClick(View v) {
 //                FrameUtil.startActivity(mContext,MyAppManageActivity.class);
-                FrameUtil.startActivity(mContext, LoginActivity.class);
+//                FrameUtil.startActivity(mContext, LoginActivity.class);
+                FrameUtil.startActivity(mContext, SystemSettingActivity.class);
             }
         });
     }

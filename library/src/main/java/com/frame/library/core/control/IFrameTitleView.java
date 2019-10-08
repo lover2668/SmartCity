@@ -1,6 +1,7 @@
 package com.frame.library.core.control;
 
 
+import com.frame.library.core.util.SizeUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
 
 /**
@@ -34,9 +35,15 @@ public interface IFrameTitleView {
      * @return
      */
     default boolean isTitleBold() {
-        return true;
+        return false;
     }
 
 
-
+    /**
+     * 主标题设置上移或下移(默认上移10dp)
+     * @return
+     */
+    default int getMaginTop() {
+        return -SizeUtil.dp2px(10);
+    }
 }

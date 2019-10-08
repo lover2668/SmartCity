@@ -206,32 +206,37 @@ public class SnackBarUtil {
         if (view == null) {
             return;
         }
-        if (mMessageColor != DEFAULT_COLOR) {
-            SpannableString spannableString = new SpannableString(mMessage);
-            ForegroundColorSpan colorSpan = new ForegroundColorSpan(mMessageColor);
-            spannableString.setSpan(colorSpan, 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            mWeakReference = new WeakReference<>(Snackbar.make(view, spannableString, mDuration));
-        } else {
-            mWeakReference = new WeakReference<>(Snackbar.make(view, mMessage, mDuration));
-        }
-        final Snackbar snackbar = mWeakReference.get();
-        final View snackView = snackbar.getView();
-        if (mBgResource != -1) {
-            snackView.setBackgroundResource(mBgResource);
-        } else if (mBgColor != DEFAULT_COLOR) {
-            snackView.setBackgroundColor(mBgColor);
-        }
-        if (mBottomMargin != 0) {
-            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) snackView.getLayoutParams();
-            params.bottomMargin = mBottomMargin;
-        }
-        if (mActionText.length() > 0 && mActionListener != null) {
-            if (mActionTextColor != DEFAULT_COLOR) {
-                snackbar.setActionTextColor(mActionTextColor);
+        try {
+            if (mMessageColor != DEFAULT_COLOR) {
+                SpannableString spannableString = new SpannableString(mMessage);
+                ForegroundColorSpan colorSpan = new ForegroundColorSpan(mMessageColor);
+                spannableString.setSpan(colorSpan, 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                mWeakReference = new WeakReference<>(Snackbar.make(view, spannableString, mDuration));
+            } else {
+                mWeakReference = new WeakReference<>(Snackbar.make(view, mMessage, mDuration));
             }
-            snackbar.setAction(mActionText, mActionListener);
+            final Snackbar snackbar = mWeakReference.get();
+            final View snackView = snackbar.getView();
+            if (mBgResource != -1) {
+                snackView.setBackgroundResource(mBgResource);
+            } else if (mBgColor != DEFAULT_COLOR) {
+                snackView.setBackgroundColor(mBgColor);
+            }
+            if (mBottomMargin != 0) {
+                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) snackView.getLayoutParams();
+                params.bottomMargin = mBottomMargin;
+            }
+            if (mActionText.length() > 0 && mActionListener != null) {
+                if (mActionTextColor != DEFAULT_COLOR) {
+                    snackbar.setActionTextColor(mActionTextColor);
+                }
+                snackbar.setAction(mActionText, mActionListener);
+            }
+            snackbar.show();
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        snackbar.show();
+
     }
 
     /**

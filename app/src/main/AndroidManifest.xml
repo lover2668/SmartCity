@@ -105,6 +105,8 @@
         <activity android:name="com.tourcool.ui.WebViewActivityTest"
             android:hardwareAccelerated="false"
             />
+        <activity android:name="com.tourcool.ui.mvp.account.SystemSettingActivity" />
+        <activity android:name="com.tourcool.ui.mvp.account.EditPasswordActivity" />
 
         <meta-data
             android:name="BUGLY_APPID"
