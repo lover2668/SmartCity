@@ -11,8 +11,8 @@
         android:id="@+id/smartRefreshCommon"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/blue55A9FF">
-
+        android:background="@color/blue79C6FA">
+        <!--blue79C6FA-->
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -28,14 +28,120 @@
                     android:background="@mipmap/icon_bg_mine"
                     android:orientation="vertical">
 
-                    <include layout="@layout/frame_layout_title_bar" />
+                    <include layout="@layout/frame_layout_title_bar"
+                        />
+                    <RelativeLayout
+                        android:layout_marginTop="@dimen/dp_20"
+                        android:layout_marginStart="@dimen/dp_18"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_centerVertical="true"
+                            android:id="@+id/ivAvatar"
+                            android:src="@mipmap/img_placeholder_car"
+                            android:layout_width="@dimen/dp_74"
+                            android:layout_height="@dimen/dp_74"/>
+
+                        <!--未登录状态布局-->
+                        <LinearLayout
+                            android:id="@+id/llUnlogin"
+                            android:layout_marginEnd="@dimen/dp_19"
+                            android:layout_marginStart="@dimen/dp_19"
+                            android:orientation="horizontal"
+                            android:layout_toEndOf="@id/ivAvatar"
+                            android:layout_alignParentEnd="true"
+                            android:layout_width="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:textSize="@dimen/sp_16"
+                                android:textColor="@color/whiteCommon"
+                                android:text="未登录"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/tvLoginNow"
+                                android:text="立即登录"
+                                android:background="@drawable/bg_radius_15_white"
+                                android:paddingTop="@dimen/dp_7"
+                                android:paddingBottom="@dimen/dp_7"
+                                android:paddingStart="@dimen/dp_12"
+                                android:paddingEnd="@dimen/dp_12"
+                                android:textSize="@dimen/sp_12"
+                                android:textColor="@color/blue5593FF"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+
+
+
+                        <!--已登录状态布局-->
+                        <RelativeLayout
+                            android:id="@+id/rlLogin"
+                            android:visibility="gone"
+                            android:layout_marginStart="@dimen/dp_19"
+                            android:layout_toEndOf="@id/ivAvatar"
+                            android:layout_alignParentEnd="true"
+                            android:layout_width="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tvNickName"
+                                android:textSize="@dimen/sp_16"
+                                android:textColor="@color/whiteCommon"
+                                android:text="智慧宜兴12138"
+                                android:includeFontPadding="false"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+
+                            <LinearLayout
+                                android:layout_marginTop="@dimen/dp_18"
+                                android:layout_below="@id/tvNickName"
+                                android:orientation="horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <ImageView
+                                    android:layout_marginStart="@dimen/dp_2"
+                                    android:layout_gravity="center_vertical"
+                                    android:src="@mipmap/ic_phone_small"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                                <TextView
+                                    android:layout_marginStart="@dimen/dp_5"
+                                    android:includeFontPadding="false"
+                                    android:textSize="@dimen/sp_12"
+                                    android:textColor="@color/whiteCommon"
+                                    android:text="13812345678"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
+                            <ImageView
+                                android:padding="@dimen/dp_18"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentEnd="true"
+                                android:src="@mipmap/ic_arrow_right_white_small"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </RelativeLayout>
+
+
+                    </RelativeLayout>
+
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvCommon"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_300"
-                    android:layout_marginTop="@dimen/dp_184"
+                    android:layout_marginTop="@dimen/dp_178"
                     android:background="@drawable/bg_top_radius_15_white" />
 
 

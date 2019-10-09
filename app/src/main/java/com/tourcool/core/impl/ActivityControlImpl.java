@@ -106,28 +106,30 @@ public class ActivityControlImpl implements ActivityFragmentControl, ActivityKey
         // 获取当前音乐音量
         mCurrentVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
         LoggerManager.i(TAG, "max:" + mMaxVolume + ";min:" + mMinVolume + ";current:" + mCurrentVolume);
-        SnackBarUtil.with(StackUtil.getInstance().getCurrent().getWindow().getDecorView())
+      /*  SnackBarUtil.with(StackUtil.getInstance().getCurrent().getWindow().getDecorView())
                 .setBgColor(Color.WHITE)
                 .setMessageColor(Color.BLACK)
                 .setMessage("当前音量:" + mCurrentVolume)
-                .showSuccess();
+                .showSuccess();*/
     }
 
+
+
     @Override
-    public boolean onKeyDown(Activity activity, int keyCode, KeyEvent event) {
-        //演示拦截系统音量键控制--类似抖音
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_VOLUME_DOWN:
-                volume(1, false);
-                LoggerManager.i(TAG, "volumeDown-activity:" + activity.getClass().getSimpleName());
-                return true;
-            case KeyEvent.KEYCODE_VOLUME_UP:
-                volume(1, true);
-                LoggerManager.i(TAG, "volumeUp-activity:" + activity.getClass().getSimpleName());
-                return true;
+        public boolean onKeyDown(Activity activity, int keyCode, KeyEvent event) {
+            //演示拦截系统音量键控制--类似抖音
+          /*  switch (keyCode) {
+                case KeyEvent.KEYCODE_VOLUME_DOWN:
+                    volume(1, false);
+                    LoggerManager.i(TAG, "volumeDown-activity:" + activity.getClass().getSimpleName());
+                    return true;
+                case KeyEvent.KEYCODE_VOLUME_UP:
+                    volume(1, true);
+                    LoggerManager.i(TAG, "volumeUp-activity:" + activity.getClass().getSimpleName());
+                    return true;
+            }*/
+            return false;
         }
-        return false;
-    }
 
     @Override
     public boolean onKeyUp(Activity activity, int keyCode, KeyEvent event) {

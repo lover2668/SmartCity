@@ -48,6 +48,7 @@
     <color name="blue41baff">#41baff</color>
     <color name="blueCommon">#4287FF</color>
     <color name="blue5E8FEB">#5E8FEB</color>
+    <color name="blue79C6FA">#79C6FA</color>
 
 
     <!--灰色区域-->
@@ -62,10 +63,13 @@
     <color name="grayE0E0E0">#E0E0E0</color>
     <color name="grayA2A2A2">#A2A2A2</color>
     <color name="grayCCCCCC">#CCCCCC</color>
+    <color name="grayAAAAAA">#AAAAAA</color>
+    <color name="gray3A3A3A">#3A3A3A</color>
 
     <!--黑色区域-->
     <color name="black333333">#333333</color>
     <color name="black171717">#171717</color>
+
 
     <!--红色区域-->
     <color name="redF35757">#F35757</color>

@@ -72,6 +72,7 @@ public class LoginActivity extends BaseMvpTitleActivity implements View.OnClickL
         llLoginPass = findViewById(R.id.llLoginPass);
         llLoginVcode = findViewById(R.id.llLoginVcode);
         findViewById(R.id.tvSkipRegister).setOnClickListener(this);
+        findViewById(R.id.tvForgetPass).setOnClickListener(this);
         ImageView ivClearPhone = findViewById(R.id.ivClearPhone);
         ImageView ivClearPass = findViewById(R.id.ivClearPass);
         ImageView ivPhoneValid = findViewById(R.id.ivPhoneValid);
@@ -79,12 +80,13 @@ public class LoginActivity extends BaseMvpTitleActivity implements View.OnClickL
         EditText etPhone = findViewById(R.id.etPhone);
         listenInput(etPhone, ivClearPhone);
         listenInput(etPassword, ivClearPass);
-        listenInputPhoneValid(etPhone,ivPhoneValid);
+        listenInputPhoneValid(etPhone, ivPhoneValid);
         changeLoginType();
     }
 
     @Override
     public void setTitleBar(TitleBarView titleBar) {
+        setMarginTop(titleBar);
         titleBar.setTitleMainText("登录");
     }
 
@@ -133,8 +135,11 @@ public class LoginActivity extends BaseMvpTitleActivity implements View.OnClickL
                 break;
             case R.id.tvLogin:
                 Intent intent1 = new Intent();
-                intent1.setClass(mContext,IdentifyLevel1Activity.class);
+                intent1.setClass(mContext, IdentifyLevel1Activity.class);
                 startActivity(intent1);
+                break;
+            case R.id.tvForgetPass:
+                FrameUtil.startActivity(mContext,SystemSettingActivity.class);
                 break;
             default:
                 break;

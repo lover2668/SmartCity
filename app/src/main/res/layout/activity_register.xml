@@ -21,8 +21,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/dp_75"
-                android:layout_marginBottom="@dimen/dp_45"
+                android:layout_marginTop="@dimen/dp_60"
+                android:layout_marginBottom="@dimen/dp_35"
                 android:src="@mipmap/ic_logo_register" />
 
             <LinearLayout

@@ -211,7 +211,8 @@
 
 
         <TextView
-            android:layout_marginTop="@dimen/dp_140"
+            android:id="@+id/tvForgetPass"
+            android:layout_marginTop="@dimen/dp_100"
             android:layout_gravity="center_horizontal"
             android:text="忘记密码"
             android:padding="@dimen/dp_5"

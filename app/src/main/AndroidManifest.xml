@@ -107,6 +107,10 @@
             />
         <activity android:name="com.tourcool.ui.mvp.account.SystemSettingActivity" />
         <activity android:name="com.tourcool.ui.mvp.account.EditPasswordActivity" />
+        <activity android:name="com.tourcool.ui.mvp.account.BindPhoneActivity" />
+        <activity android:name="com.tourcool.ui.mvp.account.PersonalDataActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            />
 
         <meta-data
             android:name="BUGLY_APPID"

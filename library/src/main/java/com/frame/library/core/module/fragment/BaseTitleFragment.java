@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -85,6 +86,20 @@ public abstract class BaseTitleFragment extends BaseFragment implements IFrameTi
                 loadingDialog.dismiss();
             }
         });
+    }
+
+    protected void setMarginTop(TitleBarView titleBarView) {
+        if (titleBarView == null) {
+            return;
+        }
+        ViewGroup.LayoutParams layoutParams = titleBarView.getLayoutParams();
+        if (layoutParams instanceof LinearLayout.LayoutParams) {
+            ((LinearLayout.LayoutParams) layoutParams).setMargins(0, getMaginTop(), 0, 0);
+        } else if (layoutParams instanceof RelativeLayout.LayoutParams) {
+            ((RelativeLayout.LayoutParams) layoutParams).setMargins(0, getMaginTop(), 0, 0);
+        } else if (layoutParams instanceof FrameLayout.LayoutParams) {
+            ((FrameLayout.LayoutParams) layoutParams).setMargins(0, getMaginTop(), 0, 0);
+        }
     }
 
 }

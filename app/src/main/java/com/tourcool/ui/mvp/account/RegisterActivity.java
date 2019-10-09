@@ -79,6 +79,7 @@ public class RegisterActivity extends BaseMvpTitleActivity<RegisterPresenter> im
 
     @Override
     public void setTitleBar(TitleBarView titleBar) {
+        setMarginTop(titleBar);
         titleBar.setTitleMainText("注册");
     }
 

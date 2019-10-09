@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.util.ToastUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.core.module.mvp.BaseMvpTitleActivity;
@@ -50,7 +51,7 @@ public class SystemSettingActivity extends BaseMvpTitleActivity implements View.
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.llBindPhone:
-                ToastUtil.show("绑定手机号");
+                FrameUtil.startActivity(mContext,BindPhoneActivity.class);
                 break;
             case R.id.llClearCache:
                 ToastUtil.show("清除缓存");

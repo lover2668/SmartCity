@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.frame.library.core.UiManager;
 import com.frame.library.core.control.ActivityDispatchEventControl;
@@ -92,7 +93,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IBaseV
         setContentView(mContentView);
         mUnBinder = ButterKnife.bind(this);
         mIsViewLoaded = true;
-        setStatusBarDarkMode(mContext,isStatusBarDarkMode());
+        setStatusBarDarkMode(mContext, isStatusBarDarkMode());
         beforeInitView(savedInstanceState);
         initView(savedInstanceState);
         loadingDialog = new FrameLoadingDialog(mContext, "加载中...");
@@ -357,5 +358,10 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IBaseV
         baseHandler.postDelayed(() -> ImmersionBar.with(activity)
                 .statusBarDarkFont(isDarkFont, 0.2f)
                 .init(), 50);
+    }
+
+
+    protected String getTextValue(TextView textView) {
+        return textView != null ? textView.getText().toString() : "";
     }
 }

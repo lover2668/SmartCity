@@ -28,22 +28,28 @@ public abstract class BaseCommonTitleActivity extends FrameTitleActivity {
 
     @Override
     public void setTitleBar(TitleBarView titleBar) {
-        if (mTitleBar != null) {
-            ViewGroup.LayoutParams layoutParams = mTitleBar.getLayoutParams();
-            if(layoutParams instanceof LinearLayout.LayoutParams){
-                TourCooLogUtil.i("状态栏高度:"+statusBarHeight);
-                ((LinearLayout.LayoutParams) layoutParams).setMargins(0, getMaginTop(),0,0);
-            }else if (layoutParams instanceof RelativeLayout.LayoutParams){
-                ((RelativeLayout.LayoutParams) layoutParams).setMargins(0, getMaginTop(),0,0);
-            }else if(layoutParams instanceof FrameLayout.LayoutParams){
-                ((FrameLayout.LayoutParams) layoutParams).setMargins(0, getMaginTop(),0,0);
-            }
-            mTitleBar.setBgResource(R.drawable.bg_gradient_title_common);
-            mTitleBar.setLeftTextDrawable(R.drawable.ic_back_white);
-            mTitleBar.setTitleMainTextColor(FrameUtil.getColor(R.color.whiteCommon));
-            mTitleBar.getMainTitleTextView().setTextSize(TITLE_MAIN_TITLE_SIZE);
+        if (titleBar != null) {
+            setMarginTop(titleBar);
+            titleBar.setBgResource(R.drawable.bg_gradient_title_common);
+            titleBar.setLeftTextDrawable(R.drawable.ic_back_white);
+            titleBar.setTitleMainTextColor(FrameUtil.getColor(R.color.whiteCommon));
+            titleBar.getMainTitleTextView().setTextSize(TITLE_MAIN_TITLE_SIZE);
         }
     }
 
+
+    protected void setMarginTop(TitleBarView titleBarView) {
+        if (titleBarView == null) {
+            return;
+        }
+        ViewGroup.LayoutParams layoutParams = titleBarView.getLayoutParams();
+        if (layoutParams instanceof LinearLayout.LayoutParams) {
+            ((LinearLayout.LayoutParams) layoutParams).setMargins(0, getMaginTop(), 0, 0);
+        } else if (layoutParams instanceof RelativeLayout.LayoutParams) {
+            ((RelativeLayout.LayoutParams) layoutParams).setMargins(0, getMaginTop(), 0, 0);
+        } else if (layoutParams instanceof FrameLayout.LayoutParams) {
+            ((FrameLayout.LayoutParams) layoutParams).setMargins(0, getMaginTop(), 0, 0);
+        }
+    }
 
 }

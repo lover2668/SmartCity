@@ -336,4 +336,23 @@ public abstract class BaseFragment extends RxFragment implements IBaseView {
         }
     }
 
+
+
+    protected void setViewVisible(View view, boolean visible) {
+        if (view == null) {
+            TourCooLogUtil.e(TAG, "setViewVisible()--->View==null！");
+            return;
+        }
+        view.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    protected void setViewGone(View view, boolean visible) {
+        if (view == null) {
+            TourCooLogUtil.e(TAG, "setViewGone()--->View==null！");
+            return;
+        }
+        view.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
+
 }
