@@ -8,6 +8,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import android.view.View;
 import android.widget.CompoundButton;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.allen.library.SuperTextView;
 import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.core.constant.EventConstant;
@@ -31,6 +32,7 @@ import butterknife.OnClick;
  * @Function: 设置页
  * @Description:
  */
+
 public class SettingActivity extends FrameTitleActivity {
 
     @BindView(R.id.stv_activityAnimationSetting) SuperTextView stvActivityAnimation;

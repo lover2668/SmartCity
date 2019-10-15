@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.manager.GlideManager;
@@ -27,6 +28,7 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tourcool.adapter.MineMenuAdapter;
 import com.tourcool.bean.MatrixBean;
+import com.tourcool.core.constant.RouteConstance;
 import com.tourcool.core.util.ProgressDrawable;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.helper.EmiRecycleViewDivider;
@@ -92,13 +94,12 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
         setViewGone(llUnlogin, false);
         setViewGone(rlLogin, true);
         mainText.setCompoundDrawablesWithIntrinsicBounds(null, null, TourCooUtil.getDrawable(R.mipmap.icon_title_name), null);
-        titleBar.setOnRightTextClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        titleBar.setOnRightTextClickListener(v -> {
 //                FrameUtil.startActivity(mContext,MyAppManageActivity.class);
-                FrameUtil.startActivity(mContext, LoginActivity.class);
+//            FrameUtil.startActivity(mContext, LoginActivity.class);
 //                FrameUtil.startActivity(mContext, SystemSettingActivity.class);
-            }
+            ARouter.getInstance().build(RouteConstance.ACTIVITY_URL_LOGIN).navigation();
+
         });
     }
 

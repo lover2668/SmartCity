@@ -126,7 +126,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IBaseV
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         List<Fragment> list = getSupportFragmentManager().getFragments();
-        if (list == null || list.size() == 0) {
+        if ( list.isEmpty()) {
             return;
         }
         for (Fragment f : list) {

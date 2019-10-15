@@ -9,12 +9,15 @@ import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.multidex.MultiDexApplication;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.frame.library.core.util.FrameUtil;
+import com.tourcool.core.config.AppConfig;
 import com.tourcool.core.config.RequestConfig;
 import com.tourcool.core.constant.ApiConstant;
 import com.tourcool.core.constant.SPConstant;
@@ -64,11 +67,14 @@ public class MyApplication extends MultiDexApplication {
     private static String TAG = "FastLib";
     private static int imageHeight = 0;
     private long start;
+    private Handler handler;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mContext = this;
+        handler = new Handler();
+        loadDelay();
         //初始化Logger日志打印
         LoggerManager.init(TAG, BuildConfig.LOG_ENABALE,
                 PrettyFormatStrategy.newBuilder()
@@ -270,5 +276,31 @@ public class MyApplication extends MultiDexApplication {
 
     public static Application getInstance() {
         return mContext;
+    }
+
+    /**
+     * 延时加载
+     */
+    private void loadDelay() {
+        handler.postDelayed(() -> {
+            initArouter();
+              TourCooLogUtil.i(TAG,"initArouter()已执行");
+        },500);
+
+    }
+
+    /**
+     * 初始化路由
+     */
+    private void initArouter(){
+        if (AppConfig.DEBUG_MODE) {
+            // 这两行必须写在init之前，否则这些配置在init过程中将无效
+            // 打印日志
+            ARouter.openLog();
+            // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
+            ARouter.openDebug();
+        }
+        // 尽可能早，推荐在Application中初始化
+        ARouter.init(mContext);
     }
 }

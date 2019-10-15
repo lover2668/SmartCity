@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.frame.library.core.manager.RxJavaManager;
 import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.util.StringUtil;
@@ -27,6 +28,8 @@ import java.util.List;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
+import static com.tourcool.core.constant.RouteConstance.ACTIVITY_URL_LOGIN;
+import static com.tourcool.core.constant.RouteConstance.ACTIVITY_URL_SETTING;
 import static com.tourcool.core.constant.TimeConstant.COUNT;
 import static com.tourcool.core.constant.TimeConstant.ONE_SECOND;
 
@@ -37,6 +40,7 @@ import static com.tourcool.core.constant.TimeConstant.ONE_SECOND;
  * @date 2019年09月24日17:42
  * @Email: 971613168@qq.com
  */
+@Route(path = ACTIVITY_URL_LOGIN)
 public class LoginActivity extends BaseMvpTitleActivity implements View.OnClickListener {
     private TextView tvGetCode;
     private TextView tvChangeLoginType;

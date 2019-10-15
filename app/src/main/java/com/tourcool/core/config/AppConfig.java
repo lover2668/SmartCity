@@ -8,6 +8,9 @@ package com.tourcool.core.config;
  * @Email: 971613168@qq.com
  */
 public class AppConfig {
+
+
+    public static final boolean DEBUG_MODE = true;
     /**
      * 标题栏主标题文字大小(sp)
      */

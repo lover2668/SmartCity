@@ -18,6 +18,12 @@ android {
                 bugly_id   : "a66ee7eb32",
                 PGYER_ID   : "b88a08387635b27ea95dcf2d6b887a33"
         ]
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
     }
 
     dexOptions {
@@ -116,4 +122,7 @@ dependencies {
     implementation files('libs/commons-lang-2.6.jar')
     implementation 'com.github.hackware1993:MagicIndicator:1.6.0'
 
+    //需要注意的是api要与compiler匹配使用，均使用最新版可以保证兼容
+    implementation 'com.alibaba:arouter-api:1.5.0'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
 }

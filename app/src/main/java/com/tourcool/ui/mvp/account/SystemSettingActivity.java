@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.util.ToastUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.core.module.mvp.BaseMvpTitleActivity;
 import com.tourcool.core.module.mvp.BasePresenter;
 import com.tourcool.smartcity.R;
+
+import static com.tourcool.core.constant.RouteConstance.ACTIVITY_URL_SETTING;
 
 /**
  * @author :JenkinsZhou
@@ -18,6 +21,7 @@ import com.tourcool.smartcity.R;
  * @date 2019年10月08日16:56
  * @Email: 971613168@qq.com
  */
+@Route(path = ACTIVITY_URL_SETTING)
 public class SystemSettingActivity extends BaseMvpTitleActivity implements View.OnClickListener {
     @Override
     protected void loadPresenter() {
