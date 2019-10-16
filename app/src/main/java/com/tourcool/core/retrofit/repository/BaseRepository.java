@@ -6,6 +6,7 @@ import com.tourcool.core.base.BaseResult;
 import com.frame.library.core.retrofit.FrameNullException;
 import com.frame.library.core.retrofit.RetryWhen;
 import com.frame.library.core.retrofit.FrameTransformer;
+import com.tourcool.core.config.RequestConfig;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -31,7 +32,7 @@ public abstract class BaseRepository {
                             if (result == null) {
                                 return Observable.error(new NetworkErrorException());
                             } else {
-                                if (result.success) {
+                                if (result.status == RequestConfig.CODE_REQUEST_SUCCESS) {
                                     return result.data != null ? Observable.just(result.data)
                                             : Observable.error(new FrameNullException());
                                 } else {

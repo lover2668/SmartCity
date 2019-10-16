@@ -20,6 +20,7 @@ import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.manager.GlideManager;
 import com.frame.library.core.module.fragment.BaseTitleFragment;
 import com.frame.library.core.retrofit.BaseLoadingObserver;
+import com.frame.library.core.retrofit.BaseObserver;
 import com.frame.library.core.threadpool.ThreadPoolManager;
 import com.frame.library.core.util.SizeUtil;
 import com.frame.library.core.util.ToastUtil;
@@ -130,19 +131,38 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
     }
 
     private void getHomeInfo() {
-        ApiRepository.getInstance().requestHomeInfo("宜兴", false).compose(bindUntilEvent(FragmentEvent.DESTROY)).
+        ApiRepository.getInstance().requestHomeInfo(0).compose(bindUntilEvent(FragmentEvent.DESTROY)).
+                subscribe(new BaseObserver<Object>() {
+                    @Override
+                    public void onRequestNext(Object entity) {
+                        ToastUtil.showSuccess("请求成功");
+                    }
+
+                    @Override
+                    public void onRequestError(Throwable e) {
+                        super.onRequestError(e);
+                        ToastUtil.showFailed("请求失败");
+                    }
+                });
+        /*ApiRepository.getInstance().requestHomeInfo(0).compose(bindUntilEvent(FragmentEvent.DESTROY)).
                 subscribe(new BaseLoadingObserver<BaseResult>() {
                     @Override
                     public void onRequestNext(BaseResult entity) {
                         mRefreshLayout.finishRefresh();
-                        if (entity != null && entity.data != null) {
-                            if (entity.code == CODE_REQUEST_SUCCESS) {
+                        if(entity == null||entity.errorMsg == null){
+                            ToastUtil.showFailed("请求数据异常");
+                            return;
+                        }
+                        if(entity.status != CODE_REQUEST_SUCCESS){
+                            ToastUtil.showFailed("数据解析异常");
+                            return;
+                        }
+                            if (entity.data != null) {
                                 ToastUtil.showSuccess("请求成功");
                                 handleHomeResultCallback(entity.data);
                             } else {
-                                ToastUtil.showFailed(entity.message);
+                                ToastUtil.showFailed(entity.errorMsg);
                             }
-                        }
                     }
 
                     @Override
@@ -151,7 +171,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
                         ToastUtil.showFailed("请求失败");
                         mRefreshLayout.finishRefresh(false);
                     }
-                });
+                });*/
     }
 
 
@@ -306,18 +326,15 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
                 //调试发现 该方法解析javaBean比较耗时 导致主线程短暂卡顿 因此放到子线程解析
                 List<HomeBean> homeList = parseJsonToBeanList(data, HomeBean.class);
                 if (homeList != null) {
-                    runMainThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            HomeBean homeBean = new HomeBean();
-                            homeBean.setType(ITEM_TYPE_IMAGE);
-                            HomeChildBean homeChildBean = new HomeChildBean();
-                            homeChildBean.setIcon("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1999668027,394700362&fm=11&gp=0.jpg");
-                            homeBean.setData(homeChildBean);
-                            homeList.add(homeBean);
-                            handleHomeView(homeList);
-                            TourCooLogUtil.d("数据长度:" + homeList.size());
-                        }
+                    runMainThread(() -> {
+                        HomeBean homeBean = new HomeBean();
+                        homeBean.setType(ITEM_TYPE_IMAGE);
+                        HomeChildBean homeChildBean = new HomeChildBean();
+                        homeChildBean.setIcon("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1999668027,394700362&fm=11&gp=0.jpg");
+                        homeBean.setData(homeChildBean);
+                        homeList.add(homeBean);
+                        handleHomeView(homeList);
+                        TourCooLogUtil.d("数据长度:" + homeList.size());
                     });
                 }
             }

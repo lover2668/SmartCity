@@ -239,6 +239,6 @@ public class AppConfigImpl implements DefaultRefreshHeaderCreator, LoadMoreFoot,
      */
     @Override
     public boolean onError(BaseObserver o, Throwable e) {
-        return false;
+        return true;
     }
 }

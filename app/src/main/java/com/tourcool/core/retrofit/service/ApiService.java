@@ -70,12 +70,12 @@ public interface ApiService {
 
 
     /**
-     * 首页接口
+     * 获取屏幕信息
      *
      * @param map
      * @return
      */
-    @POST("test")
+    @GET("screen")
     Observable<BaseResult<Object>> requestHomeInfo(@QueryMap Map<String, Object> map);
 
 }

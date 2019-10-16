@@ -8,8 +8,8 @@ package com.tourcool.core.base;
  */
 public class BaseResult<T> {
 
-    public boolean success;
-    public int code;
-    public String message;
+    public int status;
+    public String errorMsg;
     public T data;
+
 }

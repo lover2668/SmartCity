@@ -105,11 +105,10 @@ public class ApiRepository extends BaseRepository {
         return FrameTransformer.switchSchedulers(getApiService().requestMsgList(params).retryWhen(new RetryWhen()));
     }
 
-    public Observable<BaseResult<Object>> requestHomeInfo(String city, boolean random) {
-        Map<String, Object> params = new HashMap<>(2);
-        params.put("city", city);
-        params.put("random", random);
-        return FrameTransformer.switchSchedulers(getApiService().requestHomeInfo(params).retryWhen(new RetryWhen()));
+    public Observable<Object> requestHomeInfo(int screenId) {
+        Map<String, Object> params = new HashMap<>(1);
+        params.put("screenId", screenId);
+        return transform(FrameTransformer.switchSchedulers(getApiService().requestHomeInfo(params).retryWhen(new RetryWhen())));
     }
 
 }

@@ -142,6 +142,9 @@ public class ToastUtil {
         if (builder == null) {
             builder = getBuilder();
         }
+        if(content == null){
+            content = "";
+        }
         int duration = builder.duration == Toast.LENGTH_LONG || builder.duration == Toast.LENGTH_SHORT ? builder.duration :
                 content.length() > 10 ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT;
         sTextView.getDelegate()
