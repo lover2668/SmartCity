@@ -13,7 +13,7 @@ import com.frame.library.core.widget.LoadingDialogWrapper;
 import com.frame.library.core.widget.dialog.FrameLoadingDialog;
 import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.core.module.WebAppActivity;
-import com.tourcool.core.retrofit.repository.BaseRepository;
+import com.tourcool.core.retrofit.repository.AbstractRepository;
 import com.frame.library.core.control.FrameObserverControl;
 import com.frame.library.core.control.FrameRecyclerViewControl;
 import com.frame.library.core.control.IFrameRefreshLoadView;
@@ -32,7 +32,6 @@ import com.frame.library.core.widget.FrameLoadMoreView;
 import com.aries.ui.util.DrawableUtil;
 import com.aries.ui.util.StatusBarUtil;
 import com.aries.ui.view.radius.RadiusTextView;
-import com.aries.ui.widget.progress.UIProgressDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.loadmore.LoadMoreView;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
@@ -235,10 +234,10 @@ public class AppConfigImpl implements DefaultRefreshHeaderCreator, LoadMoreFoot,
      * @return true 拦截操作不进行原始{@link BaseObserver#onError(Throwable)}后续逻辑
      * false 不拦截继续后续逻辑
      * {@link FrameNullException} 已在{@link BaseObserver#onError} ｝处理如果为该类型Exception可不用管,参考
-     * {@link BaseRepository#transform(Observable)} 处理逻辑
+     * {@link AbstractRepository#transform(Observable)} 处理逻辑
      */
     @Override
     public boolean onError(BaseObserver o, Throwable e) {
-        return true;
+        return false;
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
  * @date 2019年10月15日16:32
  * @Email: 971613168@qq.com
  */
-public class Screen {
+public class ScreenEntity {
 
 
     /**

@@ -294,6 +294,7 @@ public abstract class BaseFragment extends RxFragment implements IBaseView {
         try {
             return JSON.parseObject(JSON.toJSONString(data), tClass);
         } catch (Exception e) {
+            TourCooLogUtil.e("parseJavaBean()报错--->" + e.toString());
             return null;
         }
     }
@@ -320,6 +321,7 @@ public abstract class BaseFragment extends RxFragment implements IBaseView {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                TourCooLogUtil.e("parseListJavaBean--->" + e.toString());
             } finally {
                 gson = null;
             }
@@ -332,6 +334,7 @@ public abstract class BaseFragment extends RxFragment implements IBaseView {
         try {
             return JSONArray.parseArray(JSON.toJSONString(data), model);
         } catch (Exception e) {
+              TourCooLogUtil.e(TAG,"parseJsonToBeanList()报错--->"+e.toString());
             return null;
         }
     }
@@ -353,6 +356,7 @@ public abstract class BaseFragment extends RxFragment implements IBaseView {
         }
         view.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
+
 
 
 }

@@ -23,7 +23,7 @@ import io.reactivex.Observable;
  * @Function: Retrofit api调用示例
  * @Description:
  */
-public class ApiRepository extends BaseRepository {
+public class ApiRepository extends AbstractRepository {
 
     private static volatile ApiRepository instance;
     private ApiService mApiService;
@@ -105,10 +105,10 @@ public class ApiRepository extends BaseRepository {
         return FrameTransformer.switchSchedulers(getApiService().requestMsgList(params).retryWhen(new RetryWhen()));
     }
 
-    public Observable<Object> requestHomeInfo(int screenId) {
+    public Observable<BaseResult<Object>> requestHomeInfo(int screenId) {
         Map<String, Object> params = new HashMap<>(1);
         params.put("screenId", screenId);
-        return transform(FrameTransformer.switchSchedulers(getApiService().requestHomeInfo(params).retryWhen(new RetryWhen())));
+        return FrameTransformer.switchSchedulers(getApiService().requestHomeInfo(params).retryWhen(new RetryWhen()));
     }
 
 }

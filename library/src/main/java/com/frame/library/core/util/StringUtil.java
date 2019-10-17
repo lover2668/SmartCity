@@ -19,4 +19,12 @@ public class StringUtil {
         }
         return number.length() == PHONE_LENGTH && number.startsWith(PHONE_START);
     }
+
+
+    public static String  getNotNullValue(String number) {
+        if (TextUtils.isEmpty(number)) {
+            return "";
+        }
+        return number;
+    }
 }

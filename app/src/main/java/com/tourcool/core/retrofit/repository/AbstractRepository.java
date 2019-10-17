@@ -18,7 +18,9 @@ import io.reactivex.functions.Function;
  * @Function: retrofit使用基类封装
  * @Description:
  */
-public abstract class BaseRepository {
+public abstract class AbstractRepository {
+
+    /*  */
 
     /**
      * @param observable 用于解析 统一返回实体统一做相应的错误码--如登录失效
@@ -41,4 +43,8 @@ public abstract class BaseRepository {
                             }
                         }));
     }
+
+
+
+
 }

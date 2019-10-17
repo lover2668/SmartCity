@@ -10,10 +10,30 @@ package com.tourcool.bean;
 public class MatrixBean {
     private String matrixIconUrl;
     private String matrixName;
-
+    private String link;
+    private int jumpWay;
     public MatrixBean(String matrixIconUrl, String matrixName) {
         this.matrixIconUrl = matrixIconUrl;
         this.matrixName = matrixName;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public int getJumpWay() {
+        return jumpWay;
+    }
+
+    public void setJumpWay(int jumpWay) {
+        this.jumpWay = jumpWay;
+    }
+
+    public MatrixBean() {
     }
 
     public String getMatrixIconUrl() {

@@ -22,7 +22,9 @@ import com.frame.library.core.module.fragment.BaseTitleFragment;
 import com.frame.library.core.retrofit.BaseLoadingObserver;
 import com.frame.library.core.retrofit.BaseObserver;
 import com.frame.library.core.threadpool.ThreadPoolManager;
+import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.util.SizeUtil;
+import com.frame.library.core.util.StringUtil;
 import com.frame.library.core.util.ToastUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.gyf.immersionbar.ImmersionBar;
@@ -32,11 +34,18 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tourcool.adapter.MatrixAdapter;
 import com.tourcool.adapter.TwoLevelChildAdapter;
+import com.tourcool.bean.MatrixBean;
 import com.tourcool.bean.home.HomeBean;
 import com.tourcool.bean.home.HomeChildBean;
 import com.tourcool.bean.home.HomeChildItem;
 import com.tourcool.bean.home.Weather;
+import com.tourcool.bean.screen.Channel;
+import com.tourcool.bean.screen.ChildNode;
+import com.tourcool.bean.screen.ColumnItem;
+import com.tourcool.bean.screen.ScreenEntity;
+import com.tourcool.bean.screen.ScreenPart;
 import com.tourcool.core.base.BaseResult;
+import com.tourcool.core.config.RequestConfig;
 import com.tourcool.core.constant.ItemConstant;
 import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.TourCooUtil;
@@ -46,7 +55,6 @@ import com.trello.rxlifecycle3.android.FragmentEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.tourcool.core.config.RequestConfig.CODE_REQUEST_SUCCESS;
 import static com.tourcool.core.constant.ClickConstant.CLICK_TYPE_NATIVE;
 import static com.tourcool.core.constant.ClickConstant.CLICK_TYPE_URL;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_CONTAINS_SUBLISTS;
@@ -55,6 +63,9 @@ import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_IMAGE;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_IMAGE_TEXT_LIST;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_VERTICAL_BANNER;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_WEATHER;
+import static com.tourcool.core.constant.ScreenConsrant.LAYOUT_STYLE_IMAGE_TEXT_LIST;
+import static com.tourcool.core.constant.ScreenConsrant.SUB_CHANNEL;
+import static com.tourcool.core.constant.ScreenConsrant.SUB_COLUMN;
 
 /**
  * @author :JenkinsZhou
@@ -63,6 +74,7 @@ import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_WEATHER;
  * @date 2019年08月19日21:26
  * @Email: 971613168@qq.com
  */
+@SuppressWarnings("unchecked")
 public class MainHomeFragment extends BaseTitleFragment implements OnRefreshListener {
     private SmartRefreshLayout mRefreshLayout;
     private LinearLayout llContainer;
@@ -131,16 +143,25 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
     }
 
     private void getHomeInfo() {
-        ApiRepository.getInstance().requestHomeInfo(0).compose(bindUntilEvent(FragmentEvent.DESTROY)).
-                subscribe(new BaseObserver<Object>() {
+        ApiRepository.getInstance().requestHomeInfo(1).compose(bindUntilEvent(FragmentEvent.DESTROY)).
+                subscribe(new BaseLoadingObserver<BaseResult<Object>>() {
                     @Override
-                    public void onRequestNext(Object entity) {
-                        ToastUtil.showSuccess("请求成功");
+                    public void onRequestNext(BaseResult entity) {
+                        handleRequestSuccessCallback(entity, () -> {
+                            ScreenEntity screenEntity = parseJavaBean(entity.data, ScreenEntity.class);
+                            if (screenEntity == null) {
+                                ToastUtil.showFailed("javabean解析失败");
+                                return;
+                            }
+                            ToastUtil.showSuccess("解析成功");
+                            parseScreenInfo(screenEntity);
+                        });
                     }
 
                     @Override
                     public void onRequestError(Throwable e) {
                         super.onRequestError(e);
+                        TourCooLogUtil.e(TAG, "onRequestError---->" + e.toString());
                         ToastUtil.showFailed("请求失败");
                     }
                 });
@@ -435,5 +456,108 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
      */
     private View createLineView() {
         return LayoutInflater.from(mContext).inflate(R.layout.line_view_verticle_layout, null);
+    }
+
+
+    private void handleRequestSuccessCallback(BaseResult<Object> result, Runnable runnable) {
+        if (result == null) {
+            ToastUtil.showFailed("请求失败");
+            return;
+        }
+        if (result.status != RequestConfig.CODE_REQUEST_SUCCESS) {
+            ToastUtil.showFailed(result.errorMsg);
+            return;
+        }
+        baseHandler.post(runnable);
+    }
+
+
+    private void parseScreenInfo(ScreenEntity screenEntity) {
+      /*  WEATHER(0, "天气样式", new Integer[]{4}),
+                HORIZONTAL_BANNER(1, "水平滚动Banner样式", new Integer[]{2}),
+                VERTICAL_BANNER(2, "垂直滚动Banner样式", new Integer[]{3}),
+                IMAGE_TEXT_LIST(3, "图（上）文（下）列表样式", new Integer[]{0, 1}),
+                IMAGE(4, "图片样式", new Integer[]{1}),
+                CONTAINS_SUBLISTS(5, "包含子列表样式", new Integer[]{1}),
+                TAB(6, "tab 栏选项", new Integer[]{0, 1});*/
+        if (screenEntity == null || screenEntity.getChildren() == null) {
+            ToastUtil.showFailed("未获取到屏幕配置信息");
+            return;
+        }
+        List<ScreenPart> screenPartList = screenEntity.getChildren();
+        for (ScreenPart screenPart : screenPartList) {
+            if (screenPart == null) {
+                continue;
+            }
+            switch (screenPart.getLayoutStyle()) {
+                case LAYOUT_STYLE_IMAGE_TEXT_LIST:
+                    //加载矩阵
+                    loadMatrix(screenPart);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void loadMatrix(ScreenPart screenPart) {
+        if (screenPart == null || screenPart.getLayoutStyle() != LAYOUT_STYLE_IMAGE_TEXT_LIST || screenPart.getChildren() == null) {
+            TourCooLogUtil.e(TAG, "未匹配到矩阵数据!");
+            return;
+        }
+        List<MatrixBean> matrixBeanList = new ArrayList<>();
+        List<ChildNode> childNodeList = screenPart.getChildren();
+        for (ChildNode childNode : childNodeList) {
+            if (childNode == null || (!childNode.isVisible()) || childNode.getDetail() == null) {
+                continue;
+            }
+            MatrixBean matrixBean;
+            switch (childNode.getType()) {
+                case SUB_CHANNEL:
+                    matrixBean = convertMatrix(parseJavaBean(childNode.getDetail(), Channel.class));
+                    if (matrixBean == null) {
+                        TourCooLogUtil.e(TAG, "matrixBean==null!");
+                        return;
+                    }
+                    matrixBeanList.add(matrixBean);
+                    break;
+                case SUB_COLUMN:
+                    matrixBean = convertMatrix(parseJavaBean(childNode.getDetail(), ColumnItem.class));
+                    if (matrixBean == null) {
+                        TourCooLogUtil.e(TAG, "matrixBean==null!");
+                        return;
+                    }
+                    matrixBeanList.add(matrixBean);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    }
+
+
+    private MatrixBean convertMatrix(ColumnItem columnItem) {
+        if (columnItem == null) {
+            return null;
+        }
+        MatrixBean matrixBean = new MatrixBean();
+        matrixBean.setMatrixName(StringUtil.getNotNullValue(columnItem.getName()));
+        matrixBean.setMatrixIconUrl(StringUtil.getNotNullValue(columnItem.getIcon()));
+        matrixBean.setLink(StringUtil.getNotNullValue(columnItem.getLink()));
+        matrixBean.setJumpWay(columnItem.getJumpWay());
+        return matrixBean;
+    }
+
+    private MatrixBean convertMatrix(Channel channel) {
+        if (channel == null) {
+            return null;
+        }
+        MatrixBean matrixBean = new MatrixBean();
+        matrixBean.setMatrixName(StringUtil.getNotNullValue(channel.getTitle()));
+        matrixBean.setMatrixIconUrl(StringUtil.getNotNullValue(channel.getIcon()));
+        matrixBean.setLink(StringUtil.getNotNullValue(channel.getLink()));
+        matrixBean.setJumpWay(channel.getJumpWay());
+        return matrixBean;
     }
 }

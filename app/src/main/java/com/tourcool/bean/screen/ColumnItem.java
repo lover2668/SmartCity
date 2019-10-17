@@ -111,7 +111,7 @@ public class ColumnItem {
         this.jumpWay = jumpWay;
     }
 
-    public Object getLink() {
+    public String getLink() {
         return link;
     }
 

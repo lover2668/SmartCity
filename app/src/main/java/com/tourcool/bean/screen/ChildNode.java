@@ -1,5 +1,7 @@
 package com.tourcool.bean.screen;
 
+import java.util.List;
+
 /**
  * @author :JenkinsZhou
  * @description :
@@ -16,18 +18,15 @@ public class ChildNode {
      * children : null
      */
 
-    private Channel detail;
+    private Object detail;
     private boolean visible;
     /**
      * 序号
      */
     private int idx;
     private String type;
-    private Object children;
+    private List<ChildNode> children;
 
-    public Channel getDetail() {
-        return detail;
-    }
 
     public void setDetail(Channel detail) {
         this.detail = detail;
@@ -61,7 +60,16 @@ public class ChildNode {
         return children;
     }
 
-    public void setChildren(Object children) {
+
+    public Object getDetail() {
+        return detail;
+    }
+
+    public void setDetail(Object detail) {
+        this.detail = detail;
+    }
+
+    public void setChildren(List<ChildNode> children) {
         this.children = children;
     }
 }
