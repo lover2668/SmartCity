@@ -243,7 +243,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
                 break;
             case ITEM_TYPE_IMAGE_TEXT_LIST:
                 //矩阵样式
-                loadMatrixList(homeBean, translate);
+//                loadMatrix(homeBean, translate);
                 break;
             case ITEM_TYPE_IMAGE:
                 loadImageView(homeBean, translate);
@@ -371,11 +371,11 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         mHandler.post(runnable);
     }
 
-    /**
+   /* *//**
      * 加载矩阵
      *
      * @param homeBean
-     */
+     *//*
     private void loadMatrixList(HomeBean homeBean, boolean translate) {
         if (homeBean == null || !ITEM_TYPE_IMAGE_TEXT_LIST.equalsIgnoreCase(homeBean.getType()) || ((HomeChildBean) homeBean.getData()).getChildList() == null) {
             return;
@@ -401,7 +401,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
             recyclerView.setBackgroundColor(TourCooUtil.getColor(R.color.transparent));
         }
     }
-
+*/
 
     private void loadImageView(HomeBean homeBean, boolean translate) {
         if (homeBean == null || homeBean.getData() == null || !ITEM_TYPE_IMAGE.equalsIgnoreCase(homeBean.getType())) {
@@ -492,7 +492,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
             switch (screenPart.getLayoutStyle()) {
                 case LAYOUT_STYLE_IMAGE_TEXT_LIST:
                     //加载矩阵
-                    loadMatrix(screenPart);
+                    loadMatrix(getMatrixList(screenPart),false);
                     break;
                 default:
                     break;
@@ -500,10 +500,10 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         }
     }
 
-    private void loadMatrix(ScreenPart screenPart) {
+    private List<MatrixBean> getMatrixList(ScreenPart screenPart) {
         if (screenPart == null || screenPart.getLayoutStyle() != LAYOUT_STYLE_IMAGE_TEXT_LIST || screenPart.getChildren() == null) {
             TourCooLogUtil.e(TAG, "未匹配到矩阵数据!");
-            return;
+            return null;
         }
         List<MatrixBean> matrixBeanList = new ArrayList<>();
         List<ChildNode> childNodeList = screenPart.getChildren();
@@ -517,7 +517,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
                     matrixBean = convertMatrix(parseJavaBean(childNode.getDetail(), Channel.class));
                     if (matrixBean == null) {
                         TourCooLogUtil.e(TAG, "matrixBean==null!");
-                        return;
+                        return null;
                     }
                     matrixBeanList.add(matrixBean);
                     break;
@@ -525,7 +525,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
                     matrixBean = convertMatrix(parseJavaBean(childNode.getDetail(), ColumnItem.class));
                     if (matrixBean == null) {
                         TourCooLogUtil.e(TAG, "matrixBean==null!");
-                        return;
+                        return null;
                     }
                     matrixBeanList.add(matrixBean);
                     break;
@@ -533,7 +533,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
                     break;
             }
         }
-
+        return matrixBeanList;
     }
 
 
@@ -559,5 +559,29 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         matrixBean.setLink(StringUtil.getNotNullValue(channel.getLink()));
         matrixBean.setJumpWay(channel.getJumpWay());
         return matrixBean;
+    }
+
+
+
+    private void loadMatrix(List<MatrixBean> matrixList,boolean translate){
+        RecyclerView recyclerView = (RecyclerView) LayoutInflater.from(mContext).inflate(R.layout.home_recycler_view, null);
+        if (recyclerView == null) {
+            return;
+        }
+        recyclerView.setBackgroundColor(TourCooUtil.getColor(R.color.whiteCommon));
+        MatrixAdapter adapter = new MatrixAdapter();
+        //二级布局为网格布局
+        recyclerView.setLayoutManager(new GridLayoutManager(mContext, 5));
+        adapter.bindToRecyclerView(recyclerView);
+        adapter.setNewData(matrixList);
+        viewList.add(recyclerView);
+        llContainer.addView(recyclerView);
+        View lineView = createLineView();
+        llContainer.addView(lineView);
+        viewList.add(lineView);
+        recyclerView.setPadding(0, SizeUtil.dp2px(10f), 0, 0);
+        if (translate) {
+            recyclerView.setBackgroundColor(TourCooUtil.getColor(R.color.transparent));
+        }
     }
 }
