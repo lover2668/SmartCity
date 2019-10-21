@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import androidx.core.content.ContextCompat;
 
 import com.tourcool.core.MyApplication;
+import com.tourcool.core.config.RequestConfig;
 
 /**
  * @author :JenkinsZhou
@@ -15,7 +16,10 @@ import com.tourcool.core.MyApplication;
  * @Email: 971613168@qq.com
  */
 public class TourCooUtil {
-
+    private static final String STRING_LINE = "/";
+    private static final String STRING_EMPTY = "";
+    private static final String URL_TAG = "http";
+    private static final String URL_TAG_HTTPS = "https";
 
     public static int getColor(int colorId) {
         return ContextCompat.getColor(MyApplication.getInstance(), colorId);
@@ -42,4 +46,19 @@ public class TourCooUtil {
         return ContextCompat.getDrawable(MyApplication.getInstance(), drawableId);
     }
 
+
+    public static String getUrl(String url) {
+        if (TextUtils.isEmpty(url)) {
+            return STRING_EMPTY;
+        }
+        if (url.contains(URL_TAG) || url.contains(URL_TAG_HTTPS)) {
+            return url;
+        } else {
+            if (url.startsWith(STRING_LINE)) {
+                return RequestConfig.BASE_URL_NO_LINE + url;
+            } else {
+                return RequestConfig.BASE_URL + url;
+            }
+        }
+    }
 }

@@ -13,6 +13,7 @@ public class StringUtil {
     private static final String PHONE_START = "1";
     private static final int PHONE_LENGTH = 11;
 
+
     public static boolean isPhoneNumber(String number) {
         if (TextUtils.isEmpty(number)) {
             return false;
@@ -27,4 +28,8 @@ public class StringUtil {
         }
         return number;
     }
+
+
+
+
 }

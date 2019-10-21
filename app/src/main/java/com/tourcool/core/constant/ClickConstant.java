@@ -8,7 +8,7 @@ package com.tourcool.core.constant;
  * @Email: 971613168@qq.com
  */
 public class ClickConstant {
-    public static final String CLICK_TYPE_URL = "URL";
+    /*public static final String CLICK_TYPE_URL = "URL";
     public static final String CLICK_TYPE_NATIVE = "NATIVE";
-    public static final String CLICK_TYPE_NONE = "NULL";
+    public static final String CLICK_TYPE_NONE = "NULL";*/
 }

@@ -32,7 +32,7 @@ public class HomeSecondListAdapter extends BaseQuickAdapter<HomeChildBean, BaseV
         //二级布局为网格布局
         childRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
         adapter.bindToRecyclerView(childRecyclerView);
-        adapter.setNewData(item.getChildList());
+//        adapter.setNewData(item.getChildList());
 
 
     }
