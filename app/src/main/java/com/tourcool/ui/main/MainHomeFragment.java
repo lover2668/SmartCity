@@ -72,6 +72,7 @@ import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NATIVE;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_URL;
 import static com.tourcool.core.constant.ScreenConsrant.LAYOUT_STYLE_CONTAINS_SUBLISTS;
 import static com.tourcool.core.constant.ScreenConsrant.LAYOUT_STYLE_HORIZONTAL_BANNER;
+import static com.tourcool.core.constant.ScreenConsrant.LAYOUT_STYLE_IMAGE;
 import static com.tourcool.core.constant.ScreenConsrant.LAYOUT_STYLE_IMAGE_TEXT_LIST;
 import static com.tourcool.core.constant.ScreenConsrant.LAYOUT_STYLE_VERTICAL_BANNER;
 import static com.tourcool.core.constant.ScreenConsrant.SUB_CHANNEL;
@@ -526,6 +527,9 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
                 case LAYOUT_STYLE_CONTAINS_SUBLISTS:
                     loadSecondList(screenPart);
                     break;
+                case LAYOUT_STYLE_IMAGE:
+//                    ,
+                    break;
                 default:
                     break;
             }
@@ -800,4 +804,24 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         llContainer.addView(rootView);
         viewList.add(rootView);
     }
+
+    private void loadImageView(ScreenPart screenPart) {
+        if (screenPart == null || screenPart.getDetail() == null || LAYOUT_STYLE_IMAGE!=screenPart.getLayoutStyle()) {
+            return;
+        }
+      /*  ImageView imageView = (ImageView) LayoutInflater.from(mContext).inflate(R.layout.image_view_layout, null);
+        HomeChildBean homeChildBean = homeBean.getData();
+        GlideManager.loadRoundImg(homeChildBean.getIcon(), imageView, 5, R.mipmap.img_placeholder_car, true);
+        llContainer.addView(imageView);
+        viewList.add(imageView);
+        View lineView = createLineView();
+        llContainer.addView(lineView);
+        viewList.add(lineView);
+        int marginValue = SizeUtil.dp2px(10f);
+        imageView.setPadding(marginValue, 0, marginValue, 0);
+        if (translate) {
+            imageView.setBackgroundColor(TourCooUtil.getColor(R.color.transparent));
+        }*/
+    }
+
 }

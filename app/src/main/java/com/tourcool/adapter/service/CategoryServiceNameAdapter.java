@@ -21,7 +21,7 @@ import com.tourcool.smartcity.R;
 public class CategoryServiceNameAdapter extends BaseQuickAdapter<CategoryServiceBean, BaseViewHolder> {
 
     public CategoryServiceNameAdapter() {
-        super(R.layout.item_service_category_layout);
+        super(R.layout.item_category_layout);
     }
 
     @Override

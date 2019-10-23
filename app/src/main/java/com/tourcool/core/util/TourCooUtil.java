@@ -20,6 +20,7 @@ public class TourCooUtil {
     private static final String STRING_EMPTY = "";
     private static final String URL_TAG = "http";
     private static final String URL_TAG_HTTPS = "https";
+    private static final int LENGTH_PHONE = 11;
 
     public static int getColor(int colorId) {
         return ContextCompat.getColor(MyApplication.getInstance(), colorId);
@@ -41,7 +42,6 @@ public class TourCooUtil {
     }
 
 
-
     public static Drawable getDrawable(int drawableId) {
         return ContextCompat.getDrawable(MyApplication.getInstance(), drawableId);
     }
@@ -59,6 +59,16 @@ public class TourCooUtil {
             } else {
                 return RequestConfig.BASE_URL + url;
             }
+        }
+    }
+
+
+    public static boolean isMobileNumber(String mobileNums) {
+        if (TextUtils.isEmpty(mobileNums)) {
+            return false;
+        } else {
+            String startValue = "1";
+            return mobileNums.length() == LENGTH_PHONE && mobileNums.startsWith(startValue);
         }
     }
 }

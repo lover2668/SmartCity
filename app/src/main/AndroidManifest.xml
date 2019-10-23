@@ -111,6 +111,7 @@
         <activity android:name="com.tourcool.ui.mvp.account.PersonalDataActivity"
             android:windowSoftInputMode="stateAlwaysHidden"
             />
+        <activity android:name="com.tourcool.ui.mvp.garbage.GabageClassifyTabActivity" />
 
         <meta-data
             android:name="BUGLY_APPID"

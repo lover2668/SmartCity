@@ -36,7 +36,7 @@ public class RequestConfig {
     /**
      * 接口URL + ""
      */
-    public static final String BASE_URL_API = BASE_URL+"api/public/app/" ;
+    public static final String BASE_URL_API = BASE_URL+"api/public/" ;
 
     public static final int CODE_REQUEST_SUCCESS = 200;
 

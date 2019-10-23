@@ -142,4 +142,10 @@
         <!--是否圆角-->
         <attr name="progress_roundEnable" format="boolean"/>
     </declare-styleable>
+
+
+    <declare-styleable name="EmiViewPager">
+        <attr name="slidingEnable" format="boolean" />
+    </declare-styleable>
+
 </resources>

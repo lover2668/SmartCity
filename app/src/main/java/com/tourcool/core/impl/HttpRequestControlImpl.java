@@ -129,7 +129,11 @@ public class HttpRequestControlImpl implements HttpRequestControl {
             }
         }
         if (httpRequestControl == null || httpRequestControl.getStatusLayoutManager() == null) {
-            ToastUtil.show(reason);
+            if (reason != R.string.fast_exception_http) {
+                ToastUtil.show(e.toString());
+            }
+            ToastUtil.show(e.toString());
+//            ToastUtil.show(reason);
             return;
         }
         SmartRefreshLayout smartRefreshLayout = httpRequestControl.getRefreshLayout();
@@ -137,7 +141,7 @@ public class HttpRequestControlImpl implements HttpRequestControl {
         StatusLayoutManager statusLayoutManager = httpRequestControl.getStatusLayoutManager();
         int page = httpRequestControl.getCurrentPage();
         if (smartRefreshLayout != null) {
-            smartRefreshLayout.finishRefresh(REFRESH_DELAY,false,false);
+            smartRefreshLayout.finishRefresh(REFRESH_DELAY, false, false);
         }
         if (adapter != null) {
             adapter.loadMoreComplete();

@@ -75,8 +75,18 @@ public interface ApiService {
      * @param map
      * @return
      */
-    @GET("screen")
+    @GET("app/screen")
     Observable<BaseResult<Object>> requestHomeInfo(@QueryMap Map<String, Object> map);
+
+
+    /**
+     * 获取验证码
+     *
+     * @param map
+     * @return
+     */
+    @GET("web/sms")
+    Observable<BaseResult> getVCode(@QueryMap Map<String, Object> map);
 
 }
 

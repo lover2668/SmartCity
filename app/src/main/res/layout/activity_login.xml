@@ -52,7 +52,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:hint="请输入手机号"
-                    android:inputType="numberSigned"
+                    android:inputType="phone"
                     android:minHeight="@dimen/dp_15"
                     android:textColorHint="@color/grayCCCCCC"
                     android:textSize="@dimen/sp_14" />

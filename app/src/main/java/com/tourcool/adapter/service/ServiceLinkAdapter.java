@@ -33,7 +33,7 @@ public class ServiceLinkAdapter implements ILinkagePrimaryAdapterConfig {
 
     @Override
     public int getLayoutId() {
-        return R.layout.item_service_category_layout;
+        return R.layout.item_category_layout;
     }
 
     @Override

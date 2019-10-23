@@ -77,7 +77,7 @@ public class WebViewActivityTest extends BaseMvpTitleActivity {
                 return true;
             }
         });
-        webView.loadUrl("http://www.baidu.com");
+        webView.loadUrl("https://h5.pandabusapp.com/yixing/busCxH5/WEB-INF/view/travelplan/realTimeBusSearch.html");
 
        /* WebSettings settings = webView.getSettings();
         settings.setDomStorageEnabled(true);

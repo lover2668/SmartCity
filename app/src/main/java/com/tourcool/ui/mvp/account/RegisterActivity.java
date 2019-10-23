@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.frame.library.core.manager.RxJavaManager;
+import com.frame.library.core.retrofit.BaseLoadingObserver;
 import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.util.StringUtil;
 import com.frame.library.core.util.ToastUtil;
@@ -18,9 +19,12 @@ import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.core.base.BaseResult;
 import com.tourcool.core.entity.MessageBean;
 import com.tourcool.core.module.mvp.BaseMvpTitleActivity;
+import com.tourcool.core.retrofit.repository.ApiRepository;
+import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.mvp.account.contract.RegisterContract;
 import com.tourcool.ui.mvp.account.presenter.RegisterPresenter;
+import com.trello.rxlifecycle3.android.ActivityEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +32,7 @@ import java.util.List;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
+import static com.tourcool.core.config.RequestConfig.CODE_REQUEST_SUCCESS;
 import static com.tourcool.core.constant.TimeConstant.COUNT;
 import static com.tourcool.core.constant.TimeConstant.ONE_SECOND;
 
@@ -43,7 +48,7 @@ public class RegisterActivity extends BaseMvpTitleActivity<RegisterPresenter> im
     private int timeCount = COUNT;
     private List<Disposable> disposableList = new ArrayList<>();
     private Handler mHandler = new Handler();
-
+    private  EditText etPhone;
     @Override
     protected void loadPresenter() {
 
@@ -68,7 +73,7 @@ public class RegisterActivity extends BaseMvpTitleActivity<RegisterPresenter> im
         ImageView ivClearPass = findViewById(R.id.ivClearPass);
         ImageView ivClearPassConfirm = findViewById(R.id.ivClearPassConfirm);
         EditText etPassword = findViewById(R.id.etPassword);
-        EditText etPhone = findViewById(R.id.etPhone);
+         etPhone = findViewById(R.id.etPhone);
         EditText etPasswordConfirm = findViewById(R.id.etPasswordConfirm);
         ImageView ivPhoneValid = findViewById(R.id.ivPhoneValid);
         listenInput(etPhone, ivClearPhone);
@@ -108,7 +113,7 @@ public class RegisterActivity extends BaseMvpTitleActivity<RegisterPresenter> im
                 break;
             case R.id.tvGetCode:
                 //验证码发送成功开始，倒计时
-                countDownTime();
+                sendVCodeAndCountDownTime(getTextValue(etPhone));
                 break;
             default:
                 break;
@@ -233,4 +238,41 @@ public class RegisterActivity extends BaseMvpTitleActivity<RegisterPresenter> im
     public boolean isStatusBarDarkMode() {
         return true;
     }
+
+
+
+
+    /**
+     * 验证码发送接口并倒计时
+     *
+     * @param phone
+     */
+    private void sendVCodeAndCountDownTime(String phone) {
+        if (TextUtils.isEmpty(phone)) {
+            ToastUtil.show("请输入手机号");
+            return;
+        }
+        if (!TourCooUtil.isMobileNumber(phone)) {
+            ToastUtil.show("请输入正确的手机号");
+            return;
+        }
+        ApiRepository.getInstance().getVcode(phone).compose(bindUntilEvent(ActivityEvent.DESTROY)).
+                subscribe(new BaseLoadingObserver<BaseResult>() {
+                    @Override
+                    public void onRequestNext(BaseResult entity) {
+                        if (entity == null) {
+                            ToastUtil.showFailed("服务器异常");
+                            return;
+                        }
+                        if (entity.status == CODE_REQUEST_SUCCESS) {
+                            ToastUtil.showSuccess(entity.errorMsg);
+                            //验证码发送成功开始，倒计时
+                            countDownTime();
+                        } else {
+                            ToastUtil.showFailed(entity.errorMsg);
+                        }
+                    }
+                });
+    }
+
 }

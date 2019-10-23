@@ -49,7 +49,7 @@ public class MainServiceFragment extends BaseTitleFragment {
     public void initView(Bundle savedInstanceState) {
         setStatusBarModeWhite(MainServiceFragment.this);
         initRecyclerView();
-//        initAdapter();
+        initAdapter();
 
 
         rvClassify.addOnScrollListener(new RecyclerView.OnScrollListener() {

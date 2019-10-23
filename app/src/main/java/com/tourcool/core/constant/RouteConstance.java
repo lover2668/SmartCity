@@ -12,7 +12,6 @@ public class RouteConstance {
     public static final String TAG = "RouteConstance";
 
     private static final String MODULE_ACCOUNT = "/account/";
-
     /**
      * 系统设置
      */
@@ -23,5 +22,8 @@ public class RouteConstance {
      */
     public static final String ACTIVITY_URL_LOGIN = MODULE_ACCOUNT+"LoginActivity";
 
-
+    /**
+     * 登录
+     */
+    public static final String ACTIVITY_URL_GABAGE_CLASSIFY = "/garbage/GabageClassifyTabActivity";
 }

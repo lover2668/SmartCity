@@ -2,16 +2,13 @@ package com.tourcool.ui.main;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
-import com.bumptech.glide.Glide;
 import com.frame.library.core.manager.GlideManager;
 import com.frame.library.core.module.fragment.BaseTitleFragment;
 import com.frame.library.core.util.ToastUtil;
@@ -93,7 +90,7 @@ public class TestFragment extends BaseTitleFragment {
 
         @Override
         public int getLayoutId() {
-            return R.layout.item_service_category_layout;
+            return R.layout.item_category_layout;
         }
 
         @Override

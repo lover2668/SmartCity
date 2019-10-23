@@ -141,6 +141,9 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
                     intent.setClass(mContext, CertificationRealNameActivity.class);
                     startActivity(intent);
                     break;
+                case 1:
+                    ARouter.getInstance().build(RouteConstance.ACTIVITY_URL_GABAGE_CLASSIFY).navigation();
+                    break;
                 default:
                     break;
             }

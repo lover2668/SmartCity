@@ -111,4 +111,17 @@ public class ApiRepository extends AbstractRepository {
         return FrameTransformer.switchSchedulers(getApiService().requestHomeInfo(params).retryWhen(new RetryWhen()));
     }
 
+
+    /**
+     * 获取验证码
+     *
+     * @param mobile
+     * @return
+     */
+    public Observable<BaseResult> getVcode(String mobile) {
+        Map<String, Object> params = new HashMap<>(1);
+        params.put("phoneNumber", mobile);
+        return FrameTransformer.switchSchedulers(getApiService().getVCode(params).retryWhen(new RetryWhen()));
+    }
+
 }
