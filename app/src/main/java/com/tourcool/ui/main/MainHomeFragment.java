@@ -21,9 +21,7 @@ import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.manager.GlideManager;
 import com.frame.library.core.module.fragment.BaseTitleFragment;
 import com.frame.library.core.retrofit.BaseLoadingObserver;
-import com.frame.library.core.retrofit.BaseObserver;
 import com.frame.library.core.threadpool.ThreadPoolManager;
-import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.util.SizeUtil;
 import com.frame.library.core.util.StringUtil;
 import com.frame.library.core.util.ToastUtil;
@@ -45,6 +43,7 @@ import com.tourcool.bean.screen.ChildNode;
 import com.tourcool.bean.screen.ColumnItem;
 import com.tourcool.bean.screen.ScreenEntity;
 import com.tourcool.bean.screen.ScreenPart;
+import com.tourcool.bean.weather.SimpleWeather;
 import com.tourcool.core.MyApplication;
 import com.tourcool.core.base.BaseResult;
 import com.tourcool.core.config.RequestConfig;
@@ -52,6 +51,7 @@ import com.tourcool.core.constant.ItemConstant;
 import com.tourcool.core.constant.ScreenConsrant;
 import com.tourcool.core.module.WebViewActivity;
 import com.tourcool.core.retrofit.repository.ApiRepository;
+import com.tourcool.core.util.DateUtil;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.smartcity.R;
 import com.trello.rxlifecycle3.android.FragmentEvent;
@@ -62,6 +62,8 @@ import java.util.List;
 import cn.bingoogolapple.bgabanner.BGABanner;
 import cn.bingoogolapple.bgabanner.transformer.TransitionEffect;
 
+import static com.frame.library.core.util.StringUtil.LINE_HORIZONTAL;
+import static com.frame.library.core.util.StringUtil.SYMBOL_TEMP;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_CONTAINS_SUBLISTS;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_HORIZONTAL_BANNER;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_IMAGE;
@@ -87,6 +89,7 @@ import static com.tourcool.core.constant.ScreenConsrant.SUB_COLUMN;
  */
 @SuppressWarnings("unchecked")
 public class MainHomeFragment extends BaseTitleFragment implements OnRefreshListener {
+    public static final String AIR_QUALITY = "空气质量";
     private SmartRefreshLayout mRefreshLayout;
     private LinearLayout llContainer;
     private Handler mHandler = new Handler();
@@ -166,6 +169,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
                     public void onRequestError(Throwable e) {
                         super.onRequestError(e);
                         TourCooLogUtil.e(TAG, "onRequestError---->" + e.toString());
+                        refreshFinish();
                         ToastUtil.showFailed("请求失败");
                     }
                 });
@@ -250,7 +254,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
 //                loadMatrix(homeBean, translate);
                 break;
             case ITEM_TYPE_IMAGE:
-                loadImageView(homeBean, translate);
+//                loadImageView(homeBean, translate);
                 break;
             default:
                 break;
@@ -506,7 +510,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
             return;
         }
         List<ScreenPart> screenPartList = screenEntity.getChildren();
-        loadWeatherLayout();
+        loadWeatherLayout(screenEntity);
         for (ScreenPart screenPart : screenPartList) {
             if (screenPart == null) {
                 continue;
@@ -528,12 +532,18 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
                     loadSecondList(screenPart);
                     break;
                 case LAYOUT_STYLE_IMAGE:
-//                    ,
+                    loadImageView(screenPart);
                     break;
                 default:
                     break;
             }
         }
+        View lineView = createLineView();
+        llContainer.addView(lineView);
+        viewList.add(lineView);
+        View lineView1 = createLineView();
+        llContainer.addView(lineView1);
+        viewList.add(lineView1);
     }
 
     private List<MatrixBean> getMatrixList(ScreenPart screenPart) {
@@ -591,7 +601,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         }
         MatrixBean matrixBean = new MatrixBean();
         matrixBean.setMatrixName(StringUtil.getNotNullValue(channel.getTitle()));
-        matrixBean.setMatrixIconUrl(StringUtil.getNotNullValue(channel.getIcon()));
+        matrixBean.setMatrixIconUrl(TourCooUtil.getUrl(channel.getCircleIcon()));
         matrixBean.setLink(StringUtil.getNotNullValue(channel.getLink()));
         matrixBean.setJumpWay(channel.getJumpWay());
         return matrixBean;
@@ -605,8 +615,8 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
             return;
         }
         recyclerView.setBackgroundColor(TourCooUtil.getColor(R.color.whiteCommon));
-       LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) recyclerView.getLayoutParams();
-        params.setMargins(0,SizeUtil.dp2px(10),0,0);
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) recyclerView.getLayoutParams();
+        params.setMargins(0, SizeUtil.dp2px(10), 0, 0);
         recyclerView.setLayoutParams(params);
         MatrixAdapter adapter = new MatrixAdapter();
         //二级布局为网格布局
@@ -657,7 +667,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.layout_banner, null);
         BGABanner bgaBanner = linearLayout.findViewById(R.id.banner);
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) bgaBanner.getLayoutParams();
-        layoutParams.setMargins(SizeUtil.dp2px(10),0,SizeUtil.dp2px(10),0);
+        layoutParams.setMargins(SizeUtil.dp2px(10), 0, SizeUtil.dp2px(10), 0);
         bgaBanner.setLayoutParams(layoutParams);
         bgaBanner.setAdapter(new BGABanner.Adapter() {
             @Override
@@ -688,7 +698,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         List<ChildNode> childNodeList = screenPart.getChildren();
         List<Channel> channelList = new ArrayList<>();
         boolean disable;
-        Channel channel;
+        Channel channel = null;
         for (ChildNode childNode : childNodeList) {
             disable = childNode == null || childNode.getDetail() == null || (!SUB_CHANNEL.equalsIgnoreCase(childNode.getType()));
             if (disable) {
@@ -718,6 +728,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
 //            ivNewsIcon = contentLayout.findViewById(R.id.icBulletin);
             tvNewsContent = contentLayout.findViewById(R.id.tvNewsContent);
             tvNewsContent.setText(newsBean.getTitle());
+            Channel finalChannel = channel;
             tvNewsContent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -726,7 +737,9 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
                             ToastUtils.showShort("跳转至原生页面");
                             break;
                         case CLICK_TYPE_URL:
-                            ToastUtils.showShort("跳转至H5页面");
+                            if(finalChannel != null){
+                                WebViewActivity.start(mContext, finalChannel.getLink());
+                            }
                             break;
                         default:
                             ToastUtils.showShort("什么也不做");
@@ -785,43 +798,85 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
     }
 
 
-
-    private void loadWeatherLayout() {
-        Weather weather =new Weather();
-        weather.setTem("28°");
-        weather.setAir_level("空气质量:轻度污染");
-        weather.setWea("多云转晴");
-        weather.setDate("10/21");
-        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_weather_layout, null);
+    private void loadWeatherLayout(ScreenEntity screenEntity) {
+        SimpleWeather weather;
+        if (screenEntity == null || screenEntity.getWeather() == null) {
+            weather = new SimpleWeather();
+            weather.setDate(LINE_HORIZONTAL);
+            weather.setTemp(LINE_HORIZONTAL);
+            weather.setDate(LINE_HORIZONTAL);
+            weather.setQuality(LINE_HORIZONTAL);
+        } else {
+            weather = screenEntity.getWeather();
+        }
+        LinearLayout rootView = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.item_weather_layout, null);
+        RelativeLayout rlWeather = rootView.findViewById(R.id.rlWeather);
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) rlWeather.getLayoutParams();
+        layoutParams.setMargins(SizeUtil.dp2px(10), SizeUtil.dp2px(15), 0, SizeUtil.dp2px(5));
+        rlWeather.setLayoutParams(layoutParams);
         TextView tvTemperature = rootView.findViewById(R.id.tvTemperature);
         TextView tvWeatherDesc = rootView.findViewById(R.id.tvWeatherDesc);
         TextView tvAirQuality = rootView.findViewById(R.id.tvAirQuality);
         TextView tvDate = rootView.findViewById(R.id.tvDate);
-        tvWeatherDesc.setText(weather.getWea());
-        tvAirQuality.setText(weather.getAir_level());
-        tvTemperature.setText(weather.getTem());
-        tvDate.setText("[" + weather.getDate() + "]");
+        //天气描述
+        tvWeatherDesc.setText(weather.getWeather());
+        tvAirQuality.setText(transfirmAirQuailty(weather.getQuality()));
+        tvTemperature.setText(transfirmTemp(weather.getTemp()));
+        tvDate.setText(transfirmDate(weather.getDate()));
         llContainer.addView(rootView);
         viewList.add(rootView);
     }
 
     private void loadImageView(ScreenPart screenPart) {
-        if (screenPart == null || screenPart.getDetail() == null || LAYOUT_STYLE_IMAGE!=screenPart.getLayoutStyle()) {
+        if (screenPart == null || screenPart.getChildren() == null || LAYOUT_STYLE_IMAGE != screenPart.getLayoutStyle()) {
             return;
         }
-      /*  ImageView imageView = (ImageView) LayoutInflater.from(mContext).inflate(R.layout.image_view_layout, null);
-        HomeChildBean homeChildBean = homeBean.getData();
-        GlideManager.loadRoundImg(homeChildBean.getIcon(), imageView, 5, R.mipmap.img_placeholder_car, true);
-        llContainer.addView(imageView);
-        viewList.add(imageView);
-        View lineView = createLineView();
-        llContainer.addView(lineView);
-        viewList.add(lineView);
-        int marginValue = SizeUtil.dp2px(10f);
-        imageView.setPadding(marginValue, 0, marginValue, 0);
-        if (translate) {
-            imageView.setBackgroundColor(TourCooUtil.getColor(R.color.transparent));
-        }*/
+        String imageUrl = "";
+        List<ChildNode> childNodeList = screenPart.getChildren();
+        if (!childNodeList.isEmpty() && childNodeList.get(0) != null) {
+            ChildNode childNode = childNodeList.get(0);
+            Channel channel = parseJavaBean(childNode.getDetail(), Channel.class);
+            if (channel != null) {
+                imageUrl = channel.getIcon();
+            }
+        }
+        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.item_image_layout, null);
+        ImageView imageView = linearLayout.findViewById(R.id.imageView);
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
+        layoutParams.setMargins(SizeUtil.dp2px(15), 0, SizeUtil.dp2px(15), 0);
+        imageView.setLayoutParams(layoutParams);
+        TourCooLogUtil.i(TAG, "图片地址:" + imageUrl);
+        GlideManager.loadRoundImg(TourCooUtil.getUrl(imageUrl), imageView, 5, R.mipmap.img_placeholder_car, true);
+        llContainer.addView(linearLayout);
+        viewList.add(linearLayout);
+
     }
 
+    private void refreshFinish() {
+        if (mRefreshLayout != null) {
+            mRefreshLayout.finishRefresh();
+        }
+    }
+
+
+    private String transfirmDate(String date) {
+        return "[" + DateUtil.formatDateToMonthAndDaySlash(date) + "]";
+    }
+
+    private String transfirmAirQuailty(String air) {
+        if (TextUtils.isEmpty(air)) {
+            return AIR_QUALITY + ": " + LINE_HORIZONTAL;
+        }
+        return air.contains(AIR_QUALITY) ? air : AIR_QUALITY + ": " + air;
+    }
+
+    private String transfirmTemp(String temp) {
+        if (TextUtils.isEmpty(temp)) {
+            return LINE_HORIZONTAL + SYMBOL_TEMP;
+        }
+        if (temp.lastIndexOf(SYMBOL_TEMP) != -1) {
+            return temp;
+        }
+        return temp + SYMBOL_TEMP;
+    }
 }

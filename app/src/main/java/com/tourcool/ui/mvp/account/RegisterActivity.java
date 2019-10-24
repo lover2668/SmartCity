@@ -10,14 +10,19 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
+import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.manager.RxJavaManager;
 import com.frame.library.core.retrofit.BaseLoadingObserver;
+import com.frame.library.core.retrofit.BaseObserver;
 import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.util.StringUtil;
 import com.frame.library.core.util.ToastUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.core.base.BaseResult;
+import com.tourcool.core.config.RequestConfig;
 import com.tourcool.core.entity.MessageBean;
+import com.tourcool.core.module.main.MainTabActivity;
 import com.tourcool.core.module.mvp.BaseMvpTitleActivity;
 import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.TourCooUtil;
@@ -25,6 +30,7 @@ import com.tourcool.smartcity.R;
 import com.tourcool.ui.mvp.account.contract.RegisterContract;
 import com.tourcool.ui.mvp.account.presenter.RegisterPresenter;
 import com.trello.rxlifecycle3.android.ActivityEvent;
+import com.trello.rxlifecycle3.android.FragmentEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +39,7 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 import static com.tourcool.core.config.RequestConfig.CODE_REQUEST_SUCCESS;
+import static com.tourcool.core.config.RequestConfig.MSG_SEND_SUCCESS;
 import static com.tourcool.core.constant.TimeConstant.COUNT;
 import static com.tourcool.core.constant.TimeConstant.ONE_SECOND;
 
@@ -48,7 +55,11 @@ public class RegisterActivity extends BaseMvpTitleActivity<RegisterPresenter> im
     private int timeCount = COUNT;
     private List<Disposable> disposableList = new ArrayList<>();
     private Handler mHandler = new Handler();
-    private  EditText etPhone;
+    private EditText etPhone;
+    private EditText etVcode;
+    private EditText etPassword;
+    private EditText etPasswordConfirm;
+
     @Override
     protected void loadPresenter() {
 
@@ -67,13 +78,18 @@ public class RegisterActivity extends BaseMvpTitleActivity<RegisterPresenter> im
     @Override
     public void initView(Bundle savedInstanceState) {
         findViewById(R.id.tvRegister).setOnClickListener(this);
+        etVcode = findViewById(R.id.etVcode);
+        etPassword = findViewById(R.id.etPassword);
+        etPasswordConfirm = findViewById(R.id.etPasswordConfirm);
         tvGetCode = findViewById(R.id.tvGetCode);
+        findViewById(R.id.tvRegister).setOnClickListener(this);
         tvGetCode.setOnClickListener(this);
         ImageView ivClearPhone = findViewById(R.id.ivClearPhone);
         ImageView ivClearPass = findViewById(R.id.ivClearPass);
         ImageView ivClearPassConfirm = findViewById(R.id.ivClearPassConfirm);
         EditText etPassword = findViewById(R.id.etPassword);
-         etPhone = findViewById(R.id.etPhone);
+        etPhone = findViewById(R.id.etPhone);
+
         EditText etPasswordConfirm = findViewById(R.id.etPasswordConfirm);
         ImageView ivPhoneValid = findViewById(R.id.ivPhoneValid);
         listenInput(etPhone, ivClearPhone);
@@ -108,8 +124,8 @@ public class RegisterActivity extends BaseMvpTitleActivity<RegisterPresenter> im
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tvLogin:
-                ToastUtil.show("登录");
+            case R.id.tvRegister:
+                doRegister();
                 break;
             case R.id.tvGetCode:
                 //验证码发送成功开始，倒计时
@@ -240,8 +256,6 @@ public class RegisterActivity extends BaseMvpTitleActivity<RegisterPresenter> im
     }
 
 
-
-
     /**
      * 验证码发送接口并倒计时
      *
@@ -265,12 +279,101 @@ public class RegisterActivity extends BaseMvpTitleActivity<RegisterPresenter> im
                             return;
                         }
                         if (entity.status == CODE_REQUEST_SUCCESS) {
-                            ToastUtil.showSuccess(entity.errorMsg);
+                            ToastUtil.showSuccess(MSG_SEND_SUCCESS);
                             //验证码发送成功开始，倒计时
                             countDownTime();
                         } else {
                             ToastUtil.showFailed(entity.errorMsg);
                         }
+                    }
+
+                    @Override
+                    public void onRequestError(Throwable e) {
+                        super.onRequestError(e);
+                    }
+                });
+    }
+
+
+    private void doRegister() {
+        if (TextUtils.isEmpty(getTextValue(etPhone))) {
+            ToastUtil.show("请先输入手机号");
+            return;
+        }
+        if (!TourCooUtil.isMobileNumber(getTextValue(etPhone))) {
+            ToastUtil.show("请输入正确的手机号");
+            return;
+        }
+        if (TextUtils.isEmpty(getTextValue(etVcode))) {
+            ToastUtil.show("请输入验证码");
+            return;
+        }
+        if (TextUtils.isEmpty(getTextValue(etPassword))) {
+            ToastUtil.show("请输入密码");
+            return;
+        }
+        if (!getTextValue(etPassword).equals(getTextValue(etPasswordConfirm))) {
+            ToastUtil.show("两次输入密码不一致");
+            return;
+        }
+        //执行登录
+        register();
+    }
+
+
+    /**
+     * 注册请求
+     */
+    private void register() {
+        ApiRepository.getInstance().register(getTextValue(etPhone), getTextValue(etVcode), getTextValue(etPassword), getTextValue(etPasswordConfirm)).compose(bindUntilEvent(ActivityEvent.DESTROY)).
+                subscribe(new BaseLoadingObserver<BaseResult>() {
+                    @Override
+                    public void onRequestNext(BaseResult entity) {
+                        if (entity == null) {
+                            return;
+                        }
+                        if (entity.status == CODE_REQUEST_SUCCESS) {
+                            ToastUtil.showSuccess("注册成功");
+                            //注册成功后 由于用户信息没有直接返回所以需要再调用登录接口
+                            loginByPassword(getTextValue(etPhone),getTextValue(etPassword));
+                        } else {
+                            ToastUtil.showFailed(entity.errorMsg);
+                        }
+                    }
+                });
+    }
+
+
+
+
+    /**
+     * 账号密码登录
+     *
+     * @param phone
+     * @param password
+     */
+    private void loginByPassword(String phone, String password) {
+        showLoading("登录中...");
+        ApiRepository.getInstance().loginByPassword(phone, password).compose(bindUntilEvent(ActivityEvent.DESTROY)).
+                subscribe(new BaseObserver<BaseResult>() {
+                    @Override
+                    public void onRequestNext(BaseResult entity) {
+                        closeLoading();
+                        if (entity == null) {
+                            ToastUtil.showFailed("服务器异常");
+                            return;
+                        }
+                        if (entity.status == CODE_REQUEST_SUCCESS) {
+                            TourCooLogUtil.i(TAG,entity);
+                        } else {
+                            ToastUtil.showFailed(entity.errorMsg);
+                        }
+                    }
+
+                    @Override
+                    public void onRequestError(Throwable e) {
+                        super.onRequestError(e);
+                        closeLoading();
                     }
                 });
     }

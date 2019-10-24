@@ -124,4 +124,34 @@ public class ApiRepository extends AbstractRepository {
         return FrameTransformer.switchSchedulers(getApiService().getVCode(params).retryWhen(new RetryWhen()));
     }
 
+    /**
+     * 短信登录
+     * @param mobile
+     * @param smsCode
+     * @return
+     */
+    public Observable<BaseResult> loginBySms(String mobile,String smsCode) {
+        Map<String, Object> params = new HashMap<>(2);
+        params.put("phoneNumber", mobile);
+        params.put("smsCode", smsCode);
+        return FrameTransformer.switchSchedulers(getApiService().loginBySms(params).retryWhen(new RetryWhen()));
+    }
+
+
+    public Observable<BaseResult> register(String mobile,String smsCode,String pass,String confirmPass) {
+        Map<String, Object> params = new HashMap<>(4);
+        params.put("phoneNumber", mobile);
+        params.put("smsCode", smsCode);
+        params.put("password", pass);
+        params.put("confirmPassword", confirmPass);
+        return FrameTransformer.switchSchedulers(getApiService().register(params).retryWhen(new RetryWhen()));
+    }
+
+
+    public Observable<BaseResult> loginByPassword(String phone,String pass) {
+        Map<String, Object> params = new HashMap<>(2);
+        params.put("phoneNumber", phone);
+        params.put("password", pass);
+        return FrameTransformer.switchSchedulers(getApiService().loginByPassword(params).retryWhen(new RetryWhen()));
+    }
 }

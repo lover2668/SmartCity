@@ -91,7 +91,9 @@
         <activity
             android:name="com.tourcool.ui.mvp.account.RegisterActivity"
             android:launchMode="singleTask" />
-        <activity android:name="com.tourcool.ui.mvp.account.LoginActivity" />
+        <activity android:name="com.tourcool.ui.mvp.account.LoginActivity"
+            android:launchMode="singleTask"
+            />
         <activity android:name="com.tourcool.ui.mvp.account.IdentifyLevel1Activity"
             />
         <activity android:name="com.tourcool.ui.mvp.account.IdentifyLevel2Activity"

@@ -34,9 +34,9 @@ public class ScreenConsrant {
      */
     public static final String SUB_COLUMN = "SUB_COLUMN";
 
-    public static final int CLICK_TYPE_NATIVE = 1;
+    public static final int CLICK_TYPE_NATIVE = 3;
 
-    public static final int CLICK_TYPE_URL= 2;
+    public static final int CLICK_TYPE_URL= 1;
 
     public static final int CLICK_TYPE_NONE= 0;
 }

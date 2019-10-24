@@ -20,6 +20,7 @@ import com.frame.library.core.util.ToastUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.core.module.mvp.BaseMvpTitleActivity;
 import com.tourcool.core.module.mvp.BasePresenter;
+import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.smartcity.R;
 
 import java.util.ArrayList;
@@ -265,4 +266,7 @@ public class LoginActivity extends BaseMvpTitleActivity implements View.OnClickL
     public boolean isStatusBarDarkMode() {
         return true;
     }
+
+
+
 }

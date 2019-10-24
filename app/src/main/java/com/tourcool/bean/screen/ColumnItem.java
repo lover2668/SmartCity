@@ -62,6 +62,15 @@ public class ColumnItem {
      */
     private long createTime;
 
+    private String circleIcon;
+
+    public String getCircleIcon() {
+        return circleIcon;
+    }
+
+    public void setCircleIcon(String circleIcon) {
+        this.circleIcon = circleIcon;
+    }
 
     public int getId() {
         return id;

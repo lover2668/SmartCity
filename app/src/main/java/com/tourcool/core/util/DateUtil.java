@@ -217,7 +217,18 @@ public class DateUtil {
         }
         return formatStr;
     }
-
+    public static String formatDateToMonthAndDaySlash(String str) {
+        SimpleDateFormat sf1 = new SimpleDateFormat(PATTERN_DATE);
+        SimpleDateFormat sf2 = new SimpleDateFormat("MM/dd");
+        String formatStr;
+        try {
+            formatStr = sf2.format(sf1.parse(str));
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "";
+        }
+        return formatStr;
+    }
 
     public static String friendlyTime(Date time) {
         //获取time距离当前的秒数

@@ -11,6 +11,16 @@ public class Channel {
 
     private int id;
     private String icon;
+    private String circleIcon;
+
+    public String getCircleIcon() {
+        return circleIcon;
+    }
+
+    public void setCircleIcon(String circleIcon) {
+        this.circleIcon = circleIcon;
+    }
+
     private String title;
     private String description;
     private int jumpWay;

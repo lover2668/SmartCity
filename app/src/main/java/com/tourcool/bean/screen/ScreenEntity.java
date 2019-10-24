@@ -1,5 +1,7 @@
 package com.tourcool.bean.screen;
 
+import com.tourcool.bean.weather.SimpleWeather;
+
 import java.util.List;
 
 /**
@@ -22,6 +24,17 @@ public class ScreenEntity {
     /**
      * 屏幕的id
      */
+
+    private SimpleWeather weather;
+
+    public SimpleWeather getWeather() {
+        return weather;
+    }
+
+    public void setWeather(SimpleWeather weather) {
+        this.weather = weather;
+    }
+
     private int screenId;
     /**
      * 屏幕的名称

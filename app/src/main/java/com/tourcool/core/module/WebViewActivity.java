@@ -247,6 +247,7 @@ public class WebViewActivity extends FrameWebActivity implements IFrameRefreshVi
                 .initWithString("Refreshing")
                 .setTextColor(ContextCompat.getColor(mContext, R.color.colorTextBlack)))
                 .setPrimaryColorsId(R.color.transparent)
+                .setEnableRefresh(false)
                 .setEnableHeaderTranslationContent(true);
     }
 

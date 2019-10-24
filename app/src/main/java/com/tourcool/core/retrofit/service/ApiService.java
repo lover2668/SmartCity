@@ -88,6 +88,36 @@ public interface ApiService {
     @GET("web/sms")
     Observable<BaseResult> getVCode(@QueryMap Map<String, Object> map);
 
+    @POST("app/login-sms")
+    Observable<BaseResult> loginBySms(@QueryMap Map<String, Object> map);
+
+    /**
+     * 用户注册
+     * @param map
+     * @return
+     */
+    @POST("app/register")
+    Observable<BaseResult> register(@Body Map<String, Object> map);
+
+
+    /**
+     * 密码登录
+     *
+     * @param map
+     * @return
+     */
+    @POST("app/login")
+    Observable<BaseResult> loginByPassword(@Body Map<String, Object> map);
+
+
+    /**
+     * 验证码登录
+     *
+     * @param map
+     * @return
+     */
+    @POST("signLogin/loginByVCode")
+    Observable<BaseResult> loginByVCode(@QueryMap Map<String, Object> map);
 }
 
 

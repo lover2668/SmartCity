@@ -159,7 +159,7 @@ public class AppConfigImpl implements DefaultRefreshHeaderCreator, LoadMoreFoot,
     @Nullable
     @Override
     public LoadingDialogWrapper createLoadingDialog(@Nullable Activity activity) {
-        return new LoadingDialogWrapper(activity, new FrameLoadingDialog(activity, "请求数据中,请稍候..."));
+        return new LoadingDialogWrapper(activity, new FrameLoadingDialog(activity));
 
     }
 
@@ -234,7 +234,7 @@ public class AppConfigImpl implements DefaultRefreshHeaderCreator, LoadMoreFoot,
      * @return true 拦截操作不进行原始{@link BaseObserver#onError(Throwable)}后续逻辑
      * false 不拦截继续后续逻辑
      * {@link FrameNullException} 已在{@link BaseObserver#onError} ｝处理如果为该类型Exception可不用管,参考
-     * {@link AbstractRepository#transform(Observable)} 处理逻辑
+     * {@link AbstractRepository#(Observable)} 处理逻辑
      */
     @Override
     public boolean onError(BaseObserver o, Throwable e) {

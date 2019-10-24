@@ -12,8 +12,11 @@ import android.text.TextUtils;
 public class StringUtil {
     private static final String PHONE_START = "1";
     private static final int PHONE_LENGTH = 11;
-
-
+    /**
+     * 温度符号
+     */
+    public static final String SYMBOL_TEMP = "°";
+    public static final String LINE_HORIZONTAL = "--";
     public static boolean isPhoneNumber(String number) {
         if (TextUtils.isEmpty(number)) {
             return false;
