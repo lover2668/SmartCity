@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aries.ui.util.StatusBarUtil;
 import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.manager.GlideManager;
 import com.frame.library.core.module.fragment.BaseTitleFragment;
@@ -71,6 +72,7 @@ import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_IMAGE_TEXT_LIST;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_VERTICAL_BANNER;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_WEATHER;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NATIVE;
+import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NONE;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_URL;
 import static com.tourcool.core.constant.ScreenConsrant.LAYOUT_STYLE_CONTAINS_SUBLISTS;
 import static com.tourcool.core.constant.ScreenConsrant.LAYOUT_STYLE_HORIZONTAL_BANNER;
@@ -491,7 +493,6 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
                     removeView();
                     loadScreenInfo(screenEntity);
                 });
-
             }
         });
     }
@@ -632,6 +633,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         if (translate) {
             recyclerView.setBackgroundColor(TourCooUtil.getColor(R.color.transparent));
         }
+        initMatrixClickListener(adapter);
     }
 
 
@@ -737,7 +739,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
                             ToastUtils.showShort("跳转至原生页面");
                             break;
                         case CLICK_TYPE_URL:
-                            if(finalChannel != null){
+                            if (finalChannel != null) {
                                 WebViewActivity.start(mContext, finalChannel.getLink());
                             }
                             break;
@@ -792,6 +794,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         llContainer.addView(lineView);
         viewList.add(lineView);
         rootView.setPadding(0, SizeUtil.dp2px(10f), 0, 0);
+        setSecondLevelListClickListener(adapter);
         /*if (translate) {
             llContainer.setBackgroundColor(TourCooUtil.getColor(R.color.transparent));
         }*/
@@ -878,5 +881,54 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
             return temp;
         }
         return temp + SYMBOL_TEMP;
+    }
+
+
+    private void initMatrixClickListener(MatrixAdapter adapter) {
+        adapter.setOnItemClickListener((adapter1, view, position) -> {
+            MatrixBean matrixBean = (MatrixBean) adapter1.getData().get(position);
+            if (matrixBean == null) {
+                return;
+            }
+            switch (matrixBean.getJumpWay()) {
+                case CLICK_TYPE_URL:
+                    WebViewActivity.start(mContext, TourCooUtil.getNotNullValue(matrixBean.getLink()));
+                    break;
+                case CLICK_TYPE_NONE:
+                    ToastUtil.show("什么也不做");
+                    break;
+                case CLICK_TYPE_NATIVE:
+                    ToastUtil.show("跳转原生页面");
+                    break;
+                default:
+                    break;
+            }
+        });
+    }
+
+
+    private void setSecondLevelListClickListener(TwoLevelChildAdapter adapter) {
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Channel channel = (Channel) adapter.getData().get(position);
+                if(channel == null){
+                    return;
+                }
+                switch (channel.getJumpWay()) {
+                    case CLICK_TYPE_URL:
+                        WebViewActivity.start(mContext, TourCooUtil.getUrl(channel.getLink()));
+                        break;
+                    case CLICK_TYPE_NONE:
+                        ToastUtil.show("什么也不做");
+                        break;
+                    case CLICK_TYPE_NATIVE:
+                        ToastUtil.show("跳转原生页面");
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 }

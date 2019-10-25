@@ -13,15 +13,25 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.blankj.utilcode.util.SPUtils;
+import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.manager.RxJavaManager;
+import com.frame.library.core.retrofit.BaseLoadingObserver;
+import com.frame.library.core.retrofit.BaseObserver;
 import com.frame.library.core.util.FrameUtil;
+import com.frame.library.core.util.SpUtil;
 import com.frame.library.core.util.StringUtil;
 import com.frame.library.core.util.ToastUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
+import com.tourcool.bean.account.AccountHelper;
+import com.tourcool.bean.account.UserInfo;
+import com.tourcool.core.base.BaseResult;
 import com.tourcool.core.module.mvp.BaseMvpTitleActivity;
 import com.tourcool.core.module.mvp.BasePresenter;
+import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.smartcity.R;
+import com.trello.rxlifecycle3.android.ActivityEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +39,9 @@ import java.util.List;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
+import static com.tourcool.bean.account.AccountHelper.PREF_ACCESS_TOKEN;
+import static com.tourcool.bean.account.AccountHelper.PREF_REFRESH_TOKEN;
+import static com.tourcool.core.config.RequestConfig.CODE_REQUEST_SUCCESS;
 import static com.tourcool.core.constant.RouteConstance.ACTIVITY_URL_LOGIN;
 import static com.tourcool.core.constant.RouteConstance.ACTIVITY_URL_SETTING;
 import static com.tourcool.core.constant.TimeConstant.COUNT;
@@ -43,6 +56,7 @@ import static com.tourcool.core.constant.TimeConstant.ONE_SECOND;
  */
 @Route(path = ACTIVITY_URL_LOGIN)
 public class LoginActivity extends BaseMvpTitleActivity implements View.OnClickListener {
+
     private TextView tvGetCode;
     private TextView tvChangeLoginType;
     private boolean loginByPass = true;
@@ -51,6 +65,9 @@ public class LoginActivity extends BaseMvpTitleActivity implements View.OnClickL
     private Handler mHandler = new Handler();
     private List<Disposable> disposableList = new ArrayList<>();
     private int timeCount = COUNT;
+    private EditText etPhone;
+    private EditText etVcode;
+    private EditText etPassword;
 
     @Override
     protected void loadPresenter() {
@@ -81,8 +98,9 @@ public class LoginActivity extends BaseMvpTitleActivity implements View.OnClickL
         ImageView ivClearPhone = findViewById(R.id.ivClearPhone);
         ImageView ivClearPass = findViewById(R.id.ivClearPass);
         ImageView ivPhoneValid = findViewById(R.id.ivPhoneValid);
-        EditText etPassword = findViewById(R.id.etPassword);
-        EditText etPhone = findViewById(R.id.etPhone);
+        etPassword = findViewById(R.id.etPassword);
+        etPhone = findViewById(R.id.etPhone);
+        etVcode = findViewById(R.id.etVcode);
         listenInput(etPhone, ivClearPhone);
         listenInput(etPassword, ivClearPass);
         listenInputPhoneValid(etPhone, ivPhoneValid);
@@ -139,12 +157,10 @@ public class LoginActivity extends BaseMvpTitleActivity implements View.OnClickL
                 startActivity(intent);
                 break;
             case R.id.tvLogin:
-                Intent intent1 = new Intent();
-                intent1.setClass(mContext, IdentifyLevel1Activity.class);
-                startActivity(intent1);
+                doLoginByPhoneNumber();
                 break;
             case R.id.tvForgetPass:
-                FrameUtil.startActivity(mContext,SystemSettingActivity.class);
+                FrameUtil.startActivity(mContext, SystemSettingActivity.class);
                 break;
             default:
                 break;
@@ -268,5 +284,68 @@ public class LoginActivity extends BaseMvpTitleActivity implements View.OnClickL
     }
 
 
+    /**
+     * 账号密码登录
+     *
+     * @param phone
+     * @param password
+     */
+    private void loginByPassword(String phone, String password) {
+        ApiRepository.getInstance().loginByPassword(phone, password).compose(bindUntilEvent(ActivityEvent.DESTROY)).
+                subscribe(new BaseLoadingObserver<BaseResult>() {
+                    @Override
+                    public void onRequestNext(BaseResult entity) {
+                        closeLoading();
+                        if (entity == null) {
+                            ToastUtil.showFailed("服务器异常");
+                            return;
+                        }
+                        if (entity.status == CODE_REQUEST_SUCCESS) {
+                            UserInfo userInfo = parseJavaBean(entity.data, UserInfo.class);
+                            if (userInfo != null) {
+                                saveUserInfo(userInfo);
+                                ToastUtil.show("登录成功");
+                                finish();
+                            }
+                        } else {
+                            ToastUtil.showFailed(entity.errorMsg);
+                        }
+                    }
 
+                    @Override
+                    public void onRequestError(Throwable e) {
+                        super.onRequestError(e);
+                    }
+                });
+    }
+
+
+    /**
+     * 根据手机账号密码登录
+     */
+    private void doLoginByPhoneNumber() {
+        if (TextUtils.isEmpty(getTextValue(etPhone))) {
+            ToastUtil.show("请先输入手机号");
+            return;
+        }
+        if (!TourCooUtil.isMobileNumber(getTextValue(etPhone))) {
+            ToastUtil.show("请输入正确的手机号");
+            return;
+        }
+
+        if (TextUtils.isEmpty(getTextValue(etPassword))) {
+            ToastUtil.show("请输入密码");
+            return;
+        }
+        loginByPassword(getTextValue(etPhone), getTextValue(etPassword));
+    }
+
+
+    private void saveUserInfo(UserInfo userInfo){
+        if(userInfo == null){
+            return;
+        }
+        AccountHelper.getInstance().setAccessToken(userInfo.getAccess_token());
+        AccountHelper.getInstance().setRefreshToken(userInfo.getRefresh_token());
+    }
 }

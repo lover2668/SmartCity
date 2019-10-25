@@ -118,6 +118,14 @@ public interface ApiService {
      */
     @POST("signLogin/loginByVCode")
     Observable<BaseResult> loginByVCode(@QueryMap Map<String, Object> map);
+
+    /**
+     * 请求服务列表
+     * @return
+     */
+    @GET("app/service")
+    Observable<BaseResult> requestServiceList();
+
 }
 
 

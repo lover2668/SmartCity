@@ -9,8 +9,10 @@ import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
+import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.manager.GlideManager;
 import com.frame.library.core.module.fragment.BaseTitleFragment;
+import com.frame.library.core.retrofit.BaseLoadingObserver;
 import com.frame.library.core.util.ToastUtil;
 import com.frame.library.core.widget.linkage.LinkageRecyclerView;
 import com.frame.library.core.widget.linkage.adapter.viewholder.LinkagePrimaryViewHolder;
@@ -24,10 +26,16 @@ import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.tourcool.bean.ElemeGroupedItem;
+import com.tourcool.core.base.BaseResult;
+import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.smartcity.R;
+import com.trello.rxlifecycle3.android.ActivityEvent;
+import com.trello.rxlifecycle3.android.FragmentEvent;
 
 import java.util.List;
+
+import static com.tourcool.core.config.RequestConfig.CODE_REQUEST_SUCCESS;
 
 /**
  * @author :JenkinsZhou
@@ -78,6 +86,11 @@ public class TestFragment extends BaseTitleFragment {
 
         linkage.init(items, new ElemePrimaryAdapterConfig(), new ElemeSecondaryAdapterConfig());
         linkage.setGridMode(true);
+    }
+
+    @Override
+    public void loadData() {
+        requestServiceList();
     }
 
     private static class ElemePrimaryAdapterConfig implements ILinkagePrimaryAdapterConfig {
@@ -198,5 +211,29 @@ public class TestFragment extends BaseTitleFragment {
 
         }
     }
+
+private void requestServiceList(){
+        ApiRepository.getInstance().requestServiceList().compose(bindUntilEvent(FragmentEvent.DESTROY)).
+                subscribe(new BaseLoadingObserver<BaseResult>() {
+                    @Override
+                    public void onRequestNext(BaseResult entity) {
+                        if (entity == null) {
+                            return;
+                        }
+                        if (entity.status == CODE_REQUEST_SUCCESS) {
+                              TourCooLogUtil.i(TAG,entity);
+                            //注册成功后 由于用户信息没有直接返回所以需要再调用登录接口
+                        } else {
+                            ToastUtil.showFailed(entity.errorMsg);
+                        }
+                    }
+
+                    @Override
+                    public void onRequestError(Throwable e) {
+//                        super.onRequestError(e);
+                        ToastUtil.show("没有权限");
+                    }
+                });
+}
 
 }

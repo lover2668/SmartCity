@@ -18,6 +18,7 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
 
 import androidx.annotation.Nullable;
+
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
@@ -53,8 +54,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * 13、2018-8-23 12:31:34 新增设置是否打印json格式日志方法{@link #setLogJsonEnable(boolean)}
  */
 public class FrameRetrofit {
-
-
+    public static final String TAG = "FrameRetrofit";
     private static volatile FrameRetrofit sManager;
     private static volatile Retrofit sRetrofit;
     private static volatile Retrofit.Builder sRetrofitBuilder;
@@ -84,32 +84,16 @@ public class FrameRetrofit {
      * 日志拦截器
      */
     private HttpLoggingInterceptor mLoggingInterceptor;
+
+
     /**
      * 统一header
      */
     private Map<String, Object> mHeaderMap = new HashMap<>();
-    /**
-     * header拦截器
-     */
-    private Interceptor mHeaderInterceptor = new Interceptor() {
-        @Override
-        public Response intercept(Chain chain) throws IOException {
-            Request.Builder request = chain.request().newBuilder();
-            //避免某些服务器配置攻击,请求返回403 forbidden 问题
-            addHeader("User-Agent", "Mozilla/5.0 (Android)");
-            addHeader("token", "50625833-512b-4be1-873d-fb7a7460b423");
-            if (mHeaderMap.size() > 0) {
-                for (Map.Entry<String, Object> entry : mHeaderMap.entrySet()) {
-                    request.addHeader(entry.getKey(), String.valueOf(entry.getValue()));
-                }
-            }
-            return chain.proceed(request.build());
-        }
-    };
+
 
     private FrameRetrofit() {
         sClientBuilder = new OkHttpClient.Builder();
-        sClientBuilder.addInterceptor(mHeaderInterceptor);
         sRetrofitBuilder = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create());
@@ -251,19 +235,7 @@ public class FrameRetrofit {
                 .compose(FrameTransformer.<ResponseBody>switchSchedulers());
     }
 
-    /**
-     * 设置请求头{@link #mHeaderInterceptor}
-     *
-     * @param key
-     * @param value
-     * @return
-     */
-    public FrameRetrofit addHeader(String key, Object value) {
-        if (!TextUtils.isEmpty(key) && value != null) {
-            mHeaderMap.put(key, value);
-        }
-        return this;
-    }
+
 
     /**
      * 添加统一的请求头
@@ -656,6 +628,14 @@ public class FrameRetrofit {
      */
     public FrameRetrofit removeBaseUrl() {
         FrameMultiUrl.getInstance().clearAllBaseUrl();
+        return this;
+    }
+
+
+    public FrameRetrofit addInterceptor(Interceptor interceptor) {
+        if (sClientBuilder != null) {
+            sClientBuilder.addInterceptor(interceptor);
+        }
         return this;
     }
 }

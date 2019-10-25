@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.frame.library.core.UiManager;
 import com.frame.library.core.control.ActivityDispatchEventControl;
 import com.frame.library.core.control.ActivityKeyEventControl;
@@ -368,5 +369,15 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IBaseV
 
     protected String getTextValue(EditText editText) {
         return editText != null ? editText.getText().toString() : "";
+    }
+
+
+    protected <T> T parseJavaBean(Object data, Class<T> tClass) {
+        try {
+            return JSON.parseObject(JSON.toJSONString(data), tClass);
+        } catch (Exception e) {
+            TourCooLogUtil.e("parseJavaBean()报错--->" + e.toString());
+            return null;
+        }
     }
 }

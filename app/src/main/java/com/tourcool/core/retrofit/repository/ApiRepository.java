@@ -154,4 +154,14 @@ public class ApiRepository extends AbstractRepository {
         params.put("password", pass);
         return FrameTransformer.switchSchedulers(getApiService().loginByPassword(params).retryWhen(new RetryWhen()));
     }
+
+
+    /**
+     * 获取服务页tab数据
+     * @return
+     */
+    public Observable<BaseResult> requestServiceList() {
+        return FrameTransformer.switchSchedulers(getApiService().requestServiceList().retryWhen(new RetryWhen()));
+    }
+
 }

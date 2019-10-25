@@ -40,7 +40,7 @@ public class RequestConfig {
 
     public static final int CODE_REQUEST_SUCCESS = 200;
 
-    public static final int CODE_REQUEST_TOKEN_INVALID = 2;
+    public static final int CODE_REQUEST_TOKEN_INVALID = 401;
     public static final int CODE_REQUEST_SUCCESS_NOT_REGISTER = -100;
     public static final String MSG_TOKEN_INVALID = "登录失效";
     public static final String BANNER_URL = BASE_URL_API + "custom-service/referral";
