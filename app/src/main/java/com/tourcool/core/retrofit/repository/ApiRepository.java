@@ -76,19 +76,7 @@ public class ApiRepository extends AbstractRepository {
         return FrameTransformer.switchSchedulers(getApiService().updateApp(params).retryWhen(new RetryWhen()));
     }
 
-    /**
-     * 消息列表
-     *
-     * @param ownerId
-     * @return
-     */
-    public Observable<com.tourcool.core.entity.BaseResult> requestMsgList1(int ownerId, int pageIndex) {
-        Map<String, Object> params = new HashMap<>(3);
-        params.put("ownerId", ownerId);
-        params.put("pageIndex", pageIndex + "");
-        params.put("pageSize", 10 + "");
-        return FrameTransformer.switchSchedulers(getApiService().requestMsgList1(params).retryWhen(new RetryWhen()));
-    }
+
 
 
     /**
@@ -126,11 +114,12 @@ public class ApiRepository extends AbstractRepository {
 
     /**
      * 短信登录
+     *
      * @param mobile
      * @param smsCode
      * @return
      */
-    public Observable<BaseResult> loginBySms(String mobile,String smsCode) {
+    public Observable<BaseResult> loginBySms(String mobile, String smsCode) {
         Map<String, Object> params = new HashMap<>(2);
         params.put("phoneNumber", mobile);
         params.put("smsCode", smsCode);
@@ -138,7 +127,7 @@ public class ApiRepository extends AbstractRepository {
     }
 
 
-    public Observable<BaseResult> register(String mobile,String smsCode,String pass,String confirmPass) {
+    public Observable<BaseResult> register(String mobile, String smsCode, String pass, String confirmPass) {
         Map<String, Object> params = new HashMap<>(4);
         params.put("phoneNumber", mobile);
         params.put("smsCode", smsCode);
@@ -147,21 +136,70 @@ public class ApiRepository extends AbstractRepository {
         return FrameTransformer.switchSchedulers(getApiService().register(params).retryWhen(new RetryWhen()));
     }
 
-
-    public Observable<BaseResult> loginByPassword(String phone,String pass) {
+    /**
+     * 密码登录
+     * @param phone
+     * @param pass
+     * @return
+     */
+    public Observable<BaseResult> loginByPassword(String phone, String pass) {
         Map<String, Object> params = new HashMap<>(2);
         params.put("phoneNumber", phone);
         params.put("password", pass);
         return FrameTransformer.switchSchedulers(getApiService().loginByPassword(params).retryWhen(new RetryWhen()));
     }
 
-
+    /**
+     * 验证码登录
+     * @param phone
+     * @param smsCode
+     * @return
+     */
+    public Observable<BaseResult> loginByVcode(String phone, String smsCode) {
+        Map<String, Object> params = new HashMap<>(2);
+        params.put("phoneNumber", phone);
+        params.put("smsCode", smsCode);
+        return FrameTransformer.switchSchedulers(getApiService().loginByVcode(params).retryWhen(new RetryWhen()));
+    }
     /**
      * 获取服务页tab数据
+     *
      * @return
      */
     public Observable<BaseResult> requestServiceList() {
         return FrameTransformer.switchSchedulers(getApiService().requestServiceList().retryWhen(new RetryWhen()));
+    }
+
+    /**
+     * 重置密码
+     *
+     * @param phoneNumber
+     * @param vCode
+     * @param pass
+     * @param passConfirm
+     * @return
+     */
+    public Observable<BaseResult> requestResetPass(String phoneNumber, String vCode, String pass, String passConfirm) {
+        Map<String, Object> params = new HashMap<>(2);
+        params.put("confirmPassword", passConfirm);
+        params.put("password", pass);
+        params.put("phoneNumber", phoneNumber);
+        params.put("smsCode", vCode);
+        return FrameTransformer.switchSchedulers(getApiService().resetPassword(params).retryWhen(new RetryWhen()));
+    }
+
+
+    public Observable<BaseResult> requestLogout() {
+        return FrameTransformer.switchSchedulers(getApiService().requestLogout().retryWhen(new RetryWhen()));
+    }
+
+
+    /**
+     * 获取用户信息
+     * @return
+     */
+    public Observable<BaseResult> requestUserInfo() {
+        return FrameTransformer.switchSchedulers(getApiService().requestUserInfo().retryWhen(new RetryWhen()));
     }
 
 }

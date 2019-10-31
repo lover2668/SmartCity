@@ -114,6 +114,8 @@
             android:windowSoftInputMode="stateAlwaysHidden"
             />
         <activity android:name="com.tourcool.ui.mvp.garbage.GabageClassifyTabActivity" />
+        <activity android:name="com.tourcool.ui.mvp.service.ServiceActivity" />
+        <activity android:name="com.tourcool.ui.mvp.account.ForgetPasswordActivity" />
 
         <meta-data
             android:name="BUGLY_APPID"

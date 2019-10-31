@@ -23,7 +23,12 @@ public class RouteConstance {
     public static final String ACTIVITY_URL_LOGIN = MODULE_ACCOUNT+"LoginActivity";
 
     /**
-     * 登录
+     * 垃圾分类
      */
     public static final String ACTIVITY_URL_GABAGE_CLASSIFY = "/garbage/GabageClassifyTabActivity";
+
+    /**
+     * 忘记密码
+     */
+    public static final String ACTIVITY_URL_FORGET_PASS = MODULE_ACCOUNT+"ForgetPasswordActivity";
 }

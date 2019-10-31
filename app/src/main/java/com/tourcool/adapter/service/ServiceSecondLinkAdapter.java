@@ -44,7 +44,7 @@ public class ServiceSecondLinkAdapter implements ILinkageSecondaryAdapterConfig<
 
     @Override
     public int getHeaderLayoutId() {
-        return R.layout.layout_item_header;
+        return 0;
     }
 
     @Override

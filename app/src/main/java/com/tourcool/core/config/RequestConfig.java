@@ -36,7 +36,7 @@ public class RequestConfig {
     /**
      * 接口URL + ""
      */
-    public static final String BASE_URL_API = BASE_URL+"api/public/" ;
+    public static final String BASE_URL_API = BASE_URL+"api/" ;
 
     public static final int CODE_REQUEST_SUCCESS = 200;
 
@@ -44,6 +44,8 @@ public class RequestConfig {
     public static final int CODE_REQUEST_SUCCESS_NOT_REGISTER = -100;
     public static final String MSG_TOKEN_INVALID = "登录失效";
     public static final String BANNER_URL = BASE_URL_API + "custom-service/referral";
+    public static final String KEY_TOKEN = "Authorization";
+    public static final String TOKEN = "Bearer ";
 
     public static final String MSG_SEND_SUCCESS = "发送成功";
 }

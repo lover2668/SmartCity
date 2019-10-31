@@ -21,6 +21,8 @@ public class ScreenPart {
      * type : ScreenPart
      */
 
+    private String columnName;
+
     /**
      * 当前屏幕块的id
      */
@@ -91,5 +93,13 @@ public class ScreenPart {
 
     public void setChildren(List<ChildNode> children) {
         this.children = children;
+    }
+
+    public String getColumnName() {
+        return columnName;
+    }
+
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
     }
 }

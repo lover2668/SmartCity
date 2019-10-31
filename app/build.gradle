@@ -83,6 +83,12 @@ android {
 //            force 'com.squareup.okhttp3:logging-interceptor:3.12.2'
 //        }
 //    }
+
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+
 }
 
 dependencies {
@@ -109,8 +115,8 @@ dependencies {
     implementation 'com.flyco.labelview:FlycoLabelView_Lib:1.0.2@aar'
     //文件选择器
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.5'
-    //友盟统计
-    implementation 'com.umeng.analytics:analytics:latest.integration'
+//    友盟统计
+//    implementation 'com.umeng.analytics:analytics:latest.integration'
     //Bugly
     implementation 'com.tencent.bugly:crashreport:2.8.6.0'
     //哆啦A梦
@@ -121,8 +127,9 @@ dependencies {
     implementation 'com.pgyersdk:sdk:3.0.5'
     implementation files('libs/commons-lang-2.6.jar')
     implementation 'com.github.hackware1993:MagicIndicator:1.6.0'
-
     //需要注意的是api要与compiler匹配使用，均使用最新版可以保证兼容
     implementation 'com.alibaba:arouter-api:1.5.0'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
+    //eventbus
+    implementation 'org.greenrobot:eventbus:3.1.1'
 }

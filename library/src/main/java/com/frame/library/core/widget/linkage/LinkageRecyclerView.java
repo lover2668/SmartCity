@@ -62,7 +62,6 @@ public class LinkageRecyclerView<T extends BaseGroupedItem.ItemInfo> extends Rel
     private static final int SCROLL_OFFSET = 0;
 
     private Context mContext;
-
     private RecyclerView mRvPrimary;
     private RecyclerView mRvSecondary;
     private LinearLayout mLinkageLayout;
@@ -138,8 +137,7 @@ public class LinkageRecyclerView<T extends BaseGroupedItem.ItemInfo> extends Rel
                                     LinearSmoothScroller.SNAP_TO_START,
                                     mHeaderPositions.get(holder.getAdapterPosition()));
                         } else {
-                            mSecondaryLayoutManager.scrollToPositionWithOffset(
-                                    mHeaderPositions.get(holder.getAdapterPosition()), SCROLL_OFFSET);
+                            setCurrentSelectNotSmooth(holder.getAdapterPosition());
                         }
                     }
                 });
@@ -164,7 +162,7 @@ public class LinkageRecyclerView<T extends BaseGroupedItem.ItemInfo> extends Rel
                 return;
             }
             View view = LayoutInflater.from(mContext).inflate(layout, null);
-            mHeaderContainer.addView(view);
+//            mHeaderContainer.addView(view);
             mTvHeader = view.findViewById(config.getHeaderTextViewId());
         }
 
@@ -187,14 +185,14 @@ public class LinkageRecyclerView<T extends BaseGroupedItem.ItemInfo> extends Rel
                 int firstPosition = mSecondaryLayoutManager.findFirstVisibleItemPosition();
                 List<BaseGroupedItem<T>> items = mSecondaryAdapter.getItems();
 
-                // Here is the logic of the sticky:
+                // Here is the logic of the sticky: 吸顶
 
-                if ((firstPosition + 1) < items.size() && items.get(firstPosition + 1).isHeader) {
+             /*   if ((firstPosition + 1) < items.size() && items.get(firstPosition + 1).isHeader) {
                     View view = mSecondaryLayoutManager.findViewByPosition(firstPosition + 1);
                     if (view != null && view.getTop() <= mTitleHeight) {
                         mTvHeader.setY(view.getTop() - mTitleHeight);
                     }
-                }
+                }*/
 
                 // Here is the logic of group title changes and linkage:
 
@@ -337,4 +335,12 @@ public class LinkageRecyclerView<T extends BaseGroupedItem.ItemInfo> extends Rel
         return mHeaderPositions;
     }
 
+
+    public void setCurrentSelectNotSmooth(int position) {
+        if (position < 0) {
+            return;
+        }
+        mSecondaryLayoutManager.scrollToPositionWithOffset(
+                mHeaderPositions.get(position), SCROLL_OFFSET);
+    }
 }

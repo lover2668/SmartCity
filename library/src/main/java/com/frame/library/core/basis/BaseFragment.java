@@ -300,34 +300,7 @@ public abstract class BaseFragment extends RxFragment implements IBaseView {
     }
 
 
-    protected <T> List<T> parseListJavaBean(Object data, Class<T> type) {
-        List<T> result = null;
-        Gson gson = new GsonBuilder().create();
-        if (data != null) {
-            try {
-                JsonParser parser = new JsonParser();
-                JsonArray array = parser.parse(gson.toJson(data)).getAsJsonArray();
-                if (array != null) {
-                    result = new ArrayList<>();
-                    for (JsonElement obj : array) {
-                        try {
-                            T cse = gson.fromJson(obj, type);
-                            result.add(cse);
-                        } catch (Exception e) {
-                            TourCooLogUtil.e("parseListJavaBean--->" + e.toString());
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                TourCooLogUtil.e("parseListJavaBean--->" + e.toString());
-            } finally {
-                gson = null;
-            }
-        }
-        return result;
-    }
+
 
 
     protected <T> List<T> parseJsonToBeanList(Object data, Class<T> model) {

@@ -1,54 +1,97 @@
 package com.tourcool.bean.account;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import org.litepal.crud.LitePalSupport;
+
 /**
  * @author :JenkinsZhou
  * @description :
  * @company :途酷科技
- * @date 2019年10月25日17:30
+ * @date 2019年10月31日14:24
  * @Email: 971613168@qq.com
  */
-public class UserInfo {
+public class UserInfo extends LitePalSupport implements Parcelable {
+
 
     /**
-     * access_token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzE5OTU3NDAsInVzZXJfbmFtZSI6IjE4MjU2MDcwNTYzQEFQUCIsImF1dGhvcml0aWVzIjpbIkFQUCJdLCJqdGkiOiI2Y2E2ZmRiMS1kNGQzLTRhNWQtOWVlOS0xZmI0ZTk4MjZlNTIiLCJjbGllbnRfaWQiOiJzbWFydGp3dGNsaWVudCIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdfQ.CQnwKVObaIB7UYcLWVgV31PTuhyEPcYKxe0_nTVXdK8
-     * token_type : Bearer
-     * refresh_token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiIxODI1NjA3MDU2M0BBUFAiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiYXRpIjoiNmNhNmZkYjEtZDRkMy00YTVkLTllZTktMWZiNGU5ODI2ZTUyIiwiZXhwIjoxNTcxOTk5MzI1LCJhdXRob3JpdGllcyI6WyJBUFAiXSwianRpIjoiOGJkMTZmNGYtY2E0MC00YjI5LWIwNjgtMmY3NzYxYTFjNDBmIiwiY2xpZW50X2lkIjoic21hcnRqd3RjbGllbnQifQ.uVBd6UVccdid6gPvo2Cn0-Y8lki0ioKPLcPHkGlzem4
-     * expires_in : 9
+     * authenticationLevel : 0
+     * iconUrl :
+     * nickname :
+     * phoneNumber :
      */
-    private String access_token;
-    private String token_type;
-    private String refresh_token;
-    private int expires_in;
 
-    public String getAccess_token() {
-        return access_token;
+    private int authenticationLevel;
+    private String iconUrl;
+    private String nickname;
+    private String phoneNumber;
+
+    public int getAuthenticationLevel() {
+        return authenticationLevel;
     }
 
-    public void setAccess_token(String access_token) {
-        this.access_token = access_token;
+    public void setAuthenticationLevel(int authenticationLevel) {
+        this.authenticationLevel = authenticationLevel;
     }
 
-    public String getToken_type() {
-        return token_type;
+    public String getIconUrl() {
+        return iconUrl;
     }
 
-    public void setToken_type(String token_type) {
-        this.token_type = token_type;
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
     }
 
-    public String getRefresh_token() {
-        return refresh_token;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setRefresh_token(String refresh_token) {
-        this.refresh_token = refresh_token;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
-    public int getExpires_in() {
-        return expires_in;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setExpires_in(int expires_in) {
-        this.expires_in = expires_in;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.authenticationLevel);
+        dest.writeString(this.iconUrl);
+        dest.writeString(this.nickname);
+        dest.writeString(this.phoneNumber);
+    }
+
+    public UserInfo() {
+    }
+
+    protected UserInfo(Parcel in) {
+        this.authenticationLevel = in.readInt();
+        this.iconUrl = in.readString();
+        this.nickname = in.readString();
+        this.phoneNumber = in.readString();
+    }
+
+    public static final Parcelable.Creator<UserInfo> CREATOR = new Parcelable.Creator<UserInfo>() {
+        @Override
+        public UserInfo createFromParcel(Parcel source) {
+            return new UserInfo(source);
+        }
+
+        @Override
+        public UserInfo[] newArray(int size) {
+            return new UserInfo[size];
+        }
+    };
 }

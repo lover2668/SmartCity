@@ -1,10 +1,8 @@
 package com.tourcool.core.module;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.TextView;
 
 import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
@@ -19,9 +17,7 @@ import com.tourcool.core.module.main.MainTabActivity;
 import com.tourcool.smartcity.R;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 
-import androidx.core.content.ContextCompat;
 
-import butterknife.BindView;
 
 /**
  * @Author: JenkinsZhou on 2018/11/19 14:25
@@ -31,12 +27,6 @@ import butterknife.BindView;
  */
 public class SplashActivity extends FrameTitleActivity {
 
-    @BindView(R.id.tv_appSplash)
-    TextView tvApp;
-    @BindView(R.id.tv_versionSplash)
-    TextView tvVersion;
-    @BindView(R.id.tv_copyRightSplash)
-    TextView tvCopyRight;
 
     @Override
     public void beforeSetContentView() {
@@ -70,13 +60,13 @@ public class SplashActivity extends FrameTitleActivity {
             //隐藏状态栏
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
-        tvApp.setCompoundDrawablesWithIntrinsicBounds(null,
+      /*  tvApp.setCompoundDrawablesWithIntrinsicBounds(null,
                 DrawableUtil.setTintDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_launcher).mutate(), Color.WHITE)
-                , null, null);
-        mContentView.setBackgroundResource(R.drawable.img_bg_login);
-        tvVersion.setText("V" + FrameUtil.getVersionName(mContext));
+                , null, null);*/
+//        mContentView.setBackgroundResource(R.drawable.img_bg_login);
+      /*  tvVersion.setText("V" + FrameUtil.getVersionName(mContext));
         tvVersion.setTextColor(Color.WHITE);
-        tvCopyRight.setTextColor(Color.WHITE);
+        tvCopyRight.setTextColor(Color.WHITE);*/
         RxJavaManager.getInstance().setTimer(500)
                 .compose(bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new BaseObserver<Long>() {
@@ -93,4 +83,5 @@ public class SplashActivity extends FrameTitleActivity {
                     }
                 });
     }
+
 }

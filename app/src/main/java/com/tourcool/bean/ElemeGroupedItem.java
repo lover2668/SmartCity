@@ -35,7 +35,16 @@ public class ElemeGroupedItem extends BaseGroupedItem<ElemeGroupedItem.ItemInfo>
     public static class ItemInfo extends BaseGroupedItem.ItemInfo {
         private String content;
         private String imgUrl;
-        private String cost;
+        private String link;
+
+
+        public String getLink() {
+            return link;
+        }
+
+        public void setLink(String link) {
+            this.link = link;
+        }
 
         public ItemInfo(String title, String group, String content) {
             super(title, group);
@@ -47,9 +56,9 @@ public class ElemeGroupedItem extends BaseGroupedItem<ElemeGroupedItem.ItemInfo>
             this.imgUrl = imgUrl;
         }
 
-        public ItemInfo(String title, String group, String content, String imgUrl, String cost) {
+        public ItemInfo(String title, String group, String content, String imgUrl, String link) {
             this(title, group, content, imgUrl);
-            this.cost = cost;
+            this.link = link;
         }
 
         public String getContent() {
@@ -66,14 +75,6 @@ public class ElemeGroupedItem extends BaseGroupedItem<ElemeGroupedItem.ItemInfo>
 
         public void setImgUrl(String imgUrl) {
             this.imgUrl = imgUrl;
-        }
-
-        public String getCost() {
-            return cost;
-        }
-
-        public void setCost(String cost) {
-            this.cost = cost;
         }
     }
 }

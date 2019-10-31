@@ -1,4 +1,4 @@
-package com.tourcool.ui.main;
+package com.tourcool.ui.mvp.service;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,7 +12,6 @@ import androidx.core.content.ContextCompat;
 
 import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.manager.GlideManager;
-import com.frame.library.core.module.fragment.BaseTitleFragment;
 import com.frame.library.core.retrofit.BaseLoadingObserver;
 import com.frame.library.core.threadpool.ThreadPoolManager;
 import com.frame.library.core.util.ToastUtil;
@@ -22,26 +21,21 @@ import com.frame.library.core.widget.linkage.adapter.viewholder.LinkageSecondary
 import com.frame.library.core.widget.linkage.adapter.viewholder.LinkageSecondaryHeaderViewHolder;
 import com.frame.library.core.widget.linkage.adapter.viewholder.LinkageSecondaryViewHolder;
 import com.frame.library.core.widget.linkage.bean.BaseGroupedItem;
+import com.frame.library.core.widget.linkage.bean.SimpleServiceEntity;
 import com.frame.library.core.widget.linkage.contract.ILinkagePrimaryAdapterConfig;
 import com.frame.library.core.widget.linkage.contract.ILinkageSecondaryAdapterConfig;
-import com.frame.library.core.widget.titlebar.TitleBarView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.tourcool.bean.ElemeGroupedItem;
-import com.tourcool.bean.ServiceGroupItem;
 import com.tourcool.bean.screen.Channel;
 import com.tourcool.bean.screen.ChildNode;
 import com.tourcool.bean.screen.ColumnItem;
 import com.tourcool.bean.screen.ScreenPart;
-import com.tourcool.bean.service.ServiceGroupedItem;
 import com.tourcool.core.base.BaseResult;
+import com.tourcool.core.module.mvp.BaseMvpTitleActivity;
+import com.tourcool.core.module.mvp.BasePresenter;
 import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.smartcity.R;
 import com.trello.rxlifecycle3.android.ActivityEvent;
-import com.trello.rxlifecycle3.android.FragmentEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,51 +43,43 @@ import java.util.List;
 import static com.tourcool.core.config.RequestConfig.CODE_REQUEST_SUCCESS;
 import static com.tourcool.core.constant.ScreenConsrant.SUB_CHANNEL;
 import static com.tourcool.core.constant.ScreenConsrant.SUB_COLUMN;
+import static com.tourcool.ui.main.MainHomeFragment.EXTRA_CLASSIFY_NAME;
+import static com.tourcool.ui.main.MainHomeFragment.EXTRA_FIRST_CHILD_ID;
 
 /**
  * @author :JenkinsZhou
- * @description :
+ * @description :服务页
  * @company :途酷科技
- * @date 2019年08月22日16:08
+ * @date 2019年10月30日14:14
  * @Email: 971613168@qq.com
  */
+
 @SuppressWarnings("unchecked")
-public class TestFragment extends BaseTitleFragment {
+public class ServiceActivity extends BaseMvpTitleActivity {
     private static final int SPAN_COUNT_FOR_GRID_MODE = 3;
     private static final int MARQUEE_REPEAT_LOOP_MODE = -1;
     private static final int MARQUEE_REPEAT_NONE_MODE = 0;
-    private SmartRefreshLayout smartRefreshCommon;
+
+    @Override
+    protected void loadPresenter() {
+
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
 
     @Override
     public int getContentLayout() {
-        return R.layout.fragment_test;
+        return R.layout.activity_service;
     }
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        smartRefreshCommon = mContentView.findViewById(R.id.smartRefreshCommon);
-        smartRefreshCommon.setRefreshHeader(new ClassicsHeader(mContext));
-        smartRefreshCommon.setEnableLoadMore(false);
+
     }
 
-    @Override
-    public void setTitleBar(TitleBarView titleBar) {
-        titleBar.setBackgroundColor(TourCooUtil.getColor(R.color.blue4287FF));
-        TextView mainText = titleBar.getMainTitleTextView();
-        titleBar.setTitleMainText("智慧宜兴");
-        mainText.setText("");
-        mainText.setTextColor(TourCooUtil.getColor(R.color.white));
-        mainText.setCompoundDrawablesWithIntrinsicBounds(null, null, TourCooUtil.getDrawable(R.mipmap.icon_title_name), null);
-        titleBar.setBgResource(R.drawable.bg_gradient_title_common);
-    }
-
-
-    public static TestFragment newInstance() {
-        Bundle args = new Bundle();
-        TestFragment fragment = new TestFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     private void initLinkageData(LinkageRecyclerView linkage, List<ElemeGroupedItem> itemList) {
        /* Gson gson = new Gson();
@@ -247,7 +233,7 @@ public class TestFragment extends BaseTitleFragment {
     }
 
     private void requestServiceList() {
-        ApiRepository.getInstance().requestServiceList().compose(bindUntilEvent(FragmentEvent.DESTROY)).
+        ApiRepository.getInstance().requestServiceList().compose(bindUntilEvent(ActivityEvent.DESTROY)).
                 subscribe(new BaseLoadingObserver<BaseResult>() {
                     @Override
                     public void onRequestNext(BaseResult entity) {
@@ -281,17 +267,28 @@ public class TestFragment extends BaseTitleFragment {
             public void run() {
                 List<ScreenPart> screenPartList = parseJsonToBeanList(baseResult.data, ScreenPart.class);
                 List<ElemeGroupedItem> itemList = new ArrayList<>();
+                List<SimpleServiceEntity> simpleServiceEntityList = new ArrayList<>();
                 for (ScreenPart screenPart : screenPartList) {
                     if (screenPart == null) {
                         continue;
                     }
                     itemList.addAll(parseElemegroupItem(screenPart));
+                    //用来定位用户选择的是哪个分组下面的
+                    SimpleServiceEntity serviceEntity = parseServiceEntity(screenPart);
+                    if (serviceEntity != null) {
+                        simpleServiceEntityList.add(serviceEntity);
+                    }
                 }
                 LinkageRecyclerView recyclerView = mContentView.findViewById(R.id.linkageView);
                 baseHandler.post(new Runnable() {
                     @Override
                     public void run() {
                         initLinkageData(recyclerView, itemList);
+                        int selesctPosition = getSelectPosition(simpleServiceEntityList);
+                        if(selesctPosition>-1){
+                            //定位到用户选择的分类
+                            recyclerView.setCurrentSelectNotSmooth(selesctPosition);
+                        }
                     }
                 });
             }
@@ -343,5 +340,70 @@ public class TestFragment extends BaseTitleFragment {
             }
         }
         return elemeGroupedItemList;
+    }
+
+
+    private SimpleServiceEntity parseServiceEntity(ScreenPart screenPart) {
+        if (screenPart == null || screenPart.getChildren() == null || TextUtils.isEmpty(screenPart.getColumnName())) {
+            return null;
+        }
+        SimpleServiceEntity serviceEntity = new SimpleServiceEntity();
+        serviceEntity.setGroupName(screenPart.getColumnName());
+        List<Integer> childItemList = new ArrayList<>();
+        serviceEntity.setChildItemIdList(childItemList);
+        List<ChildNode> childNodeList = screenPart.getChildren();
+        for (ChildNode childNode : childNodeList) {
+            if (childNode == null || childNode.getDetail() == null || childNode.getType() == null) {
+                continue;
+            }
+            switch (childNode.getType()) {
+                case SUB_CHANNEL:
+                    Channel channel = parseJavaBean(childNode.getDetail(), Channel.class);
+                    if (channel == null) {
+                        break;
+                    }
+                    childItemList.add(channel.getId());
+                    break;
+                case SUB_COLUMN:
+                    ColumnItem columnItem = parseJavaBean(childNode.getDetail(), ColumnItem.class);
+                    if (columnItem == null) {
+                        break;
+                    }
+                    childItemList.add(columnItem.getId());
+                    break;
+                default:
+                    break;
+            }
+        }
+        return serviceEntity;
+    }
+
+    /**
+     * 获取用户点击的tab位置
+     *
+     * @param list
+     * @return
+     */
+    private int getSelectPosition(List<SimpleServiceEntity> list) {
+        if (list == null || list.isEmpty()) {
+            return -1;
+        }
+        String classifyName = getIntent().getStringExtra(EXTRA_CLASSIFY_NAME);
+        int firstChildItemId = getIntent().getIntExtra(EXTRA_FIRST_CHILD_ID, -1);
+        SimpleServiceEntity serviceEntity ;
+        List<Integer> childItemIdlist ;
+        for (int i = 0; i < list.size(); i++) {
+            serviceEntity = list.get(i);
+            if (serviceEntity == null) {
+                continue;
+            }
+            childItemIdlist = serviceEntity.getChildItemIdList();
+            for (Integer id : childItemIdlist) {
+                if (id == firstChildItemId && serviceEntity.getGroupName().equals(classifyName)) {
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 }

@@ -8,6 +8,7 @@ import com.tourcool.core.entity.MessageBean;
 import com.tourcool.core.entity.UpdateEntity;
 import com.frame.library.core.retrofit.FrameRetrofit;
 import com.tourcool.core.base.BaseMovieEntity;
+import com.tourcool.core.retrofit.interceptor.TokenInterceptor;
 
 import java.util.Map;
 
@@ -16,8 +17,11 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
+
+import static com.tourcool.core.retrofit.interceptor.TokenInterceptor.HEADER_NOT_SKIP_LOGIN;
 
 /**
  * @Author: JenkinsZhou on 2018/7/30 14:01
@@ -56,16 +60,6 @@ public interface ApiService {
      * @return
      */
     @POST("message/owner/msg")
-    Observable<com.tourcool.core.entity.BaseResult> requestMsgList1(@Body Map<String, Object> map);
-
-
-    /**
-     * 系统消息列表
-     *
-     * @param map
-     * @return
-     */
-    @POST("message/owner/msg")
     Observable<BaseResult<BasePageBean<MessageBean>>> requestMsgList(@Body Map<String, Object> map);
 
 
@@ -75,7 +69,8 @@ public interface ApiService {
      * @param map
      * @return
      */
-    @GET("app/screen")
+    @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
+    @GET("public/app/screen")
     Observable<BaseResult<Object>> requestHomeInfo(@QueryMap Map<String, Object> map);
 
 
@@ -85,18 +80,20 @@ public interface ApiService {
      * @param map
      * @return
      */
-    @GET("web/sms")
+    @GET("public/web/sms")
     Observable<BaseResult> getVCode(@QueryMap Map<String, Object> map);
 
-    @POST("app/login-sms")
+    @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
+    @POST("public/app/login-sms")
     Observable<BaseResult> loginBySms(@QueryMap Map<String, Object> map);
 
     /**
      * 用户注册
+     *
      * @param map
      * @return
      */
-    @POST("app/register")
+    @POST("public/app/register")
     Observable<BaseResult> register(@Body Map<String, Object> map);
 
 
@@ -106,7 +103,8 @@ public interface ApiService {
      * @param map
      * @return
      */
-    @POST("app/login")
+    @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
+    @POST("public/app/login")
     Observable<BaseResult> loginByPassword(@Body Map<String, Object> map);
 
 
@@ -116,15 +114,43 @@ public interface ApiService {
      * @param map
      * @return
      */
-    @POST("signLogin/loginByVCode")
-    Observable<BaseResult> loginByVCode(@QueryMap Map<String, Object> map);
+    @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
+    @POST("public/app/login-sms")
+    Observable<BaseResult> loginByVcode(@Body Map<String, Object> map);
 
     /**
      * 请求服务列表
+     *
      * @return
      */
-    @GET("app/service")
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @GET("public/app/service")
     Observable<BaseResult> requestServiceList();
+
+    /**
+     * 重置密码
+     *
+     * @param map
+     * @return
+     */
+    @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
+    @PUT("public/app/reset-password")
+    Observable<BaseResult> resetPassword(@Body Map<String, Object> map);
+
+    /**
+     * 退出登录
+     *
+     * @return
+     */
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @GET("public/app/user/logout")
+    Observable<BaseResult> requestLogout();
+
+
+
+    @Headers({TokenInterceptor.HEADER_NEED_TOKEN,HEADER_NOT_SKIP_LOGIN})
+    @GET("app/user")
+    Observable<BaseResult> requestUserInfo();
 
 }
 

@@ -4,19 +4,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <include layout="@layout/frame_layout_title_bar" />
-    <LinearLayout
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smartRefreshCommon"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <com.frame.library.core.widget.linkage.LinkageRecyclerView
-            android:id="@+id/linkageView"
+        android:layout_height="wrap_content">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-        </com.frame.library.core.widget.linkage.LinkageRecyclerView>
+            <com.frame.library.core.widget.linkage.LinkageRecyclerView
+                android:id="@+id/linkageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    </LinearLayout>
+            </com.frame.library.core.widget.linkage.LinkageRecyclerView>
+
+        </LinearLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
 
     <include layout="@layout/frame_layout_title_bar" />
 

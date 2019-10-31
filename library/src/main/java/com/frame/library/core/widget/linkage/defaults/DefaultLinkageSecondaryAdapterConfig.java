@@ -97,9 +97,7 @@ public class DefaultLinkageSecondaryAdapterConfig implements ILinkageSecondaryAd
     @Override
     public void onBindHeaderViewHolder(LinkageSecondaryHeaderViewHolder holder,
                                        BaseGroupedItem<DefaultGroupedItem.ItemInfo> item) {
-
         ((TextView) holder.getView(R.id.secondary_header)).setText(item.header);
-
         if (mHeaderBindListener != null) {
             mHeaderBindListener.onBindHeaderViewHolder(holder, item);
         }

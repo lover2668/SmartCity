@@ -53,6 +53,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * 12、2018-7-31 09:54:30 删除原有单独retrofit模式使用全局retrofit 通过设置Log禁用最后还原模式解决日志拦截器造成获取文件流卡住问题
  * 13、2018-8-23 12:31:34 新增设置是否打印json格式日志方法{@link #setLogJsonEnable(boolean)}
  */
+@SuppressWarnings("unchecked")
 public class FrameRetrofit {
     public static final String TAG = "FrameRetrofit";
     private static volatile FrameRetrofit sManager;

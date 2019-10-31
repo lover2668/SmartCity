@@ -5,8 +5,10 @@ import android.text.TextUtils;
 
 import androidx.core.content.ContextCompat;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.tourcool.core.MyApplication;
 import com.tourcool.core.config.RequestConfig;
+import com.tourcool.core.constant.RouteConstance;
 
 /**
  * @author :JenkinsZhou
@@ -71,4 +73,6 @@ public class TourCooUtil {
             return mobileNums.length() == LENGTH_PHONE && mobileNums.startsWith(startValue);
         }
     }
+
+
 }

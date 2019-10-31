@@ -22,17 +22,39 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/ivHeaderImage"
-        android:layout_marginTop="@dimen/dp_20"
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@mipmap/ic_header_service"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_30"/>
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tvHeaderTitle"
+            android:textSize="@dimen/dp_11"
+            android:text="@string/app_name"
+            android:textColor="@color/whiteCommon"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_3"
+            android:layout_marginBottom="@dimen/dp_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+
+    </LinearLayout>
+   <!-- <ImageView
+        android:id="@+id/ivHeaderImage"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_20"/>-->
+
     <TextView
         android:id="@+id/secondary_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color_999999"
-        android:padding="12dp"
-        android:visibility="gone"
+        android:gravity="center"
+        android:text="sincerity"
+        android:typeface="serif"
+        android:letterSpacing="1.1"
+        android:textSize="@dimen/dp_7"
+        android:textColor="@color/grayA2A2A2"
+        android:visibility="visible"
         android:singleLine="true" />
 </LinearLayout>

@@ -53,7 +53,16 @@ public class RequestCallBack implements Callback {
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            ((JsonResponseHandler) mResponseHandler).onSuccess(response.code(), jsonBody);
+                            try {
+                                ((JsonResponseHandler) mResponseHandler).onSuccess(response.code(), jsonBody);
+                            } catch (IOException e) {
+                                mHandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mResponseHandler.onFailure(response.code(), "fail parse jsonobject, body=" + response_body);
+                                    }
+                                });
+                            }
                         }
                     });
                 } catch (JSONException e) {

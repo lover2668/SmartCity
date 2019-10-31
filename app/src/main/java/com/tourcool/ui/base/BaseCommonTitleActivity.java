@@ -6,6 +6,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.aries.ui.util.StatusBarUtil;
 import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.module.activity.FrameTitleActivity;
@@ -52,4 +53,8 @@ public abstract class BaseCommonTitleActivity extends FrameTitleActivity {
         }
     }
 
+
+    protected  void  skipActivity(String activityUrl){
+        ARouter.getInstance().build(activityUrl).navigation();
+    }
 }

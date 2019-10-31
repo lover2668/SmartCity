@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/frame_layout_title_bar" />
+    <com.frame.library.core.widget.linkage.LinkageRecyclerView
+        android:id="@+id/linkageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.frame.library.core.widget.linkage.LinkageRecyclerView>
+</LinearLayout>

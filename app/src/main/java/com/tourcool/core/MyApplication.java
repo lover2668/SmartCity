@@ -13,10 +13,10 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.tourcool.bean.account.AccountHelper;
 import com.tourcool.core.retrofit.interceptor.TokenInterceptor;
 import com.frame.library.core.util.FrameUtil;
 import com.tourcool.core.config.AppConfig;
@@ -47,18 +47,14 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tourcool.smartcity.BuildConfig;
 import com.tourcool.smartcity.R;
-import com.umeng.analytics.MobclickAgent;
 
-import java.io.IOException;
+import org.litepal.LitePalApplication;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import okhttp3.Interceptor;
-import okhttp3.Request;
-import okhttp3.Response;
 
 import static com.frame.library.core.log.LogConfig.PATH_LOG_SAVE;
 import static com.frame.library.core.log.LogConfig.TAG_LOG_PRE_SUFFIX;
@@ -70,18 +66,14 @@ import static com.frame.library.core.log.LogConfig.TAG_LOG_PRE_SUFFIX;
  * Function:基础配置Application
  * Description:
  */
-public class MyApplication extends MultiDexApplication {
-    private static final String KEY_TOKEN = "token";
+public class MyApplication  extends LitePalApplication {
+
     private static MyApplication mContext;
     private static String TAG = "MyApplication";
     private static int imageHeight = 0;
     private long start;
     private Handler handler;
 
-    /**
-     * 统一header
-     */
-    private Map<String, Object> mHeaderMap = new HashMap<>();
 
     @Override
     public void onCreate() {
@@ -157,7 +149,7 @@ public class MyApplication extends MultiDexApplication {
         //以下为配置多BaseUrl--默认方式一优先级高 可通过FastRetrofit.getInstance().setHeaderPriorityEnable(true);设置方式二优先级
         //方式一 通过Service 里的method-(如:) 设置 推荐 使用该方式不需设置如方式二的额外Header
         FrameRetrofit.getInstance()
-                .addInterceptor(mHeaderInterceptor)
+//                .addInterceptor(mHeaderInterceptor)
                 .addInterceptor(new TokenInterceptor())
                 .putBaseUrl(ApiConstant.API_UPDATE_APP, BuildConfig.BASE__UPDATE_URL);
 
@@ -174,7 +166,7 @@ public class MyApplication extends MultiDexApplication {
         // 参考com.aries.library.fast.demo.retrofit.service.ApiService#updateApp
 
         //初始化友盟统计
-        MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(mContext, "5b349499b27b0a085f000052", "FastLib"));
+//        MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(mContext, "5b349499b27b0a085f000052", "FastLib"));
         //初始化Bugly
         CrashReport.initCrashReport(getApplicationContext());
         //初始化通知栏控制
@@ -321,18 +313,22 @@ public class MyApplication extends MultiDexApplication {
     }
 
 
-    /**
-     * header拦截器
-     */
+  /*  *//**
+     * header拦截器*//*
+
     private Interceptor mHeaderInterceptor = chain -> {
         Request.Builder request = chain.request().newBuilder();
         //避免某些服务器配置攻击,请求返回403 forbidden 问题
         request.addHeader("User-Agent", "Mozilla/5.0 (Android)");
-        request.addHeader(KEY_TOKEN, AccountHelper.getInstance().getAccessToken());
+        request.addHeader(KEY_TOKEN, TOKEN + AccountHelper.getInstance().getAccessToken());
         TourCooLogUtil.i(TAG, "携带的token:" + AccountHelper.getInstance().getAccessToken());
         return chain.proceed(request.build());
-    };
+    };*/
 
 
-
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 }

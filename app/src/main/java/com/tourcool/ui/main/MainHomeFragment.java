@@ -1,5 +1,6 @@
 package com.tourcool.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -55,6 +56,7 @@ import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.DateUtil;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.smartcity.R;
+import com.tourcool.ui.mvp.service.ServiceActivity;
 import com.trello.rxlifecycle3.android.FragmentEvent;
 
 import java.util.ArrayList;
@@ -91,7 +93,9 @@ import static com.tourcool.core.constant.ScreenConsrant.SUB_COLUMN;
  */
 @SuppressWarnings("unchecked")
 public class MainHomeFragment extends BaseTitleFragment implements OnRefreshListener {
-    public static final String AIR_QUALITY = "空气质量";
+    private static final String AIR_QUALITY = "空气质量";
+    public static final String EXTRA_CLASSIFY_NAME = "EXTRA_CLASSIFY_NAME";
+    public static final String EXTRA_FIRST_CHILD_ID = "EXTRA_FIRST_CHILD_ID";
     private SmartRefreshLayout mRefreshLayout;
     private LinearLayout llContainer;
     private Handler mHandler = new Handler();
@@ -780,8 +784,10 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
             channelList.add(currentChannel);
         }
         View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_two_level_layout, null);
+        LinearLayout llServiceHeader = rootView.findViewById(R.id.llServiceHeader);
         TextView tvGroupName = rootView.findViewById(R.id.tvGroupName);
-        tvGroupName.setText(screenPart.getDetail().getName());
+        String groupName = screenPart.getDetail().getName();
+        tvGroupName.setText(groupName);
         RecyclerView rvCommonChild = rootView.findViewById(R.id.rvCommonChild);
         TwoLevelChildAdapter adapter = new TwoLevelChildAdapter();
         //二级布局为网格布局
@@ -795,6 +801,17 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         viewList.add(lineView);
         rootView.setPadding(0, SizeUtil.dp2px(10f), 0, 0);
         setSecondLevelListClickListener(adapter);
+        llServiceHeader.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.setClass(mContext, ServiceActivity.class);
+            //把分组名称传过去
+            intent.putExtra(EXTRA_CLASSIFY_NAME, groupName);
+            if (!adapter.getData().isEmpty()) {
+                //把第一个子条目的id传过去
+                intent.putExtra(EXTRA_FIRST_CHILD_ID, adapter.getData().get(0).getId());
+            }
+            startActivity(intent);
+        });
         /*if (translate) {
             llContainer.setBackgroundColor(TourCooUtil.getColor(R.color.transparent));
         }*/
@@ -912,7 +929,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Channel channel = (Channel) adapter.getData().get(position);
-                if(channel == null){
+                if (channel == null) {
                     return;
                 }
                 switch (channel.getJumpWay()) {

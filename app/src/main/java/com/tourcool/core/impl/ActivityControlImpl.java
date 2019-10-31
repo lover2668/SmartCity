@@ -51,7 +51,6 @@ import com.luck.picture.lib.PictureBaseActivity;
 import com.luck.picture.lib.PicturePreviewActivity;
 import com.tourcool.smartcity.BuildConfig;
 import com.tourcool.smartcity.R;
-import com.umeng.analytics.MobclickAgent;
 
 import java.util.List;
 
@@ -309,7 +308,7 @@ public class ActivityControlImpl implements ActivityFragmentControl, ActivityKey
                 if (activity instanceof FragmentActivity) {
                     FragmentManager manager = ((FragmentActivity) activity).getSupportFragmentManager();
                     List<Fragment> list = manager.getFragments();
-                    //有Fragment的FragmentActivity不需调用以下方法避免统计不准
+                 /*   //有Fragment的FragmentActivity不需调用以下方法避免统计不准
                     if (list == null || list.size() == 0) {
                         MobclickAgent.onPageStart(activity.getClass().getSimpleName());
                     }
@@ -317,7 +316,8 @@ public class ActivityControlImpl implements ActivityFragmentControl, ActivityKey
                     MobclickAgent.onPageStart(activity.getClass().getSimpleName());
                 }
                 //统计时长
-                MobclickAgent.onResume(activity);
+                MobclickAgent.onResume(activity);*/
+                }
             }
 
             @Override
@@ -328,13 +328,13 @@ public class ActivityControlImpl implements ActivityFragmentControl, ActivityKey
                     List<Fragment> list = manager.getFragments();
                     //有Fragment的FragmentActivity不需调用以下方法避免统计不准
                     if (list == null || list.size() == 0) {
-                        MobclickAgent.onPageEnd(activity.getClass().getSimpleName());
+//                        MobclickAgent.onPageEnd(activity.getClass().getSimpleName());
                     }
                 } else {
-                    MobclickAgent.onPageEnd(activity.getClass().getSimpleName());
+//                    MobclickAgent.onPageEnd(activity.getClass().getSimpleName());
                 }
-                //统计时长
-                MobclickAgent.onPause(activity);
+                /*//统计时长
+                MobclickAgent.onPause(activity);*/
             }
 
             @Override
@@ -359,14 +359,14 @@ public class ActivityControlImpl implements ActivityFragmentControl, ActivityKey
             public void onFragmentResumed(FragmentManager fm, Fragment f) {
                 super.onFragmentResumed(fm, f);
                 LoggerManager.i(TAG, "onFragmentResumed:统计Fragment:" + f.getClass().getSimpleName());
-                MobclickAgent.onPageStart(f.getClass().getSimpleName());
+//                MobclickAgent.onPageStart(f.getClass().getSimpleName());
             }
 
             @Override
             public void onFragmentPaused(FragmentManager fm, Fragment f) {
                 super.onFragmentPaused(fm, f);
                 LoggerManager.i(TAG, "onFragmentPaused:统计Fragment:" + f.getClass().getSimpleName());
-                MobclickAgent.onPageEnd(f.getClass().getSimpleName());
+//                MobclickAgent.onPageEnd(f.getClass().getSimpleName());
             }
 
             @Override

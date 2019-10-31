@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.frame.library.core.UiManager;
 import com.frame.library.core.control.ActivityDispatchEventControl;
 import com.frame.library.core.control.ActivityKeyEventControl;
@@ -380,4 +381,17 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IBaseV
             return null;
         }
     }
+
+
+    protected <T> List<T> parseJsonToBeanList(Object data, Class<T> model) {
+        try {
+            return JSONArray.parseArray(JSON.toJSONString(data), model);
+        } catch (Exception e) {
+            TourCooLogUtil.e(TAG,"parseJsonToBeanList()报错--->"+e.toString());
+            return null;
+        }
+    }
+
+
+
 }

@@ -30,6 +30,6 @@
         android:gravity="center"
         android:padding="12dp"
         android:singleLine="true"
-        android:text="结束"
+        android:text="  "
         android:textSize="20sp" />
 </RelativeLayout>

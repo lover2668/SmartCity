@@ -1,13 +1,9 @@
 package com.tourcool.bean.account;
 
-import android.text.TextUtils;
-
 
 import com.blankj.utilcode.util.SPUtils;
-import com.frame.library.core.log.TourCooLogUtil;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import org.litepal.LitePal;
 
 
 /**
@@ -41,6 +37,35 @@ public class AccountHelper {
      */
     private String refreshToken = "";
 
+    private UserInfo userInfo;
+
+    public UserInfo getUserInfo() {
+        if (userInfo != null) {
+            return userInfo;
+        } else {
+            UserInfo userInfo = LitePal.findFirst(UserInfo.class);
+            setUserInfo(userInfo);
+            return userInfo;
+        }
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+        LitePal.deleteAll(UserInfo.class);
+        if (userInfo != null) {
+            userInfo.save();
+        }
+    }
+
+    public void saveUserInfoToDisk(UserInfo userInfo) {
+        LitePal.deleteAll(UserInfo.class);
+        if (userInfo == null) {
+            setUserInfo(null);
+            return;
+        }
+        userInfo.save();
+    }
+
     public String getAccessToken() {
         return SPUtils.getInstance().getString(PREF_ACCESS_TOKEN, "");
     }
@@ -58,4 +83,10 @@ public class AccountHelper {
         this.refreshToken = refreshToken;
         SPUtils.getInstance().put(PREF_REFRESH_TOKEN, refreshToken);
     }
+
+
+    public boolean isLogin() {
+        return userInfo != null;
+    }
+
 }

@@ -43,6 +43,15 @@ public abstract class BaseGroupedItem<T extends BaseGroupedItem.ItemInfo> implem
     public static class ItemInfo {
         private String group;
         private String title;
+        private int id;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
 
         public ItemInfo(String title, String group) {
             this.title = title;
