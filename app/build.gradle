@@ -132,4 +132,5 @@ dependencies {
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
     //eventbus
     implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'com.kaopiz:kprogresshud:1.2.0'
 }

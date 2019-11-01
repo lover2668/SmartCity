@@ -10,9 +10,12 @@ import com.frame.library.core.retrofit.FrameRetrofit;
 import com.tourcool.core.base.BaseMovieEntity;
 import com.tourcool.core.retrofit.interceptor.TokenInterceptor;
 
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -143,7 +146,7 @@ public interface ApiService {
      * @return
      */
     @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
-    @GET("public/app/user/logout")
+    @GET("app/user/logout")
     Observable<BaseResult> requestLogout();
 
 
@@ -152,6 +155,31 @@ public interface ApiService {
     @GET("app/user")
     Observable<BaseResult> requestUserInfo();
 
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @PUT("app/password/change")
+    Observable<BaseResult> requestChangePass(@Body Map<String, Object> map);
+
+
+    /**
+     * 修改用户信息
+     * @param map
+     * @return
+     */
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @PUT("app/user")
+    Observable<BaseResult> requestEditUserInfo(@Body Map<String, Object> map);
+
+
+
+    /**
+     * 多个文件上传
+     *
+     * @param files
+     * @return
+     */
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @POST("app/file/upload/img")
+    Call<BaseResult<List<String>>> uploadFiles(@Body RequestBody files);
 }
 
 

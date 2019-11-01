@@ -1,5 +1,6 @@
 package com.tourcool.core.retrofit.repository;
 
+import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.util.FrameUtil;
 import com.tourcool.core.base.BaseResult;
 import com.tourcool.core.entity.BasePageBean;
@@ -24,7 +25,7 @@ import io.reactivex.Observable;
  * @Description:
  */
 public class ApiRepository extends AbstractRepository {
-
+    public static final String TAG = "提交到后台的参数";
     private static volatile ApiRepository instance;
     private ApiService mApiService;
 
@@ -43,7 +44,7 @@ public class ApiRepository extends AbstractRepository {
         return instance;
     }
 
-    private ApiService getApiService() {
+    public ApiService getApiService() {
         mApiService = FrameRetrofit.getInstance().createService(ApiService.class);
         return mApiService;
     }
@@ -75,8 +76,6 @@ public class ApiRepository extends AbstractRepository {
         params.put("versionName", FrameUtil.getVersionName(MyApplication.getContext()));
         return FrameTransformer.switchSchedulers(getApiService().updateApp(params).retryWhen(new RetryWhen()));
     }
-
-
 
 
     /**
@@ -138,6 +137,7 @@ public class ApiRepository extends AbstractRepository {
 
     /**
      * 密码登录
+     *
      * @param phone
      * @param pass
      * @return
@@ -151,6 +151,7 @@ public class ApiRepository extends AbstractRepository {
 
     /**
      * 验证码登录
+     *
      * @param phone
      * @param smsCode
      * @return
@@ -161,6 +162,7 @@ public class ApiRepository extends AbstractRepository {
         params.put("smsCode", smsCode);
         return FrameTransformer.switchSchedulers(getApiService().loginByVcode(params).retryWhen(new RetryWhen()));
     }
+
     /**
      * 获取服务页tab数据
      *
@@ -180,7 +182,7 @@ public class ApiRepository extends AbstractRepository {
      * @return
      */
     public Observable<BaseResult> requestResetPass(String phoneNumber, String vCode, String pass, String passConfirm) {
-        Map<String, Object> params = new HashMap<>(2);
+        Map<String, Object> params = new HashMap<>(4);
         params.put("confirmPassword", passConfirm);
         params.put("password", pass);
         params.put("phoneNumber", phoneNumber);
@@ -196,10 +198,43 @@ public class ApiRepository extends AbstractRepository {
 
     /**
      * 获取用户信息
+     *
      * @return
      */
     public Observable<BaseResult> requestUserInfo() {
         return FrameTransformer.switchSchedulers(getApiService().requestUserInfo().retryWhen(new RetryWhen()));
     }
+
+    /**
+     * 修改密码
+     *
+     * @param oldPassword
+     * @param newPassword
+     * @param confirmPassword
+     * @return
+     */
+    public Observable<BaseResult> requestChangePass(String oldPassword, String newPassword, String confirmPassword) {
+        Map<String, Object> params = new HashMap<>(3);
+        params.put("oldPassword", oldPassword);
+        params.put("password", newPassword);
+        params.put("confirmPassword", confirmPassword);
+        TourCooLogUtil.i(TAG, params);
+        return FrameTransformer.switchSchedulers(getApiService().requestChangePass(params).retryWhen(new RetryWhen()));
+    }
+
+
+    /**
+     * 修改用户信息
+     * @param nickName
+     * @param avatarUrl
+     * @return
+     */
+    public Observable<BaseResult> requestEditUserInfo(String nickName, String avatarUrl) {
+        Map<String, Object> params = new HashMap<>(2);
+        params.put("nickname", nickName);
+        params.put("iconUrl", avatarUrl);
+        return FrameTransformer.switchSchedulers(getApiService().requestEditUserInfo(params).retryWhen(new RetryWhen()));
+    }
+
 
 }

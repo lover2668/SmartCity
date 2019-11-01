@@ -159,6 +159,7 @@ public class UiManager {
             //初始化Glide
             GlideManager.setPlaceholderColor(ContextCompat.getColor(mApplication, R.color.colorPlaceholder));
             GlideManager.setPlaceholderRoundRadius(mApplication.getResources().getDimension(R.dimen.dp_placeholder_radius));
+            GlideManager.setCirclePlaceholder(R.mipmap.ic_avatar_default);
         }
         return getInstance();
     }

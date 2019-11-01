@@ -2,7 +2,6 @@ package com.tourcool.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,15 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.manager.GlideManager;
 import com.frame.library.core.module.fragment.BaseTitleFragment;
 import com.frame.library.core.retrofit.BaseLoadingObserver;
-import com.frame.library.core.retrofit.BaseObserver;
 import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.util.NetworkUtil;
-import com.frame.library.core.util.ToastUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -38,6 +34,7 @@ import com.tourcool.core.constant.RouteConstance;
 import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.ProgressDrawable;
 import com.tourcool.core.util.TourCooUtil;
+import com.tourcool.event.account.UserInfoEvent;
 import com.tourcool.helper.EmiRecycleViewDivider;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.mvp.account.CertificationRealNameActivity;
@@ -78,7 +75,6 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
     @Override
     public int getContentLayout() {
         return R.layout.main_fragment_mine;
-
     }
 
     @Override
@@ -96,6 +92,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
         tvPhone = mContentView.findViewById(R.id.tvPhone);
         mRefreshLayout.setRefreshHeader(header);
         initAdapter();
+        rlLogin.setOnClickListener(this);
         mContentView.findViewById(R.id.tvLoginNow).setOnClickListener(this);
         ivAvatar.setOnClickListener(this);
         tvNickName.setOnClickListener(this);
@@ -127,7 +124,6 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
 //            FrameUtil.startActivity(mContext, LoginActivity.class);
 //                FrameUtil.startActivity(mContext, SystemSettingActivity.class);
             ARouter.getInstance().build(RouteConstance.ACTIVITY_URL_SETTING).navigation();
-
         });
     }
 
@@ -181,7 +177,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        new Handler().postDelayed(refreshLayout::finishRefresh, 300);
+        doGetUserInfo();
     }
 
 
@@ -189,7 +185,12 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ivAvatar:
-                FrameUtil.startActivity(mContext, PersonalDataActivity.class);
+            case R.id.rlLogin:
+                if(AccountHelper.getInstance().isLogin()){
+                    FrameUtil.startActivity(mContext, PersonalDataActivity.class);
+                }else {
+                    FrameUtil.startActivity(mContext, LoginActivity.class);
+                }
                 break;
             case R.id.tvLoginNow:
                 FrameUtil.startActivity(mContext, LoginActivity.class);
@@ -203,19 +204,20 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
     /**
      * 收到消息
      *
-     * @param userInfo
+     * @param userInfoEvent
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onUserInfoRefreshEvent(UserInfo userInfo) {
-        if (userInfo == null) {
+    public void onUserInfoRefreshEvent(UserInfoEvent userInfoEvent) {
+        if (userInfoEvent == null || userInfoEvent.userInfo == null) {
+            doGetUserInfo();
             return;
         }
         TourCooLogUtil.i(TAG, "刷新用户信息");
-        refreshUserInfo(userInfo);
+        doShowUserInfo(userInfoEvent.userInfo);
     }
 
 
-    private void refreshUserInfo(UserInfo userInfo) {
+    private void doShowUserInfo(UserInfo userInfo) {
         if (userInfo == null) {
             showUnLogin();
         } else {
@@ -249,11 +251,22 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
     }
 
 
-    private void requestUserInfo() {
+    private void doGetUserInfo() {
+        if (!NetworkUtil.isConnected(mContext)) {
+            finishRefreshFaild();
+            showUserInfoFromCache();
+            return;
+        }
+       /* if(!AccountHelper.getInstance().isLogin()){
+            finishRefresh();
+            showUserInfoFromCache();
+            return;
+        }*/
         ApiRepository.getInstance().requestUserInfo().compose(bindUntilEvent(FragmentEvent.DESTROY)).
                 subscribe(new BaseLoadingObserver<BaseResult>() {
                     @Override
                     public void onRequestNext(BaseResult entity) {
+                        finishRefresh();
                         if (entity == null) {
                             showUnLogin();
                             return;
@@ -264,7 +277,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
                                 showUnLogin();
                                 return;
                             }
-                            refreshUserInfo(userInfo);
+                            doShowUserInfo(userInfo);
                             AccountHelper.getInstance().saveUserInfoToDisk(userInfo);
                         }
                     }
@@ -276,6 +289,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
                             AccountHelper.getInstance().setUserInfo(null);
                             showUnLogin();
                         }
+                        finishRefresh();
                     }
                 });
     }
@@ -287,9 +301,21 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
 
     private void doShowUserInfo() {
         if (NetworkUtil.isConnected(mContext)) {
-            requestUserInfo();
+            doGetUserInfo();
         } else {
             showUserInfoFromCache();
+        }
+    }
+
+    private void finishRefresh() {
+        if (mRefreshLayout != null) {
+            mRefreshLayout.finishRefresh();
+        }
+    }
+
+    private void finishRefreshFaild() {
+        if (mRefreshLayout != null) {
+            mRefreshLayout.finishRefresh(false);
         }
     }
 }

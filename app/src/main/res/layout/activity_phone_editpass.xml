@@ -31,6 +31,7 @@
                     android:layout_gravity="center_vertical"/>
 
                 <EditText
+                    android:id="@+id/etOldPass"
                     android:paddingTop="@dimen/dp_16"
                     android:paddingBottom="@dimen/dp_16"
                     android:background="@null"
@@ -58,6 +59,7 @@
                     android:textSize="@dimen/sp_14"
                     android:layout_gravity="center_vertical"/>
                 <EditText
+                    android:id="@+id/etNewPass"
                     android:background="@null"
                     android:textSize="@dimen/sp_14"
                     android:layout_width="0dp"
@@ -86,6 +88,7 @@
                     android:textSize="@dimen/sp_14"
                     android:layout_gravity="center_vertical"/>
                 <EditText
+                    android:id="@+id/etConfirmPass"
                     android:background="@null"
                     android:textSize="@dimen/sp_14"
                     android:layout_width="0dp"

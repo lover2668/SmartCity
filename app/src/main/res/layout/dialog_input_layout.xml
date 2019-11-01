@@ -11,6 +11,7 @@
         android:layout_height="@dimen/dp_80"
         android:gravity="center"
         android:textColor="#333333"
+        android:maxLines="1"
         android:textSize="16sp" />
 
     <androidx.appcompat.widget.AppCompatEditText
@@ -22,7 +23,7 @@
         android:layout_marginBottom="@dimen/dp_20"
         android:background="@drawable/border_dialog_edit"
         android:paddingStart="@dimen/dp_12"
-        android:maxLength="12"
+        android:maxLines="1"
         android:paddingEnd="@dimen/dp_12"
         android:textColor="#666666"
         android:textSize="@dimen/sp_14" />

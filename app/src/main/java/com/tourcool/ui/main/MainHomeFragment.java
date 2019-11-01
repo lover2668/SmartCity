@@ -83,6 +83,8 @@ import static com.tourcool.core.constant.ScreenConsrant.LAYOUT_STYLE_IMAGE_TEXT_
 import static com.tourcool.core.constant.ScreenConsrant.LAYOUT_STYLE_VERTICAL_BANNER;
 import static com.tourcool.core.constant.ScreenConsrant.SUB_CHANNEL;
 import static com.tourcool.core.constant.ScreenConsrant.SUB_COLUMN;
+import static com.tourcool.core.constant.WeatherConstant.WEATHER_DUO_YUN;
+import static com.tourcool.core.constant.WeatherConstant.WEATHER_QING;
 
 /**
  * @author :JenkinsZhou
@@ -455,6 +457,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         TextView tvWeatherDesc = rootView.findViewById(R.id.tvWeatherDesc);
         TextView tvAirQuality = rootView.findViewById(R.id.tvAirQuality);
         TextView tvDate = rootView.findViewById(R.id.tvDate);
+        ImageView ivWeather = rootView.findViewById(R.id.ivWeather);
         tvWeatherDesc.setText(weather.getWea());
         tvAirQuality.setText(weather.getAir_level());
         tvTemperature.setText(weather.getTem());
@@ -838,8 +841,20 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         TextView tvWeatherDesc = rootView.findViewById(R.id.tvWeatherDesc);
         TextView tvAirQuality = rootView.findViewById(R.id.tvAirQuality);
         TextView tvDate = rootView.findViewById(R.id.tvDate);
+        ImageView ivWeather = rootView.findViewById(R.id.ivWeather);
         //天气描述
         tvWeatherDesc.setText(weather.getWeather());
+        switch (weather.getWeather()) {
+            case WEATHER_DUO_YUN:
+                GlideManager.loadImg(R.mipmap.ic_weather_duoyun,ivWeather);
+                break;
+            case WEATHER_QING:
+                GlideManager.loadImg(R.mipmap.ic_weather_day_qing,ivWeather);
+                break;
+            default:
+                GlideManager.loadImg(R.mipmap.ic_weather_unknown,ivWeather);
+                break;
+        }
         tvAirQuality.setText(transfirmAirQuailty(weather.getQuality()));
         tvTemperature.setText(transfirmTemp(weather.getTemp()));
         tvDate.setText(transfirmDate(weather.getDate()));

@@ -57,13 +57,18 @@ public class AccountHelper {
         }
     }
 
+    /**
+     * 保存到磁盘的同时 也会更新内存中的用户信息
+     * @param userInfo
+     */
     public void saveUserInfoToDisk(UserInfo userInfo) {
         LitePal.deleteAll(UserInfo.class);
         if (userInfo == null) {
             setUserInfo(null);
-            return;
+        }else {
+            setUserInfo(userInfo);
+            userInfo.save();
         }
-        userInfo.save();
     }
 
     public String getAccessToken() {
@@ -87,6 +92,16 @@ public class AccountHelper {
 
     public boolean isLogin() {
         return userInfo != null;
+    }
+
+
+    /**
+     * 退出登录
+     */
+    public  void logout(){
+        setUserInfo(null);
+        SPUtils.getInstance().put(PREF_ACCESS_TOKEN, "");
+        SPUtils.getInstance().put(PREF_REFRESH_TOKEN, "");
     }
 
 }

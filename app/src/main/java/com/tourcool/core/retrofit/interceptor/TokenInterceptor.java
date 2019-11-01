@@ -78,8 +78,8 @@ public class TokenInterceptor implements Interceptor {
                     return chain.proceed(lastRequest);
                 }
             } else {
-                TourCooLogUtil.d(TAG, "当前token验证通过 不需要刷新token~");
-                return chain.proceed(newRequest);
+                TourCooLogUtil.i(TAG, "当前token验证通过 不需要刷新token~");
+                return newResponse;
             }
     }}
 

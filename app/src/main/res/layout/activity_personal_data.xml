@@ -53,7 +53,7 @@
 
 
                 <TextView
-                    android:text="验证码"
+                    android:text="昵称"
                     style="@style/Text14spBlack333333"
                     android:textSize="@dimen/sp_14"
                     android:layout_gravity="center_vertical"/>
@@ -62,6 +62,9 @@
                     android:textSize="@dimen/sp_14"
                     android:layout_width="0dp"
                     android:layout_weight="1"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:maxEms="10"
                     android:paddingTop="@dimen/dp_16"
                     android:paddingBottom="@dimen/dp_16"
                     android:gravity="right"
