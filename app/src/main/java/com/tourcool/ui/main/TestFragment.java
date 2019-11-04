@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import com.frame.library.core.log.TourCooLogUtil;
@@ -28,7 +29,9 @@ import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tourcool.bean.ElemeGroupedItem;
 import com.tourcool.bean.ServiceGroupItem;
 import com.tourcool.bean.screen.Channel;
@@ -43,6 +46,7 @@ import com.tourcool.smartcity.R;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 import com.trello.rxlifecycle3.android.FragmentEvent;
 
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +62,7 @@ import static com.tourcool.core.constant.ScreenConsrant.SUB_COLUMN;
  * @Email: 971613168@qq.com
  */
 @SuppressWarnings("unchecked")
-public class TestFragment extends BaseTitleFragment {
+public class TestFragment extends BaseTitleFragment implements OnRefreshListener {
     private static final int SPAN_COUNT_FOR_GRID_MODE = 3;
     private static final int MARQUEE_REPEAT_LOOP_MODE = -1;
     private static final int MARQUEE_REPEAT_NONE_MODE = 0;
@@ -74,6 +78,7 @@ public class TestFragment extends BaseTitleFragment {
         smartRefreshCommon = mContentView.findViewById(R.id.smartRefreshCommon);
         smartRefreshCommon.setRefreshHeader(new ClassicsHeader(mContext));
         smartRefreshCommon.setEnableLoadMore(false);
+        smartRefreshCommon.setOnRefreshListener(this);
     }
 
     @Override
@@ -119,6 +124,11 @@ public class TestFragment extends BaseTitleFragment {
 
     @Override
     public void loadData() {
+        requestServiceList();
+    }
+
+    @Override
+    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
         requestServiceList();
     }
 
@@ -251,6 +261,7 @@ public class TestFragment extends BaseTitleFragment {
                 subscribe(new BaseLoadingObserver<BaseResult>() {
                     @Override
                     public void onRequestNext(BaseResult entity) {
+                        finishRefresh();
                         if (entity == null) {
                             return;
                         }
@@ -265,8 +276,8 @@ public class TestFragment extends BaseTitleFragment {
 
                     @Override
                     public void onRequestError(Throwable e) {
-//                        super.onRequestError(e);
-                        ToastUtil.show("服务器异常:" + e.toString());
+                        super.onRequestError(e);
+                        finishRefresh();
                     }
                 });
     }
@@ -343,5 +354,11 @@ public class TestFragment extends BaseTitleFragment {
             }
         }
         return elemeGroupedItemList;
+    }
+
+    private void finishRefresh() {
+        if (smartRefreshCommon != null) {
+            smartRefreshCommon.finishRefresh();
+        }
     }
 }

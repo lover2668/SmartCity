@@ -100,6 +100,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
 
     @Override
     public void loadData() {
+        showUserInfoFromCache();
         doShowUserInfo();
     }
 
@@ -116,8 +117,14 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
         titleBar.setRightTextDrawable(TourCooUtil.getDrawable(R.mipmap.ic_setting));
         mainText.setTextColor(TourCooUtil.getColor(R.color.white));
         GlideManager.loadCircleImg(R.mipmap.img_placeholder_car, ivAvatar);
-        setViewGone(llUnlogin, false);
-        setViewGone(rlLogin, true);
+        if (AccountHelper.getInstance().isLogin()) {
+            setViewGone(llUnlogin, false);
+            setViewGone(rlLogin, true);
+        } else {
+            setViewGone(llUnlogin, true);
+            setViewGone(rlLogin, false);
+        }
+
         mainText.setCompoundDrawablesWithIntrinsicBounds(null, null, TourCooUtil.getDrawable(R.mipmap.icon_title_name), null);
         titleBar.setOnRightTextClickListener(v -> {
 //                FrameUtil.startActivity(mContext,MyAppManageActivity.class);
@@ -186,9 +193,9 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
         switch (v.getId()) {
             case R.id.ivAvatar:
             case R.id.rlLogin:
-                if(AccountHelper.getInstance().isLogin()){
+                if (AccountHelper.getInstance().isLogin()) {
                     FrameUtil.startActivity(mContext, PersonalDataActivity.class);
-                }else {
+                } else {
                     FrameUtil.startActivity(mContext, LoginActivity.class);
                 }
                 break;
@@ -228,7 +235,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
     private void showUnLogin() {
         setViewGone(llUnlogin, true);
         setViewGone(rlLogin, false);
-
+        GlideManager.loadCircleImg("",ivAvatar);
     }
 
     private void showUserInfo(UserInfo userInfo) {
@@ -284,12 +291,14 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
 
                     @Override
                     public void onRequestError(Throwable e) {
-                        if (e.toString().contains(RequestConfig.CODE_REQUEST_TOKEN_INVALID + "")) {
-                            //未登录或登录失效
-                            AccountHelper.getInstance().setUserInfo(null);
-                            showUnLogin();
-                        }
                         finishRefresh();
+                          TourCooLogUtil.e(TAG,e.toString());
+                        if(e.toString().contains(RequestConfig.CODE_REQUEST_TOKEN_INVALID+"")){
+                            AccountHelper.getInstance().logout();
+                            showUserInfo(null);
+                        }else {
+                            showUserInfoFromCache();
+                        }
                     }
                 });
     }

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:paddingTop="@dimen/dp_20"
+    android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvCityName"
+            android:text="--"
+            android:layout_gravity="center_horizontal"
+            android:letterSpacing="0.2"
+            style="@style/Text18spWhiteFFFFFF"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_15"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvDate"
+                style="@style/Text14spWhiteFFFFFF"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="--/--" />
+
+            <TextView
+                android:id="@+id/tvTemperatureRange"
+                style="@style/Text14spWhiteFFFFFF"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="--" />
+
+            <TextView
+                android:id="@+id/tvWeatherDesc"
+                style="@style/Text14spWhiteFFFFFF"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="--" />
+        </LinearLayout>
+
+        <!--第三行空气质量区域-->
+
+        <RelativeLayout
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+
+
+            <LinearLayout
+                android:id="@+id/llTemperature"
+                android:layout_centerHorizontal="true"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvTemperature"
+                    android:textSize="@dimen/sp_48"
+                    android:text="--°"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/whiteCommon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/llAir"
+                android:layout_alignBaseline="@id/llTemperature"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvAirQuality"
+                    android:text="--"
+                    style="@style/Text12spWhiteFFFFFF"
+                    />
+
+                <TextView
+                    android:id="@+id/tvWindDesc"
+                    android:text="--"
+                    android:layout_marginTop="@dimen/dp_15"
+                    style="@style/Text12spWhiteFFFFFF"/>
+
+            </LinearLayout>
+
+            <!--天气图标-->
+            <LinearLayout
+                android:layout_alignBaseline="@id/llTemperature"
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_alignParentEnd="true"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/ivWeather"
+                    android:layout_width="@dimen/dp_50"
+                    android:src="@mipmap/ic_weather_unknown"
+                    android:scaleType="fitXY"
+                    android:layout_height="@dimen/dp_50"/>
+            </LinearLayout>
+        </RelativeLayout>
+        <!--分割线-->
+        <View
+            android:background="@color/grayCCCCCC"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginBottom="@dimen/dp_5"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0_1"/>
+</LinearLayout>

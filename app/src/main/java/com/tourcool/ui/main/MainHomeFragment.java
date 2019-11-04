@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.aries.ui.util.StatusBarUtil;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -73,6 +74,7 @@ import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_IMAGE;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_IMAGE_TEXT_LIST;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_VERTICAL_BANNER;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_WEATHER;
+import static com.tourcool.core.constant.RouteConstance.ACTIVITY_URL_WEATHER;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NATIVE;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NONE;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_URL;
@@ -94,7 +96,7 @@ import static com.tourcool.core.constant.WeatherConstant.WEATHER_QING;
  * @Email: 971613168@qq.com
  */
 @SuppressWarnings("unchecked")
-public class MainHomeFragment extends BaseTitleFragment implements OnRefreshListener {
+public class MainHomeFragment extends BaseTitleFragment implements OnRefreshListener, View.OnClickListener {
     private static final String AIR_QUALITY = "空气质量";
     public static final String EXTRA_CLASSIFY_NAME = "EXTRA_CLASSIFY_NAME";
     public static final String EXTRA_FIRST_CHILD_ID = "EXTRA_FIRST_CHILD_ID";
@@ -452,7 +454,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
             return;
         }
         Weather weather = homeBean.getWeather();
-        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_weather_layout, null);
+        View rootView = LayoutInflater.from(mContext).inflate(R.layout.home_weather_layout, null);
         TextView tvTemperature = rootView.findViewById(R.id.tvTemperature);
         TextView tvWeatherDesc = rootView.findViewById(R.id.tvWeatherDesc);
         TextView tvAirQuality = rootView.findViewById(R.id.tvAirQuality);
@@ -495,7 +497,6 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
                     return;
                 }
                 runMainThread(() -> {
-                    ToastUtil.showSuccess("解析成功");
                     //先移除view 防止重复加载
                     removeView();
                     loadScreenInfo(screenEntity);
@@ -832,8 +833,9 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         } else {
             weather = screenEntity.getWeather();
         }
-        LinearLayout rootView = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.item_weather_layout, null);
+        LinearLayout rootView = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.home_weather_layout, null);
         RelativeLayout rlWeather = rootView.findViewById(R.id.rlWeather);
+        rlWeather.setOnClickListener(this);
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) rlWeather.getLayoutParams();
         layoutParams.setMargins(SizeUtil.dp2px(10), SizeUtil.dp2px(15), 0, SizeUtil.dp2px(5));
         rlWeather.setLayoutParams(layoutParams);
@@ -962,5 +964,16 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
                 }
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.rlWeather:
+                ARouter.getInstance().build(ACTIVITY_URL_WEATHER).navigation();
+                break;
+            default:
+                break;
+        }
     }
 }

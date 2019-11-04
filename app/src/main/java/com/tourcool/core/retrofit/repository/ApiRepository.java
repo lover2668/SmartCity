@@ -2,6 +2,7 @@ package com.tourcool.core.retrofit.repository;
 
 import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.util.FrameUtil;
+import com.tourcool.bean.weather.WeatherEntity;
 import com.tourcool.core.base.BaseResult;
 import com.tourcool.core.entity.BasePageBean;
 import com.tourcool.core.entity.MessageBean;
@@ -234,6 +235,10 @@ public class ApiRepository extends AbstractRepository {
         params.put("nickname", nickName);
         params.put("iconUrl", avatarUrl);
         return FrameTransformer.switchSchedulers(getApiService().requestEditUserInfo(params).retryWhen(new RetryWhen()));
+    }
+
+    public Observable<BaseResult<WeatherEntity>> requestWeatherInfo() {
+        return FrameTransformer.switchSchedulers(getApiService().requestWeatherInfo().retryWhen(new RetryWhen()));
     }
 
 

@@ -1,6 +1,7 @@
 package com.tourcool.core.retrofit.service;
 
 
+import com.tourcool.bean.weather.WeatherEntity;
 import com.tourcool.core.base.BaseResult;
 import com.tourcool.core.constant.ApiConstant;
 import com.tourcool.core.entity.BasePageBean;
@@ -180,6 +181,15 @@ public interface ApiService {
     @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
     @POST("app/file/upload/img")
     Call<BaseResult<List<String>>> uploadFiles(@Body RequestBody files);
+
+
+    /**
+     * 获取未来一周天气
+     * @return
+     */
+    @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
+    @GET("public/app/weather")
+    Observable<BaseResult<WeatherEntity>> requestWeatherInfo();
 }
 
 

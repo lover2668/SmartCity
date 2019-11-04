@@ -57,7 +57,7 @@ public class MainTabActivity extends FrameMainActivity {
     public List<FrameTabEntity> getTabList() {
         ArrayList<FrameTabEntity> tabEntities = new ArrayList<>();
         tabEntities.add(new FrameTabEntity(R.string.home, R.drawable.ic_home_normal, R.drawable.ic_home_selected, MainHomeFragment.newInstance()));
-        tabEntities.add(new FrameTabEntity("资讯", R.drawable.ic_app_normal, R.drawable.ic_app_selected, TabFragment.newInstance()));
+//        tabEntities.add(new FrameTabEntity("资讯", R.drawable.ic_app_normal, R.drawable.ic_app_selected, TabFragment.newInstance()));
         tabEntities.add(new FrameTabEntity("服务", R.drawable.ic_activity_normal, R.drawable.ic_activity_selected, TestFragment.newInstance()));
         tabEntities.add(new FrameTabEntity("我的", R.drawable.ic_mine_normal, R.drawable.ic_mine_selected, MainMineFragment.newInstance()));
         return tabEntities;

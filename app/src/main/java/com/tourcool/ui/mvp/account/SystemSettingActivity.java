@@ -111,6 +111,7 @@ public class SystemSettingActivity extends BaseMvpTitleActivity implements View.
                     requestLogout();
                 } else {
                     skipLogin();
+                    finish();
                 }
                 break;
             default:

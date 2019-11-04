@@ -16,9 +16,10 @@ import static com.tourcool.core.config.AppConfig.TITLE_MAIN_TITLE_SIZE;
  * @date 2019年09月27日14:50
  * @Email: 971613168@qq.com
  */
-public abstract class BaseTitleTransparentActivity extends FrameTitleActivity {
+public abstract class BaseTitleTransparentActivity extends BaseCommonTitleActivity {
     @Override
     public void setTitleBar(TitleBarView titleBar) {
+        super.setTitleBar(titleBar);
         if (mTitleBar != null) {
             mTitleBar.setBackgroundColor(FrameUtil.getColor(R.color.transparent));
             mTitleBar.setLeftTextDrawable(R.drawable.ic_back_white);

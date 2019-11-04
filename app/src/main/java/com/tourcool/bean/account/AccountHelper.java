@@ -43,7 +43,7 @@ public class AccountHelper {
         if (userInfo != null) {
             return userInfo;
         } else {
-            UserInfo userInfo = LitePal.findFirst(UserInfo.class);
+            userInfo = LitePal.findFirst(UserInfo.class);
             setUserInfo(userInfo);
             return userInfo;
         }
@@ -51,21 +51,22 @@ public class AccountHelper {
 
     public void setUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;
-        LitePal.deleteAll(UserInfo.class);
         if (userInfo != null) {
+            LitePal.deleteAll(UserInfo.class);
             userInfo.save();
         }
     }
 
     /**
      * 保存到磁盘的同时 也会更新内存中的用户信息
+     *
      * @param userInfo
      */
     public void saveUserInfoToDisk(UserInfo userInfo) {
-        LitePal.deleteAll(UserInfo.class);
         if (userInfo == null) {
             setUserInfo(null);
-        }else {
+        } else {
+            LitePal.deleteAll(UserInfo.class);
             setUserInfo(userInfo);
             userInfo.save();
         }
@@ -91,17 +92,22 @@ public class AccountHelper {
 
 
     public boolean isLogin() {
-        return userInfo != null;
+        return getUserInfo() != null;
     }
 
 
     /**
      * 退出登录
      */
-    public  void logout(){
+    public void logout() {
         setUserInfo(null);
+        deleteUserInfoFromDisk();
         SPUtils.getInstance().put(PREF_ACCESS_TOKEN, "");
         SPUtils.getInstance().put(PREF_REFRESH_TOKEN, "");
+    }
+
+    public void deleteUserInfoFromDisk() {
+        LitePal.deleteAll(UserInfo.class);
     }
 
 }
