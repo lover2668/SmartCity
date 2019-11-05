@@ -24,6 +24,7 @@ public class MatrixAdapter extends BaseQuickAdapter<MatrixBean, BaseViewHolder> 
         super(R.layout.item_matrix_layout);
     }
 
+
     @Override
     protected void convert(@NonNull BaseViewHolder helper, MatrixBean item) {
         ImageView imageView = helper.getView(R.id.ivMatrixIcon);

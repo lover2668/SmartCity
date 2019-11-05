@@ -3,5 +3,82 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <include layout="@layout/frame_layout_title_bar" />
+    <LinearLayout
+        android:paddingTop="@dimen/dp_8"
+        android:background="@drawable/bg_gradient_title_common"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/ivBack"
+            android:paddingStart="@dimen/dp_10"
+            android:paddingEnd="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_26"
+            android:src="@drawable/frame_ic_back_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <!--搜索框-->
+    <RelativeLayout
+        android:id="@+id/rlSearch"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_30"
+        android:layout_marginEnd="@dimen/dp_15"
+
+        >
+
+        <ImageView
+            android:alpha="0.2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/bg_radius_16_white_half"
+            />
+
+        <ImageView
+            android:id="@+id/ivSearch"
+            android:layout_width="@dimen/dp_14"
+            android:layout_height="@dimen/dp_13"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_15"
+            android:src="@mipmap/ic_search" />
+
+        <ImageView
+            android:id="@+id/ivClearInput"
+            android:padding="@dimen/dp_5"
+            android:src="@mipmap/ic_clear_input"
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="@dimen/dp_5"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:layout_toEndOf="@id/ivSearch"
+            android:layout_toStartOf="@id/ivClearInput"
+            android:id="@+id/etSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_10"
+            android:hint="搜索服务或文章"
+            android:background="@null"
+            android:singleLine="true"
+            android:paddingTop="@dimen/dp_3"
+            android:maxLength="30"
+            android:paddingBottom="@dimen/dp_3"
+            android:imeOptions="actionSearch"
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:textColorHint="@color/whiteCommon"
+            android:textColor="@color/whiteCommon"
+            android:textSize="@dimen/sp_14" />
+    </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llContainer"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </LinearLayout>
 </LinearLayout>

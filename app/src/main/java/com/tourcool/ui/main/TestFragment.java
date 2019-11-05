@@ -236,7 +236,7 @@ public class TestFragment extends BaseTitleFragment implements OnRefreshListener
                 }
             });
             tvMatrixIconName.setText(item.info.getTitle());
-            GlideManager.loadImg(item.info.getImgUrl(), imageView);
+            GlideManager.loadCircleImg(item.info.getImgUrl(), imageView);
         }
 
         @Override
@@ -331,7 +331,11 @@ public class TestFragment extends BaseTitleFragment implements OnRefreshListener
                     }
                     item = new ElemeGroupedItem(false, null);
                     item.info = new ElemeGroupedItem.ItemInfo(channel.getTitle(), screenPart.getColumnName(), channel.getDescription());
-                    item.info.setImgUrl(TourCooUtil.getUrl(channel.getCircleIcon()));
+                    if(TextUtils.isEmpty(channel.getCircleIcon())){
+                        item.info.setImgUrl(TourCooUtil.getUrl(channel.getIcon()));
+                    }else {
+                        item.info.setImgUrl(TourCooUtil.getUrl(channel.getCircleIcon()));
+                    }
                     item.info.setLink(TourCooUtil.getUrl(channel.getLink()));
                     item.info.setId(channel.getId());
                     break;
@@ -342,7 +346,11 @@ public class TestFragment extends BaseTitleFragment implements OnRefreshListener
                     }
                     item = new ElemeGroupedItem(false, null);
                     item.info = new ElemeGroupedItem.ItemInfo(columnItem.getName(), screenPart.getColumnName(), columnItem.getName());
-                    item.info.setImgUrl(TourCooUtil.getUrl(columnItem.getCircleIcon()));
+                    if(TextUtils.isEmpty(columnItem.getCircleIcon())){
+                        item.info.setImgUrl(TourCooUtil.getUrl(columnItem.getIcon()));
+                    }else {
+                        item.info.setImgUrl(TourCooUtil.getUrl(columnItem.getCircleIcon()));
+                    }
                     item.info.setLink(TourCooUtil.getUrl(columnItem.getLink()));
                     item.info.setId(columnItem.getId());
                     break;

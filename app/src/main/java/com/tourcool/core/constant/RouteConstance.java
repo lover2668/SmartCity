@@ -36,4 +36,9 @@ public class RouteConstance {
      * 天气
      */
     public static final String ACTIVITY_URL_WEATHER = "/mvp/weather/"+"WeatherActivity";
+
+    /**
+     * 天气
+     */
+    public static final String ACTIVITY_URL_SEARCH = "/mvp/search/"+"SearchActivity";
 }

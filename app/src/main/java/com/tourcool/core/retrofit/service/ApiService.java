@@ -1,6 +1,7 @@
 package com.tourcool.core.retrofit.service;
 
 
+import com.tourcool.bean.search.SeachEntity;
 import com.tourcool.bean.weather.WeatherEntity;
 import com.tourcool.core.base.BaseResult;
 import com.tourcool.core.constant.ApiConstant;
@@ -190,6 +191,12 @@ public interface ApiService {
     @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
     @GET("public/app/weather")
     Observable<BaseResult<WeatherEntity>> requestWeatherInfo();
+
+
+    @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
+    @GET("public/app/search")
+    Observable<BaseResult<SeachEntity>> requestSearch(@QueryMap Map<String, Object> map);
+
 }
 
 

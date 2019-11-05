@@ -74,6 +74,7 @@ import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_IMAGE;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_IMAGE_TEXT_LIST;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_VERTICAL_BANNER;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_WEATHER;
+import static com.tourcool.core.constant.RouteConstance.ACTIVITY_URL_SEARCH;
 import static com.tourcool.core.constant.RouteConstance.ACTIVITY_URL_WEATHER;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NATIVE;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NONE;
@@ -144,6 +145,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) rlSearch.getLayoutParams();
         params.setMargins(0, StatusBarUtil.getStatusBarHeight(), 0, 0);
         rlSearch.setLayoutParams(params);
+        rlSearch.setOnClickListener(this);
     }
 
     private void setStatusBar(boolean isDarkFont) {
@@ -677,8 +679,9 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.layout_banner, null);
         BGABanner bgaBanner = linearLayout.findViewById(R.id.banner);
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) bgaBanner.getLayoutParams();
-        layoutParams.setMargins(SizeUtil.dp2px(10), 0, SizeUtil.dp2px(10), 0);
-        bgaBanner.setLayoutParams(layoutParams);
+//        layoutParams.setMargins(SizeUtil.dp2px(10), 0, SizeUtil.dp2px(10), 0);
+//        bgaBanner.setLayoutParams(layoutParams);
+        bgaBanner.setPadding(SizeUtil.dp2px(10), 0, SizeUtil.dp2px(10), 0);
         bgaBanner.setAdapter(new BGABanner.Adapter() {
             @Override
             public void fillBannerItem(BGABanner banner, View itemView, Object model, int position) {
@@ -971,6 +974,9 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         switch (v.getId()) {
             case R.id.rlWeather:
                 ARouter.getInstance().build(ACTIVITY_URL_WEATHER).navigation();
+                break;
+            case R.id.rlSearch:
+                ARouter.getInstance().build(ACTIVITY_URL_SEARCH).navigation();
                 break;
             default:
                 break;

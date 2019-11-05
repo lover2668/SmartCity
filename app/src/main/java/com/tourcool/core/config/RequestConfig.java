@@ -46,6 +46,6 @@ public class RequestConfig {
     public static final String BANNER_URL = BASE_URL_API + "custom-service/referral";
     public static final String KEY_TOKEN = "Authorization";
     public static final String TOKEN = "Bearer ";
-
+    public static final String EXCEPTION_NO_NETWORK = "ConnectException";
     public static final String MSG_SEND_SUCCESS = "发送成功";
 }

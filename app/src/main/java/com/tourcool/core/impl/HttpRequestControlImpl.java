@@ -39,7 +39,7 @@ import retrofit2.HttpException;
 public class HttpRequestControlImpl implements HttpRequestControl {
     private static final int REFRESH_DELAY = 50;
     private static String TAG = "HttpRequestControlImpl";
-    public static final String TOKEN_FAILED = "HTTP 401";
+    public static final String TOKEN_FAILED = "401";
 
     @Override
     public void httpRequestSuccess(IHttpRequestControl httpRequestControl, List<?> list, OnHttpRequestListener listener) {
@@ -130,11 +130,15 @@ public class HttpRequestControlImpl implements HttpRequestControl {
             }
         }
         if (httpRequestControl == null || httpRequestControl.getStatusLayoutManager() == null) {
-            if (reason != R.string.fast_exception_http) {
-                ToastUtil.show(e.toString());
-            }else if(!e.getMessage().contains(TOKEN_FAILED)){
-                ToastUtil.show(e.toString());
+           if(e.getMessage().contains(TOKEN_FAILED)){
+//                ToastUtil.show("登录过期");
+            }else {
+                ToastUtil.show(reason);
             }
+
+          /*  if (reason == R.string.fast_exception_http) {
+                ToastUtil.show(e.toString());
+            }else*/
             return;
         }
         SmartRefreshLayout smartRefreshLayout = httpRequestControl.getRefreshLayout();

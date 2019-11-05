@@ -9,7 +9,7 @@
     <cn.bingoogolapple.bgabanner.BGABanner
         android:id="@+id/banner"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         app:banner_indicatorGravity="bottom|left"
         app:banner_isNeedShowIndicatorOnOnlyOnePage="true"
         app:banner_placeholderDrawable="@color/colorPlaceholder"
@@ -19,6 +19,7 @@
         app:banner_pointDrawable="@drawable/selector_banner_point"
         app:banner_tipTextColor="@android:color/white"
         app:banner_tipTextSize="14dp"
+        android:scaleType="centerInside"
         app:banner_transitionEffect="cube"/>
 
 </LinearLayout>
