@@ -1,5 +1,6 @@
 package com.tourcool.ui.mvp.account;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -16,9 +17,13 @@ import com.frame.library.core.manager.RxJavaManager;
 import com.frame.library.core.retrofit.BaseLoadingObserver;
 import com.frame.library.core.retrofit.BaseObserver;
 import com.frame.library.core.util.FrameUtil;
+import com.frame.library.core.util.StackUtil;
 import com.frame.library.core.util.StringUtil;
 import com.frame.library.core.util.ToastUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
+import com.tourcool.bean.account.AccountHelper;
+import com.tourcool.bean.account.TokenInfo;
+import com.tourcool.bean.account.UserInfo;
 import com.tourcool.core.base.BaseResult;
 import com.tourcool.core.config.RequestConfig;
 import com.tourcool.core.entity.MessageBean;
@@ -26,11 +31,15 @@ import com.tourcool.core.module.main.MainTabActivity;
 import com.tourcool.core.module.mvp.BaseMvpTitleActivity;
 import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.TourCooUtil;
+import com.tourcool.event.account.UserInfoEvent;
+import com.tourcool.event.service.ServiceEvent;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.mvp.account.contract.RegisterContract;
 import com.tourcool.ui.mvp.account.presenter.RegisterPresenter;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 import com.trello.rxlifecycle3.android.FragmentEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -335,15 +344,13 @@ public class RegisterActivity extends BaseMvpTitleActivity<RegisterPresenter> im
                         if (entity.status == CODE_REQUEST_SUCCESS) {
                             ToastUtil.showSuccess("注册成功");
                             //注册成功后 由于用户信息没有直接返回所以需要再调用登录接口
-                            loginByPassword(getTextValue(etPhone),getTextValue(etPassword));
+                            loginByPassword(getTextValue(etPhone), getTextValue(etPassword));
                         } else {
                             ToastUtil.showFailed(entity.errorMsg);
                         }
                     }
                 });
     }
-
-
 
 
     /**
@@ -358,13 +365,17 @@ public class RegisterActivity extends BaseMvpTitleActivity<RegisterPresenter> im
                 subscribe(new BaseObserver<BaseResult>() {
                     @Override
                     public void onRequestNext(BaseResult entity) {
-                        closeLoading();
                         if (entity == null) {
                             ToastUtil.showFailed("服务器异常");
                             return;
                         }
                         if (entity.status == CODE_REQUEST_SUCCESS) {
-                            TourCooLogUtil.i(TAG,entity);
+                            TokenInfo tokenInfo = parseJavaBean(entity.data, TokenInfo.class);
+                            if (tokenInfo != null) {
+                                //保存获取到的用户信息
+                                saveTokenInfo(tokenInfo);
+                                requestUserInfoAndSendEvent();
+                            }
                         } else {
                             ToastUtil.showFailed(entity.errorMsg);
                         }
@@ -378,4 +389,66 @@ public class RegisterActivity extends BaseMvpTitleActivity<RegisterPresenter> im
                 });
     }
 
+
+    private void saveTokenInfo(TokenInfo tokenInfo) {
+        if (tokenInfo == null) {
+            return;
+        }
+        TourCooLogUtil.i(TAG, "保存的访问token：" + tokenInfo.getAccess_token());
+        AccountHelper.getInstance().setAccessToken(tokenInfo.getAccess_token());
+        AccountHelper.getInstance().setRefreshToken(tokenInfo.getRefresh_token());
+        TourCooLogUtil.i(TAG, "获取到保存的访问token：" + AccountHelper.getInstance().getAccessToken());
+    }
+
+    /**
+     * 请求用户信息并发送事件
+     */
+    private void requestUserInfoAndSendEvent() {
+        ApiRepository.getInstance().requestUserInfo().compose(bindUntilEvent(ActivityEvent.DESTROY)).
+                subscribe(new BaseObserver<BaseResult>() {
+                    @Override
+                    public void onRequestNext(BaseResult entity) {
+                        closeLoading();
+                        if (entity == null) {
+                            ToastUtil.showFailed("服务器异常");
+                            return;
+                        }
+                        if (entity.status == CODE_REQUEST_SUCCESS) {
+                            UserInfo userInfo = parseJavaBean(entity.data, UserInfo.class);
+                            if (userInfo == null) {
+                                ToastUtil.showFailed("登录失败");
+                                return;
+                            }
+                            //保存用户信息到本地
+//                            ToastUtil.showSuccess("登录成功");
+                            AccountHelper.getInstance().saveUserInfoToDisk(userInfo);
+                            notitfyRefreshUserInfo(userInfo);
+                            closeActivity();
+                        } else {
+                            ToastUtil.showFailed(entity.errorMsg);
+                        }
+                    }
+
+                    @Override
+                    public void onRequestError(Throwable e) {
+                        super.onRequestError(e);
+                        closeLoading();
+                    }
+                });
+    }
+
+    private void notitfyRefreshUserInfo(UserInfo userInfo) {
+        UserInfoEvent userInfoEvent = new UserInfoEvent(userInfo);
+        EventBus.getDefault().post(userInfoEvent);
+        EventBus.getDefault().post(new ServiceEvent());
+    }
+
+
+    private void closeActivity() {
+        Activity loginActivity = StackUtil.getInstance().getActivity(LoginActivity.class);
+        if (loginActivity != null) {
+            loginActivity.finish();
+        }
+        finish();
+    }
 }

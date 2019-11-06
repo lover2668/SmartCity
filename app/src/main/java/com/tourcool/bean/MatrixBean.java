@@ -12,6 +12,52 @@ public class MatrixBean {
     private String matrixName;
     private String link;
     private int jumpWay;
+    private String type;
+    private Object children;
+    private String columnName;
+    private String parentsName;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Object getChildren() {
+        return children;
+    }
+
+    public void setChildren(Object children) {
+        this.children = children;
+    }
+
+    public String getColumnName() {
+        return columnName;
+    }
+
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
+    }
+
+    public String getParentsName() {
+        return parentsName;
+    }
+
+    public void setParentsName(String parentsName) {
+        this.parentsName = parentsName;
+    }
+
     public MatrixBean(String matrixIconUrl, String matrixName) {
         this.matrixIconUrl = matrixIconUrl;
         this.matrixName = matrixName;

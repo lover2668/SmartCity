@@ -17,6 +17,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.aries.ui.util.StatusBarUtil;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -25,6 +28,7 @@ import com.frame.library.core.manager.GlideManager;
 import com.frame.library.core.module.fragment.BaseTitleFragment;
 import com.frame.library.core.retrofit.BaseLoadingObserver;
 import com.frame.library.core.threadpool.ThreadPoolManager;
+import com.frame.library.core.util.NetworkUtil;
 import com.frame.library.core.util.SizeUtil;
 import com.frame.library.core.util.StringUtil;
 import com.frame.library.core.util.ToastUtil;
@@ -36,6 +40,7 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tourcool.adapter.MatrixAdapter;
 import com.tourcool.adapter.TwoLevelChildAdapter;
+import com.tourcool.bean.ElemeGroupedItem;
 import com.tourcool.bean.MatrixBean;
 import com.tourcool.bean.home.HomeBean;
 import com.tourcool.bean.home.HomeChildBean;
@@ -57,9 +62,12 @@ import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.DateUtil;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.smartcity.R;
+import com.tourcool.ui.mvp.contract.MessageContract;
+import com.tourcool.ui.mvp.service.SecondaryServiceActivity;
 import com.tourcool.ui.mvp.service.ServiceActivity;
 import com.trello.rxlifecycle3.android.FragmentEvent;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -169,12 +177,16 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
     }
 
     private void getHomeInfo() {
+        if(!NetworkUtil.isConnected(mContext)){
+            loadNetErrorView();
+            refreshFinish();
+            return;
+        }
         ApiRepository.getInstance().requestHomeInfo(1).compose(bindUntilEvent(FragmentEvent.DESTROY)).
                 subscribe(new BaseLoadingObserver<BaseResult<Object>>() {
                     @Override
                     public void onRequestNext(BaseResult entity) {
                         handleRequestSuccessCallback(entity);
-
                     }
 
                     @Override
@@ -579,7 +591,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
                     matrixBeanList.add(matrixBean);
                     break;
                 case SUB_COLUMN:
-                    matrixBean = convertMatrix(parseJavaBean(childNode.getDetail(), ColumnItem.class));
+                    matrixBean = convertMatrix(screenPart, childNode, parseJavaBean(childNode.getDetail(), ColumnItem.class));
                     if (matrixBean == null) {
                         TourCooLogUtil.e(TAG, "matrixBean==null!");
                         return null;
@@ -594,8 +606,8 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
     }
 
 
-    private MatrixBean convertMatrix(ColumnItem columnItem) {
-        if (columnItem == null) {
+    private MatrixBean convertMatrix(ScreenPart screenPart, ChildNode childNode, ColumnItem columnItem) {
+        if (screenPart == null) {
             return null;
         }
         MatrixBean matrixBean = new MatrixBean();
@@ -603,6 +615,17 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         matrixBean.setMatrixIconUrl(TourCooUtil.getUrl(columnItem.getIcon()));
         matrixBean.setLink(StringUtil.getNotNullValue(columnItem.getLink()));
         matrixBean.setJumpWay(columnItem.getJumpWay());
+        matrixBean.setType(SUB_COLUMN);
+        matrixBean.setColumnName(columnItem.getName());
+        matrixBean.setChildren(childNode.getChildren());
+        matrixBean.setParentsName(screenPart.getColumnName());
+        if (TextUtils.isEmpty(columnItem.getCircleIcon())) {
+            matrixBean.setMatrixIconUrl(TourCooUtil.getUrl(columnItem.getIcon()));
+        } else {
+            matrixBean.setMatrixIconUrl(TourCooUtil.getUrl(columnItem.getCircleIcon()));
+        }
+        matrixBean.setLink(TourCooUtil.getUrl(columnItem.getLink()));
+        matrixBean.setId(columnItem.getId());
         return matrixBean;
     }
 
@@ -851,13 +874,13 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         tvWeatherDesc.setText(weather.getWeather());
         switch (weather.getWeather()) {
             case WEATHER_DUO_YUN:
-                GlideManager.loadImg(R.mipmap.ic_weather_duoyun,ivWeather);
+                GlideManager.loadImg(R.mipmap.ic_weather_duoyun, ivWeather);
                 break;
             case WEATHER_QING:
-                GlideManager.loadImg(R.mipmap.ic_weather_day_qing,ivWeather);
+                GlideManager.loadImg(R.mipmap.ic_weather_day_qing, ivWeather);
                 break;
             default:
-                GlideManager.loadImg(R.mipmap.ic_weather_unknown,ivWeather);
+                GlideManager.loadImg(R.mipmap.ic_weather_unknown, ivWeather);
                 break;
         }
         tvAirQuality.setText(transfirmAirQuailty(weather.getQuality()));
@@ -886,7 +909,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         layoutParams.setMargins(SizeUtil.dp2px(15), 0, SizeUtil.dp2px(15), 0);
         imageView.setLayoutParams(layoutParams);
         TourCooLogUtil.i(TAG, "图片地址:" + imageUrl);
-        GlideManager.loadRoundImg(TourCooUtil.getUrl(imageUrl), imageView, 5, R.mipmap.img_placeholder_car, true);
+        GlideManager.loadRoundImg(TourCooUtil.getUrl(imageUrl), imageView, 5, R.mipmap.ic_avatar_default, true);
         llContainer.addView(linearLayout);
         viewList.add(linearLayout);
 
@@ -927,19 +950,26 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
             if (matrixBean == null) {
                 return;
             }
-            switch (matrixBean.getJumpWay()) {
-                case CLICK_TYPE_URL:
-                    WebViewActivity.start(mContext, TourCooUtil.getNotNullValue(matrixBean.getLink()));
-                    break;
-                case CLICK_TYPE_NONE:
-                    ToastUtil.show("什么也不做");
-                    break;
-                case CLICK_TYPE_NATIVE:
-                    ToastUtil.show("跳转原生页面");
+            switch (TourCooUtil.getNotNullValue(matrixBean.getType())) {
+                case SUB_COLUMN:
+                    List<Channel> channelList = new ArrayList<>();
+                    if (matrixBean.getChildren() != null) {
+                        channelList.addAll(parseChannelList(matrixBean.getChildren()));
+                    }
+                    Intent intent = new Intent();
+                    intent.setClass(mContext, SecondaryServiceActivity.class);
+                    intent.putExtra("columnName", matrixBean.getColumnName());
+                    intent.putExtra("groupName", matrixBean.getParentsName());
+                    intent.putExtra("channelList", (Serializable) channelList);
+                    TourCooLogUtil.i(TAG, "channelList=" + channelList.size());
+//                intent.putExtra("secondService", item.getChildren());
+                    startActivity(intent);
                     break;
                 default:
+                    WebViewActivity.start(mContext, TourCooUtil.getUrl(matrixBean.getLink()), true);
                     break;
             }
+
         });
     }
 
@@ -981,5 +1011,46 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
             default:
                 break;
         }
+    }
+
+
+    private List<Channel> parseChannelList(Object children) {
+        List<Channel> channelList = new ArrayList<>();
+        String jsonData = JSON.toJSONString(children);
+        JSONArray jsonArray = JSON.parseArray(jsonData);
+        TourCooLogUtil.i(TAG, jsonArray);
+        JSONObject jsonObject;
+        for (int i = 0; i < jsonArray.size(); i++) {
+            jsonObject = (JSONObject) jsonArray.get(i);
+            JSONObject detail = (JSONObject) jsonObject.get("detail");
+            if (detail == null) {
+                continue;
+            }
+            Channel channel = JSON.parseObject(detail.toJSONString(), Channel.class);
+            if (channel != null) {
+                channelList.add(channel);
+            }
+        }
+        return channelList;
+    }
+
+
+
+    private void loadNetErrorView() {
+        View emptyView = View.inflate(mContext, R.layout.view_no_netwrok_layout, null);
+        removeAllView();
+        emptyView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getHomeInfo();
+            }
+        });
+        llContainer.addView(emptyView);
+        viewList.add(emptyView);
+    }
+
+    private void removeAllView() {
+        llContainer.removeAllViews();
+        viewList.clear();
     }
 }

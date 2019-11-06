@@ -116,7 +116,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
         titleBar.setRightText("");
         titleBar.setRightTextDrawable(TourCooUtil.getDrawable(R.mipmap.ic_setting));
         mainText.setTextColor(TourCooUtil.getColor(R.color.white));
-        GlideManager.loadCircleImg(R.mipmap.img_placeholder_car, ivAvatar);
+        GlideManager.loadCircleImg(R.mipmap.ic_avatar_default, ivAvatar);
         if (AccountHelper.getInstance().isLogin()) {
             setViewGone(llUnlogin, false);
             setViewGone(rlLogin, true);

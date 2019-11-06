@@ -208,6 +208,7 @@ public class GlideManager {
         RequestOptions requestOptions = new RequestOptions()
                 //优先级
                 .priority(Priority.HIGH)
+                .centerCrop()
                 //缓存策略
                 .diskCacheStrategy(DiskCacheStrategy.ALL);
         return requestOptions;

@@ -31,6 +31,7 @@ import com.tourcool.core.module.mvp.BasePresenter;
 import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.event.account.UserInfoEvent;
+import com.tourcool.event.service.ServiceEvent;
 import com.tourcool.smartcity.R;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 
@@ -359,7 +360,7 @@ public class LoginActivity extends BaseMvpTitleActivity implements View.OnClickL
                                 return;
                             }
                             //保存用户信息到本地
-                            ToastUtil.showSuccess("登录成功");
+//                            ToastUtil.showSuccess("登录成功");
                             AccountHelper.getInstance().saveUserInfoToDisk(userInfo);
                             notitfyRefreshUserInfo(userInfo);
                             finish();
@@ -491,5 +492,6 @@ public class LoginActivity extends BaseMvpTitleActivity implements View.OnClickL
     private void notitfyRefreshUserInfo(UserInfo userInfo) {
         UserInfoEvent userInfoEvent = new UserInfoEvent(userInfo);
         EventBus.getDefault().post(userInfoEvent);
+        EventBus.getDefault().post(new ServiceEvent());
     }
 }

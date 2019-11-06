@@ -343,4 +343,6 @@ public class LinkageRecyclerView<T extends BaseGroupedItem.ItemInfo> extends Rel
         mSecondaryLayoutManager.scrollToPositionWithOffset(
                 mHeaderPositions.get(position), SCROLL_OFFSET);
     }
+
+
 }

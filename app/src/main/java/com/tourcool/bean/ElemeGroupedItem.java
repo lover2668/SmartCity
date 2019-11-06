@@ -19,6 +19,8 @@ package com.tourcool.bean;
 
 import com.frame.library.core.widget.linkage.bean.BaseGroupedItem;
 
+import java.util.List;
+
 /**
  * Create by KunMinX at 19/4/27
  */
@@ -36,7 +38,42 @@ public class ElemeGroupedItem extends BaseGroupedItem<ElemeGroupedItem.ItemInfo>
         private String content;
         private String imgUrl;
         private String link;
+        private String type;
+        private Object children;
+        private String columnName;
+        private String parentsName;
 
+        public String getParentsName() {
+            return parentsName;
+        }
+
+        public void setParentsName(String parentsName) {
+            this.parentsName = parentsName;
+        }
+
+        public String getColumnName() {
+            return columnName;
+        }
+
+        public void setColumnName(String columnName) {
+            this.columnName = columnName;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public Object getChildren() {
+            return children;
+        }
+
+        public void setChildren(Object children) {
+            this.children = children;
+        }
 
         public String getLink() {
             return link;

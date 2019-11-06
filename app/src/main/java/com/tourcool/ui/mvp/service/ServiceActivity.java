@@ -1,6 +1,7 @@
 package com.tourcool.ui.mvp.service;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -10,6 +11,9 @@ import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.manager.GlideManager;
 import com.frame.library.core.retrofit.BaseLoadingObserver;
@@ -30,13 +34,22 @@ import com.tourcool.bean.screen.ChildNode;
 import com.tourcool.bean.screen.ColumnItem;
 import com.tourcool.bean.screen.ScreenPart;
 import com.tourcool.core.base.BaseResult;
+import com.tourcool.core.config.RequestConfig;
+import com.tourcool.core.module.WebViewActivity;
 import com.tourcool.core.module.mvp.BaseMvpTitleActivity;
 import com.tourcool.core.module.mvp.BasePresenter;
 import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.TourCooUtil;
+import com.tourcool.event.service.ServiceEvent;
 import com.tourcool.smartcity.R;
+import com.tourcool.ui.main.TestFragment;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,7 +91,9 @@ public class ServiceActivity extends BaseMvpTitleActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
-
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
     }
 
 
@@ -150,7 +165,7 @@ public class ServiceActivity extends BaseMvpTitleActivity {
         }
     }
 
-    private static class ServiceSecondaryAdapterConfig implements
+    private  class ServiceSecondaryAdapterConfig implements
             ILinkageSecondaryAdapterConfig<ElemeGroupedItem.ItemInfo> {
 
         private Context mContext;
@@ -209,12 +224,12 @@ public class ServiceActivity extends BaseMvpTitleActivity {
             holder.getView(R.id.llMatrix).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtil.show("点击了" + item.info.getTitle());
+                    handleClickEvent(item.info);
                 }
             });
             tvMatrixIconName.setText(item.info.getTitle());
               TourCooLogUtil.i(TAG,"图片链接1:"+item.info.getImgUrl());
-            GlideManager.loadImg(TourCooUtil.getUrl(item.info.getImgUrl()), imageView);
+            GlideManager.loadCircleImg(TourCooUtil.getUrl(item.info.getImgUrl()), imageView);
         }
 
         @Override
@@ -254,7 +269,12 @@ public class ServiceActivity extends BaseMvpTitleActivity {
                     @Override
                     public void onRequestError(Throwable e) {
 //                        super.onRequestError(e);
-                        ToastUtil.show("服务器异常:" + e.toString());
+                        if(e.toString().contains(RequestConfig.STRING_REQUEST_TOKEN_INVALID)){
+                            ToastUtil.show("登录过期");
+                        }else {
+                            ToastUtil.show("服务器异常:" + e.toString());
+                        }
+
                     }
                 });
     }
@@ -319,9 +339,10 @@ public class ServiceActivity extends BaseMvpTitleActivity {
                     }
                     item = new ElemeGroupedItem(false, null);
                     item.info = new ElemeGroupedItem.ItemInfo(channel.getTitle(), screenPart.getColumnName(), channel.getDescription());
-                    if(TextUtils.isEmpty(channel.getCircleIcon())){
+                    item.info.setType(SUB_CHANNEL);
+                    if (TextUtils.isEmpty(channel.getCircleIcon())) {
                         item.info.setImgUrl(TourCooUtil.getUrl(channel.getIcon()));
-                    }else {
+                    } else {
                         item.info.setImgUrl(TourCooUtil.getUrl(channel.getCircleIcon()));
                     }
                     item.info.setLink(TourCooUtil.getUrl(channel.getLink()));
@@ -334,9 +355,13 @@ public class ServiceActivity extends BaseMvpTitleActivity {
                     }
                     item = new ElemeGroupedItem(false, null);
                     item.info = new ElemeGroupedItem.ItemInfo(columnItem.getName(), screenPart.getColumnName(), columnItem.getName());
-                    if(TextUtils.isEmpty(columnItem.getCircleIcon())){
+                    item.info.setType(SUB_COLUMN);
+                    item.info.setColumnName(screenPart.getColumnName());
+                    item.info.setChildren(childNode.getChildren());
+                    item.info.setParentsName(columnItem.getName());
+                    if (TextUtils.isEmpty(columnItem.getCircleIcon())) {
                         item.info.setImgUrl(TourCooUtil.getUrl(columnItem.getIcon()));
-                    }else {
+                    } else {
                         item.info.setImgUrl(TourCooUtil.getUrl(columnItem.getCircleIcon()));
                     }
                     item.info.setLink(TourCooUtil.getUrl(columnItem.getLink()));
@@ -416,4 +441,80 @@ public class ServiceActivity extends BaseMvpTitleActivity {
         }
         return -1;
     }
+
+
+    private void handleClickEvent(ElemeGroupedItem.ItemInfo item) {
+        if (item == null) {
+            ToastUtil.show("未匹配到对应栏目");
+            return;
+        }
+        switch (item.getType()) {
+            case SUB_CHANNEL:
+                WebViewActivity.start(mContext, TourCooUtil.getUrl(item.getLink()), true);
+                break;
+            case SUB_COLUMN:
+                TourCooLogUtil.i("点击了栏目", item.getChildren());
+                List<Channel> channelList = new ArrayList<>();
+                if (item.getChildren() != null) {
+                    channelList.addAll(parseChannelList(item.getChildren()));
+                }
+                Intent intent = new Intent();
+                intent.setClass(mContext, SecondaryServiceActivity.class);
+                intent.putExtra("columnName", item.getColumnName());
+                intent.putExtra("groupName", item.getParentsName());
+                intent.putExtra("channelList", (Serializable) channelList);
+                TourCooLogUtil.i(TAG, "channelList=" + channelList.size());
+//                intent.putExtra("secondService", item.getChildren());
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    private List<Channel> parseChannelList(Object children) {
+        List<Channel> channelList = new ArrayList<>();
+        String jsonData = JSON.toJSONString(children);
+        JSONArray jsonArray = JSON.parseArray(jsonData);
+        TourCooLogUtil.i(TAG, jsonArray);
+        JSONObject jsonObject;
+        for (int i = 0; i < jsonArray.size(); i++) {
+            jsonObject = (JSONObject) jsonArray.get(i);
+            JSONObject detail = (JSONObject) jsonObject.get("detail");
+            if (detail == null) {
+                continue;
+            }
+            Channel channel = JSON.parseObject(detail.toJSONString(), Channel.class);
+            if (channel != null) {
+                channelList.add(channel);
+            }
+        }
+        return channelList;
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+
+    /**
+     * 收到消息
+     *
+     * @param serviceEvent
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onServiceRefreshEvent(ServiceEvent serviceEvent) {
+        if (serviceEvent == null) {
+            return;
+        }
+        baseHandler.postDelayed(() -> {
+            TourCooLogUtil.i(TAG, "收到消息 刷新请求状态");
+            requestServiceList();
+        },500);
+    }
+
 }

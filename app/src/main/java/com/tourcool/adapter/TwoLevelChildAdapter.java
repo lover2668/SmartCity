@@ -33,7 +33,7 @@ public class TwoLevelChildAdapter extends BaseQuickAdapter<Channel, BaseViewHold
         helper.setText(R.id.tvChildItemTitle, TourCooUtil.getNotNullValueLine(item.getTitle()));
         helper.setText(R.id.tvChildItemDesc, TourCooUtil.getNotNullValue(item.getDescription()));
         ImageView imageView = helper.getView(R.id.ivChildItemIcon);
-        GlideManager.loadRoundImg(item.getIcon(), imageView, 2, R.mipmap.img_placeholder_car, true);
+        GlideManager.loadRoundImg(item.getIcon(), imageView, 2, R.mipmap.ic_avatar_default, true);
 
     }
 }

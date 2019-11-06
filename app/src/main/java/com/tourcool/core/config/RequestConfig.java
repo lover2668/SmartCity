@@ -48,4 +48,5 @@ public class RequestConfig {
     public static final String TOKEN = "Bearer ";
     public static final String EXCEPTION_NO_NETWORK = "ConnectException";
     public static final String MSG_SEND_SUCCESS = "发送成功";
+    public static final String STRING_REQUEST_TOKEN_INVALID = "401";
 }

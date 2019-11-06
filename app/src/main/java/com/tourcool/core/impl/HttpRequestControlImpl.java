@@ -16,6 +16,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
+import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.smartcity.R;
 
 import java.net.ConnectException;
@@ -130,7 +131,7 @@ public class HttpRequestControlImpl implements HttpRequestControl {
             }
         }
         if (httpRequestControl == null || httpRequestControl.getStatusLayoutManager() == null) {
-           if(e.getMessage().contains(TOKEN_FAILED)){
+           if(TourCooUtil.getNotNullValue(e.getMessage()).contains(TOKEN_FAILED)){
 //                ToastUtil.show("登录过期");
             }else {
                 ToastUtil.show(reason);
