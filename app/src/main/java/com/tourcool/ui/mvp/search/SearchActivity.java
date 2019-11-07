@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.aries.ui.helper.navigation.KeyboardHelper;
 import com.aries.ui.util.StatusBarUtil;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.frame.library.core.retrofit.BaseLoadingObserver;
 import com.frame.library.core.util.SizeUtil;
 import com.frame.library.core.util.ToastUtil;
@@ -29,6 +30,7 @@ import com.tourcool.bean.MatrixBean;
 import com.tourcool.bean.screen.Channel;
 import com.tourcool.bean.search.SeachEntity;
 import com.tourcool.core.base.BaseResult;
+import com.tourcool.core.module.WebViewActivity;
 import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.smartcity.R;
@@ -42,6 +44,9 @@ import java.util.List;
 import static com.tourcool.core.config.RequestConfig.CODE_REQUEST_SUCCESS;
 import static com.tourcool.core.config.RequestConfig.EXCEPTION_NO_NETWORK;
 import static com.tourcool.core.constant.RouteConstance.ACTIVITY_URL_SEARCH;
+import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NATIVE;
+import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NONE;
+import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_URL;
 
 /**
  * @author :JenkinsZhou
@@ -56,6 +61,7 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
     private LinearLayout llContainer;
     private List<View> viewList = new ArrayList<>();
     private ImageView ivClearInput;
+
     @Override
     public int getContentLayout() {
         return R.layout.activity_search;
@@ -88,7 +94,7 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
     @Override
     public void loadData() {
         listenSearch();
-        listenInput(etSearch,ivClearInput);
+        listenInput(etSearch, ivClearInput);
     }
 
     @Override
@@ -196,7 +202,12 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
         matrixBean.setLink(TourCooUtil.getNotNullValue(channel.getLink()));
         matrixBean.setMatrixName(channel.getTitle());
         matrixBean.setJumpWay(channel.getJumpWay());
-        matrixBean.setMatrixIconUrl(channel.getIcon());
+        if (TextUtils.isEmpty(channel.getCircleIcon())) {
+            matrixBean.setMatrixIconUrl(TourCooUtil.getUrl(channel.getIcon()));
+        } else {
+            matrixBean.setMatrixIconUrl(TourCooUtil.getUrl(channel.getIcon()));
+        }
+
         return matrixBean;
     }
 
@@ -204,6 +215,8 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
     private void loadMatrixLayout(List<MatrixBean> matrixBeanList) {
         View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_two_level_layout, null);
         TextView tvGroupName = rootView.findViewById(R.id.tvGroupName);
+        ImageView ivSkip = rootView.findViewById(R.id.ivSkip);
+        setViewGone(ivSkip, false);
         String groupName = "服务";
         tvGroupName.setText(groupName);
         RecyclerView rvCommonChild = rootView.findViewById(R.id.rvCommonChild);
@@ -218,6 +231,7 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
         llContainer.addView(lineView);
         viewList.add(lineView);
         rootView.setPadding(0, SizeUtil.dp2px(10f), 0, 0);
+        setClickListener(adapter);
     }
 
 
@@ -273,6 +287,28 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
             @Override
             public void afterTextChanged(Editable s) {
                 setViewVisible(imageView, s.length() != 0);
+            }
+        });
+    }
+
+    private void setClickListener(MatrixAdapter adapter) {
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                MatrixBean matrixBean = (MatrixBean) adapter.getData().get(position);
+                switch (matrixBean.getJumpWay()) {
+                    case CLICK_TYPE_URL:
+                        WebViewActivity.start(mContext, TourCooUtil.getUrl(matrixBean.getLink()));
+                        break;
+                    case CLICK_TYPE_NONE:
+                        ToastUtil.show("什么也不做");
+                        break;
+                    case CLICK_TYPE_NATIVE:
+                        ToastUtil.show("跳转原生页面");
+                        break;
+                    default:
+                        break;
+                }
             }
         });
     }

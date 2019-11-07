@@ -97,7 +97,7 @@ public abstract class FrameWebActivity extends FrameTitleActivity implements Nav
 
     /**
      * 设置进度条高度 注意此处最终AgentWeb会将其作为float 转dp2px
-     * {@link DefaultWebCreator#createWebView()}   height_dp}
+     * {@link DefaultWebCreator#()}   height_dp}
      *
      * @return
      */
@@ -137,17 +137,7 @@ public abstract class FrameWebActivity extends FrameTitleActivity implements Nav
             public void onClick(View v) {
                 onBackPressed();
             }
-        })
-                .setRightTextDrawable(DrawableUtil.setTintDrawable(
-                        ContextCompat.getDrawable(mContext, R.drawable.fast_ic_more),
-                        ContextCompat.getColor(mContext, R.color.colorTitleText)))
-                .setOnRightTextClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showActionSheet();
-                    }
-                })
-                .addLeftAction(titleBar.new ImageAction(
+        }).addLeftAction(titleBar.new ImageAction(
                         DrawableUtil.setTintDrawable(ContextCompat.getDrawable(mContext, R.drawable.fast_ic_close),
                                 ContextCompat.getColor(mContext, R.color.colorTitleText)), new View.OnClickListener() {
                     @Override
@@ -155,6 +145,16 @@ public abstract class FrameWebActivity extends FrameTitleActivity implements Nav
                         showDialog();
                     }
                 }));
+
+         /* .setRightTextDrawable(DrawableUtil.setTintDrawable(
+                ContextCompat.getDrawable(mContext, R.drawable.fast_ic_more),
+                ContextCompat.getColor(mContext, R.color.colorTitleText)))
+                .setOnRightTextClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showActionSheet();
+                    }
+                })*/
     }
 
     @Override

@@ -15,6 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import com.frame.library.core.log.TourCooLogUtil;
 import com.tourcool.smartcity.R;
 
 
@@ -26,7 +27,7 @@ import com.tourcool.smartcity.R;
  * @Email: 971613168@qq.com
  */
 public class InputDialog {
-
+    public static final String TAG = "InputDialog";
     private Dialog dialog;
     private Context context;
     private AppCompatTextView titleTextView;
@@ -108,7 +109,7 @@ public class InputDialog {
         WindowManager.LayoutParams layoutParams = window.getAttributes();
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         window.setGravity(Gravity.CENTER | Gravity.BOTTOM);
-        layoutParams.width =  (displayMetrics.widthPixels * 1);
+        layoutParams.width = (displayMetrics.widthPixels * 1);
         window.setAttributes(layoutParams);
         titleTextView = dialog.findViewById(R.id.titleTextView);
         contentEditText = dialog.findViewById(R.id.contentEditText);
@@ -116,7 +117,12 @@ public class InputDialog {
         confirmTextView = dialog.findViewById(R.id.confirmTextView);
         titleTextView.setText(title);
         contentEditText.setText(content);
-        contentEditText.setSelection(content.length());
+        try {
+            contentEditText.setSelection(content.length());
+        } catch (Exception e) {
+            TourCooLogUtil.e(TAG,"setSelection()异常---->"+ e.toString());
+        }
+
         contentEditText.post(() -> {
             InputMethodManager inputMethodManager = (InputMethodManager) ((Activity) context).getSystemService(Context.INPUT_METHOD_SERVICE);
             inputMethodManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
@@ -156,7 +162,7 @@ public class InputDialog {
     }
 
 
-    public Dialog getInstanstace(){
+    public Dialog getInstanstace() {
         return dialog;
     }
 }

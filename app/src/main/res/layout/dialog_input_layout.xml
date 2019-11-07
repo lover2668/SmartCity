@@ -24,6 +24,8 @@
         android:background="@drawable/border_dialog_edit"
         android:paddingStart="@dimen/dp_12"
         android:maxLines="1"
+        android:maxLength="14"
+        android:singleLine="true"
         android:paddingEnd="@dimen/dp_12"
         android:textColor="#666666"
         android:textSize="@dimen/sp_14" />

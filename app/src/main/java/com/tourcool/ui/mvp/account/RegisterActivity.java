@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -68,7 +69,7 @@ public class RegisterActivity extends BaseMvpTitleActivity<RegisterPresenter> im
     private EditText etVcode;
     private EditText etPassword;
     private EditText etPasswordConfirm;
-
+    private CheckBox cBoxAgree;
     @Override
     protected void loadPresenter() {
 
@@ -98,7 +99,7 @@ public class RegisterActivity extends BaseMvpTitleActivity<RegisterPresenter> im
         ImageView ivClearPassConfirm = findViewById(R.id.ivClearPassConfirm);
         EditText etPassword = findViewById(R.id.etPassword);
         etPhone = findViewById(R.id.etPhone);
-
+        cBoxAgree = findViewById(R.id.cBoxAgree);
         EditText etPasswordConfirm = findViewById(R.id.etPasswordConfirm);
         ImageView ivPhoneValid = findViewById(R.id.ivPhoneValid);
         listenInput(etPhone, ivClearPhone);
@@ -305,6 +306,10 @@ public class RegisterActivity extends BaseMvpTitleActivity<RegisterPresenter> im
 
 
     private void doRegister() {
+        if(!cBoxAgree.isChecked()){
+            ToastUtil.show("请先同意注册协议");
+            return;
+        }
         if (TextUtils.isEmpty(getTextValue(etPhone))) {
             ToastUtil.show("请先输入手机号");
             return;

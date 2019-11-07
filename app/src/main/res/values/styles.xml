@@ -120,4 +120,10 @@
         <item name="android:textSize">@dimen/sp_14</item>
         <item name="android:textColor">@color/black333333</item>
     </style>
+
+    <!-- CustomCheckBox theme -->
+    <style name="CustomCheckBoxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_style</item>
+    </style>
+
 </resources>

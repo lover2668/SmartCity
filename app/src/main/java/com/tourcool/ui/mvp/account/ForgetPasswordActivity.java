@@ -15,6 +15,7 @@ import com.frame.library.core.manager.RxJavaManager;
 import com.frame.library.core.retrofit.BaseLoadingObserver;
 import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.util.ToastUtil;
+import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.core.base.BaseResult;
 import com.tourcool.core.module.mvp.BaseMvpTitleActivity;
 import com.tourcool.core.module.mvp.BasePresenter;
@@ -66,6 +67,12 @@ public class ForgetPasswordActivity extends BaseMvpTitleActivity implements View
             default:
                 break;
         }
+    }
+
+    @Override
+    public void setTitleBar(TitleBarView titleBar) {
+        super.setTitleBar(titleBar);
+        titleBar.setTitleMainText("忘记密码");
     }
 
     @Override
@@ -284,4 +291,8 @@ public class ForgetPasswordActivity extends BaseMvpTitleActivity implements View
                 });
     }
 
+    @Override
+    public boolean isTitleBold() {
+        return false;
+    }
 }

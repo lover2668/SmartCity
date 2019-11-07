@@ -1,6 +1,7 @@
 package com.tourcool.ui.main;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +24,10 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.aries.ui.util.StatusBarUtil;
 import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.manager.GlideManager;
@@ -76,12 +82,7 @@ import cn.bingoogolapple.bgabanner.transformer.TransitionEffect;
 
 import static com.frame.library.core.util.StringUtil.LINE_HORIZONTAL;
 import static com.frame.library.core.util.StringUtil.SYMBOL_TEMP;
-import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_CONTAINS_SUBLISTS;
-import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_HORIZONTAL_BANNER;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_IMAGE;
-import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_IMAGE_TEXT_LIST;
-import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_VERTICAL_BANNER;
-import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_WEATHER;
 import static com.tourcool.core.constant.RouteConstance.ACTIVITY_URL_SEARCH;
 import static com.tourcool.core.constant.RouteConstance.ACTIVITY_URL_WEATHER;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NATIVE;
@@ -177,7 +178,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
     }
 
     private void getHomeInfo() {
-        if(!NetworkUtil.isConnected(mContext)){
+        if (!NetworkUtil.isConnected(mContext)) {
             loadNetErrorView();
             refreshFinish();
             return;
@@ -194,205 +195,12 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
                         super.onRequestError(e);
                         TourCooLogUtil.e(TAG, "onRequestError---->" + e.toString());
                         refreshFinish();
-                        ToastUtil.showFailed("请求失败");
+                        loadNodataView();
                     }
                 });
-        /*ApiRepository.getInstance().requestHomeInfo(0).compose(bindUntilEvent(FragmentEvent.DESTROY)).
-                subscribe(new BaseLoadingObserver<BaseResult>() {
-                    @Override
-                    public void onRequestNext(BaseResult entity) {
-                        mRefreshLayout.finishRefresh();
-                        if(entity == null||entity.errorMsg == null){
-                            ToastUtil.showFailed("请求数据异常");
-                            return;
-                        }
-                        if(entity.status != CODE_REQUEST_SUCCESS){
-                            ToastUtil.showFailed("数据解析异常");
-                            return;
-                        }
-                            if (entity.data != null) {
-                                ToastUtil.showSuccess("请求成功");
-                                handleHomeResultCallback(entity.data);
-                            } else {
-                                ToastUtil.showFailed(entity.errorMsg);
-                            }
-                    }
-
-                    @Override
-                    public void onRequestError(Throwable e) {
-                        super.onRequestError(e);
-                        ToastUtil.showFailed("请求失败");
-                        mRefreshLayout.finishRefresh(false);
-                    }
-                });*/
-    }
-
-
-    private void handleHomeView(List<HomeBean> homeList) {
-        if (homeList == null) {
-            return;
-        }
-        //先移除view 防止重复加载
-        removeView();
-        boolean needTranslate;
-        HomeBean homeBean;
-        for (int i = 0; i < homeList.size(); i++) {
-            homeBean = homeList.get(i);
-            if (homeBean == null) {
-                continue;
-            }
-            if (i <= 3) {
-                needTranslate = true;
-            } else {
-                needTranslate = false;
-            }
-            //  根据home实体类型加载数据
-            loadUiByHomeBean(homeBean, needTranslate);
-        }
 
     }
 
-
-    private void loadUiByHomeBean(HomeBean homeBean, boolean translate) {
-        if (homeBean == null) {
-            return;
-        }
-        switch (homeBean.getType()) {
-            case ITEM_TYPE_WEATHER:
-                TourCooLogUtil.d("加载天气布局");
-                //天气布局
-                loadWeatherLayout(homeBean, translate);
-                break;
-            case ITEM_TYPE_HORIZONTAL_BANNER:
-                TourCooLogUtil.d("ITEM_TYPE_HORIZONTAL_BANNER");
-                break;
-            case ITEM_TYPE_VERTICAL_BANNER:
-                loadHomeViewFlipperData(homeBean, translate);
-                break;
-            case ITEM_TYPE_CONTAINS_SUBLISTS:
-                //二级列表
-                loadSecondList(homeBean, translate);
-                break;
-            case ITEM_TYPE_IMAGE_TEXT_LIST:
-                //矩阵样式
-//                loadMatrix(homeBean, translate);
-                break;
-            case ITEM_TYPE_IMAGE:
-//                loadImageView(homeBean, translate);
-                break;
-            default:
-                break;
-        }
-    }
-
-
-    /**
-     * 加载滚动新闻
-     *
-     * @param homeBean
-     */
-    private void loadHomeViewFlipperData(HomeBean homeBean, boolean translate) {
-        if (homeBean == null || !ItemConstant.ITEM_TYPE_VERTICAL_BANNER.equalsIgnoreCase(homeBean.getType()) || homeBean.getData() == null) {
-            return;
-        }
-        View viewFlipperRoot = LayoutInflater.from(mContext).inflate(R.layout.view_flipper_layout, null);
-        ImageView ivBulletin = viewFlipperRoot.findViewById(R.id.ivBulletin);
-        HomeChildBean homeChildBean = (HomeChildBean) homeBean.getData();
-        GlideManager.loadImg(homeChildBean.getIcon(), ivBulletin, R.mipmap.img_placeholder_car);
-        View contentLayout;
-//        ImageView ivNewsIcon;
-        TextView tvNewsContent;
-        ViewFlipper homeViewFlipper = viewFlipperRoot.findViewById(R.id.viewFlipper);
-        for (HomeChildItem newsBean : homeChildBean.getChildList()) {
-            if (newsBean == null || TextUtils.isEmpty(newsBean.getTitle())) {
-                continue;
-            }
-            contentLayout = View.inflate(mContext, R.layout.layout_news, null);
-//            ivNewsIcon = contentLayout.findViewById(R.id.icBulletin);
-            tvNewsContent = contentLayout.findViewById(R.id.tvNewsContent);
-            tvNewsContent.setText(newsBean.getTitle());
-            tvNewsContent.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                 /*   switch (newsBean.getClickType()) {
-                        case CLICK_TYPE_NATIVE:
-                            ToastUtil.showSuccess("跳转原生页面");
-                            break;
-                        case CLICK_TYPE_URL:
-                            ToastUtil.showSuccess("跳转H5页面");
-                            break;
-                        default:
-                            ToastUtil.showSuccess("什么也不做");
-                            break;*/
-//                    }
-                }
-            });
-            homeViewFlipper.addView(contentLayout);
-            //todo
-        }
-        viewList.add(viewFlipperRoot);
-        View lineView = createLineView();
-        viewList.add(lineView);
-        llContainer.addView(viewFlipperRoot);
-        llContainer.addView(lineView);
-        if (translate) {
-            llContainer.setBackgroundColor(TourCooUtil.getColor(R.color.transparent));
-        }
-    }
-
-    /**
-     * 加载二级列表
-     *
-     * @param homeBean
-     */
-    private void loadSecondList(HomeBean homeBean, boolean translate) {
-        boolean illegal = homeBean == null || !ItemConstant.ITEM_TYPE_CONTAINS_SUBLISTS.equalsIgnoreCase(homeBean.getType()) || homeBean.getData() == null || ((HomeChildBean) homeBean.getData()).getChildList() == null || ((HomeChildBean) homeBean.getData()).getChildList().isEmpty();
-        if (illegal) {
-            return;
-        }
-        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_two_level_layout, null);
-        TextView tvGroupName = rootView.findViewById(R.id.tvGroupName);
-        HomeChildBean homeChildBean = (HomeChildBean) homeBean.getData();
-        tvGroupName.setText(homeChildBean.getTitle());
-        RecyclerView rvCommonChild = rootView.findViewById(R.id.rvCommonChild);
-        TwoLevelChildAdapter adapter = new TwoLevelChildAdapter();
-        //二级布局为网格布局
-        rvCommonChild.setLayoutManager(new GridLayoutManager(mContext, 2));
-        adapter.bindToRecyclerView(rvCommonChild);
-//        adapter.setNewData(homeChildBean.getChildList());
-        llContainer.addView(rootView);
-        viewList.add(rootView);
-        View lineView = createLineView();
-        llContainer.addView(lineView);
-        viewList.add(lineView);
-        rootView.setPadding(0, SizeUtil.dp2px(10f), 0, 0);
-        if (translate) {
-            llContainer.setBackgroundColor(TourCooUtil.getColor(R.color.transparent));
-        }
-    }
-
-
-    private void handleHomeResultCallback(Object data) {
-        ThreadPoolManager.getThreadPoolProxy().execute(new Runnable() {
-            @Override
-            public void run() {
-                //调试发现 该方法解析javaBean比较耗时 导致主线程短暂卡顿 因此放到子线程解析
-                List<HomeBean> homeList = parseJsonToBeanList(data, HomeBean.class);
-                if (homeList != null) {
-                    runMainThread(() -> {
-                        HomeBean homeBean = new HomeBean();
-                        homeBean.setType(ITEM_TYPE_IMAGE);
-                        HomeChildBean homeChildBean = new HomeChildBean();
-                        homeChildBean.setIcon("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1999668027,394700362&fm=11&gp=0.jpg");
-                        homeBean.setData(homeChildBean);
-                        homeList.add(homeBean);
-                        handleHomeView(homeList);
-                        TourCooLogUtil.d("数据长度:" + homeList.size());
-                    });
-                }
-            }
-        });
-    }
 
     /**
      * 切回主线程
@@ -462,28 +270,6 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         viewList.clear();
     }
 
-
-    private void loadWeatherLayout(HomeBean homeBean, boolean translate) {
-        if (homeBean == null || !ITEM_TYPE_WEATHER.equalsIgnoreCase(homeBean.getType()) || homeBean.getWeather() == null) {
-            return;
-        }
-        Weather weather = homeBean.getWeather();
-        View rootView = LayoutInflater.from(mContext).inflate(R.layout.home_weather_layout, null);
-        TextView tvTemperature = rootView.findViewById(R.id.tvTemperature);
-        TextView tvWeatherDesc = rootView.findViewById(R.id.tvWeatherDesc);
-        TextView tvAirQuality = rootView.findViewById(R.id.tvAirQuality);
-        TextView tvDate = rootView.findViewById(R.id.tvDate);
-        ImageView ivWeather = rootView.findViewById(R.id.ivWeather);
-        tvWeatherDesc.setText(weather.getWea());
-        tvAirQuality.setText(weather.getAir_level());
-        tvTemperature.setText(weather.getTem());
-        tvDate.setText("[" + weather.getDate() + "]");
-        llContainer.addView(rootView);
-        viewList.add(rootView);
-        if (translate) {
-            llContainer.setBackgroundColor(TourCooUtil.getColor(R.color.transparent));
-        }
-    }
 
     /**
      * 分割线
@@ -692,30 +478,41 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
             TourCooLogUtil.e(TAG, "banner数据源为空");
             return;
         }
-        List<String> imageList = new ArrayList<>();
-        for (Channel currentChannel : channelList) {
+//        List<String> imageList = new ArrayList<>();
+        /*for (Channel currentChannel : channelList) {
             if (currentChannel != null) {
                 imageList.add(TourCooUtil.getUrl(currentChannel.getIcon()));
             }
-        }
-        TourCooLogUtil.e(TAG, "imageList长度:" + imageList.size());
+        }*/
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.layout_banner, null);
         BGABanner bgaBanner = linearLayout.findViewById(R.id.banner);
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) bgaBanner.getLayoutParams();
-//        layoutParams.setMargins(SizeUtil.dp2px(10), 0, SizeUtil.dp2px(10), 0);
-//        bgaBanner.setLayoutParams(layoutParams);
         bgaBanner.setPadding(SizeUtil.dp2px(10), 0, SizeUtil.dp2px(10), 0);
-        bgaBanner.setAdapter(new BGABanner.Adapter() {
-            @Override
-            public void fillBannerItem(BGABanner banner, View itemView, Object model, int position) {
-                GlideManager.loadImg(model, (ImageView) itemView);
-                TourCooLogUtil.i(TAG, "图片链接:" + model.toString());
+        bgaBanner.setAdapter((banner, itemView, model, position) -> {
+            try {
+                Channel selectChannel = (Channel) model;
+                GlideManager.loadImg(TourCooUtil.getUrl(selectChannel.getIcon()), (ImageView) itemView);
+            }catch (Exception e){
+                TourCooLogUtil.e(TAG, "fillBannerItem:" + e.toString());
+            }
+
+        });
+        bgaBanner.setData(channelList, null);
+        bgaBanner.setDelegate((banner, itemView, model, position) -> {
+            Channel selectChannel = null;
+            try {
+                 selectChannel = (Channel) model;
+            } catch (ClassCastException e) {
+                TourCooLogUtil.e(TAG, "fillBannerItem:" + e.toString());
+            }
+            if(selectChannel != null){
+               String link =  TourCooUtil.getUrl(selectChannel.getLink());
+               if(!TextUtils.isEmpty(link)){
+                   WebViewActivity.start(mContext,link,true);
+               }
             }
         });
-        bgaBanner.setDelegate((banner, itemView, model, position) -> WebViewActivity.start(mContext, model.toString(), false));
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) bgaBanner.getLayoutParams();
         params.height = MyApplication.getImageHeight();
-        bgaBanner.setData(imageList, null);
         bgaBanner.setTransitionEffect(TransitionEffect.Default);
         viewList.add(linearLayout);
         llContainer.addView(linearLayout);
@@ -751,7 +548,20 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         }
         View viewFlipperRoot = LayoutInflater.from(mContext).inflate(R.layout.view_flipper_layout, null);
         ImageView ivBulletin = viewFlipperRoot.findViewById(R.id.ivBulletin);
-        GlideManager.loadImg(TourCooUtil.getUrl(screenPart.getDetail().getIcon()), ivBulletin, R.mipmap.img_placeholder_car);
+        GlideManager.loadRoundImgByListener(TourCooUtil.getUrl(screenPart.getDetail().getIcon()), ivBulletin, 5, TourCooUtil.getDrawable(R.mipmap.ic_avatar_default), true, new RequestListener<Drawable>() {
+            @Override
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                  TourCooLogUtil.i("图片加载完成","图片高度:"+resource.getIntrinsicHeight()+"图片宽度:"+resource.getIntrinsicWidth());
+                int dpHeight = SizeUtil.px2dp(resource.getIntrinsicHeight());
+                  TourCooLogUtil.i(TAG,"dpHeight="+dpHeight);
+                return false;
+            }
+        });
         View contentLayout;
 //        ImageView ivNewsIcon;
         TextView tvNewsContent;
@@ -874,13 +684,13 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         tvWeatherDesc.setText(weather.getWeather());
         switch (weather.getWeather()) {
             case WEATHER_DUO_YUN:
-                GlideManager.loadImg(R.mipmap.ic_weather_duoyun, ivWeather);
+                GlideManager.loadImgCenterInside(R.mipmap.ic_weather_duoyun, ivWeather);
                 break;
             case WEATHER_QING:
-                GlideManager.loadImg(R.mipmap.ic_weather_day_qing, ivWeather);
+                GlideManager.loadImgCenterInside(R.mipmap.ic_weather_day_qing, ivWeather);
                 break;
             default:
-                GlideManager.loadImg(R.mipmap.ic_weather_unknown, ivWeather);
+                GlideManager.loadImgCenterInside(R.mipmap.ic_weather_unknown, ivWeather);
                 break;
         }
         tvAirQuality.setText(transfirmAirQuailty(weather.getQuality()));
@@ -896,23 +706,23 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         }
         String imageUrl = "";
         List<ChildNode> childNodeList = screenPart.getChildren();
-        if (!childNodeList.isEmpty() && childNodeList.get(0) != null) {
-            ChildNode childNode = childNodeList.get(0);
-            Channel channel = parseJavaBean(childNode.getDetail(), Channel.class);
-            if (channel != null) {
-                imageUrl = channel.getIcon();
-            }
-        }
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.item_image_layout, null);
         ImageView imageView = linearLayout.findViewById(R.id.imageView);
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
         layoutParams.setMargins(SizeUtil.dp2px(15), 0, SizeUtil.dp2px(15), 0);
         imageView.setLayoutParams(layoutParams);
+        if (!childNodeList.isEmpty() && childNodeList.get(0) != null) {
+            ChildNode childNode = childNodeList.get(0);
+            Channel channel = parseJavaBean(childNode.getDetail(), Channel.class);
+            if (channel != null) {
+                imageUrl = channel.getIcon();
+                setImageClickListener(channel, imageView);
+            }
+        }
         TourCooLogUtil.i(TAG, "图片地址:" + imageUrl);
         GlideManager.loadRoundImg(TourCooUtil.getUrl(imageUrl), imageView, 5, R.mipmap.ic_avatar_default, true);
         llContainer.addView(linearLayout);
         viewList.add(linearLayout);
-
     }
 
     private void refreshFinish() {
@@ -1035,7 +845,6 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
     }
 
 
-
     private void loadNetErrorView() {
         View emptyView = View.inflate(mContext, R.layout.view_no_netwrok_layout, null);
         removeAllView();
@@ -1049,8 +858,31 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         viewList.add(emptyView);
     }
 
+
+    private void loadNodataView() {
+        View emptyView = View.inflate(mContext, R.layout.view_no_data_layout, null);
+        removeAllView();
+        emptyView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getHomeInfo();
+            }
+        });
+        llContainer.addView(emptyView);
+        viewList.add(emptyView);
+    }
     private void removeAllView() {
         llContainer.removeAllViews();
         viewList.clear();
+    }
+
+    private void setImageClickListener(Channel channel, ImageView imageView) {
+        if (channel == null || imageView == null) {
+            return;
+        }
+        String link = channel.getLink();
+        if (!TextUtils.isEmpty(link)) {
+            imageView.setOnClickListener(v -> WebViewActivity.start(mContext, TourCooUtil.getUrl(link), true));
+        }
     }
 }

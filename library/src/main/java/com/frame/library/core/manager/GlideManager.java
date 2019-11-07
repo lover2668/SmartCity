@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -19,12 +20,19 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.tourcool.library.frame.demo.R;
 
 import java.security.MessageDigest;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 
 /**
@@ -122,22 +130,38 @@ public class GlideManager {
      * @param iv
      * @param placeholder
      */
-    public static void loadImg(Object obj, ImageView iv, Drawable placeholder) {
-        Glide.with(iv.getContext()).load(obj).apply(getRequestOptions()
+    public static void loadImgCenterCrop(Object obj, ImageView iv, Drawable placeholder) {
+        Glide.with(iv.getContext()).load(obj).apply(getRequestOptionsCenterCrop()
                 .error(placeholder)
                 .placeholder(placeholder)
                 .fallback(placeholder)
                 .dontAnimate()).into(iv);
     }
 
+    public static void loadImgCenterInside(Object obj, ImageView iv, Drawable placeholder) {
+        Glide.with(iv.getContext()).load(obj).apply(getRequestOptionsCenterInside()
+                .error(placeholder)
+                .placeholder(placeholder)
+                .fallback(placeholder)
+                .dontAnimate()).into(iv);
+    }
 
     public static void loadImg(Object obj, ImageView iv, int placeholderResource) {
         Drawable drawable = getDrawable(iv.getContext(), placeholderResource);
-        loadImg(obj, iv, drawable != null ? drawable : sCommonPlaceholderDrawable);
+        loadImgCenterCrop(obj, iv, drawable != null ? drawable : sCommonPlaceholderDrawable);
+    }
+
+    public static void loadImgCenterInside(Object obj, ImageView iv, int placeholderResource) {
+        Drawable drawable = getDrawable(iv.getContext(), placeholderResource);
+        loadImgCenterInside(obj, iv, drawable != null ? drawable : sCommonPlaceholderDrawable);
     }
 
     public static void loadImg(Object obj, ImageView iv) {
         loadImg(obj, iv, sCommonPlaceholder);
+    }
+
+    public static void loadImgCenterInside(Object obj, ImageView iv) {
+        loadImgCenterInside(obj, iv, sCommonPlaceholder);
     }
 
     /**
@@ -148,7 +172,7 @@ public class GlideManager {
      * @param placeholder 占位图
      */
     public static void loadCircleImg(Object obj, ImageView iv, Drawable placeholder) {
-        Glide.with(iv.getContext()).load(obj).apply(getRequestOptions()
+        Glide.with(iv.getContext()).load(obj).apply(getRequestOptionsCenterCrop()
                 .error(placeholder)
                 .placeholder(placeholder)
                 .fallback(placeholder)
@@ -175,12 +199,24 @@ public class GlideManager {
      * @param isOfficial-是否官方模式圆角
      */
     public static void loadRoundImg(Object obj, ImageView iv, float dp, Drawable placeholder, boolean isOfficial) {
-        Glide.with(iv.getContext()).load(obj).apply(getRequestOptions()
+        Glide.with(iv.getContext()).load(obj).apply(getRequestOptionsCenterCrop()
                 .error(placeholder)
                 .placeholder(placeholder)
                 .fallback(placeholder)
                 .dontAnimate()
                 .transform(isOfficial ? new RoundedCorners(dp2px(dp)) : new GlideRoundTransform(dp2px(dp)))).into(iv);
+    }
+
+    public static void loadRoundImgByListener(Object obj, ImageView iv, float dp, Drawable placeholder, boolean isOfficial, RequestListener<Drawable> listener) {
+        Glide.with(iv.getContext())
+                .load(obj)
+                .error(placeholder)
+                .placeholder(placeholder)
+                .fallback(placeholder)
+                .dontAnimate()
+                .transform(isOfficial ? new RoundedCorners(dp2px(dp)) : new GlideRoundTransform(dp2px(dp)))
+                .listener(listener).into(iv);
+
     }
 
     public static void loadRoundImg(Object obj, ImageView iv, float dp, int placeholderResource, boolean isOfficial) {
@@ -204,11 +240,21 @@ public class GlideManager {
         loadRoundImg(obj, iv, true);
     }
 
-    private static RequestOptions getRequestOptions() {
+    private static RequestOptions getRequestOptionsCenterCrop() {
         RequestOptions requestOptions = new RequestOptions()
                 //优先级
                 .priority(Priority.HIGH)
                 .centerCrop()
+                //缓存策略
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
+        return requestOptions;
+    }
+
+    private static RequestOptions getRequestOptionsCenterInside() {
+        RequestOptions requestOptions = new RequestOptions()
+                //优先级
+                .priority(Priority.HIGH)
+                .centerInside()
                 //缓存策略
                 .diskCacheStrategy(DiskCacheStrategy.ALL);
         return requestOptions;
