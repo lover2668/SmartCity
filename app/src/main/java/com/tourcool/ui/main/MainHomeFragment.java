@@ -1,10 +1,12 @@
 package com.tourcool.ui.main;
 
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,7 +29,9 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.manager.GlideManager;
@@ -491,7 +495,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
             try {
                 Channel selectChannel = (Channel) model;
                 GlideManager.loadImg(TourCooUtil.getUrl(selectChannel.getIcon()), (ImageView) itemView);
-            }catch (Exception e){
+            } catch (Exception e) {
                 TourCooLogUtil.e(TAG, "fillBannerItem:" + e.toString());
             }
 
@@ -500,15 +504,15 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         bgaBanner.setDelegate((banner, itemView, model, position) -> {
             Channel selectChannel = null;
             try {
-                 selectChannel = (Channel) model;
+                selectChannel = (Channel) model;
             } catch (ClassCastException e) {
                 TourCooLogUtil.e(TAG, "fillBannerItem:" + e.toString());
             }
-            if(selectChannel != null){
-               String link =  TourCooUtil.getUrl(selectChannel.getLink());
-               if(!TextUtils.isEmpty(link)){
-                   WebViewActivity.start(mContext,link,true);
-               }
+            if (selectChannel != null) {
+                String link = TourCooUtil.getUrl(selectChannel.getLink());
+                if (!TextUtils.isEmpty(link)) {
+                    WebViewActivity.start(mContext, link, true);
+                }
             }
         });
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) bgaBanner.getLayoutParams();
@@ -548,17 +552,31 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         }
         View viewFlipperRoot = LayoutInflater.from(mContext).inflate(R.layout.view_flipper_layout, null);
         ImageView ivBulletin = viewFlipperRoot.findViewById(R.id.ivBulletin);
-        GlideManager.loadRoundImgByListener(TourCooUtil.getUrl(screenPart.getDetail().getIcon()), ivBulletin, 5, TourCooUtil.getDrawable(R.mipmap.ic_avatar_default), true, new RequestListener<Drawable>() {
+        View viewLineVertical = viewFlipperRoot.findViewById(R.id.viewLineVertical);
+        GlideManager.loadRoundImgByListener(TourCooUtil.getUrl(screenPart.getDetail().getIcon()), ivBulletin, 5, TourCooUtil.getDrawable(R.mipmap.ic_avatar_default), false, new RequestListener<Drawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                TourCooLogUtil.e("图片加载完成", "onLoadFailed:" + e.toString());
                 return false;
             }
 
             @Override
             public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                  TourCooLogUtil.i("图片加载完成","图片高度:"+resource.getIntrinsicHeight()+"图片宽度:"+resource.getIntrinsicWidth());
-                int dpHeight = SizeUtil.px2dp(resource.getIntrinsicHeight());
-                  TourCooLogUtil.i(TAG,"dpHeight="+dpHeight);
+                TourCooLogUtil.i("图片加载完成", "图片高度:" + resource.getIntrinsicHeight() + "图片宽度:" + resource.getIntrinsicWidth());
+                //图片宽高比
+                float aspectRatio = (float) resource.getIntrinsicHeight() /  (float)resource.getIntrinsicWidth();
+                TourCooLogUtil.d(TAG,"图片信息：高宽比-->"+aspectRatio);
+                //宽度固定
+                float finalWidth = SizeUtil.dp2px(58);
+                //最终高度
+                float finalHeight = finalWidth * aspectRatio;
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) ivBulletin.getLayoutParams();
+                layoutParams.height = (int) finalHeight;
+                layoutParams.width = (int) finalWidth;
+                viewLineVertical.getLayoutParams().height = (int) (finalHeight + SizeUtil.dp2px(10));
+                TourCooLogUtil.d(TAG,"图片信息：宽-->"+layoutParams.width);
+                TourCooLogUtil.i(TAG,"图片信息：高-->"+layoutParams.height);
+                ivBulletin.setLayoutParams(layoutParams);
                 return false;
             }
         });
@@ -871,6 +889,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         llContainer.addView(emptyView);
         viewList.add(emptyView);
     }
+
     private void removeAllView() {
         llContainer.removeAllViews();
         viewList.clear();

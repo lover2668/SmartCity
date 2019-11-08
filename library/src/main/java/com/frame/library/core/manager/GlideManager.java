@@ -8,8 +8,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -208,6 +210,7 @@ public class GlideManager {
     }
 
     public static void loadRoundImgByListener(Object obj, ImageView iv, float dp, Drawable placeholder, boolean isOfficial, RequestListener<Drawable> listener) {
+        iv.setScaleType(ImageView.ScaleType.FIT_XY);
         Glide.with(iv.getContext())
                 .load(obj)
                 .error(placeholder)
@@ -216,6 +219,20 @@ public class GlideManager {
                 .dontAnimate()
                 .transform(isOfficial ? new RoundedCorners(dp2px(dp)) : new GlideRoundTransform(dp2px(dp)))
                 .listener(listener).into(iv);
+        //获取图片真正的宽高
+      /*  Glide.with(iv.getContext())
+                .load(obj)
+                .asBitmap()//强制Glide返回一个Bitmap对象
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap bitmap, GlideAnimation<? super Bitmap> glideAnimation) {
+                        int width = bitmap.getWidth();
+                        int height = bitmap.getHeight();
+                        Log.d(TAG, "width " + width); //200px
+                        Log.d(TAG, "height " + height); //200px
+                    }
+                });*/
+
 
     }
 
