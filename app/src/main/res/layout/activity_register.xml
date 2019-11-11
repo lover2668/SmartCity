@@ -229,7 +229,7 @@
                 android:background="@drawable/selector_radius_25_blue_4287ff"
                 android:gravity="center"
                 android:minHeight="@dimen/dp_44"
-                android:text="注册"
+                android:text="注 册"
                 android:textColor="@color/whiteCommon"
                 android:textSize="@dimen/sp_14" />
 

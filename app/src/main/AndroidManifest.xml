@@ -118,6 +118,7 @@
         <activity android:name="com.tourcool.ui.mvp.account.ForgetPasswordActivity" />
         <activity android:name="com.tourcool.ui.mvp.search.SearchActivity" />
         <activity android:name="com.tourcool.ui.mvp.service.SecondaryServiceActivity" />
+        <activity android:name="com.tourcool.ui.mvp.account.SettingPassActivity" />
 
         <meta-data
             android:name="BUGLY_APPID"

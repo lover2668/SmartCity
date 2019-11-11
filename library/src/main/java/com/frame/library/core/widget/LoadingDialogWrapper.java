@@ -3,11 +3,15 @@ package com.frame.library.core.widget;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.util.StackUtil;
 import com.aries.ui.util.FindViewUtil;
+import com.frame.library.core.widget.dialog.FrameLoadingDialog;
 import com.tourcool.library.frame.demo.R;
 
 import java.lang.ref.WeakReference;
@@ -21,7 +25,7 @@ import java.lang.ref.WeakReference;
  * 2、2018-8-23 11:19:29 修改{@link #setMessage(CharSequence)}实现方式
  */
 public class LoadingDialogWrapper {
-
+    public static final String TAG = "LoadingDialogWrapper";
     private Dialog mDialog = null;
 
     private Activity mActivity;
@@ -78,10 +82,17 @@ public class LoadingDialogWrapper {
         }
         if (mDialog instanceof ProgressDialog) {
             ((ProgressDialog) mDialog).setMessage(msg);
+        } else if (mDialog instanceof FrameLoadingDialog) {
+            FrameLoadingDialog frameLoadingDialog = (FrameLoadingDialog) mDialog;
+            frameLoadingDialog.setLoadingText(msg);
         } else {
-            TextView textView = FindViewUtil.getTargetView(mDialog.getWindow().getDecorView(), TextView.class);
-            if (textView != null) {
-                textView.setText(msg);
+            Window window = mDialog.getWindow();
+            if (window != null) {
+                View rootView = window.getDecorView();
+                TextView msgView = FindViewUtil.getTargetView(rootView,TextView.class);
+                if(msgView != null){
+                    msgView.setText(msg);
+                }
             }
         }
         return this;

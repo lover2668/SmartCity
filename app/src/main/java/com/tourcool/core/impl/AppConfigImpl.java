@@ -160,7 +160,6 @@ public class AppConfigImpl implements DefaultRefreshHeaderCreator, LoadMoreFoot,
     @Override
     public LoadingDialogWrapper createLoadingDialog(@Nullable Activity activity) {
         return new LoadingDialogWrapper(activity, new FrameLoadingDialog(activity));
-
     }
 
     /**

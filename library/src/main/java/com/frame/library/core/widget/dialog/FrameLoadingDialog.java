@@ -14,7 +14,7 @@ import com.tourcool.library.frame.demo.R;
 
 public class FrameLoadingDialog extends Dialog {
     public Context context;
-    public String loadingText;
+    public CharSequence loadingText;
     private TextView tvLoadingText;
 
     public FrameLoadingDialog(Context context) {
@@ -51,19 +51,36 @@ public class FrameLoadingDialog extends Dialog {
     }
 
 
-    public void setLoadingText(String loadingText) {
+    public FrameLoadingDialog setLoadingText(String loadingText) {
         if (TextUtils.isEmpty(loadingText)) {
-            return;
+            return this;
         }
         this.loadingText = loadingText;
         if (tvLoadingText == null) {
-            return;
+            return this;
         }
         tvLoadingText.setText(loadingText);
         View view = getCurrentFocus();
         if (view != null) {
             view.postInvalidate();
         }
+        return this;
+    }
+
+    public FrameLoadingDialog setLoadingText(CharSequence loadingText) {
+        if (TextUtils.isEmpty(loadingText)) {
+            return this;
+        }
+        this.loadingText = loadingText;
+        if (tvLoadingText == null) {
+            return this;
+        }
+        tvLoadingText.setText(loadingText);
+        View view = getCurrentFocus();
+        if (view != null) {
+            view.postInvalidate();
+        }
+        return this;
     }
 
     @Override

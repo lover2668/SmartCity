@@ -19,6 +19,15 @@ public class TokenInfo {
     private String token_type;
     private String refresh_token;
     private int expires_in;
+    private boolean hasPassword;
+
+    public boolean isHasPassword() {
+        return hasPassword;
+    }
+
+    public void setHasPassword(boolean hasPassword) {
+        this.hasPassword = hasPassword;
+    }
 
     public String getAccess_token() {
         return access_token;

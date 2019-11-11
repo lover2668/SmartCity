@@ -248,4 +248,19 @@ public class ApiRepository extends AbstractRepository {
         return FrameTransformer.switchSchedulers(getApiService().requestSearch(params).retryWhen(new RetryWhen()));
     }
 
+    public Observable<BaseResult> requestBindPhone(String phoneNumber,String smsCode) {
+        Map<String, Object> params = new HashMap<>(2);
+        params.put("phoneNumber", phoneNumber);
+        params.put("smsCode", smsCode);
+        return FrameTransformer.switchSchedulers(getApiService().requestBindPhone(params).retryWhen(new RetryWhen()));
+    }
+
+
+    public Observable<BaseResult> requestSetPass(String password,String confirmPassword) {
+        Map<String, Object> params = new HashMap<>(2);
+        params.put("password", password);
+        params.put("confirmPassword", confirmPassword);
+        return FrameTransformer.switchSchedulers(getApiService().requestSetPass(params).retryWhen(new RetryWhen()));
+    }
+
 }

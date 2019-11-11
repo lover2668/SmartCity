@@ -46,6 +46,7 @@ public class SystemSettingActivity extends BaseMvpTitleActivity implements View.
     private TextView tvLogout;
     private TextView tvBindPhone;
     private TextView tvCacheSize;
+    public static final int REQUEST_CODE_BIND_PHONE = 101;
 
     @Override
     protected void loadPresenter() {
@@ -90,10 +91,12 @@ public class SystemSettingActivity extends BaseMvpTitleActivity implements View.
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.llBindPhone:
-                FrameUtil.startActivity(mContext, BindPhoneActivity.class);
+                Intent intent = new Intent();
+                intent.setClass(mContext, BindPhoneActivity.class);
+                startActivityForResult(intent, REQUEST_CODE_BIND_PHONE);
                 break;
             case R.id.llClearCache:
-                if(getCacheSize().equalsIgnoreCase(EMPTY_CACHE)){
+                if (getCacheSize().equalsIgnoreCase(EMPTY_CACHE)) {
                     ToastUtil.show("暂无缓存");
                     return;
                 }
@@ -102,9 +105,9 @@ public class SystemSettingActivity extends BaseMvpTitleActivity implements View.
                 ToastUtil.showSuccess("清除成功");
                 break;
             case R.id.llEditPhone:
-                Intent intent = new Intent();
-                intent.setClass(mContext, EditPasswordActivity.class);
-                startActivity(intent);
+                Intent editIntent = new Intent();
+                editIntent.setClass(mContext, EditPasswordActivity.class);
+                startActivity(editIntent);
                 break;
             case R.id.tvLogout:
                 if (AccountHelper.getInstance().isLogin()) {
@@ -176,7 +179,7 @@ public class SystemSettingActivity extends BaseMvpTitleActivity implements View.
 
 
     private void showCache() {
-        TourCooLogUtil.i("缓存大小："+getCacheSize());
+        TourCooLogUtil.i("缓存大小：" + getCacheSize());
         if (EMPTY_CACHE.equalsIgnoreCase(getCacheSize())) {
             tvCacheSize.setText("");
         } else {
@@ -194,11 +197,20 @@ public class SystemSettingActivity extends BaseMvpTitleActivity implements View.
         try {
             str = DataCleanUtil.getTotalCacheSize(mContext);
         } catch (Exception e) {
-            TourCooLogUtil.i("错误信息",e.toString());
+            TourCooLogUtil.i("错误信息", e.toString());
             e.printStackTrace();
             return str;
         }
         return str;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (REQUEST_CODE_BIND_PHONE == requestCode) {
+                showSetting();
+            }
+        }
+    }
 }

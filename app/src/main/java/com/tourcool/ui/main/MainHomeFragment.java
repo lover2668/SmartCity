@@ -553,10 +553,13 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         View viewFlipperRoot = LayoutInflater.from(mContext).inflate(R.layout.view_flipper_layout, null);
         ImageView ivBulletin = viewFlipperRoot.findViewById(R.id.ivBulletin);
         View viewLineVertical = viewFlipperRoot.findViewById(R.id.viewLineVertical);
-        GlideManager.loadRoundImgByListener(TourCooUtil.getUrl(screenPart.getDetail().getIcon()), ivBulletin, 5, TourCooUtil.getDrawable(R.mipmap.ic_avatar_default), false, new RequestListener<Drawable>() {
+        Drawable defaultDrawable = TourCooUtil.getDrawable(R.mipmap.ic_avatar_default);
+        float aspectRatio = (float) defaultDrawable.getIntrinsicHeight() /  (float)defaultDrawable.getIntrinsicWidth();
+        GlideManager.loadRoundImgByListener(TourCooUtil.getUrl(screenPart.getDetail().getIcon()), ivBulletin, 5,defaultDrawable , false, new RequestListener<Drawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                TourCooLogUtil.e("图片加载完成", "onLoadFailed:" + e.toString());
+                TourCooLogUtil.e("图片加载失败", "onLoadFailed:" + e.toString());
+                resetViewLayoutParams(aspectRatio,viewLineVertical,ivBulletin);
                 return false;
             }
 
@@ -565,18 +568,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
                 TourCooLogUtil.i("图片加载完成", "图片高度:" + resource.getIntrinsicHeight() + "图片宽度:" + resource.getIntrinsicWidth());
                 //图片宽高比
                 float aspectRatio = (float) resource.getIntrinsicHeight() /  (float)resource.getIntrinsicWidth();
-                TourCooLogUtil.d(TAG,"图片信息：高宽比-->"+aspectRatio);
-                //宽度固定
-                float finalWidth = SizeUtil.dp2px(58);
-                //最终高度
-                float finalHeight = finalWidth * aspectRatio;
-                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) ivBulletin.getLayoutParams();
-                layoutParams.height = (int) finalHeight;
-                layoutParams.width = (int) finalWidth;
-                viewLineVertical.getLayoutParams().height = (int) (finalHeight + SizeUtil.dp2px(10));
-                TourCooLogUtil.d(TAG,"图片信息：宽-->"+layoutParams.width);
-                TourCooLogUtil.i(TAG,"图片信息：高-->"+layoutParams.height);
-                ivBulletin.setLayoutParams(layoutParams);
+                resetViewLayoutParams(aspectRatio,viewLineVertical,ivBulletin);
                 return false;
             }
         });
@@ -903,5 +895,21 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         if (!TextUtils.isEmpty(link)) {
             imageView.setOnClickListener(v -> WebViewActivity.start(mContext, TourCooUtil.getUrl(link), true));
         }
+    }
+
+
+    private void resetViewLayoutParams(float aspectRatio,View line,ImageView imageView ){
+        TourCooLogUtil.d(TAG,"图片信息：高宽比-->"+aspectRatio);
+        //宽度固定
+        float finalWidth = SizeUtil.dp2px(58);
+        //最终高度
+        float finalHeight = finalWidth * aspectRatio;
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
+        layoutParams.height = (int) finalHeight;
+        layoutParams.width = (int) finalWidth;
+        line.getLayoutParams().height = (int) (finalHeight + SizeUtil.dp2px(10));
+        TourCooLogUtil.d(TAG,"图片信息：宽-->"+layoutParams.width);
+        TourCooLogUtil.i(TAG,"图片信息：高-->"+layoutParams.height);
+        imageView.setLayoutParams(layoutParams);
     }
 }

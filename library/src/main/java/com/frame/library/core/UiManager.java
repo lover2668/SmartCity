@@ -29,6 +29,7 @@ import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.util.ToastUtil;
 import com.frame.library.core.widget.LoadingDialogWrapper;
 import com.aries.ui.widget.progress.UIProgressDialog;
+import com.frame.library.core.widget.dialog.FrameLoadingDialog;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
 import com.tourcool.library.frame.demo.R;
 
@@ -144,10 +145,7 @@ public class UiManager {
                 @Nullable
                 @Override
                 public LoadingDialogWrapper createLoadingDialog(@Nullable Activity activity) {
-                    return new LoadingDialogWrapper(activity,
-                            new UIProgressDialog.WeBoBuilder(activity)
-                                    .setMessage(R.string.fast_loading)
-                                    .create());
+                    return  new LoadingDialogWrapper(activity, new FrameLoadingDialog(activity).setLoadingText("请求中..."));
                 }
             });
             //设置滑动返回监听

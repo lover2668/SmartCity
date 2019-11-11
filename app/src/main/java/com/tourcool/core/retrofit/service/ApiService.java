@@ -192,10 +192,34 @@ public interface ApiService {
     @GET("public/app/weather")
     Observable<BaseResult<WeatherEntity>> requestWeatherInfo();
 
-
+    /**
+     * 搜索
+     * @param map
+     * @return
+     */
     @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
     @GET("public/app/search")
     Observable<BaseResult<SeachEntity>> requestSearch(@QueryMap Map<String, Object> map);
+
+
+    /**
+     * 绑定手机号
+     * @param map
+     * @return
+     */
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @PUT("app/user/phone")
+    Observable<BaseResult> requestBindPhone(@Body Map<String, Object> map);
+
+
+    /**
+     * 首次短信登录设置密码
+     * @param map
+     * @return
+     */
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @PUT("app/password")
+    Observable<BaseResult> requestSetPass(@Body Map<String, Object> map);
 
 }
 

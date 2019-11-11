@@ -69,6 +69,10 @@ public class LoginActivity extends BaseMvpTitleActivity implements View.OnClickL
     private EditText etPhone;
     private EditText etVcode;
     private EditText etPassword;
+    /**
+     * 用户是否设置过密码
+     */
+    private boolean hasPassword;
 
     @Override
     protected void loadPresenter() {
@@ -268,9 +272,9 @@ public class LoginActivity extends BaseMvpTitleActivity implements View.OnClickL
                         if (entity.status == CODE_REQUEST_SUCCESS) {
                             TokenInfo tokenInfo = parseJavaBean(entity.data, TokenInfo.class);
                             if (tokenInfo != null) {
-                                //保存获取到的用户信息
                                 saveTokenInfo(tokenInfo);
-                                requestUserInfoAndSendEvent();
+                                //获取用户信息
+                                requestUserInfoAndSendEvent(loginByVcode);
                             }
                         } else {
                             ToastUtil.showFailed(entity.errorMsg);
@@ -343,7 +347,7 @@ public class LoginActivity extends BaseMvpTitleActivity implements View.OnClickL
     /**
      * 请求用户信息并发送事件
      */
-    private void requestUserInfoAndSendEvent() {
+    private void requestUserInfoAndSendEvent(boolean loginByVcode) {
         ApiRepository.getInstance().requestUserInfo().compose(bindUntilEvent(ActivityEvent.DESTROY)).
                 subscribe(new BaseObserver<BaseResult>() {
                     @Override
@@ -363,7 +367,10 @@ public class LoginActivity extends BaseMvpTitleActivity implements View.OnClickL
 //                            ToastUtil.showSuccess("登录成功");
                             AccountHelper.getInstance().saveUserInfoToDisk(userInfo);
                             notitfyRefreshUserInfo(userInfo);
-                            finish();
+                            //用户使用验证码登录 并且没有设置过密码
+                            if (loginByVcode && !hasPassword) {
+                                skipSettingPassAndFinish();
+                            }
                         } else {
                             ToastUtil.showFailed(entity.errorMsg);
                         }
@@ -395,9 +402,10 @@ public class LoginActivity extends BaseMvpTitleActivity implements View.OnClickL
                         if (entity.status == CODE_REQUEST_SUCCESS) {
                             TokenInfo tokenInfo = parseJavaBean(entity.data, TokenInfo.class);
                             if (tokenInfo != null) {
+                                //保存获取到的用户信息
                                 saveTokenInfo(tokenInfo);
-                                //获取用户信息
-                                requestUserInfoAndSendEvent();
+                                hasPassword = tokenInfo.isHasPassword();
+                                requestUserInfoAndSendEvent(loginByVcode);
                             }
                         } else {
                             closeLoading();
@@ -465,7 +473,7 @@ public class LoginActivity extends BaseMvpTitleActivity implements View.OnClickL
             return;
         }
         ApiRepository.getInstance().getVcode(phone).compose(bindUntilEvent(ActivityEvent.DESTROY)).
-                subscribe(new BaseLoadingObserver<BaseResult>() {
+                subscribe(new BaseLoadingObserver<BaseResult>("发送中") {
                     @Override
                     public void onRequestNext(BaseResult entity) {
                         if (entity == null) {
@@ -493,5 +501,13 @@ public class LoginActivity extends BaseMvpTitleActivity implements View.OnClickL
         UserInfoEvent userInfoEvent = new UserInfoEvent(userInfo);
         EventBus.getDefault().post(userInfoEvent);
         EventBus.getDefault().post(new ServiceEvent());
+    }
+
+
+    private void skipSettingPassAndFinish() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, SettingPassActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
