@@ -370,6 +370,8 @@ public class LoginActivity extends BaseMvpTitleActivity implements View.OnClickL
                             //用户使用验证码登录 并且没有设置过密码
                             if (loginByVcode && !hasPassword) {
                                 skipSettingPassAndFinish();
+                            }else {
+                                finish();
                             }
                         } else {
                             ToastUtil.showFailed(entity.errorMsg);

@@ -10,6 +10,16 @@ package com.tourcool.bean;
 public class MatrixBean {
     private String matrixIconUrl;
     private String matrixName;
+
+    public String getMatrixTitle() {
+        return matrixTitle;
+    }
+
+    public void setMatrixTitle(String matrixTitle) {
+        this.matrixTitle = matrixTitle;
+    }
+
+    private String matrixTitle;
     private String link;
     private int jumpWay;
     private String type;

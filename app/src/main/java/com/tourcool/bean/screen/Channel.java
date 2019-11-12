@@ -17,6 +17,15 @@ public class Channel implements Parcelable, Serializable {
     private int id;
     private String icon;
     private String circleIcon;
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getCircleIcon() {
         return circleIcon;
@@ -36,7 +45,24 @@ public class Channel implements Parcelable, Serializable {
     private int authLevel;
     private int channelType;
     private long createTime;
+    private String name;
+    private Object children;
 
+    public Object getChildren() {
+        return children;
+    }
+
+    public void setChildren(Object children) {
+        this.children = children;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getId() {
         return id;
@@ -121,6 +147,7 @@ public class Channel implements Parcelable, Serializable {
         dest.writeInt(this.id);
         dest.writeString(this.icon);
         dest.writeString(this.circleIcon);
+        dest.writeString(this.type);
         dest.writeString(this.title);
         dest.writeString(this.description);
         dest.writeInt(this.jumpWay);
@@ -128,6 +155,8 @@ public class Channel implements Parcelable, Serializable {
         dest.writeInt(this.authLevel);
         dest.writeInt(this.channelType);
         dest.writeLong(this.createTime);
+        dest.writeString(this.name);
+        dest.writeParcelable((Parcelable) this.children, flags);
     }
 
     public Channel() {
@@ -137,6 +166,7 @@ public class Channel implements Parcelable, Serializable {
         this.id = in.readInt();
         this.icon = in.readString();
         this.circleIcon = in.readString();
+        this.type = in.readString();
         this.title = in.readString();
         this.description = in.readString();
         this.jumpWay = in.readInt();
@@ -144,9 +174,11 @@ public class Channel implements Parcelable, Serializable {
         this.authLevel = in.readInt();
         this.channelType = in.readInt();
         this.createTime = in.readLong();
+        this.name = in.readString();
+        this.children = in.readParcelable(Object.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<Channel> CREATOR = new Parcelable.Creator<Channel>() {
+    public static final Creator<Channel> CREATOR = new Creator<Channel>() {
         @Override
         public Channel createFromParcel(Parcel source) {
             return new Channel(source);

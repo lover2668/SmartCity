@@ -1,5 +1,6 @@
 package com.tourcool.ui.mvp.search;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -18,9 +19,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.aries.ui.helper.navigation.KeyboardHelper;
 import com.aries.ui.util.StatusBarUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.retrofit.BaseLoadingObserver;
 import com.frame.library.core.util.SizeUtil;
 import com.frame.library.core.util.ToastUtil;
@@ -35,9 +40,11 @@ import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.base.BaseCommonTitleActivity;
+import com.tourcool.ui.mvp.service.SecondaryServiceActivity;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +54,7 @@ import static com.tourcool.core.constant.RouteConstance.ACTIVITY_URL_SEARCH;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NATIVE;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NONE;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_URL;
+import static com.tourcool.core.constant.ScreenConsrant.SUB_COLUMN;
 
 /**
  * @author :JenkinsZhou
@@ -200,14 +208,14 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
         }
         MatrixBean matrixBean = new MatrixBean();
         matrixBean.setLink(TourCooUtil.getNotNullValue(channel.getLink()));
-        matrixBean.setMatrixName(channel.getTitle());
+        matrixBean.setMatrixName(channel.getName());
+        matrixBean.setMatrixTitle(channel.getTitle());
         matrixBean.setJumpWay(channel.getJumpWay());
-        if (TextUtils.isEmpty(channel.getCircleIcon())) {
-            matrixBean.setMatrixIconUrl(TourCooUtil.getUrl(channel.getIcon()));
-        } else {
-            matrixBean.setMatrixIconUrl(TourCooUtil.getUrl(channel.getIcon()));
-        }
-
+        matrixBean.setChildren(channel.getChildren());
+        matrixBean.setType(channel.getType());
+        matrixBean.setColumnName("服务");
+        matrixBean.setParentsName(channel.getName());
+        matrixBean.setMatrixIconUrl(TourCooUtil.getUrl(channel.getIcon()));
         return matrixBean;
     }
 
@@ -296,21 +304,52 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 MatrixBean matrixBean = (MatrixBean) adapter.getData().get(position);
-                switch (matrixBean.getJumpWay()) {
-                    case CLICK_TYPE_URL:
-                        WebViewActivity.start(mContext, TourCooUtil.getUrl(matrixBean.getLink()));
-                        break;
-                    case CLICK_TYPE_NONE:
-                        ToastUtil.show("什么也不做");
-                        break;
-                    case CLICK_TYPE_NATIVE:
-                        ToastUtil.show("跳转原生页面");
+                switch (TourCooUtil.getNotNullValue(matrixBean.getType())) {
+                    case SUB_COLUMN:
+                        List<Channel> channelList = new ArrayList<>();
+                        if (matrixBean.getChildren() != null) {
+                            channelList.addAll(parseChannelList(matrixBean.getChildren()));
+                        }
+                        Intent intent = new Intent();
+                        intent.setClass(mContext, SecondaryServiceActivity.class);
+                        intent.putExtra("columnName", matrixBean.getColumnName());
+                        intent.putExtra("groupName", matrixBean.getParentsName());
+                        intent.putExtra("channelList", (Serializable) channelList);
+                        TourCooLogUtil.i("channelList=", channelList);
+//                intent.putExtra("secondService", item.getChildren());
+                        startActivity(intent);
                         break;
                     default:
+                        WebViewActivity.start(mContext, TourCooUtil.getUrl(matrixBean.getLink()), true);
                         break;
                 }
+
             }
         });
+    }
+
+
+    private List<Channel> parseChannelList(Object children) {
+        List<Channel> channelList = new ArrayList<>();
+        if (children == null) {
+            return channelList;
+        }
+        String jsonData = JSON.toJSONString(children);
+        JSONArray jsonArray = JSON.parseArray(jsonData);
+        TourCooLogUtil.i(TAG, jsonArray);
+        JSONObject jsonObject;
+        for (int i = 0; i < jsonArray.size(); i++) {
+            jsonObject = (JSONObject) jsonArray.get(i);
+//            JSONObject detail = (JSONObject) jsonObject.g;
+            if (jsonObject == null) {
+                continue;
+            }
+            Channel channel = JSON.parseObject(jsonObject.toJSONString(), Channel.class);
+            if (channel != null) {
+                channelList.add(channel);
+            }
+        }
+        return channelList;
     }
 
 }

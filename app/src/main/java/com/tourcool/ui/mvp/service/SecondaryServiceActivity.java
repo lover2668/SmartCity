@@ -75,6 +75,7 @@ public class SecondaryServiceActivity extends BaseCommonTitleActivity {
         adapter.bindToRecyclerView(rvCommon);
         List<MatrixBean> matrixBeanList = new ArrayList<>();
         for (Channel channel : mChannelList) {
+              TourCooLogUtil.i(TAG,"channelName="+channel.getName());
             MatrixBean matrixBean = parseMatrix(channel);
             if (matrixBean != null) {
                 matrixBeanList.add(matrixBean);
@@ -93,8 +94,10 @@ public class SecondaryServiceActivity extends BaseCommonTitleActivity {
         MatrixBean matrixBean = new MatrixBean();
         matrixBean.setMatrixIconUrl(TourCooUtil.getUrl(channel.getIcon()));
         matrixBean.setLink(channel.getLink());
-        matrixBean.setMatrixName(channel.getTitle());
+        matrixBean.setMatrixName(channel.getName());
+        matrixBean.setMatrixTitle(channel.getTitle());
         matrixBean.setJumpWay(channel.getJumpWay());
+
         return matrixBean;
     }
 

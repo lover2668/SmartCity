@@ -11,4 +11,7 @@ public class WeatherConstant {
     public static final String WEATHER_DUO_YUN = "多云";
 
     public static final String WEATHER_QING = "晴";
+
+
+    public static final String WEATHER_YIN = "阴";
 }

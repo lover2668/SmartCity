@@ -338,7 +338,7 @@ public class ServiceActivity extends BaseMvpTitleActivity {
                         break;
                     }
                     item = new ElemeGroupedItem(false, null);
-                    item.info = new ElemeGroupedItem.ItemInfo(channel.getTitle(), screenPart.getColumnName(), channel.getDescription());
+                    item.info = new ElemeGroupedItem.ItemInfo(channel.getName(), screenPart.getColumnName(), channel.getDescription());
                     item.info.setType(SUB_CHANNEL);
                     if (TextUtils.isEmpty(channel.getCircleIcon())) {
                         item.info.setImgUrl(TourCooUtil.getUrl(channel.getIcon()));

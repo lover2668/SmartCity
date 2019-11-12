@@ -249,6 +249,7 @@ public class TestFragment extends BaseTitleFragment implements OnRefreshListener
                 //TODO
             });*/
             if (item.info == null) {
+                  TourCooLogUtil.e(TAG,"onBindViewHolder---->item.info = null");
                 return;
             }
             holder.getView(R.id.llMatrix).setOnClickListener(new View.OnClickListener() {
@@ -258,7 +259,7 @@ public class TestFragment extends BaseTitleFragment implements OnRefreshListener
                 }
             });
             tvMatrixIconName.setText(item.info.getTitle());
-            GlideManager.loadCircleImg(item.info.getImgUrl(), imageView);
+            GlideManager.loadCircleImg(TourCooUtil.getUrl(item.info.getImgUrl()), imageView,R.mipmap.ic_splash_logo);
         }
 
         @Override
@@ -322,7 +323,6 @@ public class TestFragment extends BaseTitleFragment implements OnRefreshListener
                     }
                     itemList.addAll(parseElemegroupItem(screenPart));
                 }
-
                 baseHandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -420,7 +420,7 @@ public class TestFragment extends BaseTitleFragment implements OnRefreshListener
                 intent.putExtra("columnName", item.getColumnName());
                 intent.putExtra("groupName", item.getParentsName());
                 intent.putExtra("channelList", (Serializable) channelList);
-                TourCooLogUtil.i(TAG, "channelList=" + channelList.size());
+                TourCooLogUtil.i("channelList=",  channelList.size());
 //                intent.putExtra("secondService", item.getChildren());
                 startActivity(intent);
                 break;
@@ -477,6 +477,7 @@ public class TestFragment extends BaseTitleFragment implements OnRefreshListener
             jsonObject = (JSONObject) jsonArray.get(i);
             JSONObject detail = (JSONObject) jsonObject.get("detail");
             if (detail == null) {
+                  TourCooLogUtil.e(TAG,"detail == null");
                 continue;
             }
             Channel channel = JSON.parseObject(detail.toJSONString(), Channel.class);

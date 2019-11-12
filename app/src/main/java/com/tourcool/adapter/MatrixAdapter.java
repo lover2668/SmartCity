@@ -1,5 +1,6 @@
 package com.tourcool.adapter;
 
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -29,7 +30,12 @@ public class MatrixAdapter extends BaseQuickAdapter<MatrixBean, BaseViewHolder> 
     protected void convert(@NonNull BaseViewHolder helper, MatrixBean item) {
         ImageView imageView = helper.getView(R.id.ivMatrixIcon);
         GlideManager.loadCircleImg(item.getMatrixIconUrl(), imageView);
-        helper.setText(R.id.tvMatrixIconName, item.getMatrixName());
+        if(!TextUtils.isEmpty(item.getMatrixName())){
+            helper.setText(R.id.tvMatrixIconName, item.getMatrixName());
+        }else {
+            helper.setText(R.id.tvMatrixIconName, item.getMatrixTitle());
+        }
+
 
     }
 }

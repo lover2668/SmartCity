@@ -21,6 +21,7 @@ import com.didichuxing.doraemonkit.util.PermissionUtil;
 import com.tourcool.core.module.web.WebAppFragment;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.main.MainHomeFragment;
+import com.tourcool.ui.main.MainHomeFragmentNew;
 import com.tourcool.ui.main.MainMineFragment;
 import com.tourcool.ui.main.MainServiceFragment;
 import com.tourcool.ui.main.TabFragment;
@@ -57,7 +58,7 @@ public class MainTabActivity extends FrameMainActivity {
     public List<FrameTabEntity> getTabList() {
         ArrayList<FrameTabEntity> tabEntities = new ArrayList<>();
         tabEntities.add(new FrameTabEntity(R.string.home, R.mipmap.icon_tab_home_un_selected, R.mipmap.ic_home_select, MainHomeFragment.newInstance()));
-//        tabEntities.add(new FrameTabEntity("资讯", R.drawable.ic_app_normal, R.drawable.ic_app_selected, TabFragment.newInstance()));
+        tabEntities.add(new FrameTabEntity("资讯", R.drawable.ic_app_normal, R.drawable.ic_app_selected, MainHomeFragmentNew.newInstance()));
         tabEntities.add(new FrameTabEntity("服务", R.mipmap.ic_service_unselect, R.mipmap.ic_service_select, TestFragment.newInstance()));
         tabEntities.add(new FrameTabEntity("我的", R.mipmap.ic_mine_unselect, R.mipmap.ic_mine_select, MainMineFragment.newInstance()));
         return tabEntities;

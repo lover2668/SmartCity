@@ -1,12 +1,10 @@
 package com.tourcool.ui.main;
 
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,9 +27,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.request.transition.Transition;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.manager.GlideManager;
@@ -50,12 +46,9 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tourcool.adapter.MatrixAdapter;
 import com.tourcool.adapter.TwoLevelChildAdapter;
-import com.tourcool.bean.ElemeGroupedItem;
 import com.tourcool.bean.MatrixBean;
 import com.tourcool.bean.home.HomeBean;
 import com.tourcool.bean.home.HomeChildBean;
-import com.tourcool.bean.home.HomeChildItem;
-import com.tourcool.bean.home.Weather;
 import com.tourcool.bean.screen.Channel;
 import com.tourcool.bean.screen.ChildNode;
 import com.tourcool.bean.screen.ColumnItem;
@@ -65,14 +58,12 @@ import com.tourcool.bean.weather.SimpleWeather;
 import com.tourcool.core.MyApplication;
 import com.tourcool.core.base.BaseResult;
 import com.tourcool.core.config.RequestConfig;
-import com.tourcool.core.constant.ItemConstant;
 import com.tourcool.core.constant.ScreenConsrant;
 import com.tourcool.core.module.WebViewActivity;
 import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.DateUtil;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.smartcity.R;
-import com.tourcool.ui.mvp.contract.MessageContract;
 import com.tourcool.ui.mvp.service.SecondaryServiceActivity;
 import com.tourcool.ui.mvp.service.ServiceActivity;
 import com.trello.rxlifecycle3.android.FragmentEvent;
@@ -101,6 +92,7 @@ import static com.tourcool.core.constant.ScreenConsrant.SUB_CHANNEL;
 import static com.tourcool.core.constant.ScreenConsrant.SUB_COLUMN;
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_DUO_YUN;
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_QING;
+import static com.tourcool.core.constant.WeatherConstant.WEATHER_YIN;
 
 /**
  * @author :JenkinsZhou
@@ -402,6 +394,7 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         }
         MatrixBean matrixBean = new MatrixBean();
         matrixBean.setMatrixName(StringUtil.getNotNullValue(columnItem.getName()));
+        matrixBean.setMatrixTitle(StringUtil.getNotNullValue(columnItem.getName()));
         matrixBean.setMatrixIconUrl(TourCooUtil.getUrl(columnItem.getIcon()));
         matrixBean.setLink(StringUtil.getNotNullValue(columnItem.getLink()));
         matrixBean.setJumpWay(columnItem.getJumpWay());
@@ -424,10 +417,12 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
             return null;
         }
         MatrixBean matrixBean = new MatrixBean();
-        matrixBean.setMatrixName(StringUtil.getNotNullValue(channel.getTitle()));
+        matrixBean.setMatrixName(StringUtil.getNotNullValue(channel.getName()));
+        matrixBean.setMatrixTitle(channel.getTitle());
         matrixBean.setMatrixIconUrl(TourCooUtil.getUrl(channel.getCircleIcon()));
         matrixBean.setLink(StringUtil.getNotNullValue(channel.getLink()));
         matrixBean.setJumpWay(channel.getJumpWay());
+        matrixBean.setType(channel.getType());
         return matrixBean;
     }
 
@@ -698,6 +693,9 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
                 break;
             case WEATHER_QING:
                 GlideManager.loadImgCenterInside(R.mipmap.ic_weather_day_qing, ivWeather);
+                break;
+            case WEATHER_YIN:
+                GlideManager.loadImgCenterInside(R.mipmap.ic_weather_yin, ivWeather);
                 break;
             default:
                 GlideManager.loadImgCenterInside(R.mipmap.ic_weather_unknown, ivWeather);
