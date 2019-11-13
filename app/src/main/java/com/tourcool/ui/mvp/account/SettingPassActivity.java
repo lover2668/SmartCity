@@ -58,6 +58,10 @@ public class SettingPassActivity extends BaseMvpTitleActivity implements View.On
         etPass = findViewById(R.id.etPass);
         etPassConfirm = findViewById(R.id.etPassConfirm);
         ImageView ivValid = findViewById(R.id.ivValid);
+        ImageView ivClearPass = findViewById(R.id.ivClearPass);
+        ImageView ivClearPassConfirm = findViewById(R.id.ivClearPassConfirm);
+        listenInput(etPass,ivClearPass);
+        listenInput(etPass,ivClearPassConfirm);
         listenInputValid(etPassConfirm,ivValid,etPass);
     }
 
@@ -87,14 +91,12 @@ public class SettingPassActivity extends BaseMvpTitleActivity implements View.On
                             requestUserInfoAndSendEvent();
                         } else {
                             ToastUtil.showFailed(entity.errorMsg);
-                           AccountHelper.getInstance().logout();
                         }
                     }
 
                     @Override
                     public void onRequestError(Throwable e) {
                         super.onRequestError(e);
-                        AccountHelper.getInstance().logout();
                     }
                 });
     }
@@ -191,5 +193,26 @@ public class SettingPassActivity extends BaseMvpTitleActivity implements View.On
         UserInfoEvent userInfoEvent = new UserInfoEvent(userInfo);
         EventBus.getDefault().post(userInfoEvent);
         EventBus.getDefault().post(new ServiceEvent());
+    }
+
+    private void listenInput(EditText editText, ImageView imageView) {
+        setViewGone(imageView, !TextUtils.isEmpty(editText.getText().toString()));
+        imageView.setOnClickListener(v -> editText.setText(""));
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                setViewGone(imageView, s.length() != 0);
+            }
+        });
     }
 }

@@ -30,6 +30,7 @@ import static com.tourcool.core.constant.RouteConstance.ACTIVITY_URL_LOGIN;
 import static com.tourcool.core.constant.RouteConstance.ACTIVITY_URL_WEATHER;
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_DUO_YUN;
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_QING;
+import static com.tourcool.core.constant.WeatherConstant.WEATHER_YIN;
 
 /**
  * @author :JenkinsZhou
@@ -149,6 +150,9 @@ public class WeatherActivity extends BaseTitleTransparentActivity implements Vie
                 break;
             case WEATHER_DUO_YUN:
                 GlideManager.loadImg(R.mipmap.ic_weather_duoyun,ivWeather);
+                break;
+            case WEATHER_YIN:
+                GlideManager.loadImgCenterInside(R.mipmap.ic_weather_yin, ivWeather);
                 break;
             default:
                 break;

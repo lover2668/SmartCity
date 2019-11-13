@@ -49,39 +49,43 @@ public class TokenInterceptor implements Interceptor {
             TourCooLogUtil.d(TAG, "不需要token验证 不做任何处理");
             return chain.proceed(originalRequest);
         } else {
-            String skipLoginFlag =originalRequest.header(SKIP_LOGIN_FLAG);
-            boolean skipLoginEnable =skipLoginFlag == null || skipLoginFlag.equalsIgnoreCase(YES);
+            String skipLoginFlag = originalRequest.header(SKIP_LOGIN_FLAG);
+            boolean skipLoginEnable = skipLoginFlag == null || skipLoginFlag.equalsIgnoreCase(YES);
             TourCooLogUtil.d(TAG, "需要token验证!!!");
             //需要token校验
-            Request newRequest = chain.request().newBuilder()
+            Request tokenRequest = chain.request().newBuilder()
                     .removeHeader(KEY_TOKEN)
                     .addHeader(KEY_TOKEN, TOKEN + AccountHelper.getInstance().getAccessToken())
                     .build();
-            Response newResponse = chain.proceed(newRequest);
-            if (newResponse.code() == RequestConfig.CODE_REQUEST_TOKEN_INVALID) {
+            TourCooLogUtil.d(TAG, "tokenRequest携带的token=" + AccountHelper.getInstance().getAccessToken());
+            Response tokenResponse = chain.proceed(tokenRequest);
+            if (tokenResponse.code() == RequestConfig.CODE_REQUEST_TOKEN_INVALID) {
                 //说明token过期
+                TourCooLogUtil.e(TAG, "tokenRequest携带的token已经失效,需要重新请求");
                 TokenInfo tokenInfo = getNewToken();
                 if (tokenInfo == null) {
-                    if(skipLoginEnable){
+                    if (skipLoginEnable) {
                         skipLogin();
                     }
-                    return  chain.proceed(newRequest);
+                    return chain.proceed(tokenRequest);
                 } else {
                     //token刷新成功
+                    TourCooLogUtil.i(TAG, "获取新token成功--->" + tokenInfo.getAccess_token());
                     AccountHelper.getInstance().setAccessToken(tokenInfo.getAccess_token());
                     AccountHelper.getInstance().setRefreshToken(tokenInfo.getRefresh_token());
-                    TourCooLogUtil.d(TAG, "刷新了token:" + tokenInfo.getAccess_token());
-                    Request lastRequest = chain.request().newBuilder()
+                    Request newTokenRequest = chain.request().newBuilder()
                             .removeHeader(KEY_TOKEN)
                             .addHeader(KEY_TOKEN, TOKEN + tokenInfo.getAccess_token())
                             .build();
-                    return chain.proceed(lastRequest);
+                    TourCooLogUtil.i(TAG, "newTokenRequest携带的token--->" + tokenInfo.getAccess_token());
+                    return chain.proceed(newTokenRequest);
                 }
             } else {
-                TourCooLogUtil.i(TAG, "当前token验证通过 不需要刷新token~");
-                return newResponse;
+                TourCooLogUtil.i(TAG, "当前token验证通过 不需要刷新token~：携带的token是tokenResponse中的=" + AccountHelper.getInstance().getAccessToken());
+                return tokenResponse;
             }
-    }}
+        }
+    }
 
     private void skipLogin() {
         ARouter.getInstance().build(RouteConstance.ACTIVITY_URL_LOGIN).navigation();
@@ -97,11 +101,15 @@ public class TokenInterceptor implements Interceptor {
                 .build();
         //创建网络请求接口实例
         TokenService apiService = retrofit.create(TokenService.class);
+          TourCooLogUtil.i(TAG,"获取新token传入的参数:"+AccountHelper.getInstance().getRefreshToken());
         Call<BaseResult> call = apiService.getNewToken(AccountHelper.getInstance().getRefreshToken());
         try {
             BaseResult baseResult = call.execute().body();
             if (baseResult != null && baseResult.status == RequestConfig.CODE_REQUEST_SUCCESS) {
                 return parseJavaBean(baseResult.data, TokenInfo.class);
+            }else {
+                  TourCooLogUtil.e(TAG,"refreshToken都已经失效了 只能重新登录了");
+                TourCooLogUtil.e(TAG,baseResult);
             }
         } catch (Exception ex) {
             TourCooLogUtil.e(TAG, "getNewToken()报错-->" + ex.getMessage());

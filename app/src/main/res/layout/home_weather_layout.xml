@@ -41,7 +41,7 @@
             android:layout_width="0dp"
             android:layout_weight="2.6"
             android:layout_height="wrap_content"
-            android:text="多云"
+            android:text="大雨转暴雨"
             android:gravity="center"
             android:layout_gravity="center_vertical"
             android:textColor="@color/white"
