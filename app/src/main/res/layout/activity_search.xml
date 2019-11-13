@@ -4,7 +4,6 @@
     android:layout_height="match_parent">
     <include layout="@layout/frame_layout_title_bar" />
     <LinearLayout
-        android:paddingTop="@dimen/dp_8"
         android:background="@drawable/bg_gradient_title_common"
         android:orientation="horizontal"
         android:paddingBottom="@dimen/dp_10"

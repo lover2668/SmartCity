@@ -87,7 +87,6 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
 
     @Override
     public void setTitleBar(TitleBarView titleBar) {
-        super.setTitleBar(titleBar);
         titleBar.setVisibility(View.GONE);
     }
 
@@ -351,5 +350,6 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
         }
         return channelList;
     }
+
 
 }
