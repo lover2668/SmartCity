@@ -61,8 +61,9 @@ public class SettingPassActivity extends BaseMvpTitleActivity implements View.On
         ImageView ivClearPass = findViewById(R.id.ivClearPass);
         ImageView ivClearPassConfirm = findViewById(R.id.ivClearPassConfirm);
         listenInput(etPass,ivClearPass);
-        listenInput(etPass,ivClearPassConfirm);
+        listenInput(etPassConfirm,ivClearPassConfirm);
         listenInputValid(etPassConfirm,ivValid,etPass);
+        listenInputValid(etPass,ivValid,etPassConfirm);
     }
 
     @Override
@@ -140,7 +141,7 @@ public class SettingPassActivity extends BaseMvpTitleActivity implements View.On
 
             @Override
             public void afterTextChanged(Editable s) {
-                setViewGone(imageView, !TextUtils.isEmpty(getTextValue(etPass)) && getTextValue(editText).equals(getTextValue(etPass))) ;
+                setViewGone(imageView, !TextUtils.isEmpty(getTextValue(etPass)) && (getTextValue(editText).equals(getTextValue(etPass)))) ;
             }
         });
     }

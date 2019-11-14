@@ -89,6 +89,7 @@ import static com.tourcool.core.constant.ScreenConsrant.SUB_CHANNEL;
 import static com.tourcool.core.constant.ScreenConsrant.SUB_COLUMN;
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_DUO_YUN;
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_QING;
+import static com.tourcool.core.constant.WeatherConstant.WEATHER_XIAO_YU;
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_YIN;
 
 /**
@@ -174,7 +175,7 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
         rlWeather.post(() -> {
             weatherLayoutHeight = rlWeather.getMeasuredHeight();
             TourCooLogUtil.i(TAG, "weatherLayoutHeight高度:" + weatherLayoutHeight);
-            initContainer(searchLayoutHeight + weatherLayoutHeight + weatherMarginTop + weatherMarginTop + StatusBarUtil.getStatusBarHeight());
+            initContainer(searchLayoutHeight + weatherLayoutHeight + weatherMarginTop + StatusBarUtil.getStatusBarHeight());
         });
     }
 
@@ -196,7 +197,7 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
     /**
      * 初始化头部高度
      *
-     * @param marginTop
+     * @param marginTop 顶部边距
      */
     private void initContainer(int marginTop) {
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) llContainer.getLayoutParams();
@@ -272,6 +273,9 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
                 break;
             case WEATHER_YIN:
                 GlideManager.loadImgCenterInside(R.mipmap.ic_weather_yin, ivWeather);
+                break;
+            case WEATHER_XIAO_YU:
+                GlideManager.loadImgCenterInside(R.mipmap.ic_weather_xiao_yu, ivWeather);
                 break;
             default:
                 GlideManager.loadImgCenterInside(R.mipmap.ic_weather_unknown, ivWeather);
@@ -813,16 +817,16 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
         ApiRepository.getInstance().requestHomeInfo(1).compose(bindUntilEvent(FragmentEvent.DESTROY)).
                 subscribe(new BaseLoadingObserver<BaseResult<Object>>() {
                     @Override
-                    public void onRequestNext(BaseResult entity) {
-                        handleRequestSuccessCallback(entity);
-                    }
-
-                    @Override
                     public void onRequestError(Throwable e) {
                         super.onRequestError(e);
                         TourCooLogUtil.e(TAG, "onRequestError---->" + e.toString());
                         refreshFinish();
                         loadNodataView();
+                    }
+
+                    @Override
+                    public void onRequestNext(BaseResult entity) {
+                        handleRequestSuccessCallback(entity);
                     }
                 });
     }

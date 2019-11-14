@@ -10,7 +10,7 @@ package com.tourcool.core.config;
 public class AppConfig {
 
 
-    public static final boolean DEBUG_MODE = true;
+    public static final boolean DEBUG_MODE = false;
     /**
      * 标题栏主标题文字大小(sp)
      */

@@ -184,7 +184,7 @@ public class MyApplication  extends LitePalApplication {
         }
         LoggerManager.i(TAG, "appChannel2:" + appChannel);
         TourCooLogUtil.i(TAG, "application总耗时:" + (System.currentTimeMillis() - start));
-        if (BuildConfig.DEBUG) {
+        if (AppConfig.DEBUG_MODE) {
             //初始化哆啦A梦
             DoraemonKit.install(this);
             // H5任意门功能需要，非必须
@@ -211,12 +211,9 @@ public class MyApplication  extends LitePalApplication {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.jianshu.com/u/a229eee96115"));
             intent.setClassName(getPackageName(), MainTabActivity.class.getName());
             intent.putExtra("url", "https://www.jianshu.com/u/a229eee96115");
-
             Intent intentGit = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/JenkinsZhou"));
             intentGit.setClassName(getPackageName(), MainTabActivity.class.getName());
             intentGit.putExtra("url", "https://github.com/JenkinsZhou");
-
-
             shortGit = new ShortcutInfo.Builder(this, "github")
                     .setShortLabel("GitHub")
                     .setLongLabel("GitHub-JenkinsZhou")
@@ -331,4 +328,5 @@ public class MyApplication  extends LitePalApplication {
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
+
 }

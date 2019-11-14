@@ -128,7 +128,7 @@ public interface ApiService {
      *
      * @return
      */
-    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
     @GET("public/app/service")
     Observable<BaseResult> requestServiceList();
 

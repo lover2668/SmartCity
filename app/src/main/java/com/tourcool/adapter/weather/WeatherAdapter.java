@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.manager.GlideManager;
 import com.tourcool.bean.home.Weather;
 import com.tourcool.bean.weather.SimpleWeather;
@@ -17,6 +18,7 @@ import java.util.List;
 
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_DUO_YUN;
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_QING;
+import static com.tourcool.core.constant.WeatherConstant.WEATHER_XIAO_YU;
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_YIN;
 
 /**
@@ -50,7 +52,11 @@ public class WeatherAdapter  extends BaseQuickAdapter<SimpleWeather, BaseViewHol
             case WEATHER_YIN:
                 GlideManager.loadImgCenterInside(R.mipmap.ic_weather_yin, ivWeather);
                 break;
+            case WEATHER_XIAO_YU:
+                GlideManager.loadImgCenterInside(R.mipmap.ic_weather_xiao_yu, ivWeather);
+                break;
             default:
+                  TourCooLogUtil.i(TAG,"");
                 GlideManager.loadImgCenterInside(R.mipmap.ic_weather_unknown, ivWeather);
                 break;
         }
