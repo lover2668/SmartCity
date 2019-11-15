@@ -132,7 +132,7 @@
                                 android:layout_height="@dimen/dp_50"
                                 android:layout_centerVertical="true"
                                 android:layout_toEndOf="@id/tvDate"
-                                android:src="@mipmap/leak_canary_icon" />
+                                android:src="@mipmap/ic_weather_unknown" />
                         </RelativeLayout>
                     </RelativeLayout>
 

@@ -17,7 +17,8 @@
             android:layout_width="@dimen/dp_40"
             android:layout_height="@dimen/dp_40"
             android:layout_alignParentEnd="true"
-            android:src="@mipmap/leak_canary_icon" />
+            android:src="@mipmap/ic_weather_unknown" />
+
 
         <TextView
             android:id="@+id/tvChildItemTitle"

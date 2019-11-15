@@ -1,5 +1,6 @@
 package com.tourcool.adapter.recharge;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,7 +10,6 @@ import com.tourcool.bean.recharge.RechargeEntity;
 import com.tourcool.core.util.ResourceUtil;
 import com.tourcool.smartcity.R;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -40,7 +40,8 @@ public class RechargeAmountAdapter extends BaseQuickAdapter<RechargeEntity, Base
     }
 
     @Override
-    public void onAttachedToRecyclerView(@NotNull RecyclerView recyclerView) {
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
+
 }

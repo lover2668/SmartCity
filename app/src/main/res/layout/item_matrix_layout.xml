@@ -13,7 +13,7 @@
         android:layout_width="@dimen/dp_46"
         android:layout_height="@dimen/dp_46"
         android:layout_gravity="center_horizontal"
-        android:src="@mipmap/leak_canary_icon" />
+        android:src="@mipmap/ic_weather_unknown" />
 
     <TextView
         android:id="@+id/tvMatrixIconName"

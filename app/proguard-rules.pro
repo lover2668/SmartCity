@@ -18,7 +18,11 @@
 #实体类不要混淆不然无法解析
 -keep class com.aries.library.fast.demo.base.**{*;}
 -keep class com.aries.library.fast.demo.entity.**{*;}
-
+-keepattributes *Annotation*
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
 #
 #-------------------------------------------基本不用动区域----------------------------------------------
 #

@@ -293,17 +293,19 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
                     public void onRequestError(Throwable e) {
                         finishRefresh();
                           TourCooLogUtil.e(TAG,e.toString());
-                        if(e.toString().contains(RequestConfig.CODE_REQUEST_TOKEN_INVALID+"")){
+                      /*  if(e.toString().contains(RequestConfig.CODE_REQUEST_TOKEN_INVALID+"")){
                             AccountHelper.getInstance().logout();
                             showUserInfo(null);
                         }else {
                             showUserInfoFromCache();
-                        }
+                        }*/
+                        showUserInfoFromCache();
                     }
                 });
     }
 
     private void showUserInfoFromCache() {
+          TourCooLogUtil.i(TAG,"用户信息="+AccountHelper.getInstance().getUserInfo());
         showUserInfo(AccountHelper.getInstance().getUserInfo());
     }
 

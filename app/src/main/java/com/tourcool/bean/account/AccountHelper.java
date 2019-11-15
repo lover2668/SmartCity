@@ -2,6 +2,7 @@ package com.tourcool.bean.account;
 
 
 import com.blankj.utilcode.util.SPUtils;
+import com.frame.library.core.log.TourCooLogUtil;
 
 import org.litepal.LitePal;
 
@@ -14,7 +15,7 @@ import org.litepal.LitePal;
  * @Email: 971613168@qq.com
  */
 public class AccountHelper {
-
+    public static final String TAG = "AccountHelper";
     public static final String PREF_ACCESS_TOKEN = "access_token";
     public static final String PREF_REFRESH_TOKEN = "refresh_token";
 
@@ -102,6 +103,7 @@ public class AccountHelper {
     public void logout() {
         setUserInfo(null);
         deleteUserInfoFromDisk();
+        TourCooLogUtil.e(TAG, "退出登录了");
         SPUtils.getInstance().put(PREF_ACCESS_TOKEN, "");
         SPUtils.getInstance().put(PREF_REFRESH_TOKEN, "");
     }

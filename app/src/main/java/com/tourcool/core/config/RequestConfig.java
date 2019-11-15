@@ -11,27 +11,24 @@ package com.tourcool.core.config;
 public class RequestConfig {
 
 
-    /**
-     * 测试环境
-     */
-  /*  public static final String BASE_URL = "http://192.168.1.222:8090/";
-
-    public static final String BASE_URL_NO_LINE = "http://192.168.1.222:8090";*/
-
-    /**
-     * 测试环境 穿透
-     */
-   /* public static final String BASE_URL = "https://tourcoo.xiaomiqiu.com/";
-
-    public static final String BASE_URL_NO_LINE = "https://tourcoo.xiaomiqiu.com";*/
 
 
     /**
      * 测试环境
      */
 
-    public static final String BASE_URL = "http://192.168.1.222:8080/";
-    public static final String BASE_URL_NO_LINE = "http://192.168.1.222:8080";
+//    public static final String BASE_URL_NO_LINE = "http://192.168.1.222:8080";
+
+    /**
+     * 正式环境
+     */
+    public static final String BASE_URL_NO_LINE = "http://36.155.115.191:8000";
+
+
+    public static final String BASE_URL = BASE_URL_NO_LINE+"/";
+
+
+
 
     /**
      * 接口URL + ""

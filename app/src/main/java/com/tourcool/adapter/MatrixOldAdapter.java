@@ -26,7 +26,7 @@ public class MatrixOldAdapter extends BaseQuickAdapter<MatrixBean, BaseViewHolde
     @Override
     protected void convert(@NonNull BaseViewHolder helper, MatrixBean item) {
         ImageView imageView = helper.getView(R.id.ivMatrixIcon);
-        GlideManager.loadCircleImg(R.mipmap.leak_canary_icon, imageView);
+        GlideManager.loadCircleImg(R.mipmap.ic_weather_unknown, imageView);
         helper.setText(R.id.tvMatrixIconName, item.getMatrixName());
 
     }
