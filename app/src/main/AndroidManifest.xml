@@ -121,6 +121,11 @@
         <activity android:name="com.tourcool.ui.mvp.account.SettingPassActivity"
             android:launchMode="singleTask"
             />
+        <activity android:name="com.tourcool.ui.orc.ScanBankCardActivity" />
+        <activity android:name="com.tourcool.ui.orc.ScanIdCardActivity" />
+        <activity android:name="com.tourcool.ui.orc.OrcSelectActivity" />
+        <activity android:name="com.tourcool.ui.certify.SelectCertifyActivity" />
+        <activity android:name="com.tourcool.ui.certify.CertifyBandCardActivity" />
 
         <meta-data
             android:name="BUGLY_APPID"

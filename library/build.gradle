@@ -15,7 +15,12 @@ android {
     }
     buildTypes {
         release {
+            minifyEnabled false //是否启动混淆
             consumerProguardFiles 'proguard-rules.pro'
+        }
+        debug{
+            //是否启动混淆
+            minifyEnabled false
         }
     }
     //java 1.8--Interface的虚方法设置默认值default

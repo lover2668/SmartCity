@@ -1,4 +1,18 @@
 apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+// apply plugin
+apply plugin: 'org.greenrobot.greendao'
+
+apply plugin: 'kotlin-kapt'
+
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
 def ext = rootProject.ext
 android {
     compileSdkVersion ext.compileSdkVersion
@@ -23,6 +37,11 @@ android {
             annotationProcessorOptions {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
+        }
+
+        ndk {
+            // 设置支持的SO库架构 //, 'armeabi','x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+            abiFilters 'armeabi'
         }
     }
 
@@ -61,12 +80,14 @@ android {
         }
         release {
             debuggable false
-            zipAlignEnabled true //是否支持Zip Align
+            zipAlignEnabled false //是否支持Zip Align
             shrinkResources false //是否清理无用资源
             minifyEnabled false //是否启动混淆
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
+
+
     }
 
     compileOptions {
@@ -83,7 +104,11 @@ android {
 //            force 'com.squareup.okhttp3:logging-interceptor:3.12.2'
 //        }
 //    }
-
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
     compileOptions {
         targetCompatibility 1.8
         sourceCompatibility 1.8
@@ -142,10 +167,13 @@ dependencies {
     implementation 'com.pgyersdk:sdk:3.0.5'
     implementation files('libs/commons-lang-2.6.jar')
     implementation 'com.github.hackware1993:MagicIndicator:1.6.0'
-    //需要注意的是api要与compiler匹配使用，均使用最新版可以保证兼容
+    //阿里路由 需要注意的是api要与compiler匹配使用，均使用最新版可以保证兼容
     implementation 'com.alibaba:arouter-api:1.5.0'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
     //eventbus
     implementation 'org.greenrobot:eventbus:3.1.1'
     implementation 'com.kaopiz:kprogresshud:1.2.0'
+    implementation (name: 'ocr-library', ext: 'aar')
+    implementation 'com.yanzhenjie:permission:2.0.0-rc12'
+
 }

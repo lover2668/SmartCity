@@ -1,5 +1,10 @@
 package com.tourcool.core.retrofit.interceptor;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.fastjson.JSON;
 import com.frame.library.core.log.TourCooLogUtil;
@@ -30,6 +35,7 @@ import static com.tourcool.core.config.RequestConfig.TOKEN;
  * @Email: 971613168@qq.com
  */
 public class TokenInterceptor implements Interceptor {
+    private static int ACTIVITY_SINGLE_FLAG = Intent.FLAG_ACTIVITY_SINGLE_TOP;
     public static final String TAG = "TokenInterceptor";
     private static final String TOKEN_FLAG = "NeedToken";
     private static final String SKIP_LOGIN_FLAG = "skipLogin";
@@ -92,6 +98,7 @@ public class TokenInterceptor implements Interceptor {
     }
 
 
+
     private TokenInfo getNewToken() {
         Retrofit retrofit = new Retrofit.Builder()
                 //基础url,其他部分在GetRequestInterface里
@@ -127,5 +134,20 @@ public class TokenInterceptor implements Interceptor {
         }
     }
 
+
+    /**
+     * @param context
+     * @param activity 跳转Activity
+     */
+    public static void startActivity(Context context, Class<? extends Activity> activity) {
+        if (context == null) {
+            return;
+        }
+        Intent intent = new Intent(context, activity);
+        if (!(context instanceof Activity)) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+        context.startActivity(intent);
+    }
 
 }

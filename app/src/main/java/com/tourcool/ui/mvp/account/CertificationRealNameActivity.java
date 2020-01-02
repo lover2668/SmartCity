@@ -14,6 +14,7 @@ import com.tourcool.smartcity.R;
 import com.tourcool.ui.WebViewActivityTest;
 import com.tourcool.ui.mvp.recharge.RechargeActivity;
 import com.tourcool.ui.mvp.weather.WeatherActivity;
+import com.tourcool.ui.orc.OrcSelectActivity;
 
 /**
  * @author :JenkinsZhou
@@ -69,7 +70,7 @@ public class CertificationRealNameActivity extends BaseMvpTitleActivity implemen
                 break;
             case R.id.tvBankCard:
                 Intent rechargeIntent = new Intent();
-                rechargeIntent.setClass(mContext, RechargeActivity.class);
+                rechargeIntent.setClass(mContext, OrcSelectActivity.class);
                 startActivity(rechargeIntent);
                 break;
             case R.id.tvFace:

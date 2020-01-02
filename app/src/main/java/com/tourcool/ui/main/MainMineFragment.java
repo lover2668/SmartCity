@@ -37,6 +37,7 @@ import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.event.account.UserInfoEvent;
 import com.tourcool.helper.EmiRecycleViewDivider;
 import com.tourcool.smartcity.R;
+import com.tourcool.ui.certify.SelectCertifyActivity;
 import com.tourcool.ui.mvp.account.CertificationRealNameActivity;
 import com.tourcool.ui.mvp.account.LoginActivity;
 import com.tourcool.ui.mvp.account.PersonalDataActivity;
@@ -169,7 +170,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
             switch (position) {
                 case 0:
                     Intent intent = new Intent();
-                    intent.setClass(mContext, CertificationRealNameActivity.class);
+                    intent.setClass(mContext, SelectCertifyActivity.class);
                     startActivity(intent);
                     break;
                 case 1:

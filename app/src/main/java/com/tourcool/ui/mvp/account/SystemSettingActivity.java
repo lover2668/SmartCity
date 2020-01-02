@@ -47,7 +47,7 @@ public class SystemSettingActivity extends BaseMvpTitleActivity implements View.
     private TextView tvBindPhone;
     private TextView tvCacheSize;
     public static final int REQUEST_CODE_BIND_PHONE = 101;
-
+     public static final String TAG = "";
     @Override
     protected void loadPresenter() {
 
