@@ -3,7 +3,7 @@
     package="com.tourcool.smartcity">
 
     <!--<uses-feature android:name="android.hardware.screen.portrait"/>-->
-
+    <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:name="com.tourcool.core.MyApplication"
         android:allowBackup="true"
@@ -125,7 +125,10 @@
         <activity android:name="com.tourcool.ui.orc.ScanIdCardActivity" />
         <activity android:name="com.tourcool.ui.orc.OrcSelectActivity" />
         <activity android:name="com.tourcool.ui.certify.SelectCertifyActivity" />
-        <activity android:name="com.tourcool.ui.certify.CertifyBandCardActivity" />
+        <activity android:name="com.tourcool.ui.certify.CertifyActivity" />
+        <activity android:name="com.tourcool.ui.certify.CertifyMessageActivity" />
+        <activity android:name="com.tourcool.ui.certify.CertifySettingPassActivity" />
+        <activity android:name="com.tourcool.ui.certify.ScanIdCardActivity" />
 
         <meta-data
             android:name="BUGLY_APPID"

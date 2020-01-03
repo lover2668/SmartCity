@@ -107,16 +107,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
 
     @Override
     public void setTitleBar(TitleBarView titleBar) {
-        titleBar.setBackgroundColor(TourCooUtil.getColor(R.color.transparent));
-        mRefreshLayout.setOnRefreshListener(this);
-        setMarginTop(titleBar);
-        TextView mainText = titleBar.getMainTitleTextView();
-        titleBar.setTitleMainText("智慧宜兴");
-        mainText.setText("");
-        titleBar.setRightText("设置");
-        titleBar.setRightText("");
-        titleBar.setRightTextDrawable(TourCooUtil.getDrawable(R.mipmap.ic_setting));
-        mainText.setTextColor(TourCooUtil.getColor(R.color.white));
+        initTitleBar(titleBar);
         GlideManager.loadCircleImg(R.mipmap.ic_avatar_default, ivAvatar);
         if (AccountHelper.getInstance().isLogin()) {
             setViewGone(llUnlogin, false);
@@ -125,8 +116,6 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
             setViewGone(llUnlogin, true);
             setViewGone(rlLogin, false);
         }
-
-        mainText.setCompoundDrawablesWithIntrinsicBounds(null, null, TourCooUtil.getDrawable(R.mipmap.icon_title_name), null);
         titleBar.setOnRightTextClickListener(v -> {
 //                FrameUtil.startActivity(mContext,MyAppManageActivity.class);
 //            FrameUtil.startActivity(mContext, LoginActivity.class);
@@ -329,5 +318,19 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
         if (mRefreshLayout != null) {
             mRefreshLayout.finishRefresh(false);
         }
+    }
+
+    private void initTitleBar(TitleBarView titleBar){
+        titleBar.setBackgroundColor(TourCooUtil.getColor(R.color.transparent));
+        mRefreshLayout.setOnRefreshListener(this);
+        setMarginTop(titleBar);
+        TextView mainText = titleBar.getMainTitleTextView();
+        titleBar.setTitleMainText("智慧宜兴");
+        mainText.setText("");
+        titleBar.setRightText("设置");
+        titleBar.setRightText("");
+        titleBar.setRightTextDrawable(TourCooUtil.getDrawable(R.mipmap.ic_setting));
+        mainText.setTextColor(TourCooUtil.getColor(R.color.white));
+        mainText.setCompoundDrawablesWithIntrinsicBounds(null, null, TourCooUtil.getDrawable(R.mipmap.icon_title_name), null);
     }
 }

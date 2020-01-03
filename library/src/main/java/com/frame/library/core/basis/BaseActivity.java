@@ -129,7 +129,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IBaseV
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         List<Fragment> list = getSupportFragmentManager().getFragments();
-        if ( list.isEmpty()) {
+        if (list.isEmpty()) {
             return;
         }
         for (Fragment f : list) {
@@ -387,9 +387,29 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IBaseV
         try {
             return JSONArray.parseArray(JSON.toJSONString(data), model);
         } catch (Exception e) {
-            TourCooLogUtil.e(TAG,"parseJsonToBeanList()报错--->"+e.toString());
+            TourCooLogUtil.e(TAG, "parseJsonToBeanList()报错--->" + e.toString());
             return null;
         }
+    }
+
+
+    protected void setTextValue(EditText editText, String value) {
+        if (editText == null) {
+            TourCooLogUtil.e(TAG, "setTextValue()--->EditText =null ！！！");
+            return;
+        }
+        if (value == null) {
+            value = "";
+        }
+        editText.setText(value);
+    }
+
+    protected void setTextValue(TextView textView, String value) {
+        if (textView == null) {
+            TourCooLogUtil.e(TAG, "setTextValue()--->TextView =null ！！！");
+            return;
+        }
+        textView.setText(value);
     }
 
 

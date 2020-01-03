@@ -63,7 +63,6 @@ import static com.tourcool.core.constant.ScreenConsrant.SUB_COLUMN;
  * @date 2019年11月04日17:56
  * @Email: 971613168@qq.com
  */
-@Route(path = ACTIVITY_URL_SEARCH)
 public class SearchActivity extends BaseCommonTitleActivity implements View.OnClickListener {
     private EditText etSearch;
     private LinearLayout llContainer;

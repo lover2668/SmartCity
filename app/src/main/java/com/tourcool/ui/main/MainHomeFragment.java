@@ -64,6 +64,7 @@ import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.DateUtil;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.smartcity.R;
+import com.tourcool.ui.mvp.search.SearchActivity;
 import com.tourcool.ui.mvp.service.SecondaryServiceActivity;
 import com.tourcool.ui.mvp.service.ServiceActivity;
 import com.trello.rxlifecycle3.android.FragmentEvent;
@@ -549,12 +550,12 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         ImageView ivBulletin = viewFlipperRoot.findViewById(R.id.ivBulletin);
         View viewLineVertical = viewFlipperRoot.findViewById(R.id.viewLineVertical);
         Drawable defaultDrawable = TourCooUtil.getDrawable(R.mipmap.ic_avatar_default);
-        float aspectRatio = (float) defaultDrawable.getIntrinsicHeight() /  (float)defaultDrawable.getIntrinsicWidth();
-        GlideManager.loadRoundImgByListener(TourCooUtil.getUrl(screenPart.getDetail().getIcon()), ivBulletin, 5,defaultDrawable , false, new RequestListener<Drawable>() {
+        float aspectRatio = (float) defaultDrawable.getIntrinsicHeight() / (float) defaultDrawable.getIntrinsicWidth();
+        GlideManager.loadRoundImgByListener(TourCooUtil.getUrl(screenPart.getDetail().getIcon()), ivBulletin, 5, defaultDrawable, false, new RequestListener<Drawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                 TourCooLogUtil.e("图片加载失败", "onLoadFailed:" + e.toString());
-                resetViewLayoutParams(aspectRatio,viewLineVertical,ivBulletin);
+                resetViewLayoutParams(aspectRatio, viewLineVertical, ivBulletin);
                 return false;
             }
 
@@ -562,8 +563,8 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
             public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                 TourCooLogUtil.i("图片加载完成", "图片高度:" + resource.getIntrinsicHeight() + "图片宽度:" + resource.getIntrinsicWidth());
                 //图片宽高比
-                float aspectRatio = (float) resource.getIntrinsicHeight() /  (float)resource.getIntrinsicWidth();
-                resetViewLayoutParams(aspectRatio,viewLineVertical,ivBulletin);
+                float aspectRatio = (float) resource.getIntrinsicHeight() / (float) resource.getIntrinsicWidth();
+                resetViewLayoutParams(aspectRatio, viewLineVertical, ivBulletin);
                 return false;
             }
         });
@@ -824,7 +825,10 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
                 ARouter.getInstance().build(ACTIVITY_URL_WEATHER).navigation();
                 break;
             case R.id.rlSearch:
-                ARouter.getInstance().build(ACTIVITY_URL_SEARCH).navigation();
+                Intent intent = new Intent();
+                intent.setClass(mContext, SearchActivity.class);
+                startActivity(intent);
+//                ARouter.getInstance().build(ACTIVITY_URL_SEARCH).navigation();
                 break;
             default:
                 break;
@@ -896,8 +900,8 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
     }
 
 
-    private void resetViewLayoutParams(float aspectRatio,View line,ImageView imageView ){
-        TourCooLogUtil.d(TAG,"图片信息：高宽比-->"+aspectRatio);
+    private void resetViewLayoutParams(float aspectRatio, View line, ImageView imageView) {
+        TourCooLogUtil.d(TAG, "图片信息：高宽比-->" + aspectRatio);
         //宽度固定
         float finalWidth = SizeUtil.dp2px(58);
         //最终高度
@@ -906,8 +910,8 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         layoutParams.height = (int) finalHeight;
         layoutParams.width = (int) finalWidth;
         line.getLayoutParams().height = (int) (finalHeight + SizeUtil.dp2px(10));
-        TourCooLogUtil.d(TAG,"图片信息：宽-->"+layoutParams.width);
-        TourCooLogUtil.i(TAG,"图片信息：高-->"+layoutParams.height);
+        TourCooLogUtil.d(TAG, "图片信息：宽-->" + layoutParams.width);
+        TourCooLogUtil.i(TAG, "图片信息：高-->" + layoutParams.height);
         imageView.setLayoutParams(layoutParams);
     }
 }

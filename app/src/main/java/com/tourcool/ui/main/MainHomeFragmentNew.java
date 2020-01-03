@@ -61,6 +61,7 @@ import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.DateUtil;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.smartcity.R;
+import com.tourcool.ui.mvp.search.SearchActivity;
 import com.tourcool.ui.mvp.service.SecondaryServiceActivity;
 import com.tourcool.ui.mvp.service.ServiceActivity;
 import com.trello.rxlifecycle3.android.FragmentEvent;
@@ -186,7 +187,10 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
                 ARouter.getInstance().build(ACTIVITY_URL_WEATHER).navigation();
                 break;
             case R.id.rlSearch:
-                ARouter.getInstance().build(ACTIVITY_URL_SEARCH).navigation();
+//                ARouter.getInstance().build(ACTIVITY_URL_SEARCH).navigation();
+                Intent intent = new Intent();
+                intent.setClass(mContext, SearchActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;
