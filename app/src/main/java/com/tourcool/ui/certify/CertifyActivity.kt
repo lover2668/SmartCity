@@ -11,6 +11,7 @@ import com.frame.library.core.widget.titlebar.TitleBarView
 import com.msd.ocr.idcard.LibraryInitOCR
 import com.tourcool.core.module.activity.BaseTitleActivity
 import com.tourcool.smartcity.R
+import com.tourcool.ui.base.BaseCommonTitleActivity
 import com.tourcool.ui.certify.SelectCertifyActivity.Companion.EXTRA_CERTIFY_ALI_FACE
 import com.tourcool.ui.certify.SelectCertifyActivity.Companion.EXTRA_CERTIFY_ALI_PAY
 import com.tourcool.ui.certify.SelectCertifyActivity.Companion.EXTRA_CERTIFY_BANK_CARD
@@ -28,8 +29,8 @@ import org.json.JSONObject
  * @date 2020年01月02日11:32
  * @Email: 971613168@qq.com
  */
-class CertifyActivity : BaseTitleActivity(), View.OnClickListener {
-    private val mTag = "CertifyBandCardActivity"
+class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
+    private val mTag = "CertifyActivity"
     private var isVibrate = false
     private var certifyType = ""
     override fun getContentLayout(): Int {
@@ -37,8 +38,9 @@ class CertifyActivity : BaseTitleActivity(), View.OnClickListener {
     }
 
     override fun setTitleBar(titleBar: TitleBarView?) {
+        super.setTitleBar(titleBar)
         certifyType = intent.getStringExtra(KEY_CERTIFY_TYPE)
-        showTitleByCertifyType()
+        showInfoByCertifyType()
     }
 
     override fun initView(savedInstanceState: Bundle?) {
@@ -65,6 +67,7 @@ class CertifyActivity : BaseTitleActivity(), View.OnClickListener {
         val bundle = Bundle()
         bundle.putBoolean("saveImage", true)
         bundle.putInt("requestCode", SelectCertifyActivity.SCAN_ID_CARD_REQUEST)
+        bundle.putBoolean("showSelect", false)
         bundle.putInt("type", 0)
         //0身份证, 1驾驶证
         LibraryInitOCR.startScan(this@CertifyActivity, bundle)
@@ -147,19 +150,24 @@ class CertifyActivity : BaseTitleActivity(), View.OnClickListener {
     }
 
 
-    private fun showTitleByCertifyType() {
+    private fun showInfoByCertifyType() {
         when (certifyType) {
             EXTRA_CERTIFY_ALI_PAY -> {
                 mTitleBar!!.setTitleMainText("支付宝实名认证")
+                tvProgressOne.text = "身份认证"
             }
             EXTRA_CERTIFY_PHONE -> {
                 mTitleBar!!.setTitleMainText("手机实名认证")
+                tvProgressOne.text = "身份认证"
+
             }
             EXTRA_CERTIFY_BANK_CARD -> {
                 mTitleBar!!.setTitleMainText("银联卡认证")
+                tvProgressOne.text = "身份认证"
             }
             EXTRA_CERTIFY_ALI_FACE -> {
                 mTitleBar!!.setTitleMainText("人脸识别认证")
+                tvProgressOne.text = "身份认证"
             }
             else -> {
             }
@@ -171,8 +179,7 @@ class CertifyActivity : BaseTitleActivity(), View.OnClickListener {
         val intent = Intent()
         intent.putExtra(KEY_CERTIFY_TYPE, certifyType)
         intent.putExtra(EXTRA_PHONE, getTextValue(etPhoneNumber))
-        intent.setClass(mContext, ScanIdCardActivity::class.java)
-
+        intent.setClass(mContext, CertifyMessageActivity::class.java)
         startActivity(intent)
 
     }

@@ -6,6 +6,7 @@ import android.view.View
 import com.frame.library.core.widget.titlebar.TitleBarView
 import com.tourcool.core.module.activity.BaseTitleActivity
 import com.tourcool.smartcity.R
+import com.tourcool.ui.base.BaseCommonTitleActivity
 import kotlinx.android.synthetic.main.activity_certify_identity.*
 import kotlinx.android.synthetic.main.activity_real_name_certification_new.*
 
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_real_name_certification_new.*
  * @date 2020年01月02日10:01
  * @Email: 971613168@qq.com
  */
-class SelectCertifyActivity : BaseTitleActivity(), View.OnClickListener {
+class SelectCertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
     companion object {
         const val SCAN_ID_CARD_REQUEST = 1
         const val SCAN_DRIVERCARD_REQUEST = 2
@@ -35,7 +36,8 @@ class SelectCertifyActivity : BaseTitleActivity(), View.OnClickListener {
     }
 
     override fun setTitleBar(titleBar: TitleBarView?) {
-
+        super.setTitleBar(titleBar)
+        titleBar!!.setTitleMainText("实名认证")
     }
 
     override fun initView(savedInstanceState: Bundle?) {

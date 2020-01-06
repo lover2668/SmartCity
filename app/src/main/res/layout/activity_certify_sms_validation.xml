@@ -19,8 +19,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_20"
                 android:layout_marginStart="@dimen/dp_30"
+                android:layout_marginTop="@dimen/dp_20"
                 android:layout_marginEnd="@dimen/dp_30"
                 android:orientation="horizontal">
 
@@ -34,13 +34,13 @@
                     android:layout_height="@dimen/dp_1"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:background="@color/grayD0D0D0" />
+                    android:background="@color/blue5593FF" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:background="@drawable/shape_circle_e0e0e0" />
+                    android:background="@mipmap/ic_certify_progress" />
 
                 <View
                     android:layout_width="0dp"
@@ -74,12 +74,13 @@
                     android:text="身份认证" />
 
                 <TextView
-                    style="@style/Text12spGrayAAAAAA"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="短信验证" />
+                    android:text="短信验证"
+                    android:textColor="@color/blue5593FF"
+                    android:textSize="@dimen/sp_12" />
 
                 <TextView
                     style="@style/Text12spGrayAAAAAA"
@@ -90,32 +91,6 @@
                     android:text="设置密码" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/llSkipScanIdentify"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_15"
-                android:layout_marginTop="@dimen/dp_20"
-                android:layout_marginEnd="@dimen/dp_15"
-                android:background="@drawable/bg_radius_10_white_hollow_stroke_blue_4ebbf"
-                android:minHeight="@dimen/dp_50"
-                android:orientation="horizontal">
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="扫描二代身份证录入"
-                        android:textColor="@color/blue5593FF" />
-                </LinearLayout>
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -139,17 +114,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="姓名"
+                        android:text="已绑定手机"
                         android:textColor="@color/black333333"
                         android:textSize="@dimen/sp_14" />
 
-                    <EditText
-                        android:id="@+id/etName"
+                    <TextView
+                        android:id="@+id/tvBindPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
                         android:gravity="right"
-                        android:hint="请输入姓名"
+                        android:text="--"
                         android:padding="@dimen/dp_5"
                         android:textColorHint="@color/grayA2A2A2"
                         android:textSize="@dimen/sp_14" />
@@ -170,7 +145,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="身份证号"
+                        android:text="验证码"
                         android:textColor="@color/black333333"
                         android:textSize="@dimen/sp_14" />
 
@@ -180,7 +155,7 @@
                         android:layout_height="wrap_content"
                         android:background="@null"
                         android:gravity="right"
-                        android:hint="请输入身份证号码"
+                        android:hint="请输入验证码"
                         android:padding="@dimen/dp_5"
                         android:textColorHint="@color/grayA2A2A2"
                         android:textSize="@dimen/sp_14" />
@@ -188,75 +163,20 @@
 
                 <include layout="@layout/line_horizontal_gray_eeeeee_0_5_dp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_15"
-                    android:layout_marginBottom="@dimen/dp_15"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="手机号"
-                        android:textColor="@color/black333333"
-                        android:textSize="@dimen/sp_14" />
-
-                    <EditText
-                        android:id="@+id/etPhoneNumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:background="@null"
-                        android:gravity="right"
-                        android:hint="请输入手机号"
-                        android:inputType="phone"
-                        android:padding="@dimen/dp_5"
-                        android:textColorHint="@color/grayA2A2A2"
-                        android:textSize="@dimen/sp_14" />
-                </LinearLayout>
-
-
             </LinearLayout>
-            <!--注册信息-->
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvSendSms"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_30"
-                android:layout_marginTop="@dimen/dp_25"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/cBoxAgree"
-                    style="@style/CustomCheckBoxTheme"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingStart="@dimen/dp_5"
-                    android:paddingTop="@dimen/dp_5"
-                    android:paddingBottom="@dimen/dp_5" />
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="已阅读并同意"
-                    android:textColor="@color/gray999999"
-                    android:textSize="@dimen/sp_12" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:padding="@dimen/dp_5"
-                    android:text="智慧宜兴注册协议"
-                    android:textColor="@color/blue55A9FF"
-                    android:textSize="@dimen/sp_12" />
-
-            </LinearLayout>
+                android:layout_marginStart="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_15"
+                android:background="@drawable/selector_bg_radius_25_blue_hollow"
+                android:gravity="center"
+                android:minHeight="@dimen/dp_44"
+                android:text="发送验证码"
+                android:textColor="@color/blue5593FF"
+                android:textSize="@dimen/sp_14" />
 
             <TextView
                 android:id="@+id/tvNextStep"
@@ -271,18 +191,6 @@
                 android:text="下一步"
                 android:textColor="@color/whiteCommon"
                 android:textSize="@dimen/sp_14" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_30"
-                android:layout_marginTop="@dimen/dp_30"
-                android:layout_marginEnd="@dimen/dp_30"
-                android:text="特别提示：
-1.支持xxx手机号
-2.本认证支持已在运营商处办理完成实名认证的用户。如认证不通过的，建议去运营商处办理实名认证手续。
-                            " />
         </LinearLayout>
 
 

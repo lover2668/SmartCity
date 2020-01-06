@@ -3,7 +3,9 @@ package com.tourcool.bean.account;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.greenrobot.greendao.annotation.Entity;
 import org.litepal.crud.LitePalSupport;
+import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * @author :JenkinsZhou
@@ -12,6 +14,7 @@ import org.litepal.crud.LitePalSupport;
  * @date 2019年10月31日14:24
  * @Email: 971613168@qq.com
  */
+@Entity
 public class UserInfo extends LitePalSupport implements Parcelable {
 
 
@@ -81,6 +84,14 @@ public class UserInfo extends LitePalSupport implements Parcelable {
         this.iconUrl = in.readString();
         this.nickname = in.readString();
         this.phoneNumber = in.readString();
+    }
+
+    @Generated(hash = 1214017)
+    public UserInfo(int authenticationLevel, String iconUrl, String nickname, String phoneNumber) {
+        this.authenticationLevel = authenticationLevel;
+        this.iconUrl = iconUrl;
+        this.nickname = nickname;
+        this.phoneNumber = phoneNumber;
     }
 
     public static final Parcelable.Creator<UserInfo> CREATOR = new Parcelable.Creator<UserInfo>() {

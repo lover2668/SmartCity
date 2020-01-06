@@ -128,7 +128,21 @@ android {
             storePassword 'android'
         }
     }
+}
 
+greendao {
+    /**
+     * 版本号
+     */
+    schemaVersion 1
+    /**
+     * greendao输出dao的数据库操作实体类文件夹（相对路径 包名+自定义路径名称，包将创建于包名的直接路径下）
+     */
+    daoPackage 'com.tourcool.bean.greendao'
+    /**
+     * greenDao实体类包文件夹
+     */
+    targetGenDir 'src/main/java'
 }
 
 dependencies {
@@ -175,5 +189,8 @@ dependencies {
     implementation 'com.kaopiz:kprogresshud:1.2.0'
     implementation (name: 'ocr-library', ext: 'aar')
     implementation 'com.yanzhenjie:permission:2.0.0-rc12'
+
+    // 数据库
+    implementation 'org.greenrobot:greendao:3.2.2'
 
 }

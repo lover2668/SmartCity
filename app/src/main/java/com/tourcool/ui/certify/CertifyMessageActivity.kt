@@ -16,12 +16,13 @@ import com.tourcool.core.constant.TimeConstant
 import com.tourcool.core.retrofit.repository.ApiRepository
 import com.tourcool.core.util.TourCooUtil
 import com.tourcool.smartcity.R
+import com.tourcool.ui.base.BaseCommonTitleActivity
 import com.tourcool.ui.certify.SelectCertifyActivity.Companion.EXTRA_PHONE
 import com.tourcool.ui.certify.SelectCertifyActivity.Companion.KEY_CERTIFY_TYPE
 import com.trello.rxlifecycle3.android.ActivityEvent
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.activity_message_certify.*
+import kotlinx.android.synthetic.main.activity_certify_sms_validation.*
 import java.util.*
 
 /**
@@ -31,22 +32,23 @@ import java.util.*
  * @date 2020年01月03日11:01
  * @Email: 971613168@qq.com
  */
-class CertifyMessageActivity : FrameTitleActivity(), View.OnClickListener {
+class CertifyMessageActivity : BaseCommonTitleActivity(), View.OnClickListener {
     private val disposableList: MutableList<Disposable> = ArrayList()
     private var timeCount = TimeConstant.COUNT
     private var phone = ""
     override fun getContentLayout(): Int {
-        return R.layout.activity_message_certify
+        return R.layout.activity_certify_sms_validation
     }
 
     override fun setTitleBar(titleBar: TitleBarView?) {
+        super.setTitleBar(titleBar)
         titleBar!!.setTitleMainText("短信验证")
     }
 
     override fun initView(savedInstanceState: Bundle?) {
         intent.getStringExtra(KEY_CERTIFY_TYPE)
         phone = intent.getStringExtra(EXTRA_PHONE)
-        setTextValue(tvBindPhone,phone)
+        setTextValue(tvBindPhone, phone)
         tvNextStep.setOnClickListener(this)
         tvSendSms.setOnClickListener(this)
     }
@@ -70,7 +72,10 @@ class CertifyMessageActivity : FrameTitleActivity(), View.OnClickListener {
     private fun countDownTime() {
         reset()
         setClickEnable(tvSendSms, false)
-        mHandler.postDelayed({ tvSendSms.setTextColor(FrameUtil.getColor(R.color.grayA2A2A2)) }, TimeConstant.ONE_SECOND.toLong())
+        mHandler.postDelayed({
+            tvSendSms.background = FrameUtil.getDrawable(R.drawable.bg_radius_25_gray_hollow)
+            tvSendSms.setTextColor(FrameUtil.getColor(R.color.grayA2A2A2))
+        }, TimeConstant.ONE_SECOND.toLong())
         RxJavaManager.getInstance().doEventByInterval(TimeConstant.ONE_SECOND.toLong(), object : Observer<Long> {
             override fun onSubscribe(d: Disposable) {
                 disposableList.add(d)

@@ -169,7 +169,10 @@ public class LoginActivity extends BaseMvpTitleActivity implements View.OnClickL
                 }
                 break;
             case R.id.tvForgetPass:
-                skipActivity(RouteConstance.ACTIVITY_URL_FORGET_PASS);
+                Intent intent1 = new Intent();
+                intent1.setClass(mContext,ForgetPasswordActivity.class);
+                startActivity(intent1);
+//                skipActivity(RouteConstance.ACTIVITY_URL_FORGET_PASS);
                 break;
             default:
                 break;

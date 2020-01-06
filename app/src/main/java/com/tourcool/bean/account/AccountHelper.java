@@ -1,10 +1,16 @@
 package com.tourcool.bean.account;
 
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.frame.library.core.log.TourCooLogUtil;
+import com.tourcool.bean.greendao.DaoSession;
+import com.tourcool.bean.greendao.GreenDaoHelper;
+import com.tourcool.bean.greendao.UserInfoDao;
 
 import org.litepal.LitePal;
+
+import java.util.List;
 
 
 /**
@@ -44,19 +50,19 @@ public class AccountHelper {
         if (userInfo != null) {
             return userInfo;
         } else {
-            userInfo = LitePal.findFirst(UserInfo.class);
+            userInfo = getUserInfoFromDisk();
             setUserInfo(userInfo);
             return userInfo;
         }
     }
 
-    public void setUserInfo(UserInfo userInfo) {
+ /*   public void setUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;
         if (userInfo != null) {
             LitePal.deleteAll(UserInfo.class);
             userInfo.save();
         }
-    }
+    }*/
 
     /**
      * 保存到磁盘的同时 也会更新内存中的用户信息
@@ -64,13 +70,15 @@ public class AccountHelper {
      * @param userInfo
      */
     public void saveUserInfoToDisk(UserInfo userInfo) {
-        if (userInfo == null) {
+      /*  if (userInfo == null) {
             setUserInfo(null);
         } else {
             LitePal.deleteAll(UserInfo.class);
             setUserInfo(userInfo);
             userInfo.save();
-        }
+        }*/
+        setUserInfo(userInfo);
+        saveToDisk(userInfo);
     }
 
     public String getAccessToken() {
@@ -108,8 +116,40 @@ public class AccountHelper {
         SPUtils.getInstance().put(PREF_REFRESH_TOKEN, "");
     }
 
-    public void deleteUserInfoFromDisk() {
-        LitePal.deleteAll(UserInfo.class);
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+        saveToDisk(userInfo);
     }
 
+    private void saveToDisk(UserInfo userInfo) {
+        if (userInfo == null) {
+            LogUtils.w("saveToDisk()保存数据库失败(userInfo == null)");
+            return;
+        }
+        DaoSession daoSession = GreenDaoHelper.getInstance().getDaoSession();
+        UserInfoDao userInfoDao = daoSession.getUserInfoDao();
+        userInfoDao.deleteAll();
+        userInfoDao.insert(userInfo);
+        int size = userInfoDao.queryBuilder().build().list().size();
+        LogUtils.i("保存数据库是否成功 = " + size);
+    }
+
+
+    private void deleteUserInfoFromDisk() {
+        DaoSession daoSession = GreenDaoHelper.getInstance().getDaoSession();
+        UserInfoDao userInfoDao = daoSession.getUserInfoDao();
+        userInfoDao.deleteAll();
+    }
+
+
+    private UserInfo getUserInfoFromDisk() {
+        DaoSession daoSession = GreenDaoHelper.getInstance().getDaoSession();
+        UserInfoDao userInfoDao = daoSession.getUserInfoDao();
+        List<UserInfo> userInfoList = userInfoDao.queryBuilder().build().list();
+        if (userInfoList != null && !userInfoList.isEmpty()) {
+            return userInfoList.get(0);
+        }
+        return null;
+    }
 }

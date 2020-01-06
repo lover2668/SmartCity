@@ -9,6 +9,8 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:windowDisablePreview">true</item>
         <item name="android:windowNoDisplay">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
         <!--targetSdk设置成27及以上如果Activity有设置屏幕横竖屏操作会造成应用崩溃 Only fullscreen activities can request orientation -->
         <item name="android:windowIsTranslucent">false</item>
     </style>
@@ -105,8 +107,18 @@
         <item name="android:textSize">@dimen/sp_14</item>
         <item name="android:textColor">@color/whiteCommon</item>
     </style>
-
-
+    <style name="Text14spBlue5593FF">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:textColor">@color/blue5593FF</item>
+    </style>
+    <style name="Text12spBlue5593FF">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:textColor">@color/blue5593FF</item>
+    </style>
     <style name="Text12spWhiteFFFFFF">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -114,6 +126,12 @@
         <item name="android:textColor">@color/whiteCommon</item>
     </style>
 
+    <style name="Text12spGrayAAAAAA">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:textColor">@color/grayAAAAAA</item>
+    </style>
     <style name="Text14spBlack333333">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -121,6 +139,12 @@
         <item name="android:textColor">@color/black333333</item>
     </style>
 
+    <style name="Text14spGrayA2A2A2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:textColor">@color/grayA2A2A2</item>
+    </style>
     <!-- CustomCheckBox theme -->
     <style name="CustomCheckBoxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/checkbox_style</item>

@@ -17,6 +17,7 @@ import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.tourcool.bean.greendao.GreenDaoHelper;
 import com.tourcool.core.retrofit.interceptor.TokenInterceptor;
 import com.frame.library.core.util.FrameUtil;
 import com.tourcool.core.config.AppConfig;
@@ -92,6 +93,7 @@ public class MyApplication  extends LitePalApplication {
         initLog();
         //异常处理初始化
         CrashManager.init(mContext);
+        GreenDaoHelper.getInstance().initDatabass(mContext);
         LoggerManager.i(TAG, "start:" + start + ";Application:" + FrameUtil.getApplication());
         //最简单UI配置模式-必须进行初始化-最新版本无需初始化FastLib内部自动初始化
 //         UiManager.init(this);
