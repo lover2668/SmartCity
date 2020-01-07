@@ -93,7 +93,7 @@ public class MyApplication  extends LitePalApplication {
         initLog();
         //异常处理初始化
         CrashManager.init(mContext);
-        GreenDaoHelper.getInstance().initDatabass(mContext);
+        GreenDaoHelper.getInstance().initDatabase(mContext);
         LoggerManager.i(TAG, "start:" + start + ";Application:" + FrameUtil.getApplication());
         //最简单UI配置模式-必须进行初始化-最新版本无需初始化FastLib内部自动初始化
 //         UiManager.init(this);

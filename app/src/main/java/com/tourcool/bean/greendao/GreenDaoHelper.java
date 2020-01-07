@@ -33,7 +33,7 @@ public class GreenDaoHelper {
         return GreenDaoHelper.SingletonInstance.INSTANCE;
     }
 
-    public void initDatabass(Context context) {
+    public void initDatabase(Context context) {
         //这里之后会修改，关于升级数据库
         dbHelper = new DaoMaster.DevOpenHelper(context, "smart_city_yixing", null);
         db = dbHelper.getWritableDatabase();

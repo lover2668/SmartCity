@@ -117,10 +117,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
             setViewGone(rlLogin, false);
         }
         titleBar.setOnRightTextClickListener(v -> {
-//                FrameUtil.startActivity(mContext,MyAppManageActivity.class);
-//            FrameUtil.startActivity(mContext, LoginActivity.class);
-//                FrameUtil.startActivity(mContext, SystemSettingActivity.class);
-            ARouter.getInstance().build(RouteConstance.ACTIVITY_URL_SETTING).navigation();
+                FrameUtil.startActivity(mContext, SystemSettingActivity.class);
         });
     }
 
