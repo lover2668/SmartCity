@@ -193,4 +193,7 @@ dependencies {
     // 数据库
     implementation 'org.greenrobot:greendao:3.2.2'
 
+    // 支付宝 SDK AAR 包所需的配置
+    implementation (name: 'alipaySdk-15.6.8-20191021122514', ext: 'aar')
+
 }
