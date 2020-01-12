@@ -61,7 +61,7 @@ import com.frame.library.core.log.TourCooLogUtil;
  * 19、2019-5-10 17:27:26 新增刘海屏适配{@link NotchUtil}
  */
 public class TitleBarView extends ViewGroup {
-
+ public static final String TAG = "TitleBarView";
     /**
      * 默认透明度--5.0以上优化半透明状态栏一致
      */
@@ -953,11 +953,16 @@ public class TitleBarView extends ViewGroup {
         Drawable[] drawables = mTvLeft.getCompoundDrawables();
         mTvLeft.setCompoundDrawables(mLeftTextDrawable, drawables[1], drawables[2], drawables[3]);
         setTextDrawableTint(mTvLeft, mLeftTextDrawableTint, mLeftTextDrawableTintMode);
+//        TourCooLogUtil.i(TAG,"drawable宽:"+mLeftTextDrawable.getIntrinsicWidth());
         return setOutPadding(mOutPadding);
     }
 
     public TitleBarView setLeftTextDrawable(int resId) {
         return setLeftTextDrawable(mResourceUtil.getDrawable(resId));
+    }
+
+    public Drawable getLeftDrawable(){
+        return mLeftTextDrawable;
     }
 
     public TitleBarView setLeftTextDrawableTint(int color) {
@@ -1009,6 +1014,10 @@ public class TitleBarView extends ViewGroup {
     public TitleBarView setLeftTextDrawableWidth(int width) {
         mLeftTextDrawableWidth = width;
         return setLeftTextDrawable(mLeftTextDrawable);
+    }
+
+    public int getLeftTextDrawableWidth() {
+       return mLeftTextDrawableWidth;
     }
 
     public TitleBarView setLeftTextDrawableHeight(int height) {

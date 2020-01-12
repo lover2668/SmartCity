@@ -95,14 +95,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:src="@mipmap/ic_certify_bank_card" />
+                        android:src="@mipmap/ic_certify_id_card" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/dp_16"
-                        android:text="银联卡实名认证" />
+                        android:text="身份证实名认证" />
                 </LinearLayout>
 
                 <LinearLayout
