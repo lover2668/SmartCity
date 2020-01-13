@@ -5,6 +5,7 @@ import com.frame.library.core.util.FrameUtil;
 import com.tourcool.bean.search.SeachEntity;
 import com.tourcool.bean.weather.WeatherEntity;
 import com.tourcool.core.base.BaseResult;
+import com.tourcool.core.entity.Authenticate;
 import com.tourcool.core.entity.BasePageBean;
 import com.tourcool.core.entity.MessageBean;
 import com.tourcool.core.entity.UpdateEntity;
@@ -16,6 +17,7 @@ import com.frame.library.core.retrofit.RetryWhen;
 import com.frame.library.core.retrofit.FrameTransformer;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -227,6 +229,7 @@ public class ApiRepository extends AbstractRepository {
 
     /**
      * 修改用户信息
+     *
      * @param nickName
      * @param avatarUrl
      * @return
@@ -248,7 +251,7 @@ public class ApiRepository extends AbstractRepository {
         return FrameTransformer.switchSchedulers(getApiService().requestSearch(params).retryWhen(new RetryWhen()));
     }
 
-    public Observable<BaseResult> requestBindPhone(String phoneNumber,String smsCode) {
+    public Observable<BaseResult> requestBindPhone(String phoneNumber, String smsCode) {
         Map<String, Object> params = new HashMap<>(2);
         params.put("phoneNumber", phoneNumber);
         params.put("smsCode", smsCode);
@@ -256,11 +259,27 @@ public class ApiRepository extends AbstractRepository {
     }
 
 
-    public Observable<BaseResult> requestSetPass(String password,String confirmPassword) {
+    public Observable<BaseResult> requestSetPass(String password, String confirmPassword) {
         Map<String, Object> params = new HashMap<>(2);
         params.put("password", password);
         params.put("confirmPassword", confirmPassword);
         return FrameTransformer.switchSchedulers(getApiService().requestSetPass(params).retryWhen(new RetryWhen()));
+    }
+
+    public Observable<BaseResult<List<Authenticate>>> requestAuthentication() {
+        return FrameTransformer.switchSchedulers(getApiService().requestAuthentication().retryWhen(new RetryWhen()));
+    }
+
+
+    public Observable<BaseResult> requestAliAuthentication() {
+        return FrameTransformer.switchSchedulers(getApiService().requestAliAuthentication().retryWhen(new RetryWhen()));
+    }
+
+    public Observable<BaseResult> requestAuthenticationIdCard(String idCard, String name) {
+        Map<String, Object> params = new HashMap<>(2);
+        params.put("idCard", idCard);
+        params.put("name", name);
+        return FrameTransformer.switchSchedulers(getApiService().requestAuthenticationIdCard(params).retryWhen(new RetryWhen()));
     }
 
 }

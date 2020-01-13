@@ -5,6 +5,7 @@ import com.tourcool.bean.search.SeachEntity;
 import com.tourcool.bean.weather.WeatherEntity;
 import com.tourcool.core.base.BaseResult;
 import com.tourcool.core.constant.ApiConstant;
+import com.tourcool.core.entity.Authenticate;
 import com.tourcool.core.entity.BasePageBean;
 import com.tourcool.core.entity.MessageBean;
 import com.tourcool.core.entity.UpdateEntity;
@@ -220,6 +221,28 @@ public interface ApiService {
     @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
     @PUT("app/password")
     Observable<BaseResult> requestSetPass(@Body Map<String, Object> map);
+
+
+    /**
+     * 用户认证状态列表
+     * @return
+     */
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @GET("app/user/authentication-list")
+    Observable<BaseResult<List<Authenticate>>> requestAuthentication();
+
+    /**
+     * 支付宝认证
+     * @return
+     */
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @POST("app/user/authentication/alipay")
+    Observable<BaseResult> requestAliAuthentication();
+
+
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @POST("app/user/authentication/id-card")
+    Observable<BaseResult> requestAuthenticationIdCard(@Body Map<String, Object> map);
 
 }
 

@@ -8,12 +8,15 @@ import android.os.Bundle;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.fastjson.JSON;
 import com.frame.library.core.log.TourCooLogUtil;
+import com.frame.library.core.util.FrameUtil;
 import com.tourcool.bean.account.AccountHelper;
 import com.tourcool.bean.account.TokenInfo;
+import com.tourcool.core.MyApplication;
 import com.tourcool.core.base.BaseResult;
 import com.tourcool.core.config.RequestConfig;
 import com.tourcool.core.constant.RouteConstance;
 import com.tourcool.core.retrofit.TokenService;
+import com.tourcool.ui.mvp.account.LoginActivity;
 
 import java.io.IOException;
 
@@ -94,7 +97,7 @@ public class TokenInterceptor implements Interceptor {
     }
 
     private void skipLogin() {
-        ARouter.getInstance().build(RouteConstance.ACTIVITY_URL_LOGIN).navigation();
+        FrameUtil.startActivity(MyApplication.getContext(), LoginActivity.class);
     }
 
 
