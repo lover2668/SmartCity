@@ -64,6 +64,7 @@ import com.tourcool.smartcity.R;
 import com.tourcool.ui.mvp.search.SearchActivity;
 import com.tourcool.ui.mvp.service.SecondaryServiceActivity;
 import com.tourcool.ui.mvp.service.ServiceActivity;
+import com.tourcool.ui.mvp.weather.WeatherActivity;
 import com.trello.rxlifecycle3.android.FragmentEvent;
 
 import java.io.Serializable;
@@ -184,7 +185,7 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rlWeather:
-                ARouter.getInstance().build(ACTIVITY_URL_WEATHER).navigation();
+                skipWeather();
                 break;
             case R.id.rlSearch:
 //                ARouter.getInstance().build(ACTIVITY_URL_SEARCH).navigation();
@@ -923,5 +924,12 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
         mRefreshLayout.setEnableHeaderTranslationContent(true)
                 .setEnableOverScrollDrag(true);
         mRefreshLayout.setRefreshHeader(header);
+    }
+
+
+    private void skipWeather(){
+        Intent intent = new Intent();
+        intent.setClass(mContext, WeatherActivity.class);
+        startActivity(intent);
     }
 }

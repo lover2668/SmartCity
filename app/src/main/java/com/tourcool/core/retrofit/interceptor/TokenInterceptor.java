@@ -16,7 +16,10 @@ import com.tourcool.core.base.BaseResult;
 import com.tourcool.core.config.RequestConfig;
 import com.tourcool.core.constant.RouteConstance;
 import com.tourcool.core.retrofit.TokenService;
+import com.tourcool.event.account.UserInfoEvent;
 import com.tourcool.ui.mvp.account.LoginActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 
@@ -76,6 +79,7 @@ public class TokenInterceptor implements Interceptor {
                     if (skipLoginEnable) {
                         skipLogin();
                     }
+                    EventBus.getDefault().post(new UserInfoEvent());
                     return chain.proceed(tokenRequest);
                 } else {
                     //token刷新成功
@@ -97,6 +101,7 @@ public class TokenInterceptor implements Interceptor {
     }
 
     private void skipLogin() {
+        AccountHelper.getInstance().logout();
         FrameUtil.startActivity(MyApplication.getContext(), LoginActivity.class);
     }
 

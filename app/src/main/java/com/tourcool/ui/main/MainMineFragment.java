@@ -117,7 +117,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
             setViewGone(rlLogin, false);
         }
         titleBar.setOnRightTextClickListener(v -> {
-                FrameUtil.startActivity(mContext, SystemSettingActivity.class);
+            FrameUtil.startActivity(mContext, SystemSettingActivity.class);
         });
     }
 
@@ -202,8 +202,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUserInfoRefreshEvent(UserInfoEvent userInfoEvent) {
-        if (userInfoEvent == null || userInfoEvent.userInfo == null) {
-            doGetUserInfo();
+        if (userInfoEvent == null) {
             return;
         }
         TourCooLogUtil.i(TAG, "刷新用户信息");
@@ -213,7 +212,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
 
     private void doShowUserInfo(UserInfo userInfo) {
         if (userInfo == null) {
-            showUnLogin();
+            showUserInfo(AccountHelper.getInstance().getUserInfo());
         } else {
             showUserInfo(userInfo);
         }
@@ -222,7 +221,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
     private void showUnLogin() {
         setViewGone(llUnlogin, true);
         setViewGone(rlLogin, false);
-        GlideManager.loadCircleImg("",ivAvatar);
+        GlideManager.loadCircleImg("", ivAvatar);
     }
 
     private void showUserInfo(UserInfo userInfo) {
@@ -279,7 +278,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
                     @Override
                     public void onRequestError(Throwable e) {
                         finishRefresh();
-                          TourCooLogUtil.e(TAG,e.toString());
+                        TourCooLogUtil.e(TAG, e.toString());
                       /*  if(e.toString().contains(RequestConfig.CODE_REQUEST_TOKEN_INVALID+"")){
                             AccountHelper.getInstance().logout();
                             showUserInfo(null);
@@ -292,7 +291,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
     }
 
     private void showUserInfoFromCache() {
-          TourCooLogUtil.i(TAG,"用户信息="+AccountHelper.getInstance().getUserInfo());
+        TourCooLogUtil.i(TAG, "用户信息=" + AccountHelper.getInstance().getUserInfo());
         showUserInfo(AccountHelper.getInstance().getUserInfo());
     }
 
@@ -317,7 +316,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
         }
     }
 
-    private void initTitleBar(TitleBarView titleBar){
+    private void initTitleBar(TitleBarView titleBar) {
         titleBar.setBackgroundColor(TourCooUtil.getColor(R.color.transparent));
         mRefreshLayout.setOnRefreshListener(this);
         setMarginTop(titleBar);
@@ -330,4 +329,6 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
         mainText.setTextColor(TourCooUtil.getColor(R.color.white));
         mainText.setCompoundDrawablesWithIntrinsicBounds(null, null, TourCooUtil.getDrawable(R.mipmap.icon_title_name), null);
     }
+
+
 }

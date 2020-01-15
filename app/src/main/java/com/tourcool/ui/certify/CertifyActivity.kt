@@ -6,7 +6,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
+import android.widget.Toast
+import com.alibaba.fastjson.JSON
+import com.alipay.mobile.android.verify.sdk.ServiceFactory
 import com.alipay.sdk.app.AuthTask
 import com.frame.library.core.log.TourCooLogUtil
 import com.frame.library.core.retrofit.BaseLoadingObserver
@@ -15,12 +19,13 @@ import com.frame.library.core.util.StringUtil
 import com.frame.library.core.util.ToastUtil
 import com.frame.library.core.widget.titlebar.TitleBarView
 import com.msd.ocr.idcard.LibraryInitOCR
+import com.msd.ocr.idcard.id.ICVideoActivity
 import com.tourcool.bean.PayResult
 import com.tourcool.bean.ali.AuthResult
-import com.tourcool.bean.weather.WeatherEntity
+import com.tourcool.bean.certify.FaceCertify
 import com.tourcool.core.base.BaseResult
 import com.tourcool.core.config.RequestConfig
-import com.tourcool.core.entity.Authenticate
+import com.tourcool.core.module.WebViewActivity
 import com.tourcool.core.retrofit.repository.ApiRepository
 import com.tourcool.smartcity.R
 import com.tourcool.ui.base.BaseCommonTitleActivity
@@ -44,8 +49,13 @@ import org.json.JSONObject
  * @Email: 971613168@qq.com
  */
 class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
+    companion object {
+        const val REQUEST_CODE_SCAN_ID = 1002
+    }
+
     private var idCard = ""
     private var name = ""
+    private var phone = ""
     private val SDK_PAY_FLAG = 1
     private val SDK_AUTH_FLAG = 2
     private val RSA2_PRIVATE = "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCVZmJoLPFmTQr6b0NmhQ51fs8VqVn2vWGiRlZ7AW4c+adlaY6j8whIXvoqnwkIYdTUJjZqXJzARx5dvXpXFon+fULgP/ZvEiu3mDleJ+63820Roi/2Nf32k9FKTBS96AUD64U+rnDOESsUkBDZS0XUe0N96CE42pgp2LP2XEQ2cQjwKG4eu5qvXlqwe5Tqh+b7N4g3gZES0b3/EHhLIYCzueLoOqO1uFUJFMaLPWKcY4gHIgvlXrf3/IgB2QRWxCMh8Hnj62LXjTKY4F5k6pT0NtZb8C8GPjo2wQhjBNrjLNOpZFMp+Q+aus1Sg9/hZT+GOIDyEAupBMoRUQD7QVfvAgMBAAECggEAG9mnNJZUNebcygyduunI5TxLbFVSkP2CytZj3rBIj5w2iWAhGA0BGUSjS/iznV1naFjrQe6bxfg7/+uHd96awNcm9VjXHqN7hNEauKOnC6GUTno2iKZN/n5VwIzoPPKYpL9t6l5oZvGqXz3v9iHjFZYY4cq5DrkpLnvYKG/Qw3kLPM2rT1Zr40JrK4/9NXsZJbN/omNntfBOMjsRuBidpuOq4bPHKRsGxYZE0834ushciHROVMlDG1OEt/xfKNK1ZnR1b1HhNUqItI7m+bOAyeYdulUIJZ8ZXpXi10PXfvp9QuJWhGh7yq6A/VhOu4H7k58gHpfnvjgWCzcwwZhD2QKBgQDgqEtJK9z9PNird33nwi5GvhxNJdVSQKzzlx+usI5gS4+o+3K7uDpjB7occt2fFHao7VaiZDNx5vzIQUPB2gKL94yUuvTCF+KRcUkHP3Xo4f7a99tocLIlHb6GE8w19L0pwf6MtgoQUSm93ux6re87J0Nt1nogz0oFtM0hwFz7WwKBgQCqPj9rCoMEwl9/HJgoNoeg7zSOvgr/yGZKkqk6sPfL/fC7b7YOUXkrmO//xrgN8fk/ubN3Ok9L69rOM0O+eHE/IfgxGnowiMV44Nt5FG5FUsKfyjJv5y4vlzZ868c+d9WkzdzPDKuVK7iry6gSyoxaStONkjqcqsDb+H6tBxz9/QKBgQDdV7LlYtwWfS6UseRQxVbGyGQl9pKYubQtQ8YpXTbJ1WizexptrXOJQoGxqdKE+6p1gXGMCeFN5eFEhFj3044SzVGq8BBacyH9XnovM+0+B/wLTYzU98PtIcMnYrYeqwT88W+Uv35m2TChK9QeguRjiam7vEcTsGgj+yDokhiKZQKBgFqzN05sF0md1Qr/zQD/rFrNlo7GKU4FEpqAcLDYP+zqqiryZWhTd98GaDc5RC4J0OVmpnrLEhw82CIrpdgAizU7f+OJW7gn5i10fvmPLQC6Cv7e1uhPnoe0ZE9BvrFFXwmitBWLho6+8HB23GDGkOg6HWO7mIaHYqDPT44X0BZxAoGATLa71moAWigwpRUf3tih/Rvk2E2Nt/J4zdL/A90BDk8d4+yxPACaN97/5SEHpKi9AeKvwtsf/ZYOXwMrd/tXn/xi9RpvdaF1ZH4l8tWFPdDT5woyiGrp24xM22EDlta4UPujyADBrIKDDuoX6zsNZi7Uk7PuA2fxvf31a8xiFyM="
@@ -98,14 +108,18 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
 
 
     private fun skipIdentify() {
-        LibraryInitOCR.initOCR(this)
-        val bundle = Bundle()
-        bundle.putBoolean("saveImage", true)
-        bundle.putInt("requestCode", SelectCertifyActivity.SCAN_ID_CARD_REQUEST)
-        bundle.putBoolean("showSelect", false)
-        bundle.putInt("type", 0)
-        //0身份证, 1驾驶证
-        LibraryInitOCR.startScan(this@CertifyActivity, bundle)
+//        LibraryInitOCR.initOCR(this)
+        /*  val bundle = Bundle()
+          bundle.putBoolean("saveImage", true)
+          bundle.putInt("requestCode", SelectCertifyActivity.SCAN_ID_CARD_REQUEST)
+          bundle.putBoolean("showSelect", false)
+          bundle.putInt("type", 0)
+          //0身份证, 1驾驶证
+          LibraryInitOCR.startScan(this@CertifyActivity, bundle)*/
+        val intent = Intent()
+        intent.putExtra(KEY_CERTIFY_TYPE, certifyType)
+        intent.setClass(mContext, ScanIdCardActivity::class.java)
+        startActivityForResult(intent, REQUEST_CODE_SCAN_ID)
     }
 
 
@@ -136,6 +150,10 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
+            }
+            REQUEST_CODE_SCAN_ID -> {
+                val string = data?.getStringExtra("result_scan_callback")
+                ToastUtil.show(string)
             }
             else -> {
             }
@@ -218,10 +236,16 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
           startActivity(intent)*/
         when (certifyType) {
             EXTRA_CERTIFY_ALI_PAY -> {
+                //阿里授权登录认证
                 authAliLogin()
             }
             EXTRA_ID_CARD -> {
-               authIdCard()
+                //身份证认证
+                authIdCard()
+            }
+            EXTRA_CERTIFY_ALI_FACE -> {
+                //人脸识别认证
+                authFace()
             }
             else -> {
             }
@@ -341,17 +365,70 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
     }
 
 
-    private fun  authIdCard(){
-        if(idCard.isNullOrEmpty()){
+    private fun authIdCard() {
+        idCard = getTextValue(etIdCardNumber)
+        name = getTextValue(etName)
+        if (idCard.isNullOrEmpty()) {
             ToastUtil.show("请输入身份号")
             return
         }
-        if(name.isNullOrEmpty()){
+        if (name.isNullOrEmpty()) {
             ToastUtil.show("请输入用户姓名")
             return
         }
-        requestAuthenticationIdCard(idCard,name)
+        if (phone.isNullOrEmpty()) {
+            ToastUtil.show("请输入手机号码")
+            return
+        }
+        requestAuthenticationIdCard(idCard, name)
     }
+
+
+    private fun authFace() {
+        idCard = getTextValue(etIdCardNumber)
+        name = getTextValue(etName)
+        phone = getTextValue(etPhoneNumber)
+        if (idCard.isNullOrEmpty()) {
+            ToastUtil.show("请输入身份号")
+            return
+        }
+        if (name.isNullOrEmpty()) {
+            ToastUtil.show("请输入用户姓名")
+            return
+        }
+        if (phone.isNullOrEmpty()) {
+            ToastUtil.show("请输入手机号码")
+            return
+        }
+        ApiRepository.getInstance().requestAuthenticationFace(idCard, name).compose(bindUntilEvent(ActivityEvent.DESTROY)).subscribe(object : BaseLoadingObserver<BaseResult<FaceCertify>>() {
+            override fun onRequestNext(entity: BaseResult<FaceCertify>) {
+                if (entity.status == RequestConfig.CODE_REQUEST_SUCCESS) {
+                    faceCertifyCallback(entity.data)
+                } else {
+                    ToastUtil.show(entity.errorMsg)
+                }
+            }
+        })
+    }
+
+
+    private fun faceCertifyCallback(faceCertify: FaceCertify) {
+        // 封装认证数据
+        // 封装认证数据
+        val requestInfo = com.alibaba.fastjson.JSONObject()
+        requestInfo["url"] = faceCertify.authenticationUrl
+        requestInfo["certifyId"] = faceCertify.certifyId
+        // 发起认证
+        ServiceFactory.build().startService(this@CertifyActivity, requestInfo) { response ->
+            // 回调处理
+            Log.i("人脸认证回调", JSON.toJSONString(response))
+            Toast.makeText(this@CertifyActivity, "调用者获得的数据: " +
+                    JSON.toJSONString(response), Toast.LENGTH_SHORT).show()
+
+        }
+    }
+
+
 }
 
 

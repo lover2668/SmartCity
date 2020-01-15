@@ -128,7 +128,7 @@ public class WeatherActivity extends BaseTitleTransparentActivity implements Vie
         weatherAdapter.setNewData(weatherEntity.getDailyWeathers());
     }
 
-    private String transfirmDate(String date) {
+    private String transformDate(String date) {
         return  DateUtil.formatDateToMonthAndDaySlash(date);
     }
 
@@ -138,7 +138,7 @@ public class WeatherActivity extends BaseTitleTransparentActivity implements Vie
             return;
         }
         String tempRange = simpleWeather.getTemplow() +"°～"+simpleWeather.getTemphigh()+"°";
-        tvDate.setText(transfirmDate(simpleWeather.getDate()));
+        tvDate.setText(transformDate(simpleWeather.getDate()));
         tvCityName.setText(simpleWeather.getCity());
         tvTemperature.setText(simpleWeather.getTemp()+"°");
         tvTemperatureRange.setText(tempRange);

@@ -39,8 +39,12 @@ import com.frame.library.core.util.SizeUtil;
 import com.aries.ui.util.StatusBarUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.tourcool.event.account.UserInfoEvent;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.mvp.MessageListActivity;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.io.IOException;
@@ -329,5 +333,7 @@ public class MineFragment extends BaseTitleFragment implements IFrameRefreshView
     public void onRefresh(RefreshLayout refreshLayout) {
         refreshLayout.finishRefresh();
     }
+
+
 
 }

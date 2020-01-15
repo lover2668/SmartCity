@@ -1,9 +1,11 @@
 package com.tourcool.ui.certify
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
+import com.alibaba.fastjson.JSON
 import com.frame.library.core.log.TourCooLogUtil
 import com.frame.library.core.module.activity.FrameTitleActivity
 import com.frame.library.core.util.ToastUtil
@@ -63,6 +65,13 @@ class ScanIdCardActivity : FrameTitleActivity(), View.OnClickListener {
         titleBar.setTitleMainText("身份证扫描")
         titleBar.setRightText("完成").setRightTextColor(TourCooUtil.getColor(R.color.white))
         mainText.setTextColor(TourCooUtil.getColor(R.color.white))
+        titleBar.setOnRightTextClickListener {
+            if (lastResultZheng == null) {
+                ToastUtil.show("请先识别用户信息")
+                return@setOnRightTextClickListener
+            }
+            handleScanCallback(lastResultZheng)
+        }
     }
 
 
@@ -112,6 +121,7 @@ class ScanIdCardActivity : FrameTitleActivity(), View.OnClickListener {
                     return
                 } else {
                     vibrate()
+                    lastResultZheng = result
                     setTextValue(tvName, result.opt("name") as String?)
                     setTextValue(tvGender, result.opt("sex") as String?)
                     setTextValue(tvEthnic, result.opt("folk") as String?)
@@ -127,6 +137,7 @@ class ScanIdCardActivity : FrameTitleActivity(), View.OnClickListener {
                     return
                 } else {
                     vibrate()
+                    lastResultFan = result
                     setTextValue(tvAuthority, result.opt("issue") as String?)
                     setTextValue(tvValidDate, result.opt("valid") as String?)
                 }
@@ -173,4 +184,20 @@ class ScanIdCardActivity : FrameTitleActivity(), View.OnClickListener {
         }
     }
 
+
+    private fun handleScanCallback(scanResult: JSONObject?) {
+        if (getTextValue(tvName).isEmpty() || getTextValue(tvIdNumber).isEmpty()) {
+            ToastUtil.show("请扫描身份证正面信息")
+            return
+        }
+        if (getTextValue(tvAuthority).isEmpty() || getTextValue(tvValidDate).isEmpty()) {
+            ToastUtil.show("请扫描身份证反面信息")
+            return
+        }
+        val data = Intent()
+        data.putExtra("result_scan_callback", JSON.toJSONString(scanResult))
+        setResult(Activity.RESULT_OK, data)
+        LibraryInitOCR.closeDecode()
+        finish()
+    }
 }

@@ -213,6 +213,7 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
         matrixBean.setType(channel.getType());
         matrixBean.setColumnName("服务");
         matrixBean.setParentsName(channel.getName());
+        //取方形图标
         matrixBean.setMatrixIconUrl(TourCooUtil.getUrl(channel.getIcon()));
         return matrixBean;
     }

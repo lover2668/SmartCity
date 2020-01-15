@@ -1,6 +1,7 @@
 package com.tourcool.core.retrofit.service;
 
 
+import com.tourcool.bean.certify.FaceCertify;
 import com.tourcool.bean.search.SeachEntity;
 import com.tourcool.bean.weather.WeatherEntity;
 import com.tourcool.core.base.BaseResult;
@@ -243,6 +244,10 @@ public interface ApiService {
     @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
     @POST("app/user/authentication/id-card")
     Observable<BaseResult> requestAuthenticationIdCard(@Body Map<String, Object> map);
+
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @POST("app/user/authentication/face")
+    Observable<BaseResult<FaceCertify>> requestAuthenticationFace(@Body Map<String, Object> map);
 
 }
 

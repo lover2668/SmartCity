@@ -109,7 +109,7 @@ public class AccountHelper {
      * 退出登录
      */
     public void logout() {
-        setUserInfo(null);
+        userInfo = null;
         deleteUserInfoFromDisk();
         TourCooLogUtil.e(TAG, "退出登录了");
         SPUtils.getInstance().put(PREF_ACCESS_TOKEN, "");
@@ -118,21 +118,29 @@ public class AccountHelper {
 
 
     public void setUserInfo(UserInfo userInfo) {
-        this.userInfo = userInfo;
-        saveToDisk(userInfo);
+        if (userInfo == null) {
+            logout();
+        } else {
+            saveToDisk(userInfo);
+        }
     }
 
     private void saveToDisk(UserInfo userInfo) {
         if (userInfo == null) {
-            LogUtils.w("saveToDisk()保存数据库失败(userInfo == null)");
-            return;
+            setUserInfo(null);
         }
         DaoSession daoSession = GreenDaoHelper.getInstance().getDaoSession();
         UserInfoDao userInfoDao = daoSession.getUserInfoDao();
         userInfoDao.deleteAll();
-        userInfoDao.insert(userInfo);
-        int size = userInfoDao.queryBuilder().build().list().size();
-        LogUtils.i("保存数据库是否成功 = " + size);
+        if (userInfo != null) {
+            userInfoDao.insert(userInfo);
+            int size = userInfoDao.queryBuilder().build().list().size();
+            LogUtils.i("用户信息已保存到本地 = " + size);
+        } else {
+            LogUtils.w("用户信息已被清空 ");
+        }
+
+
     }
 
 

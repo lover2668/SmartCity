@@ -64,3 +64,87 @@
  # 这句话能够使我们的项目混淆后产生映射文件
  # 包含有类名->混淆后类名的映射关系
 -verbose
+
+-keepclassmembers class ** {
+     @com.squareup.otto.Subscribe public *;
+     @com.squareup.otto.Produce public *;
+}
+
+#-----------------------------------------------分割线----------------------------------------------------
+  # 支付宝人脸识别混淆
+-keep public class com.alipay.mobile.security.zim.api.**{
+    public <fields>;
+    public <methods>;
+}
+
+-keep class com.alipay.mobile.security.zim.biz.ZIMFacadeBuilder {
+  !private <fields>;
+   !private <methods>;
+}
+
+-keep class com.alipay.android.phone.mobilecommon.logger.AlipayMonitorLogService {
+    !private <fields>;
+    !private <methods>;
+}
+
+-keep class com.alipay.android.phone.mobilecommon.rpc.AlipayRpcService {
+    !private <fields>;
+    !private <methods>;
+}
+
+-keep class com.alipay.android.phone.mobilecommon.apsecurity.AlipayApSecurityService {
+    !private <fields>;
+    !private <methods>;
+}
+
+-keep class com.alipay.zoloz.toyger.bean.ToygerMetaInfo {
+    !private <fields>;
+    !private <methods>;
+}
+
+-keep class com.alipay.zoloz.toyger.algorithm.** { *; }
+
+-keep class com.alipay.zoloz.toyger.blob.** {
+    !private <fields>;
+    !private <methods>;
+}
+
+-keep class com.alipay.zoloz.toyger.face.** {
+    !private <fields>;
+    !private <methods>;
+}
+
+-keep class com.alipay.zoloz.hardware.camera.impl.** {
+    !private <fields>;
+    !private <methods>;
+}
+
+
+-keep public class com.alipay.mobile.security.zim.plugin.**{
+    public <fields>;
+    public <methods>;
+}
+
+-keep class * extends com.alipay.mobile.security.zim.gw.BaseGwService{
+    !private <fields>;
+    !private <methods>;
+}
+
+-keep class * extends com.alipay.mobile.security.bio.service.BioMetaInfo{
+    !private <fields>;
+    !private <methods>;
+}
+
+-keep class com.alipay.zoloz.toyger.workspace.FaceRemoteConfig{
+    *;
+}
+
+-keep public class com.alipay.zoloz.toyger.**{
+    *;
+}
+
+-keep public class com.alipay.mobile.security.zim.gw.**{
+    *;
+}
+
+#----------------------------------------分割线----------------------------------------------------

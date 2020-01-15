@@ -105,7 +105,7 @@ class SelectCertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
                 skipCertify(EXTRA_ID_CARD)
             }
             R.id.llCertifyAliFace -> {
-                //支付宝人脸认证
+                //支付宝人脸识别认证
                 skipCertify(EXTRA_CERTIFY_ALI_FACE)
             }
             else -> {
