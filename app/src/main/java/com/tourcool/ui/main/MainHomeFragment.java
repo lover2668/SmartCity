@@ -79,7 +79,6 @@ import cn.bingoogolapple.bgabanner.transformer.TransitionEffect;
 import static com.frame.library.core.util.StringUtil.LINE_HORIZONTAL;
 import static com.frame.library.core.util.StringUtil.SYMBOL_TEMP;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_IMAGE;
-import static com.tourcool.core.constant.RouteConstance.ACTIVITY_URL_SEARCH;
 import static com.tourcool.core.constant.RouteConstance.ACTIVITY_URL_WEATHER;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NATIVE;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NONE;
@@ -496,7 +495,6 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
             }
 
         });
-        bgaBanner.setData(channelList, null);
         bgaBanner.setDelegate((banner, itemView, model, position) -> {
             Channel selectChannel = null;
             try {
@@ -511,9 +509,11 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
                 }
             }
         });
+
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) bgaBanner.getLayoutParams();
         params.height = MyApplication.getImageHeight();
         bgaBanner.setTransitionEffect(TransitionEffect.Default);
+        bgaBanner.setData(channelList, null);
         viewList.add(linearLayout);
         llContainer.addView(linearLayout);
     }
@@ -914,4 +914,8 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
         TourCooLogUtil.i(TAG, "图片信息：高-->" + layoutParams.height);
         imageView.setLayoutParams(layoutParams);
     }
+
+
+
+
 }

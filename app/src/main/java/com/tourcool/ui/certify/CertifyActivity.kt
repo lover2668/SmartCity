@@ -1,6 +1,7 @@
 package com.tourcool.ui.certify
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -18,8 +19,6 @@ import com.frame.library.core.util.OrderInfoUtil2_0
 import com.frame.library.core.util.StringUtil
 import com.frame.library.core.util.ToastUtil
 import com.frame.library.core.widget.titlebar.TitleBarView
-import com.msd.ocr.idcard.LibraryInitOCR
-import com.msd.ocr.idcard.id.ICVideoActivity
 import com.tourcool.bean.PayResult
 import com.tourcool.bean.ali.AuthResult
 import com.tourcool.bean.certify.FaceCertify
@@ -32,11 +31,10 @@ import com.tourcool.ui.base.BaseCommonTitleActivity
 import com.tourcool.ui.certify.SelectCertifyActivity.Companion.EXTRA_CERTIFY_ALI_FACE
 import com.tourcool.ui.certify.SelectCertifyActivity.Companion.EXTRA_CERTIFY_ALI_PAY
 import com.tourcool.ui.certify.SelectCertifyActivity.Companion.EXTRA_CERTIFY_BANK_CARD
+import com.tourcool.ui.certify.SelectCertifyActivity.Companion.EXTRA_CERTIFY_ID_CARD
 import com.tourcool.ui.certify.SelectCertifyActivity.Companion.EXTRA_CERTIFY_PHONE
-import com.tourcool.ui.certify.SelectCertifyActivity.Companion.EXTRA_ID_CARD
 import com.tourcool.ui.certify.SelectCertifyActivity.Companion.EXTRA_PHONE
 import com.tourcool.ui.certify.SelectCertifyActivity.Companion.KEY_CERTIFY_TYPE
-import com.tourcool.util.VibrateUtil
 import com.trello.rxlifecycle3.android.ActivityEvent
 import kotlinx.android.synthetic.main.activity_certify_identity.*
 import org.json.JSONObject
@@ -91,6 +89,7 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
     override fun initView(savedInstanceState: Bundle?) {
         llSkipScanIdentify.setOnClickListener(this)
         tvNextStep.setOnClickListener(this)
+        tvServiceAgreement.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -100,6 +99,9 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
             }
             R.id.tvNextStep -> {
                 doNext()
+            }
+            R.id.tvServiceAgreement -> {
+                skipServiceAgreement()
             }
             else -> {
             }
@@ -128,53 +130,47 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
         TourCooLogUtil.i(mTag, "requestCode=" + requestCode + "resultCode = " + resultCode)
         when (resultCode) {
             -1 -> {
-                val result = data!!.getStringExtra("OCRResult")
-                try {
-                    val jo = JSONObject(result)
-                    val sb = StringBuffer()
-                    sb.append(String.format("正面 = %s\n", jo.opt("type")))
-                    sb.append(String.format("姓名 = %s\n", jo.opt("name")))
-                    sb.append(String.format("性别 = %s\n", jo.opt("sex")))
-                    sb.append(String.format("民族 = %s\n", jo.opt("folk")))
-                    sb.append(String.format("日期 = %s\n", jo.opt("birt")))
-                    sb.append(String.format("号码 = %s\n", jo.opt("num")))
-                    sb.append(String.format("住址 = %s\n", jo.opt("addr")))
-                    sb.append(String.format("签发机关 = %s\n", jo.opt("issue")))
-                    sb.append(String.format("有效期限 = %s\n", jo.opt("valid")))
-                    sb.append(String.format("整体照片 = %s\n", jo.opt("imgPath")))
-                    sb.append(String.format("头像路径 = %s\n", jo.opt("headPath")))
-                    TourCooLogUtil.d(mTag, jo)
-                    TourCooLogUtil.i(mTag, sb.toString())
-                    showScanCallbackSuccess(jo)
-                    vibrate()
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-            REQUEST_CODE_SCAN_ID -> {
+                /* val result = data!!.getStringExtra("OCRResult")
+                 try {
+                     val jo = JSONObject(result)
+                     val sb = StringBuffer()
+                     sb.append(String.format("正面 = %s\n", jo.opt("type")))
+                     sb.append(String.format("姓名 = %s\n", jo.opt("name")))
+                     sb.append(String.format("性别 = %s\n", jo.opt("sex")))
+                     sb.append(String.format("民族 = %s\n", jo.opt("folk")))
+                     sb.append(String.format("日期 = %s\n", jo.opt("birt")))
+                     sb.append(String.format("号码 = %s\n", jo.opt("num")))
+                     sb.append(String.format("住址 = %s\n", jo.opt("addr")))
+                     sb.append(String.format("签发机关 = %s\n", jo.opt("issue")))
+                     sb.append(String.format("有效期限 = %s\n", jo.opt("valid")))
+                     sb.append(String.format("整体照片 = %s\n", jo.opt("imgPath")))
+                     sb.append(String.format("头像路径 = %s\n", jo.opt("headPath")))
+                     TourCooLogUtil.d(mTag, jo)
+                     TourCooLogUtil.i(mTag, sb.toString())
+                     showScanCallbackSuccess(jo)
+                     vibrate()
+                 } catch (e: Exception) {
+                     e.printStackTrace()
+                 }*/
                 val string = data?.getStringExtra("result_scan_callback")
-                ToastUtil.show(string)
+                showScanCallbackSuccess(string)
             }
+
             else -> {
             }
         }
     }
 
 
-    private fun showScanCallbackSuccess(result: JSONObject) {
+    private fun showScanCallbackSuccess(resultJson: String?) {
         try {
+            val result = JSONObject(resultJson)
             setTextValue(etName, result.opt("name") as String?)
             setTextValue(etIdCardNumber, result.opt("num") as String?)
         } catch (e: Exception) {
             e.printStackTrace()
             TourCooLogUtil.e(mTag, "showScanCallbackSuccess()异常--->" + e.message)
         }
-    }
-
-    private fun vibrate() {
-        // 开启震动
-        isVibrate = true
-        VibrateUtil.vibrate(mContext, 200L)
     }
 
 
@@ -208,19 +204,28 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
             EXTRA_CERTIFY_ALI_PAY -> {
                 mTitleBar!!.setTitleMainText("支付宝实名认证")
                 tvProgressOne.text = "身份认证"
+                setTextValue(tvNextStep, "认证")
             }
             EXTRA_CERTIFY_PHONE -> {
                 mTitleBar!!.setTitleMainText("手机实名认证")
                 tvProgressOne.text = "身份认证"
+                setTextValue(tvNextStep, "认证")
 
             }
             EXTRA_CERTIFY_BANK_CARD -> {
                 mTitleBar!!.setTitleMainText("银联卡认证")
                 tvProgressOne.text = "身份认证"
+                setTextValue(tvNextStep, "认证")
             }
             EXTRA_CERTIFY_ALI_FACE -> {
                 mTitleBar!!.setTitleMainText("人脸识别认证")
                 tvProgressOne.text = "身份认证"
+                setTextValue(tvNextStep, "下一步")
+            }
+            EXTRA_CERTIFY_ID_CARD->{
+                mTitleBar!!.setTitleMainText("身份证认证")
+                tvProgressOne.text = "身份认证"
+                setTextValue(tvNextStep, "认证")
             }
             else -> {
             }
@@ -239,7 +244,7 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
                 //阿里授权登录认证
                 authAliLogin()
             }
-            EXTRA_ID_CARD -> {
+            EXTRA_CERTIFY_ID_CARD -> {
                 //身份证认证
                 authIdCard()
             }
@@ -296,20 +301,31 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
         ApiRepository.getInstance().requestAliAuthentication().compose(bindUntilEvent(ActivityEvent.DESTROY)).subscribe(object : BaseLoadingObserver<BaseResult<*>>() {
             override fun onRequestNext(entity: BaseResult<*>) {
                 if (entity.status == RequestConfig.CODE_REQUEST_SUCCESS) {
-                    skipMessageCertify()
+//                    skipMessageCertify()
+                    ToastUtil.show("认证成功")
+                    setResult(Activity.RESULT_OK)
+                    finish()
                 } else {
-                    ToastUtil.show(entity.errorMsg)
+                  ToastUtil.show(entity.errorMsg)
                 }
 
             }
         })
     }
 
+
+    /**
+     * 身份证认证
+     */
     private fun requestAuthenticationIdCard(idCard: String, name: String) {
         ApiRepository.getInstance().requestAuthenticationIdCard(idCard, name).compose(bindUntilEvent(ActivityEvent.DESTROY)).subscribe(object : BaseLoadingObserver<BaseResult<*>>() {
             override fun onRequestNext(entity: BaseResult<*>) {
+                TourCooLogUtil.i(mTag, entity)
                 if (entity.status == RequestConfig.CODE_REQUEST_SUCCESS) {
-                    skipMessageCertify()
+//                    skipMessageCertify()
+                    ToastUtil.show("认证成功")
+                    setResult(Activity.RESULT_OK)
+                    finish()
                 } else {
                     ToastUtil.show(entity.errorMsg)
                 }
@@ -368,6 +384,7 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
     private fun authIdCard() {
         idCard = getTextValue(etIdCardNumber)
         name = getTextValue(etName)
+        phone = getTextValue(etPhoneNumber)
         if (idCard.isNullOrEmpty()) {
             ToastUtil.show("请输入身份号")
             return
@@ -405,7 +422,11 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
                 if (entity.status == RequestConfig.CODE_REQUEST_SUCCESS) {
                     faceCertifyCallback(entity.data)
                 } else {
-                    ToastUtil.show(entity.errorMsg)
+                    if(StringUtil.getNotNullValue(entity.errorMsg).contains("人脸识别认证服务调用失败")){
+                        ToastUtil.show("未匹配到身份信息")
+                    }else{
+                        ToastUtil.show(entity.errorMsg)
+                    }
                 }
             }
         })
@@ -422,13 +443,26 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
         ServiceFactory.build().startService(this@CertifyActivity, requestInfo) { response ->
             // 回调处理
             Log.i("人脸认证回调", JSON.toJSONString(response))
-            Toast.makeText(this@CertifyActivity, "调用者获得的数据: " +
-                    JSON.toJSONString(response), Toast.LENGTH_SHORT).show()
+            when (response["resultStatus"]) {
+                "6001" -> {
+                    ToastUtil.show("人脸与信息不匹配")
+                }
+                "9000" -> {
+                    ToastUtil.show("人脸识别认证成功")
+                    setResult(Activity.RESULT_OK)
+                    finish()
+                }
+                else -> {
+                    ToastUtil.show("人脸识别失败")
+                }
+            }
 
         }
     }
 
-
+    private fun skipServiceAgreement() {
+        WebViewActivity.start(mContext, "http://www.baidu.com")
+    }
 }
 
 

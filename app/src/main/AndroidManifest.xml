@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.tourcool.smartcity">
 
     <!--<uses-feature android:name="android.hardware.screen.portrait"/>-->
@@ -129,7 +130,16 @@
         <activity android:name="com.tourcool.ui.certify.CertifyMessageActivity" />
         <activity android:name="com.tourcool.ui.certify.CertifySettingPassActivity" />
         <activity android:name="com.tourcool.ui.certify.ScanIdCardActivity" />
-
+        <!-- 为了使用 "通用跳转 SDK" 的能力，需要在你的 App 的 AndroidManifest.xml 中添加这一项 -->
+        <!-- 并合理设置 android:scheme 的值 -->
+        <activity android:name="com.alipay.sdk.app.AlipayResultActivity" tools:node="merge">
+            <intent-filter tools:node="replace">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="smart_city_yi_xing_ali_paysdk"/>
+            </intent-filter>
+        </activity>
         <meta-data
             android:name="BUGLY_APPID"
             android:value="${bugly_id}" />

@@ -91,9 +91,13 @@ public class SystemSettingActivity extends BaseMvpTitleActivity implements View.
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.llBindPhone:
-                Intent intent = new Intent();
-                intent.setClass(mContext, BindPhoneActivity.class);
-                startActivityForResult(intent, REQUEST_CODE_BIND_PHONE);
+                if(AccountHelper.getInstance().isLogin()){
+                    Intent intent = new Intent();
+                    intent.setClass(mContext, BindPhoneActivity.class);
+                    startActivityForResult(intent, REQUEST_CODE_BIND_PHONE);
+                }else {
+                    skipLogin();
+                }
                 break;
             case R.id.llClearCache:
                 if (getCacheSize().equalsIgnoreCase(EMPTY_CACHE)) {
@@ -149,7 +153,7 @@ public class SystemSettingActivity extends BaseMvpTitleActivity implements View.
                         }
                         if (entity.status == CODE_REQUEST_SUCCESS) {
                             AccountHelper.getInstance().logout();
-                            notitfyRefreshUserInfo();
+                            notifyRefreshUserInfo();
                             finish();
                         } else {
                             ToastUtil.showFailed(entity.errorMsg);
@@ -160,11 +164,14 @@ public class SystemSettingActivity extends BaseMvpTitleActivity implements View.
 
 
     private void skipLogin() {
-        ARouter.getInstance().build(RouteConstance.ACTIVITY_URL_LOGIN).navigation();
+//        ARouter.getInstance().build(RouteConstance.ACTIVITY_URL_LOGIN).navigation();
+        Intent intent = new Intent();
+        intent.setClass(mContext, LoginActivity.class);
+        startActivity(intent);
     }
 
 
-    private void notitfyRefreshUserInfo() {
+    private void notifyRefreshUserInfo() {
         UserInfoEvent userInfoEvent = new UserInfoEvent();
         EventBus.getDefault().post(userInfoEvent);
     }

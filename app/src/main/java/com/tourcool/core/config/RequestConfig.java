@@ -17,7 +17,7 @@ public class RequestConfig {
      * 测试环境
      */
 
-//    public static final String BASE_URL_NO_LINE = "http://192.168.1.217:8080";
+//    public static final String BASE_URL_NO_LINE = "http://192.168.1.217:8000";
 
     /**
      * 正式环境

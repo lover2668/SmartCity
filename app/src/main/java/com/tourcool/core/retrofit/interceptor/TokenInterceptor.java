@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.fastjson.JSON;
 import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.util.FrameUtil;
+import com.frame.library.core.util.StackUtil;
+import com.frame.library.core.util.ToastUtil;
 import com.tourcool.bean.account.AccountHelper;
 import com.tourcool.bean.account.TokenInfo;
 import com.tourcool.core.MyApplication;
@@ -79,6 +82,10 @@ public class TokenInterceptor implements Interceptor {
                     if (skipLoginEnable) {
                         skipLogin();
                     }
+                    if(!TextUtils.isEmpty(AccountHelper.getInstance().getAccessToken())){
+                        ToastUtil.show("登录已失效,请重新登录");
+                    }
+                    AccountHelper.getInstance().logout();
                     EventBus.getDefault().post(new UserInfoEvent());
                     return chain.proceed(tokenRequest);
                 } else {
@@ -102,9 +109,12 @@ public class TokenInterceptor implements Interceptor {
 
     private void skipLogin() {
         AccountHelper.getInstance().logout();
+        Activity currentAct = StackUtil.getInstance().getCurrent();
+        if (currentAct != null) {
+            currentAct.finish();
+        }
         FrameUtil.startActivity(MyApplication.getContext(), LoginActivity.class);
     }
-
 
 
     private TokenInfo getNewToken() {
@@ -116,15 +126,15 @@ public class TokenInterceptor implements Interceptor {
                 .build();
         //创建网络请求接口实例
         TokenService apiService = retrofit.create(TokenService.class);
-          TourCooLogUtil.i(TAG,"获取新token传入的参数:"+AccountHelper.getInstance().getRefreshToken());
+        TourCooLogUtil.i(TAG, "获取新token传入的参数:" + AccountHelper.getInstance().getRefreshToken());
         Call<BaseResult> call = apiService.getNewToken(AccountHelper.getInstance().getRefreshToken());
         try {
             BaseResult baseResult = call.execute().body();
             if (baseResult != null && baseResult.status == RequestConfig.CODE_REQUEST_SUCCESS) {
                 return parseJavaBean(baseResult.data, TokenInfo.class);
-            }else {
-                  TourCooLogUtil.e(TAG,"refreshToken都已经失效了 只能重新登录了");
-                TourCooLogUtil.e(TAG,baseResult);
+            } else {
+                TourCooLogUtil.e(TAG, "refreshToken都已经失效了 只能重新登录了");
+                TourCooLogUtil.e(TAG, baseResult);
             }
         } catch (Exception ex) {
             TourCooLogUtil.e(TAG, "getNewToken()报错-->" + ex.getMessage());

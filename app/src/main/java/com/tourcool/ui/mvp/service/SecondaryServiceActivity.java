@@ -71,7 +71,7 @@ public class SecondaryServiceActivity extends BaseCommonTitleActivity {
         MatrixAdapter adapter = new MatrixAdapter();
         //二级布局为网格布局
         RecyclerView rvCommon = findViewById(R.id.rvCommon);
-        rvCommon.setLayoutManager(new GridLayoutManager(mContext, 5));
+        rvCommon.setLayoutManager(new GridLayoutManager(mContext, 4));
         adapter.bindToRecyclerView(rvCommon);
         List<MatrixBean> matrixBeanList = new ArrayList<>();
         for (Channel channel : mChannelList) {
@@ -92,12 +92,11 @@ public class SecondaryServiceActivity extends BaseCommonTitleActivity {
             return null;
         }
         MatrixBean matrixBean = new MatrixBean();
-        matrixBean.setMatrixIconUrl(TourCooUtil.getUrl(channel.getIcon()));
+        matrixBean.setMatrixIconUrl(TourCooUtil.getUrl(channel.getCircleIcon()));
         matrixBean.setLink(channel.getLink());
         matrixBean.setMatrixName(channel.getName());
         matrixBean.setMatrixTitle(channel.getTitle());
         matrixBean.setJumpWay(channel.getJumpWay());
-
         return matrixBean;
     }
 

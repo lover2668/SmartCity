@@ -1,5 +1,8 @@
 package com.tourcool.bean;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.tourcool.adapter.MineMenuAdapter;
+
 /**
  * @author :JenkinsZhou
  * @description :矩阵实体
@@ -7,9 +10,23 @@ package com.tourcool.bean;
  * @date 2019年08月19日23:03
  * @Email: 971613168@qq.com
  */
-public class MatrixBean {
+public class MatrixBean implements MultiItemEntity {
     private String matrixIconUrl;
     private String matrixName;
+    private int matrixIconResourcesId;
+    private int itemType = MineMenuAdapter.TYPE_ITEM;
+
+    public int getMatrixIconResourcesId() {
+        return matrixIconResourcesId;
+    }
+
+    public void setMatrixIconResourcesId(int matrixIconResourcesId) {
+        this.matrixIconResourcesId = matrixIconResourcesId;
+    }
+
+    public void setItemType(int itemType) {
+        this.itemType = itemType;
+    }
 
     public String getMatrixTitle() {
         return matrixTitle;
@@ -73,6 +90,12 @@ public class MatrixBean {
         this.matrixName = matrixName;
     }
 
+    public MatrixBean(String matrixIconUrl, String matrixName, int itemType) {
+        this.matrixIconUrl = matrixIconUrl;
+        this.matrixName = matrixName;
+        this.itemType = itemType;
+    }
+
     public String getLink() {
         return link;
     }
@@ -106,5 +129,10 @@ public class MatrixBean {
 
     public void setMatrixName(String matrixName) {
         this.matrixName = matrixName;
+    }
+
+    @Override
+    public int getItemType() {
+        return itemType;
     }
 }

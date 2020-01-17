@@ -194,9 +194,7 @@ dependencies {
     implementation 'org.greenrobot:greendao:3.2.2'
 
     // 支付宝 SDK AAR 包所需的配置
-    implementation (name: 'alipaySdk-15.6.8-20191021122514', ext: 'aar')
-
-
+    implementation (name: 'alipaySdk-15.6.4-20190624155522', ext: 'aar')
     implementation (name:'verifysdk-1.0.0.190522154510', ext:'aar')
     implementation (name:'releaseLoging-4.0.0.00000003', ext:'aar')
     implementation (name:'bio-7.1.0.00000001', ext:'aar')

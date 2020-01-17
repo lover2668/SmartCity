@@ -241,10 +241,20 @@ public interface ApiService {
     Observable<BaseResult> requestAliAuthentication();
 
 
+    /**
+     * 身份证认证
+     * @param map
+     * @return
+     */
     @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
     @POST("app/user/authentication/id-card")
     Observable<BaseResult> requestAuthenticationIdCard(@Body Map<String, Object> map);
 
+    /**
+     * 人脸识别认证
+     * @param map
+     * @return
+     */
     @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
     @POST("app/user/authentication/face")
     Observable<BaseResult<FaceCertify>> requestAuthenticationFace(@Body Map<String, Object> map);

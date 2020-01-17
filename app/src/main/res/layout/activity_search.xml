@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/dp_10"
-            android:hint="搜索服务或文章"
+            android:hint="搜索服务"
             android:background="@null"
             android:singleLine="true"
             android:paddingTop="@dimen/dp_3"

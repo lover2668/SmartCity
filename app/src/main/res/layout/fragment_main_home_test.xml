@@ -42,7 +42,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_toEndOf="@id/ivSearch"
-                android:text="搜索服务或文章"
+                android:text="搜索服务"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/sp_14" />
         </RelativeLayout>

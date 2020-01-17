@@ -255,7 +255,7 @@ public class PersonalDataActivity extends BaseMvpTitleActivity implements View.O
                         }
                         if (entity.status == CODE_REQUEST_SUCCESS) {
                             ToastUtil.showSuccess("修改成功");
-                            notitfyRefreshUserInfo();
+                            notifyRefreshUserInfo();
                             finish();
                         } else {
                             ToastUtil.showFailed(entity.errorMsg);
@@ -417,7 +417,7 @@ public class PersonalDataActivity extends BaseMvpTitleActivity implements View.O
     }
 
 
-    private void notitfyRefreshUserInfo() {
+    private void notifyRefreshUserInfo() {
         EventBus.getDefault().post(new UserInfoEvent());
     }
 }

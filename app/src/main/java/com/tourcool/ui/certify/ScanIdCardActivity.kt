@@ -36,7 +36,7 @@ class ScanIdCardActivity : FrameTitleActivity(), View.OnClickListener {
     /**
      * 上一次正面的扫描结果
      */
-    private var lastResultZheng: JSONObject? = null
+    private var lastResultZheng: String? = null
 
     /**
      * 上一次反面的扫描结果
@@ -60,14 +60,23 @@ class ScanIdCardActivity : FrameTitleActivity(), View.OnClickListener {
     private fun initTitleBar(titleBar: TitleBarView) {
         titleBar.setBackgroundColor(TourCooUtil.getColor(R.color.transparent))
         setMarginTop(titleBar)
+        titleBar.setLeftTextDrawable(R.drawable.ic_back_white)
         val mainText = titleBar.mainTitleTextView
         mainText.text = ""
         titleBar.setTitleMainText("身份证扫描")
         titleBar.setRightText("完成").setRightTextColor(TourCooUtil.getColor(R.color.white))
         mainText.setTextColor(TourCooUtil.getColor(R.color.white))
         titleBar.setOnRightTextClickListener {
-            if (lastResultZheng == null) {
-                ToastUtil.show("请先识别用户信息")
+            /*  if (lastResultZheng == null) {
+                  ToastUtil.show("请先识别用户信息")
+                  return@setOnRightTextClickListener
+              }*/
+            if (getTextValue(tvName).isEmpty() || getTextValue(tvIdNumber).isEmpty()) {
+                ToastUtil.show("请扫描身份证正面信息")
+                return@setOnRightTextClickListener
+            }
+            if (getTextValue(tvAuthority).isEmpty() || getTextValue(tvValidDate).isEmpty()) {
+                ToastUtil.show("请扫描身份证反面信息")
                 return@setOnRightTextClickListener
             }
             handleScanCallback(lastResultZheng)
@@ -121,7 +130,7 @@ class ScanIdCardActivity : FrameTitleActivity(), View.OnClickListener {
                     return
                 } else {
                     vibrate()
-                    lastResultZheng = result
+                    lastResultZheng = result.toString()
                     setTextValue(tvName, result.opt("name") as String?)
                     setTextValue(tvGender, result.opt("sex") as String?)
                     setTextValue(tvEthnic, result.opt("folk") as String?)
@@ -185,19 +194,16 @@ class ScanIdCardActivity : FrameTitleActivity(), View.OnClickListener {
     }
 
 
-    private fun handleScanCallback(scanResult: JSONObject?) {
-        if (getTextValue(tvName).isEmpty() || getTextValue(tvIdNumber).isEmpty()) {
-            ToastUtil.show("请扫描身份证正面信息")
-            return
-        }
-        if (getTextValue(tvAuthority).isEmpty() || getTextValue(tvValidDate).isEmpty()) {
-            ToastUtil.show("请扫描身份证反面信息")
+    private fun handleScanCallback(scanResult: String?) {
+        LibraryInitOCR.closeDecode()
+        if (scanResult.isNullOrEmpty()) {
+            ToastUtil.show("未扫描到有效信息")
             return
         }
         val data = Intent()
-        data.putExtra("result_scan_callback", JSON.toJSONString(scanResult))
+        TourCooLogUtil.i("回调结果", scanResult)
+        data.putExtra("result_scan_callback", scanResult)
         setResult(Activity.RESULT_OK, data)
-        LibraryInitOCR.closeDecode()
         finish()
     }
 }

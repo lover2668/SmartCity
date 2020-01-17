@@ -1,5 +1,6 @@
 package com.tourcool.ui.mvp.account;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -215,5 +216,12 @@ public class SettingPassActivity extends BaseMvpTitleActivity implements View.On
                 setViewGone(imageView, s.length() != 0);
             }
         });
+    }
+
+
+    private void skipLogin() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, LoginActivity.class);
+        startActivity(intent);
     }
 }

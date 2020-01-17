@@ -50,8 +50,10 @@ public class AccountHelper {
         if (userInfo != null) {
             return userInfo;
         } else {
+            //从本地获取用户信息
             userInfo = getUserInfoFromDisk();
-            setUserInfo(userInfo);
+            boolean isNull = userInfo != null;
+            LogUtils.d("用户信息改为从缓存获取 本地是否有数据 ？" + isNull);
             return userInfo;
         }
     }
@@ -78,7 +80,6 @@ public class AccountHelper {
             userInfo.save();
         }*/
         setUserInfo(userInfo);
-        saveToDisk(userInfo);
     }
 
     public String getAccessToken() {
@@ -121,6 +122,7 @@ public class AccountHelper {
         if (userInfo == null) {
             logout();
         } else {
+            this.userInfo = userInfo;
             saveToDisk(userInfo);
         }
     }

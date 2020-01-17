@@ -21,5 +21,5 @@ public class WeatherConstant {
 
     public static final String WEATHER_SMALL_SNOW = "小雪";
 
-
+    public static final String WEATHER_RAIN_MIDDLE = "中雨";
 }

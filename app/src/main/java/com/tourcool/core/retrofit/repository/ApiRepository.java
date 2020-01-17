@@ -280,6 +280,7 @@ public class ApiRepository extends AbstractRepository {
         Map<String, Object> params = new HashMap<>(2);
         params.put("idCard", idCard);
         params.put("name", name);
+        TourCooLogUtil.i("提交到后台的参数", params);
         return FrameTransformer.switchSchedulers(getApiService().requestAuthenticationIdCard(params).retryWhen(new RetryWhen()));
     }
 

@@ -22,6 +22,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alipay.sdk.app.OpenAuthTask;
 import com.aries.ui.util.StatusBarUtil;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.load.DataSource;
@@ -69,7 +70,9 @@ import com.trello.rxlifecycle3.android.FragmentEvent;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.bingoogolapple.bgabanner.BGABanner;
 import cn.bingoogolapple.bgabanner.transformer.TransitionEffect;
@@ -425,7 +428,7 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
             }
 
         });
-        bgaBanner.setData(channelList, null);
+        bgaBanner.setData(channelList, getTips(channelList));
         bgaBanner.setDelegate((banner, itemView, model, position) -> {
             Channel selectChannel = null;
             try {
@@ -679,7 +682,8 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
                     intent.putExtra("columnName", matrixBean.getColumnName());
                     intent.putExtra("groupName", matrixBean.getParentsName());
                     intent.putExtra("channelList", (Serializable) channelList);
-                    TourCooLogUtil.i(TAG, "channelList=" + channelList.size());
+                    TourCooLogUtil.i(TAG, "channelList=" + matrixBean.getColumnName());
+                    TourCooLogUtil.i(TAG, "channelList=" +matrixBean.getParentsName());
 //                intent.putExtra("secondService", item.getChildren());
                     startActivity(intent);
                     break;
@@ -932,4 +936,17 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
         intent.setClass(mContext, WeatherActivity.class);
         startActivity(intent);
     }
+
+
+    private List<String> getTips(List<Channel> channelList) {
+        List<String> listTips = new ArrayList<>();
+        int size = channelList == null ? 0 : channelList.size();
+        for (int i = 0; i < size; i++) {
+            listTips.add(StringUtil.getNotNullValue(channelList.get(i).getTitle()));
+        }
+        return listTips;
+    }
+
+
+
 }

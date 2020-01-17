@@ -108,7 +108,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="right"
-                            android:text="  " />
+                            />
                     </LinearLayout>
                     <!--性别-->
                     <LinearLayout
@@ -132,7 +132,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="right"
-                            android:text="  " />
+                             />
                     </LinearLayout>
 
                     <!--民族-->
@@ -157,7 +157,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="right"
-                            android:text="  " />
+                           />
                     </LinearLayout>
 
                     <!--出生-->
@@ -182,7 +182,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="right"
-                            android:text="  " />
+                           />
                     </LinearLayout>
 
                     <!--住址-->
@@ -207,7 +207,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="right"
-                            android:text="  " />
+                            />
                     </LinearLayout>
 
                     <!--公民身份证号码-->
@@ -233,7 +233,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="right"
-                            android:text="  " />
+                            />
                     </LinearLayout>
 
 
@@ -276,7 +276,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="right"
-                            android:text="  " />
+                           />
                     </LinearLayout>
 
                     <!--有效日期-->
@@ -302,7 +302,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="right"
-                            android:text="  " />
+                           />
                     </LinearLayout>
 
 

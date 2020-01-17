@@ -327,7 +327,7 @@ public class ServiceActivity extends BaseMvpTitleActivity {
         elemeGroupedItemList.add(header);
         List<ChildNode> childNodeList = screenPart.getChildren();
         for (ChildNode childNode : childNodeList) {
-            if (childNode == null || childNode.getDetail() == null || childNode.getType() == null) {
+            if (childNode == null || childNode.getDetail() == null || childNode.getType() == null|| !childNode.isVisible() ) {
                 continue;
             }
             ElemeGroupedItem item = null;
