@@ -20,6 +20,7 @@ import com.frame.library.core.util.StringUtil
 import com.frame.library.core.util.ToastUtil
 import com.frame.library.core.widget.titlebar.TitleBarView
 import com.tourcool.bean.PayResult
+import com.tourcool.bean.account.AccountHelper
 import com.tourcool.bean.ali.AuthResult
 import com.tourcool.bean.certify.FaceCertify
 import com.tourcool.core.base.BaseResult
@@ -90,6 +91,12 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
         llSkipScanIdentify.setOnClickListener(this)
         tvNextStep.setOnClickListener(this)
         tvServiceAgreement.setOnClickListener(this)
+        if (!AccountHelper.getInstance().isLogin) {
+            ToastUtil.show("请先登录")
+            finish()
+            return
+        }
+        setTextValue(tvPhoneNumber, StringUtil.getNotNullValue(AccountHelper.getInstance().userInfo.phoneNumber))
     }
 
     override fun onClick(v: View?) {
@@ -187,11 +194,11 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
             ToastUtil.show("请输入身份证号")
             return
         }
-        if (TextUtils.isEmpty(getTextValue(etPhoneNumber))) {
+        if (TextUtils.isEmpty(getTextValue(tvPhoneNumber))) {
             ToastUtil.show("请输入手机号")
             return
         }
-        if (!StringUtil.isPhoneNumber(getTextValue(etPhoneNumber))) {
+        if (!StringUtil.isPhoneNumber(getTextValue(tvPhoneNumber))) {
             ToastUtil.show("请输入正确的手机号")
             return
         }
@@ -222,7 +229,7 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
                 tvProgressOne.text = "身份认证"
                 setTextValue(tvNextStep, "下一步")
             }
-            EXTRA_CERTIFY_ID_CARD->{
+            EXTRA_CERTIFY_ID_CARD -> {
                 mTitleBar!!.setTitleMainText("身份证认证")
                 tvProgressOne.text = "身份认证"
                 setTextValue(tvNextStep, "认证")
@@ -306,7 +313,7 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
                     setResult(Activity.RESULT_OK)
                     finish()
                 } else {
-                  ToastUtil.show(entity.errorMsg)
+                    ToastUtil.show(entity.errorMsg)
                 }
 
             }
@@ -375,7 +382,7 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
     private fun skipMessageCertify() {
         val intent = Intent()
         intent.putExtra(KEY_CERTIFY_TYPE, certifyType)
-        intent.putExtra(EXTRA_PHONE, getTextValue(etPhoneNumber))
+        intent.putExtra(EXTRA_PHONE, getTextValue(tvPhoneNumber))
         intent.setClass(mContext, CertifyMessageActivity::class.java)
         startActivity(intent)
     }
@@ -384,7 +391,7 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
     private fun authIdCard() {
         idCard = getTextValue(etIdCardNumber)
         name = getTextValue(etName)
-        phone = getTextValue(etPhoneNumber)
+        phone = getTextValue(tvPhoneNumber)
         if (idCard.isNullOrEmpty()) {
             ToastUtil.show("请输入身份号")
             return
@@ -404,7 +411,7 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
     private fun authFace() {
         idCard = getTextValue(etIdCardNumber)
         name = getTextValue(etName)
-        phone = getTextValue(etPhoneNumber)
+        phone = getTextValue(tvPhoneNumber)
         if (idCard.isNullOrEmpty()) {
             ToastUtil.show("请输入身份号")
             return
@@ -422,9 +429,9 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
                 if (entity.status == RequestConfig.CODE_REQUEST_SUCCESS) {
                     faceCertifyCallback(entity.data)
                 } else {
-                    if(StringUtil.getNotNullValue(entity.errorMsg).contains("人脸识别认证服务调用失败")){
+                    if (StringUtil.getNotNullValue(entity.errorMsg).contains("人脸识别认证服务调用失败")) {
                         ToastUtil.show("未匹配到身份信息")
-                    }else{
+                    } else {
                         ToastUtil.show(entity.errorMsg)
                     }
                 }

@@ -39,11 +39,11 @@ public class WebAppActivity extends WebViewActivity {
                 .setVisibility(View.VISIBLE);
     }
 
-    @Override
+ /*   @Override
     public void setRefreshLayout(SmartRefreshLayout refreshLayout) {
         super.setRefreshLayout(refreshLayout);
         refreshLayout.setRefreshHeader(new MaterialHeader(mContext).setColorSchemeColors(Color.MAGENTA, Color.BLUE))
                 .setPrimaryColorsId(R.color.colorTextBlack)
                 .setEnableHeaderTranslationContent(false);
-    }
+    }*/
 }

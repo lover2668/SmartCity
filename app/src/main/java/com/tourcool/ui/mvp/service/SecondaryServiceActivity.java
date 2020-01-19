@@ -45,7 +45,7 @@ public class SecondaryServiceActivity extends BaseCommonTitleActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        tvGroupName = findViewById(R.id.tvGroupName);
+        tvGroupName = findViewById(R.id.tvHeaderTitle);
     }
 
     @Override

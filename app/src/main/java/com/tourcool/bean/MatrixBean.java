@@ -14,6 +14,9 @@ public class MatrixBean implements MultiItemEntity {
     private String matrixIconUrl;
     private String matrixName;
     private int matrixIconResourcesId;
+
+
+
     private int itemType = MineMenuAdapter.TYPE_ITEM;
 
     public int getMatrixIconResourcesId() {

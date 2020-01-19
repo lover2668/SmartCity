@@ -67,8 +67,8 @@ import java.io.File;
  * 1、2018-7-30 11:04:22 新增图片下载功能
  * 2、2019-4-18 09:34:51 增加BasisDialog 虚拟导航栏沉浸控制
  */
-public class WebViewActivity extends FrameWebActivity implements IFrameRefreshView {
-
+public class WebViewActivity extends FrameWebActivity  {
+//implements IFrameRefreshView
     private String mFilePath = FrameFileUtil.getCacheDir();
     private String mFormat = "保存图片<br><small><font color='#2394FE'>图片文件夹路径:%1s</font></small>";
     private static boolean mIsShowTitle = true;
@@ -225,7 +225,7 @@ public class WebViewActivity extends FrameWebActivity implements IFrameRefreshVi
                 });
     }
 
-    @Override
+  /*  @Override
     public void onRefresh(RefreshLayout refreshLayout) {
         mAgentWeb.getUrlLoader().reload();
     }
@@ -249,7 +249,7 @@ public class WebViewActivity extends FrameWebActivity implements IFrameRefreshVi
                 .setPrimaryColorsId(R.color.transparent)
                 .setEnableRefresh(false)
                 .setEnableHeaderTranslationContent(true);
-    }
+    }*/
 
     @Override
     public boolean setNavigationBar(Dialog dialog, NavigationViewHelper helper, View bottomView) {

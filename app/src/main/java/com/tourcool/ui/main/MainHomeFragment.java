@@ -62,6 +62,7 @@ import com.tourcool.core.constant.ScreenConsrant;
 import com.tourcool.core.module.WebViewActivity;
 import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.DateUtil;
+import com.tourcool.core.util.JsonUtil;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.mvp.search.SearchActivity;
@@ -320,6 +321,8 @@ public class MainHomeFragment extends BaseTitleFragment implements OnRefreshList
             if (screenPart == null) {
                 continue;
             }
+            //设置最外层名称
+            screenPart.setColumnName(screenEntity.getName());
             switch (screenPart.getLayoutStyle()) {
                 case LAYOUT_STYLE_IMAGE_TEXT_LIST:
                     //加载矩阵

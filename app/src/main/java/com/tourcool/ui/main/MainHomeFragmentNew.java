@@ -329,6 +329,8 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
             if (screenPart == null) {
                 continue;
             }
+            //这里修复了bug
+            screenPart.setColumnName(screenPart.getDetail().getName());
             switch (screenPart.getLayoutStyle()) {
                 case LAYOUT_STYLE_IMAGE_TEXT_LIST:
                     //加载矩阵
@@ -466,6 +468,10 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
             switch (childNode.getType()) {
                 case SUB_CHANNEL:
                     matrixBean = convertMatrix(parseJavaBean(childNode.getDetail(), Channel.class));
+                    if (screenPart.getDetail() != null && matrixBean != null) {
+                        matrixBean.setParentsName(screenPart.getDetail().getName());
+                        TourCooLogUtil.e(TAG, "screenPart.getDetail().getName()=" + screenPart.getDetail().getName());
+                    }
                     if (matrixBean == null) {
                         TourCooLogUtil.e(TAG, "matrixBean==null!");
                         return null;
@@ -499,9 +505,11 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
         matrixBean.setLink(StringUtil.getNotNullValue(columnItem.getLink()));
         matrixBean.setJumpWay(columnItem.getJumpWay());
         matrixBean.setType(SUB_COLUMN);
-        matrixBean.setColumnName(columnItem.getName());
+        //这里修复了bug
+        matrixBean.setColumnName(screenPart.getDetail().getName());
+        matrixBean.setParentsName(columnItem.getName());
         matrixBean.setChildren(childNode.getChildren());
-        matrixBean.setParentsName(screenPart.getColumnName());
+//        matrixBean.setParentsName(screenPart.getColumnName());
         if (TextUtils.isEmpty(columnItem.getCircleIcon())) {
             matrixBean.setMatrixIconUrl(TourCooUtil.getUrl(columnItem.getIcon()));
         } else {
@@ -680,10 +688,10 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
                     Intent intent = new Intent();
                     intent.setClass(mContext, SecondaryServiceActivity.class);
                     intent.putExtra("columnName", matrixBean.getColumnName());
-                    intent.putExtra("groupName", matrixBean.getParentsName());
+                    intent.putExtra("groupName", StringUtil.getNotNullValue(matrixBean.getParentsName()));
                     intent.putExtra("channelList", (Serializable) channelList);
                     TourCooLogUtil.i(TAG, "channelList=" + matrixBean.getColumnName());
-                    TourCooLogUtil.i(TAG, "channelList=" +matrixBean.getParentsName());
+                    TourCooLogUtil.i(TAG, "channelList=" + matrixBean.getParentsName());
 //                intent.putExtra("secondService", item.getChildren());
                     startActivity(intent);
                     break;
@@ -931,7 +939,7 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
     }
 
 
-    private void skipWeather(){
+    private void skipWeather() {
         Intent intent = new Intent();
         intent.setClass(mContext, WeatherActivity.class);
         startActivity(intent);
@@ -946,7 +954,6 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
         }
         return listTips;
     }
-
 
 
 }
