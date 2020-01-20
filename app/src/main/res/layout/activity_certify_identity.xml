@@ -182,6 +182,7 @@
                         android:layout_height="wrap_content"
                         android:background="@null"
                         android:gravity="right"
+                        android:maxLength="18"
                         android:inputType="textEmailAddress"
                         android:hint="请输入身份证号码"
                         android:padding="@dimen/dp_5"

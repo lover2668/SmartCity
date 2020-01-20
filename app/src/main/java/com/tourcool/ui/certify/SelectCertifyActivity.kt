@@ -275,7 +275,7 @@ class SelectCertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
      * 以免对象被回收。
      * 以局部变量保持对 Callback 的引用是不可行的。
      */
-    private val openAuthCallback = OpenAuthTask.Callback { resultCode, memo, bundle ->
+    private var openAuthCallback = OpenAuthTask.Callback { resultCode, memo, bundle ->
         if (resultCode == OpenAuthTask.OK) {
             val result = String.format("业务成功，结果码: %s\n结果信息: %s\n结果数据: %s", resultCode, memo, bundleToString(bundle))
 //            requestAliAuthentication()
@@ -312,4 +312,6 @@ class SelectCertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
             requestAuthenticationList()
         }
     }
+
+
 }

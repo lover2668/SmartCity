@@ -3,23 +3,22 @@ package com.tourcool.adapter.weather;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.manager.GlideManager;
-import com.tourcool.bean.home.Weather;
 import com.tourcool.bean.weather.SimpleWeather;
 import com.tourcool.core.util.DateUtil;
 import com.tourcool.smartcity.R;
 
-import java.util.List;
-
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_DUO_YUN;
+import static com.tourcool.core.constant.WeatherConstant.WEATHER_HEAVY_RAIN;
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_QING;
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_RAIN_AND_SNOW;
+import static com.tourcool.core.constant.WeatherConstant.WEATHER_RAIN_MIDDLE;
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_SMALL_SNOW;
+import static com.tourcool.core.constant.WeatherConstant.WEATHER_TOP_RAIN;
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_XIAO_YU;
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_YIN;
 
@@ -62,6 +61,14 @@ public class WeatherAdapter extends BaseQuickAdapter<SimpleWeather, BaseViewHold
                 break;
             case WEATHER_SMALL_SNOW:
                 GlideManager.loadImgCenterInside(R.mipmap.ic_weather_small_snow, ivWeather);
+                break;
+            case WEATHER_RAIN_MIDDLE:
+                GlideManager.loadImgCenterInside(R.mipmap.ic_weather_middle_snow, ivWeather);
+                break;
+                //暴雨和雷雨
+            case WEATHER_HEAVY_RAIN:
+            case WEATHER_TOP_RAIN:
+                GlideManager.loadImgCenterInside(R.mipmap.ic_weather_top_rain, ivWeather);
                 break;
             default:
                 TourCooLogUtil.i(TAG, "item.getWeather()=" + item.getWeather());

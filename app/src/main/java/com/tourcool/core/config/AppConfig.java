@@ -1,5 +1,7 @@
 package com.tourcool.core.config;
 
+import com.tourcool.smartcity.BuildConfig;
+
 /**
  * @author :JenkinsZhou
  * @description :

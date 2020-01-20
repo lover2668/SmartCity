@@ -107,7 +107,7 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ivSearch:
-                doSerach();
+                doSearch();
                 //  这里记得一定要将键盘隐藏
                 KeyboardHelper.closeKeyboard(mContext);
                 break;
@@ -146,7 +146,7 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
     }
 
 
-    private void doSerach() {
+    private void doSearch() {
         if (TextUtils.isEmpty(getTextValue(etSearch))) {
             ToastUtil.show("请输入搜索内容");
             return;
@@ -165,8 +165,8 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
                         ToastUtil.show("请输入搜索内容");
                         return true;
                     }
-                    //  下面就是大家的业务逻辑
-                    doSerach();
+                    //  下面是业务逻辑
+                    doSearch();
                     //  这里记得一定要将键盘隐藏
                     KeyboardHelper.closeKeyboard(mContext);
                     return true;
@@ -214,7 +214,12 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
         matrixBean.setColumnName("服务");
         matrixBean.setParentsName(channel.getName());
         //取方形图标
-        matrixBean.setMatrixIconUrl(TourCooUtil.getUrl(channel.getCircleIcon()));
+        if(TextUtils.isEmpty(channel.getCircleIcon())){
+            matrixBean.setMatrixIconUrl(TourCooUtil.getUrl(channel.getIcon()));
+        }else {
+            matrixBean.setMatrixIconUrl(TourCooUtil.getUrl(channel.getCircleIcon()));
+        }
+
         return matrixBean;
     }
 
@@ -266,7 +271,7 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
         llNoNetwok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                doSerach();
+                doSearch();
             }
         });
     }

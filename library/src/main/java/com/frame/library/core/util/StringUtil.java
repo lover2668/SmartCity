@@ -12,6 +12,8 @@ import android.text.TextUtils;
 public class StringUtil {
     private static final String PHONE_START = "1";
     private static final int PHONE_LENGTH = 11;
+
+    private static final int LENGTH_ID_CARD = 18;
     /**
      * 温度符号
      */
@@ -24,6 +26,13 @@ public class StringUtil {
         return number.length() == PHONE_LENGTH && number.startsWith(PHONE_START);
     }
 
+
+    public static boolean isIdCard(String number) {
+        if (TextUtils.isEmpty(number)) {
+            return false;
+        }
+        return number.length() == LENGTH_ID_CARD ;
+    }
 
     public static String  getNotNullValue(String number) {
         if (TextUtils.isEmpty(number)) {

@@ -109,7 +109,6 @@ class CertifyMessageActivity : BaseCommonTitleActivity(), View.OnClickListener {
     }
 
     private fun cancelTime() {
-        if (disposableList.isNotEmpty()) {
             var disposable: Disposable
             for (i in disposableList.indices) {
                 disposable = disposableList[i]
@@ -118,7 +117,6 @@ class CertifyMessageActivity : BaseCommonTitleActivity(), View.OnClickListener {
                     disposableList.remove(disposable)
                 }
             }
-        }
     }
 
 

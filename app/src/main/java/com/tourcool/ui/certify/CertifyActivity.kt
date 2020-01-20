@@ -194,6 +194,10 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
             ToastUtil.show("请输入身份证号")
             return
         }
+        if (!StringUtil.isIdCard(getTextValue(etIdCardNumber))) {
+            ToastUtil.show("请输入正确的身份证号")
+            return
+        }
         if (TextUtils.isEmpty(getTextValue(tvPhoneNumber))) {
             ToastUtil.show("请输入手机号")
             return
@@ -430,7 +434,7 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
                     faceCertifyCallback(entity.data)
                 } else {
                     if (StringUtil.getNotNullValue(entity.errorMsg).contains("人脸识别认证服务调用失败")) {
-                        ToastUtil.show("未匹配到身份信息")
+                        ToastUtil.show("请输入正确的身份证号")
                     } else {
                         ToastUtil.show(entity.errorMsg)
                     }
@@ -452,7 +456,7 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
             Log.i("人脸认证回调", JSON.toJSONString(response))
             when (response["resultStatus"]) {
                 "6001" -> {
-                    ToastUtil.show("人脸与信息不匹配")
+//                    ToastUtil.show("人脸与信息不匹配")
                 }
                 "9000" -> {
                     ToastUtil.show("人脸识别认证成功")
@@ -460,7 +464,7 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
                     finish()
                 }
                 else -> {
-                    ToastUtil.show("人脸识别失败")
+//                    ToastUtil.show("人脸识别失败")
                 }
             }
 

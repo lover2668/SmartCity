@@ -1,22 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@mipmap/ic_bg_weather"
-    android:layout_height="match_parent">
-    <include layout="@layout/frame_layout_title_bar" />
+    android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvWeather"
-            android:minHeight="@dimen/dp_300"
-            android:paddingStart="@dimen/dp_25"
-            android:paddingEnd="@dimen/dp_25"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smartRefreshCommon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/frame_layout_title_bar" />
 
 
-
-
-
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvWeather"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/dp_300"
+                android:paddingStart="@dimen/dp_25"
+                android:paddingEnd="@dimen/dp_25" />
+        </LinearLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 
 </LinearLayout>

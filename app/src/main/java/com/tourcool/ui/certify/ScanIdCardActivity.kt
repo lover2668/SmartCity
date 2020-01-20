@@ -71,11 +71,11 @@ class ScanIdCardActivity : FrameTitleActivity(), View.OnClickListener {
                   ToastUtil.show("请先识别用户信息")
                   return@setOnRightTextClickListener
               }*/
-            if (getTextValue(tvName).isEmpty() || getTextValue(tvIdNumber).isEmpty()) {
+            if (getTextValue(tvName).isNullOrEmpty() || getTextValue(tvIdNumber).isNullOrEmpty()) {
                 ToastUtil.show("请扫描身份证正面信息")
                 return@setOnRightTextClickListener
             }
-            if (getTextValue(tvAuthority).isEmpty() || getTextValue(tvValidDate).isEmpty()) {
+            if (getTextValue(tvAuthority).isNullOrEmpty() || getTextValue(tvValidDate).isNullOrEmpty()) {
                 ToastUtil.show("请扫描身份证反面信息")
                 return@setOnRightTextClickListener
             }

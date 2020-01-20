@@ -19,6 +19,7 @@ public class RequestConfig {
 
 //    public static final String BASE_URL_NO_LINE = "http://192.168.1.217:8000";
 
+//    public static final String BASE_URL_NO_LINE = "http://192.168.1.201:8080";
     /**
      * 正式环境
      */

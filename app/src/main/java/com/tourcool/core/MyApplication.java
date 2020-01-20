@@ -189,7 +189,7 @@ public class MyApplication  extends LitePalApplication {
         }
         LoggerManager.i(TAG, "appChannel2:" + appChannel);
         TourCooLogUtil.i(TAG, "application总耗时:" + (System.currentTimeMillis() - start));
-        if (AppConfig.DEBUG_MODE) {
+       /* if (AppConfig.DEBUG_MODE) {
             //初始化哆啦A梦
             DoraemonKit.install(this);
             // H5任意门功能需要，非必须
@@ -201,7 +201,7 @@ public class MyApplication  extends LitePalApplication {
                     WebViewActivity.start(StackUtil.getInstance().getCurrent(), s);
                 }
             });
-        }
+        }*/
 
         setShortcut();
 
