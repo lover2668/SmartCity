@@ -9,7 +9,6 @@ import android.view.MotionEvent;
 import androidx.appcompat.app.AlertDialog;
 
 import com.aries.ui.view.tab.BuildConfig;
-import com.frame.library.core.log.TourCooLogUtil;
 import com.tourcool.core.module.WebViewActivity;
 import com.frame.library.core.entity.FrameTabEntity;
 import com.frame.library.core.manager.LoggerManager;
@@ -18,13 +17,9 @@ import com.frame.library.core.module.activity.FrameMainActivity;
 import com.frame.library.core.retrofit.BaseObserver;
 import com.aries.ui.view.tab.CommonTabLayout;
 import com.didichuxing.doraemonkit.util.PermissionUtil;
-import com.tourcool.core.module.web.WebAppFragment;
 import com.tourcool.smartcity.R;
-import com.tourcool.ui.main.MainHomeFragment;
 import com.tourcool.ui.main.MainHomeFragmentNew;
 import com.tourcool.ui.main.MainMineFragment;
-import com.tourcool.ui.main.MainServiceFragment;
-import com.tourcool.ui.main.TabFragment;
 import com.tourcool.ui.main.TestFragment;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 

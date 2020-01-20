@@ -47,7 +47,8 @@ public class SystemSettingActivity extends BaseMvpTitleActivity implements View.
     private TextView tvBindPhone;
     private TextView tvCacheSize;
     public static final int REQUEST_CODE_BIND_PHONE = 101;
-     public static final String TAG = "";
+    public static final String TAG = "";
+
     @Override
     protected void loadPresenter() {
 
@@ -91,11 +92,11 @@ public class SystemSettingActivity extends BaseMvpTitleActivity implements View.
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.llBindPhone:
-                if(AccountHelper.getInstance().isLogin()){
+                if (AccountHelper.getInstance().isLogin()) {
                     Intent intent = new Intent();
                     intent.setClass(mContext, BindPhoneActivity.class);
                     startActivityForResult(intent, REQUEST_CODE_BIND_PHONE);
-                }else {
+                } else {
                     skipLogin();
                 }
                 break;
@@ -109,8 +110,12 @@ public class SystemSettingActivity extends BaseMvpTitleActivity implements View.
                 ToastUtil.showSuccess("清除成功");
                 break;
             case R.id.llEditPhone:
+                if (!AccountHelper.getInstance().isLogin()) {
+                    skipLogin();
+                    return;
+                }
                 Intent editIntent = new Intent();
-                editIntent.setClass(mContext, EditPasswordActivity.class);
+                editIntent.setClass(mContext, EditPasswordActivityNew.class);
                 startActivity(editIntent);
                 break;
             case R.id.tvLogout:

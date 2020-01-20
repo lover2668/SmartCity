@@ -116,10 +116,6 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
             setViewGone(rlLogin, false);
         }
         titleBar.setOnRightTextClickListener(v -> {
-            if (!AccountHelper.getInstance().isLogin()) {
-                skipLogin();
-                return;
-            }
             FrameUtil.startActivity(mContext, SystemSettingActivity.class);
         });
     }

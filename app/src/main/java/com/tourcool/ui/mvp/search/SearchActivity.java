@@ -186,7 +186,7 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
         List<MatrixBean> matrixBeanList = new ArrayList<>();
         if (channelList != null) {
             for (Channel channel : channelList) {
-                MatrixBean matrixBean = transfirmMatrix(channel);
+                MatrixBean matrixBean = transformMatrix(channel);
                 if (matrixBean != null) {
                     matrixBeanList.add(matrixBean);
                 }
@@ -200,7 +200,7 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
     }
 
 
-    private MatrixBean transfirmMatrix(Channel channel) {
+    private MatrixBean transformMatrix(Channel channel) {
         if (channel == null) {
             return null;
         }
@@ -214,7 +214,7 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
         matrixBean.setColumnName("服务");
         matrixBean.setParentsName(channel.getName());
         //取方形图标
-        matrixBean.setMatrixIconUrl(TourCooUtil.getUrl(channel.getIcon()));
+        matrixBean.setMatrixIconUrl(TourCooUtil.getUrl(channel.getCircleIcon()));
         return matrixBean;
     }
 

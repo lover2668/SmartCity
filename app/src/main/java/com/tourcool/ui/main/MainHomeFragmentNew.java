@@ -79,9 +79,6 @@ import cn.bingoogolapple.bgabanner.transformer.TransitionEffect;
 
 import static com.frame.library.core.util.StringUtil.LINE_HORIZONTAL;
 import static com.frame.library.core.util.StringUtil.SYMBOL_TEMP;
-import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_IMAGE;
-import static com.tourcool.core.constant.RouteConstance.ACTIVITY_URL_SEARCH;
-import static com.tourcool.core.constant.RouteConstance.ACTIVITY_URL_WEATHER;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NATIVE;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NONE;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_URL;
@@ -212,51 +209,6 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
         layoutParams.setMargins(0, marginTop, 0, 0);
         llContainer.setLayoutParams(layoutParams);
     }
-
-    /*private void loadWeatherLayout(ScreenEntity screenEntity) {
-        SimpleWeather weather;
-        if (screenEntity == null || screenEntity.getWeather() == null) {
-            weather = new SimpleWeather();
-            weather.setDate(LINE_HORIZONTAL);
-            weather.setTemp(LINE_HORIZONTAL);
-            weather.setDate(LINE_HORIZONTAL);
-            weather.setQuality(LINE_HORIZONTAL);
-        } else {
-            weather = screenEntity.getWeather();
-        }
-        LinearLayout rootView = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.home_weather_layout, null);
-        RelativeLayout rlWeather = rootView.findViewById(R.id.rlWeather);
-        rlWeather.setOnClickListener(this);
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) rlWeather.getLayoutParams();
-        layoutParams.setMargins(SizeUtil.dp2px(10), SizeUtil.dp2px(15), 0, SizeUtil.dp2px(5));
-        rlWeather.setLayoutParams(layoutParams);
-         tvTemperature = rootView.findViewById(R.id.tvTemperature);
-         tvWeatherDesc = rootView.findViewById(R.id.tvWeatherDesc);
-         tvAirQuality = rootView.findViewById(R.id.tvAirQuality);
-         tvDate = rootView.findViewById(R.id.tvDate);
-         ivWeather = rootView.findViewById(R.id.ivWeather);
-        //天气描述
-        tvWeatherDesc.setText(weather.getWeather());
-        switch (weather.getWeather()) {
-            case WEATHER_DUO_YUN:
-                GlideManager.loadImgCenterInside(R.mipmap.ic_weather_duoyun, ivWeather);
-                break;
-            case WEATHER_QING:
-                GlideManager.loadImgCenterInside(R.mipmap.ic_weather_day_qing, ivWeather);
-                break;
-            case WEATHER_YIN:
-                GlideManager.loadImgCenterInside(R.mipmap.ic_weather_yin, ivWeather);
-                break;
-            default:
-                GlideManager.loadImgCenterInside(R.mipmap.ic_weather_unknown, ivWeather);
-                break;
-        }
-        tvAirQuality.setText(transfirmAirQuailty(weather.getQuality()));
-        tvTemperature.setText(transfirmTemp(weather.getTemp()));
-        tvDate.setText(transfirmDate(weather.getDate()));
-        llContainer.addView(rootView);
-        viewList.add(rootView);
-    }*/
 
 
     private void loadWeatherInfo(ScreenEntity screenEntity) {
@@ -586,14 +538,16 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
             tvNewsContent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    switch (newsBean.getJumpWay()) {
+                    Channel clickChannel = channelList.get(homeViewFlipper.getDisplayedChild());
+                    if(clickChannel == null){
+                        return;
+                    }
+                    switch (clickChannel.getJumpWay()) {
                         case CLICK_TYPE_NATIVE:
                             ToastUtils.showShort("跳转至原生页面");
                             break;
                         case CLICK_TYPE_URL:
-                            if (finalChannel != null) {
-                                WebViewActivity.start(mContext, finalChannel.getLink());
-                            }
+                            WebViewActivity.start(mContext, clickChannel.getLink());
                             break;
                         default:
                             ToastUtils.showShort("什么也不做");
@@ -838,7 +792,7 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
                         super.onRequestError(e);
                         TourCooLogUtil.e(TAG, "onRequestError---->" + e.toString());
                         refreshFinish();
-                        loadNodataView();
+                        loadNoDataView();
                     }
 
                     @Override
@@ -915,7 +869,7 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
     }
 
 
-    private void loadNodataView() {
+    private void loadNoDataView() {
         View emptyView = View.inflate(mContext, R.layout.view_no_data_layout, null);
         removeAllView();
         emptyView.setOnClickListener(new View.OnClickListener() {

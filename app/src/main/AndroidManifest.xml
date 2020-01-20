@@ -140,6 +140,8 @@
                 <data android:scheme="smart_city_yi_xing_ali_paysdk"/>
             </intent-filter>
         </activity>
+        <activity android:name="com.tourcool.ui.mvp.account.EditPasswordActivityNew" />
+
         <meta-data
             android:name="BUGLY_APPID"
             android:value="${bugly_id}" />

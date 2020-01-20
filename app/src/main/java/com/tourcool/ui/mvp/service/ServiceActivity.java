@@ -56,8 +56,8 @@ import java.util.List;
 import static com.tourcool.core.config.RequestConfig.CODE_REQUEST_SUCCESS;
 import static com.tourcool.core.constant.ScreenConsrant.SUB_CHANNEL;
 import static com.tourcool.core.constant.ScreenConsrant.SUB_COLUMN;
-import static com.tourcool.ui.main.MainHomeFragment.EXTRA_CLASSIFY_NAME;
-import static com.tourcool.ui.main.MainHomeFragment.EXTRA_FIRST_CHILD_ID;
+import static com.tourcool.ui.main.MainHomeFragmentNew.EXTRA_CLASSIFY_NAME;
+import static com.tourcool.ui.main.MainHomeFragmentNew.EXTRA_FIRST_CHILD_ID;
 
 /**
  * @author :JenkinsZhou
