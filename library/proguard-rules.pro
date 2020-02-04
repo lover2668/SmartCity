@@ -23,6 +23,7 @@
 -keep class * implements android.os.Parcelable {
   public static final android.os.Parcelable$Creator *;
 }
+-keep class com.tourcool.library.frame.demo.BuildConfig { *; }
 #FastLib-END
 
 #BaseRecyclerViewAdapterHelper-START
@@ -100,3 +101,20 @@
 -keep class com.google.gson.stream.** { *; }
 -keepattributes EnclosingMethod
 #Gson-END
+
+#----------------------------------------分割线----------------------------------------------------
+-keep class org.greenrobot.greendao.**{*;}
+-keep public interface org.greenrobot.greendao.**
+-keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
+public static java.lang.String TABLENAME;
+}
+-keep class **$Properties
+-keep class net.sqlcipher.database.**{*;}
+-keep public interface net.sqlcipher.database.**
+-dontwarn net.sqlcipher.database.**
+-dontwarn org.greenrobot.greendao.**
+
+-keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
+    public static void dropTable(org.greenrobot.greendao.database.Database, boolean);
+    public static void createTable(org.greenrobot.greendao.database.Database, boolean);
+}

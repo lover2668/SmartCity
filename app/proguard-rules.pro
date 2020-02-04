@@ -15,8 +15,10 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+-keep class com.tourcool.smartcity.BuildConfig { *; }
+-keep public class * implements androidx.versionedparcelable.VersionedParcelable
 #实体类不要混淆不然无法解析
--keep class com.aries.library.fast.demo.base.**{*;}
+-keep class com.tourcool.bean. { *; }
 -keep class com.aries.library.fast.demo.entity.**{*;}
 -keepattributes *Annotation*
 -keepclassmembers class ** {
@@ -146,5 +148,20 @@
 -keep public class com.alipay.mobile.security.zim.gw.**{
     *;
 }
-
+-keep class com.alta.audiopolicyloader.* {*;}
 #----------------------------------------分割线----------------------------------------------------
+-keep class org.greenrobot.greendao.**{*;}
+-keep public interface org.greenrobot.greendao.**
+-keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
+public static java.lang.String TABLENAME;
+}
+-keep class **$Properties
+-keep class net.sqlcipher.database.**{*;}
+-keep public interface net.sqlcipher.database.**
+-dontwarn net.sqlcipher.database.**
+-dontwarn org.greenrobot.greendao.**
+
+-keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
+    public static void dropTable(org.greenrobot.greendao.database.Database, boolean);
+    public static void createTable(org.greenrobot.greendao.database.Database, boolean);
+}
