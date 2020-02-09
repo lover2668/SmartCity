@@ -307,14 +307,17 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
         }
     }
 
-
+    /**
+     * 支付宝认证
+     */
     private fun requestAliAuthentication() {
         ApiRepository.getInstance().requestAliAuthentication().compose(bindUntilEvent(ActivityEvent.DESTROY)).subscribe(object : BaseLoadingObserver<BaseResult<*>>() {
             override fun onRequestNext(entity: BaseResult<*>) {
                 if (entity.status == RequestConfig.CODE_REQUEST_SUCCESS) {
 //                    skipMessageCertify()
                     ToastUtil.show("认证成功")
-                    setResult(Activity.RESULT_OK)
+                    //支付宝认证回调
+                    setResultCallback(2)
                     finish()
                 } else {
                     ToastUtil.show(entity.errorMsg)
@@ -335,7 +338,8 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
                 if (entity.status == RequestConfig.CODE_REQUEST_SUCCESS) {
 //                    skipMessageCertify()
                     ToastUtil.show("认证成功")
-                    setResult(Activity.RESULT_OK)
+//                   身份证认证回调
+                    setResultCallback(3)
                     finish()
                 } else {
                     ToastUtil.show(entity.errorMsg)
@@ -459,8 +463,9 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
 //                    ToastUtil.show("人脸与信息不匹配")
                 }
                 "9000" -> {
+                    //人脸认证回调
+                    setResultCallback(4)
                     ToastUtil.show("人脸识别认证成功")
-                    setResult(Activity.RESULT_OK)
                     finish()
                 }
                 else -> {
@@ -473,6 +478,16 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
 
     private fun skipServiceAgreement() {
         WebViewActivity.start(mContext, "http://www.baidu.com")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+    private fun setResultCallback(type: Int) {
+        val data = Intent()
+        data.putExtra("certifyType", type)
+        setResult(Activity.RESULT_OK, data)
     }
 }
 

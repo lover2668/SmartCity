@@ -42,7 +42,7 @@ import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.event.service.ServiceEvent;
 import com.tourcool.smartcity.R;
-import com.tourcool.ui.main.TestFragment;
+import com.tourcool.ui.kitchen.VideoListActivity;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -54,6 +54,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.tourcool.core.config.RequestConfig.CODE_REQUEST_SUCCESS;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_KITCHEN;
 import static com.tourcool.core.constant.ScreenConsrant.SUB_CHANNEL;
 import static com.tourcool.core.constant.ScreenConsrant.SUB_COLUMN;
 import static com.tourcool.ui.main.MainHomeFragmentNew.EXTRA_CLASSIFY_NAME;
@@ -450,7 +451,11 @@ public class ServiceActivity extends BaseMvpTitleActivity {
         }
         switch (item.getType()) {
             case SUB_CHANNEL:
-                WebViewActivity.start(mContext, TourCooUtil.getUrl(item.getLink()), true);
+                if(ITEM_TYPE_KITCHEN.equals(item.getTitle())){
+                    skipBrightKitchen();
+                }else{
+                    WebViewActivity.start(mContext, TourCooUtil.getUrl(item.getLink()));
+                }
                 break;
             case SUB_COLUMN:
                 TourCooLogUtil.i("点击了栏目", item.getChildren());
@@ -515,6 +520,13 @@ public class ServiceActivity extends BaseMvpTitleActivity {
             TourCooLogUtil.i(TAG, "收到消息 刷新请求状态");
             requestServiceList();
         },500);
+    }
+
+
+    private void skipBrightKitchen() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, VideoListActivity.class);
+        startActivity(intent);
     }
 
 }

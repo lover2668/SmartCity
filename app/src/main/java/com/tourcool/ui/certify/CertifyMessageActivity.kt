@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import com.frame.library.core.manager.RxJavaManager
-import com.frame.library.core.module.activity.FrameTitleActivity
 import com.frame.library.core.retrofit.BaseLoadingObserver
 import com.frame.library.core.util.FrameUtil
 import com.frame.library.core.util.ToastUtil
@@ -23,7 +22,6 @@ import com.trello.rxlifecycle3.android.ActivityEvent
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_certify_sms_validation.*
-import java.util.*
 
 /**
  *@description :短信验证

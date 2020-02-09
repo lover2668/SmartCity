@@ -15,7 +15,7 @@ import org.greenrobot.greendao.annotation.Generated;
  * @Email: 971613168@qq.com
  */
 @Entity
-public class UserInfo extends LitePalSupport implements Parcelable {
+public class UserInfo  implements Parcelable {
 
 
     /**

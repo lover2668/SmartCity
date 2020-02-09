@@ -2,6 +2,7 @@ package com.tourcool.core.retrofit.service;
 
 
 import com.tourcool.bean.certify.FaceCertify;
+import com.tourcool.bean.kitchen.KitchenGroup;
 import com.tourcool.bean.search.SeachEntity;
 import com.tourcool.bean.weather.WeatherEntity;
 import com.tourcool.core.base.BaseResult;
@@ -258,6 +259,19 @@ public interface ApiService {
     @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
     @POST("app/user/authentication/face")
     Observable<BaseResult<FaceCertify>> requestAuthenticationFace(@Body Map<String, Object> map);
+
+    /**
+     * 明厨亮灶视频列表
+     * @return
+     */
+    @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
+    @GET("public/app/get_transparent_kitchen_list")
+    Observable<BaseResult<List<KitchenGroup>>> requestKitchenList();
+
+
+    @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
+    @GET("public/app/get_transparent_kitchen_addr")
+    Observable<BaseResult<String>> requestKitchenVideoLiveUrl(@QueryMap Map<String, Object> map);
 
 }
 

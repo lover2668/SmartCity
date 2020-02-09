@@ -141,6 +141,15 @@
             </intent-filter>
         </activity>
         <activity android:name="com.tourcool.ui.mvp.account.EditPasswordActivityNew" />
+        <activity android:name="com.tourcool.ui.kitchen.VideoListActivity"
+            android:launchMode="singleTask"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            />
+        <activity android:name="com.tourcool.ui.kitchen.DeviceListActivity" />
+        <activity android:name="com.tourcool.ui.kitchen.LivePlayActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            />
+        <activity android:name="com.tourcool.ui.kitchen.TestListActivity" />
 
         <meta-data
             android:name="BUGLY_APPID"

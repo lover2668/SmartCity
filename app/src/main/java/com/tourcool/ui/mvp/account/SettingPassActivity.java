@@ -26,6 +26,8 @@ import com.trello.rxlifecycle3.android.ActivityEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
+
 import static com.tourcool.core.config.RequestConfig.CODE_REQUEST_SUCCESS;
 
 /**

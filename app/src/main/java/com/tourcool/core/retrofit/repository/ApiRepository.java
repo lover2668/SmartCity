@@ -3,6 +3,7 @@ package com.tourcool.core.retrofit.repository;
 import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.util.FrameUtil;
 import com.tourcool.bean.certify.FaceCertify;
+import com.tourcool.bean.kitchen.KitchenGroup;
 import com.tourcool.bean.search.SeachEntity;
 import com.tourcool.bean.weather.WeatherEntity;
 import com.tourcool.core.base.BaseResult;
@@ -290,6 +291,16 @@ public class ApiRepository extends AbstractRepository {
         params.put("idCard", idCard);
         params.put("name", name);
         return FrameTransformer.switchSchedulers(getApiService().requestAuthenticationFace(params).retryWhen(new RetryWhen()));
+    }
+
+    public Observable<BaseResult<List<KitchenGroup>>> requestKitchenList() {
+        return FrameTransformer.switchSchedulers(getApiService().requestKitchenList().retryWhen(new RetryWhen()));
+    }
+
+    public Observable<BaseResult<String>> requestKitchenVideoLiveUrl(String serialNumber,String channelNumber) {
+        Map<String, Object> params = new HashMap<>(1);
+        params.put("indexCode", serialNumber+"#"+channelNumber);
+        return FrameTransformer.switchSchedulers(getApiService().requestKitchenVideoLiveUrl(params).retryWhen(new RetryWhen()));
     }
 
 }

@@ -8,8 +8,6 @@ import com.tourcool.bean.greendao.DaoSession;
 import com.tourcool.bean.greendao.GreenDaoHelper;
 import com.tourcool.bean.greendao.UserInfoDao;
 
-import org.litepal.LitePal;
-
 import java.util.List;
 
 

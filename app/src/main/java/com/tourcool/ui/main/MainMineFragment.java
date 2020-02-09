@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.manager.GlideManager;
@@ -36,6 +35,7 @@ import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.event.account.UserInfoEvent;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.certify.SelectCertifyActivity;
+import com.tourcool.ui.kitchen.VideoListActivity;
 import com.tourcool.ui.mvp.account.LoginActivity;
 import com.tourcool.ui.mvp.account.PersonalDataActivity;
 import com.tourcool.ui.mvp.account.SystemSettingActivity;
@@ -344,6 +344,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
         } else {
             Intent intent = new Intent();
             intent.setClass(mContext, SelectCertifyActivity.class);
+
             startActivity(intent);
         }
 
@@ -353,6 +354,13 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
     private void skipLogin() {
         Intent intent = new Intent();
         intent.setClass(mContext, LoginActivity.class);
+        startActivity(intent);
+    }
+
+
+    private void skipBrightKitchen() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, VideoListActivity.class);
         startActivity(intent);
     }
 }

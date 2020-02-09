@@ -18,11 +18,9 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.alipay.sdk.app.OpenAuthTask;
 import com.aries.ui.util.StatusBarUtil;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.load.DataSource;
@@ -62,6 +60,7 @@ import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.DateUtil;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.smartcity.R;
+import com.tourcool.ui.kitchen.VideoListActivity;
 import com.tourcool.ui.mvp.search.SearchActivity;
 import com.tourcool.ui.mvp.service.SecondaryServiceActivity;
 import com.tourcool.ui.mvp.service.ServiceActivity;
@@ -70,15 +69,14 @@ import com.trello.rxlifecycle3.android.FragmentEvent;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import cn.bingoogolapple.bgabanner.BGABanner;
 import cn.bingoogolapple.bgabanner.transformer.TransitionEffect;
 
 import static com.frame.library.core.util.StringUtil.LINE_HORIZONTAL;
 import static com.frame.library.core.util.StringUtil.SYMBOL_TEMP;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_KITCHEN;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NATIVE;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NONE;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_URL;
@@ -547,7 +545,11 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
                             ToastUtils.showShort("跳转至原生页面");
                             break;
                         case CLICK_TYPE_URL:
-                            WebViewActivity.start(mContext, clickChannel.getLink());
+                            if(ITEM_TYPE_KITCHEN.equals(clickChannel.getTitle())){
+                                skipBrightKitchen();
+                            }else{
+                                WebViewActivity.start(mContext, clickChannel.getLink());
+                            }
                             break;
                         default:
                             ToastUtils.showShort("什么也不做");
@@ -749,7 +751,12 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
                 }
                 switch (channel.getJumpWay()) {
                     case CLICK_TYPE_URL:
-                        WebViewActivity.start(mContext, TourCooUtil.getUrl(channel.getLink()));
+                        if(ITEM_TYPE_KITCHEN.equals(channel.getTitle())){
+                            skipBrightKitchen();
+                        }else{
+                            WebViewActivity.start(mContext, TourCooUtil.getUrl(channel.getLink()));
+                        }
+//                        WebViewActivity.start(mContext, TourCooUtil.getUrl(channel.getLink()));
                         break;
                     case CLICK_TYPE_NONE:
                         ToastUtil.show("什么也不做");
@@ -909,5 +916,10 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
         return listTips;
     }
 
-
+    private void skipBrightKitchen() {
+        Intent intent = new Intent();
+//        intent.setClass(mContext, BrightKitchenVideoListActivity.class);
+        intent.setClass(mContext, VideoListActivity.class);
+        startActivity(intent);
+    }
 }

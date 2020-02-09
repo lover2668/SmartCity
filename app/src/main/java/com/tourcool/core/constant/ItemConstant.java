@@ -23,4 +23,6 @@ public class ItemConstant {
     public static final String ITEM_TYPE_IMAGE_TEXT_LIST = "IMAGE_TEXT_LIST";
     public static final String ITEM_TYPE_CONTAINS_SUBLISTS = "CONTAINS_SUBLISTS";
     public static final String ITEM_TYPE_IMAGE = "IMAGE";
+
+    public static final String ITEM_TYPE_KITCHEN = "明厨亮灶";
 }

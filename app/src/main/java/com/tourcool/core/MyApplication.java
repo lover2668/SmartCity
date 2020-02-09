@@ -96,6 +96,7 @@ public class MyApplication  extends LitePalApplication {
         CrashManager.init(mContext);
         //初始化全局防重复点击
         GlobalClickCallbacks.init(this);
+        UiManager.init(mContext);
         GreenDaoHelper.getInstance().initDatabase(mContext);
         LoggerManager.i(TAG, "start:" + start + ";Application:" + FrameUtil.getApplication());
         //最简单UI配置模式-必须进行初始化-最新版本无需初始化FastLib内部自动初始化
@@ -147,8 +148,8 @@ public class MyApplication  extends LitePalApplication {
                 .setLogEnable(true)
 //                .setLogEnable(BuildConfig.DEBUG, TAG, HttpLoggingInterceptor.Level.BODY)
                 //设置统一超时--也可单独调用read/write/connect超时(可以设置时间单位TimeUnit)
-                //默认30 s
-                .setTimeout(5);
+                //默认15 s
+                .setTimeout(15);
 
         //注意设置baseUrl要以/ 结尾 service 里的方法不要以/打头不然拦截到的url会有问题
         //以下为配置多BaseUrl--默认方式一优先级高 可通过FastRetrofit.getInstance().setHeaderPriorityEnable(true);设置方式二优先级

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/llTypeOne"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_180">
+
+            <ImageView
+                android:id="@+id/ivThumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            <ImageView
+                android:id="@+id/ivPlay"
+                android:layout_width="wrap_content"
+                android:src="@mipmap/ic_video_play"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:textSize="@dimen/sp_9"
+                android:textColor="@color/white"
+                android:layout_alignParentEnd="true"
+                android:text="@string/app_name"
+                android:layout_marginBottom="@dimen/dp_14"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:layout_alignParentBottom="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:background="@color/white"
+            android:paddingTop="@dimen/dp_18"
+            android:paddingBottom="@dimen/dp_18"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/tvCameraDesc"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/black333333"
+                android:text="@string/app_name"
+                android:layout_marginStart="@dimen/dp_15"
+                android:layout_width="0dp"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tvUploaderName"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/gray999999"
+                android:layout_marginEnd="@dimen/dp_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <View
+            android:background="@color/grayAAAAAA"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_10"/>
+    </LinearLayout>
+
+<!--布局方式2-->
+<LinearLayout
+    android:id="@+id/llTypeTwo"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_margin="@dimen/dp_15"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ivThumbnailTypeTwo"
+            android:layout_width="@dimen/dp_120"
+            android:layout_height="@dimen/dp_70"/>
+        <RelativeLayout
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_64">
+            <TextView
+                android:id="@+id/tvCameraDescTwo"
+                android:layout_marginTop="@dimen/dp_5"
+                android:textSize="@dimen/sp_16"
+                android:textColor="@color/black333333"
+                android:maxLines="2"
+                android:text="@string/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tvUploaderNameTwo"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/dp_5"
+                android:textSize="@dimen/sp_13"
+                android:textColor="@color/gray999999"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginStart="@dimen/dp_15"
+        android:layout_marginEnd="@dimen/dp_15"
+        android:background="@color/grayEEEEEE"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0_5"/>
+
+
+
+</LinearLayout>
+
+</LinearLayout>

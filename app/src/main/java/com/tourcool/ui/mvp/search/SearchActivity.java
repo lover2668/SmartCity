@@ -18,7 +18,6 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -40,6 +39,7 @@ import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.base.BaseCommonTitleActivity;
+import com.tourcool.ui.kitchen.VideoListActivity;
 import com.tourcool.ui.mvp.service.SecondaryServiceActivity;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 
@@ -50,10 +50,7 @@ import java.util.List;
 
 import static com.tourcool.core.config.RequestConfig.CODE_REQUEST_SUCCESS;
 import static com.tourcool.core.config.RequestConfig.EXCEPTION_NO_NETWORK;
-import static com.tourcool.core.constant.RouteConstance.ACTIVITY_URL_SEARCH;
-import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NATIVE;
-import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NONE;
-import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_URL;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_KITCHEN;
 import static com.tourcool.core.constant.ScreenConsrant.SUB_COLUMN;
 
 /**
@@ -324,7 +321,12 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
                         startActivity(intent);
                         break;
                     default:
-                        WebViewActivity.start(mContext, TourCooUtil.getUrl(matrixBean.getLink()), true);
+//                        WebViewActivity.start(mContext, TourCooUtil.getUrl(matrixBean.getLink()), true);
+                        if(ITEM_TYPE_KITCHEN.equals(matrixBean.getMatrixName())){
+                            skipBrightKitchen();
+                        }else{
+                            WebViewActivity.start(mContext, TourCooUtil.getUrl(matrixBean.getLink()),true);
+                        }
                         break;
                 }
 
@@ -356,5 +358,10 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
         return channelList;
     }
 
-
+    private void skipBrightKitchen() {
+        Intent intent = new Intent();
+//        intent.setClass(mContext, DeviceListActivity.class);
+        intent.setClass(mContext, VideoListActivity.class);
+        startActivity(intent);
+    }
 }

@@ -50,11 +50,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="sincerity"
+        android:text=""
         android:typeface="serif"
         android:letterSpacing="1.1"
         android:textSize="@dimen/dp_7"
         android:textColor="@color/grayA2A2A2"
-        android:visibility="visible"
+        android:visibility="gone"
         android:singleLine="true" />
 </LinearLayout>

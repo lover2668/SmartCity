@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grayF5F5F5"
+    android:orientation="vertical">
+
+    <include layout="@layout/frame_layout_title_bar" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_200">
+
+        <com.tourcool.ui.kitchen.LivePlayer
+            android:id="@+id/detailPlayer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.tourcool.ui.kitchen.LivePlayer>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:src="@mipmap/ic_video_play_pause" />
+
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+<ImageView
+    android:src="@mipmap/ic_camera"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_marginStart="@dimen/dp_15"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvVideoLiveName"
+                android:layout_marginTop="@dimen/dp_5"
+                android:textSize="@dimen/sp_14"
+                android:text="@string/app_name"
+                android:includeFontPadding="false"
+                android:textColor="@color/black333333"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:id="@+id/tvCameraNumber"
+                android:textSize="@dimen/sp_12"
+                android:text="@string/app_name"
+                android:layout_marginTop="@dimen/dp_7"
+                android:textColor="@color/grayA2A2A2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/ivVoiceOff"
+            android:src="@mipmap/ic_voice_off"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:padding="@dimen/dp_10"
+            android:visibility="gone"
+            android:background="@color/grayF5F5F5"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</LinearLayout>

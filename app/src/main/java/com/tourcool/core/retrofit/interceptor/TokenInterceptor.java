@@ -62,7 +62,12 @@ public class TokenInterceptor implements Interceptor {
         String tokenFlag = originalRequest.header(TOKEN_FLAG);
         if (tokenFlag == null || tokenFlag.equalsIgnoreCase(NO)) {
             TourCooLogUtil.d(TAG, "不需要token验证 不做任何处理");
-            return chain.proceed(originalRequest);
+               Request newTokenRequest = chain.request().newBuilder()
+                    .removeHeader(KEY_TOKEN)
+                    .build();
+//            TourCooLogUtil.i(TAG, "newTokenRequest携带的token--->" + tokenInfo.getAccess_token());
+//             chain.proceed(newTokenRequest);
+            return chain.proceed(newTokenRequest);
         } else {
             String skipLoginFlag = originalRequest.header(SKIP_LOGIN_FLAG);
             boolean skipLoginEnable = skipLoginFlag == null || skipLoginFlag.equalsIgnoreCase(YES);

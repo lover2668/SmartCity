@@ -9,6 +9,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.shuyu.gsyvideoplayer.model.GSYModel;
+import com.tourcool.adapter.kitchen.KitchenDeviceAdapter;
 import com.tourcool.core.module.mvp.BaseMvpTitleActivity;
 import com.tourcool.core.module.mvp.BasePresenter;
 import com.tourcool.smartcity.R;
@@ -25,7 +27,6 @@ public class WebViewActivityTest extends BaseMvpTitleActivity {
 
     @Override
     protected void loadPresenter() {
-
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.tourcool.ui.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -31,29 +30,23 @@ import com.frame.library.core.widget.linkage.bean.BaseGroupedItem;
 import com.frame.library.core.widget.linkage.contract.ILinkagePrimaryAdapterConfig;
 import com.frame.library.core.widget.linkage.contract.ILinkageSecondaryAdapterConfig;
 import com.frame.library.core.widget.titlebar.TitleBarView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tourcool.bean.ElemeGroupedItem;
-import com.tourcool.bean.ServiceGroupItem;
 import com.tourcool.bean.screen.Channel;
 import com.tourcool.bean.screen.ChildNode;
 import com.tourcool.bean.screen.ColumnItem;
 import com.tourcool.bean.screen.ScreenPart;
-import com.tourcool.bean.service.ServiceGroupedItem;
 import com.tourcool.core.base.BaseResult;
 import com.tourcool.core.module.WebViewActivity;
 import com.tourcool.core.retrofit.repository.ApiRepository;
-import com.tourcool.core.util.GsonUtil;
 import com.tourcool.core.util.TourCooUtil;
-import com.tourcool.event.account.UserInfoEvent;
 import com.tourcool.event.service.ServiceEvent;
 import com.tourcool.smartcity.R;
+import com.tourcool.ui.kitchen.VideoListActivity;
 import com.tourcool.ui.mvp.service.SecondaryServiceActivity;
-import com.trello.rxlifecycle3.android.ActivityEvent;
 import com.trello.rxlifecycle3.android.FragmentEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -61,11 +54,11 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.Serializable;
-import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.tourcool.core.config.RequestConfig.CODE_REQUEST_SUCCESS;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_KITCHEN;
 import static com.tourcool.core.constant.ScreenConsrant.SUB_CHANNEL;
 import static com.tourcool.core.constant.ScreenConsrant.SUB_COLUMN;
 
@@ -407,7 +400,12 @@ public class TestFragment extends BaseTitleFragment implements OnRefreshListener
         }
         switch (item.getType()) {
             case SUB_CHANNEL:
-                WebViewActivity.start(mContext, TourCooUtil.getUrl(item.getLink()), true);
+//                WebViewActivity.start(mContext, TourCooUtil.getUrl(item.getLink()), true);
+                if(ITEM_TYPE_KITCHEN.equals(item.getTitle())){
+                    skipBrightKitchen();
+                }else{
+                    WebViewActivity.start(mContext, item.getLink(),true);
+                }
                 break;
             case SUB_COLUMN:
                 TourCooLogUtil.i("点击了栏目", item.getChildren());
@@ -486,5 +484,12 @@ public class TestFragment extends BaseTitleFragment implements OnRefreshListener
             }
         }
         return channelList;
+    }
+
+
+    private void skipBrightKitchen() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, VideoListActivity.class);
+        startActivity(intent);
     }
 }

@@ -1,5 +1,6 @@
 package com.tourcool.ui.mvp.service;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -7,7 +8,6 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.frame.library.core.basis.BaseActivity;
 import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.util.ToastUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
@@ -18,10 +18,12 @@ import com.tourcool.core.module.WebViewActivity;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.base.BaseCommonTitleActivity;
+import com.tourcool.ui.kitchen.VideoListActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_KITCHEN;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NATIVE;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NONE;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_URL;
@@ -109,11 +111,15 @@ public class SecondaryServiceActivity extends BaseCommonTitleActivity {
             }
             switch (matrixBean.getJumpWay()) {
                 case CLICK_TYPE_URL:
-                    WebViewActivity.start(mContext, TourCooUtil.getNotNullValue(matrixBean.getLink()));
-                    break;
                 case CLICK_TYPE_NONE:
-                    WebViewActivity.start(mContext, TourCooUtil.getUrl(matrixBean.getLink()));
+                    if(ITEM_TYPE_KITCHEN.equals(matrixBean.getMatrixTitle())){
+                        skipBrightKitchen();
+                    }else{
+                        WebViewActivity.start(mContext, TourCooUtil.getUrl(matrixBean.getLink()));
+                    }
+//                    WebViewActivity.start(mContext, TourCooUtil.getNotNullValue(matrixBean.getLink()));
                     break;
+//                    WebViewActivity.start(mContext, TourCooUtil.getUrl(matrixBean.getLink()));
                 case CLICK_TYPE_NATIVE:
                     ToastUtil.show("跳转原生页面");
                     break;
@@ -121,5 +127,12 @@ public class SecondaryServiceActivity extends BaseCommonTitleActivity {
                     break;
             }
         });
+    }
+
+    private void skipBrightKitchen() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, VideoListActivity.class);
+//        intent.setClass(mContext, DeviceListActivity.class);
+        startActivity(intent);
     }
 }

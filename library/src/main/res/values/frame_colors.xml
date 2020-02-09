@@ -66,6 +66,7 @@
     <color name="grayCCCCCC">#CCCCCC</color>
     <color name="grayAAAAAA">#AAAAAA</color>
     <color name="gray3A3A3A">#3A3A3A</color>
+    <color name="grayF4F4F4">#fff4f4f4</color>
 
     <!--黑色区域-->
     <color name="black333333">#333333</color>
@@ -85,8 +86,6 @@
 
     <!--绿色区域-->
     <color name="green0DBD00">#0DBD00</color>
-
-
 
 
     <color name="pickerview_timebtn_nor">#057dff</color>

@@ -174,7 +174,7 @@ public class CheckVersionHelper extends BaeHelper {
         mProgressDialog.setCanceledOnTouchOutside(!entity.force);
 
         //暂停下载-慎用;建议使用 Disposable.dispose();
-//        mProgressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "暂停", new DialogInterface.OnClickListener() {
+//        mProgressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "ic_video_play_pause", new DialogInterface.OnClickListener() {
 //            @Override
 //            public void onClick(DialogInterface dialog, int which) {
 //                if (mDownloadObserver != null) {
