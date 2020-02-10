@@ -97,6 +97,7 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
             return
         }
         setTextValue(tvPhoneNumber, StringUtil.getNotNullValue(AccountHelper.getInstance().userInfo.phoneNumber))
+        tvDesc.text = "1.点击\"下一步\"后，请按页面提示进行操作。\n2.您所录入的相关信息将只用于核实身份真实性，不会提供给第三方。"
     }
 
     override fun onClick(v: View?) {

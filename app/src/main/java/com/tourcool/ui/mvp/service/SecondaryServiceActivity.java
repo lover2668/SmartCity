@@ -112,14 +112,12 @@ public class SecondaryServiceActivity extends BaseCommonTitleActivity {
             switch (matrixBean.getJumpWay()) {
                 case CLICK_TYPE_URL:
                 case CLICK_TYPE_NONE:
-                    if(ITEM_TYPE_KITCHEN.equals(matrixBean.getMatrixTitle())){
+                    if(ITEM_TYPE_KITCHEN.equals(matrixBean.getMatrixTitle())|| ITEM_TYPE_KITCHEN.equals(matrixBean.getMatrixName())){
                         skipBrightKitchen();
                     }else{
                         WebViewActivity.start(mContext, TourCooUtil.getUrl(matrixBean.getLink()));
                     }
-//                    WebViewActivity.start(mContext, TourCooUtil.getNotNullValue(matrixBean.getLink()));
                     break;
-//                    WebViewActivity.start(mContext, TourCooUtil.getUrl(matrixBean.getLink()));
                 case CLICK_TYPE_NATIVE:
                     ToastUtil.show("跳转原生页面");
                     break;

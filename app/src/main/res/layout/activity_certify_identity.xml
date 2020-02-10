@@ -255,7 +255,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:padding="@dimen/dp_5"
+                    android:paddingTop="@dimen/dp_5"
+                    android:paddingBottom="@dimen/dp_5"
+                    android:paddingEnd="@dimen/dp_5"
                     android:text="智慧宜兴用户服务协议"
                     android:textColor="@color/blue55A9FF"
                     android:textSize="@dimen/sp_12" />
@@ -272,21 +274,19 @@
                 android:background="@drawable/selector_radius_25_blue_4287ff"
                 android:gravity="center"
                 android:minHeight="@dimen/dp_44"
-                android:text="认证"
+                android:text="下一步"
                 android:textColor="@color/whiteCommon"
                 android:textSize="@dimen/sp_14" />
 
 
             <TextView
+                android:id="@+id/tvDesc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_30"
                 android:layout_marginTop="@dimen/dp_30"
                 android:layout_marginEnd="@dimen/dp_30"
-                android:text="特别提示：
-1.支持xxx手机号
-2.本认证支持已在运营商处办理完成实名认证的用户。如认证不通过的，建议去运营商处办理实名认证手续。
-                            " />
+                android:text="" />
         </LinearLayout>
 
 

@@ -204,7 +204,7 @@ public class MyApplication  extends LitePalApplication {
             });
         }*/
 
-        setShortcut();
+//        setShortcut();
 
     }
 

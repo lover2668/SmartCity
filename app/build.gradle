@@ -210,4 +210,6 @@ dependencies {
     implementation "androidx.versionedparcelable:versionedparcelable:1.1.0"
     //完整版引入
     implementation 'com.shuyu:GSYVideoPlayer:7.1.2'
+
+    implementation 'pub.devrel:easypermissions:2.0.0'
 }

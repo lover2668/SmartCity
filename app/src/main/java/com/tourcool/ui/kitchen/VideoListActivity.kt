@@ -22,6 +22,7 @@ import com.tourcool.bean.kitchen.KitchenLiveInfo
 import com.tourcool.bean.kitchen.KitchenGroup
 import com.tourcool.core.base.BaseResult
 import com.tourcool.core.config.RequestConfig
+import com.tourcool.core.permission.PermissionInterface
 import com.tourcool.core.retrofit.repository.ApiRepository
 import com.tourcool.smartcity.R
 import com.tourcool.ui.base.BaseCommonTitleActivity
@@ -74,12 +75,12 @@ class VideoListActivity : BaseCommonTitleActivity(), OnRefreshListener {
         if (groupName == null) {
             groupName = "全部"
         }
-        setStatusManager()
         rvCommon.layoutManager = LinearLayoutManager(mContext)
         adapter = KitchenVideoAdapter()
         mSmartRefresh.setRefreshHeader(ClassicsHeader(mContext))
         mSmartRefresh.setOnRefreshListener(this)
         adapter!!.bindToRecyclerView(rvCommon)
+        setStatusManager()
         setAdapterAndInitItemClick()
     }
 
@@ -136,6 +137,7 @@ class VideoListActivity : BaseCommonTitleActivity(), OnRefreshListener {
             override fun onRequestError(e: Throwable?) {
                 super.onRequestError(e)
                 mSmartRefresh.finishRefresh()
+                mStatusManager!!.showErrorLayout()
                 ToastUtil.show(e!!.message)
             }
         })
@@ -161,6 +163,7 @@ class VideoListActivity : BaseCommonTitleActivity(), OnRefreshListener {
             videoList = getFilterVideoList(videoList!!,id)
         }
         adapter!!.setNewData(videoList)
+        scrollToFirstItem()
         changeLayout(isLayoutTypeBig)
     }
 
@@ -169,6 +172,7 @@ class VideoListActivity : BaseCommonTitleActivity(), OnRefreshListener {
         videoList!!.addAll(list)
         setLayoutStatus(videoList)
         adapter!!.setNewData(videoList)
+        scrollToFirstItem()
     }
 
     private fun skipVideoLive(position: Int) {
@@ -240,6 +244,7 @@ class VideoListActivity : BaseCommonTitleActivity(), OnRefreshListener {
             videoList = data!!.childrenList as ArrayList<KitchenLiveInfo>?
             setLayoutStatus(videoList)
             adapter!!.setNewData(videoList)
+            scrollToFirstItem()
             adapter!!.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position -> skipVideoLive(position) }
         }
     }
@@ -375,5 +380,14 @@ class VideoListActivity : BaseCommonTitleActivity(), OnRefreshListener {
             }*/
 //        mIFastRefreshLoadView.setMultiStatusView(builder)
         mStatusManager = builder.build()
+        mStatusManager!!.showLoadingLayout()
     }
+
+    private fun scrollToFirstItem(){
+        if(adapter!!.data.isNotEmpty()){
+            rvCommon.scrollToPosition(0)
+        }
+    }
+
+
 }

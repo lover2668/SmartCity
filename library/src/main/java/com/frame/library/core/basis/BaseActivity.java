@@ -80,7 +80,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IBaseV
         mContext = this;
         beforeSetContentView();
         mContentView = View.inflate(mContext, getContentLayout(), null);
-        //解决StatusLayoutManager与SmartRefreshLayout冲突
+        //解决c与SmartRefreshLayout冲突
         if (this instanceof IFrameRefreshLoadView) {
             if (FrameUtil.isClassExist("com.scwang.smartrefresh.layout.SmartRefreshLayout")) {
                 if (mContentView.getClass() == SmartRefreshLayout.class) {

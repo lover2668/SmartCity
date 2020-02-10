@@ -53,6 +53,7 @@
                 android:textSize="@dimen/sp_14"
                 android:text="@string/app_name"
                 android:includeFontPadding="false"
+                android:maxLines="1"
                 android:textColor="@color/black333333"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -62,6 +63,7 @@
                 android:id="@+id/tvCameraNumber"
                 android:textSize="@dimen/sp_12"
                 android:text="@string/app_name"
+                android:maxLines="1"
                 android:layout_marginTop="@dimen/dp_7"
                 android:textColor="@color/grayA2A2A2"
                 android:layout_width="wrap_content"

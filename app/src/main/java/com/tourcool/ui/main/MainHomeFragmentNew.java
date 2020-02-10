@@ -59,6 +59,7 @@ import com.tourcool.core.module.WebViewActivity;
 import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.DateUtil;
 import com.tourcool.core.util.TourCooUtil;
+import com.tourcool.core.widget.IosAlertDialog;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.kitchen.VideoListActivity;
 import com.tourcool.ui.mvp.search.SearchActivity;
@@ -922,4 +923,8 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
         intent.setClass(mContext, VideoListActivity.class);
         startActivity(intent);
     }
+
+
+
+
 }
