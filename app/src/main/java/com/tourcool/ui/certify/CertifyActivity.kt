@@ -36,6 +36,7 @@ import com.tourcool.ui.certify.SelectCertifyActivity.Companion.EXTRA_CERTIFY_ID_
 import com.tourcool.ui.certify.SelectCertifyActivity.Companion.EXTRA_CERTIFY_PHONE
 import com.tourcool.ui.certify.SelectCertifyActivity.Companion.EXTRA_PHONE
 import com.tourcool.ui.certify.SelectCertifyActivity.Companion.KEY_CERTIFY_TYPE
+import com.tourcool.ui.kitchen.ProtocolActivity
 import com.trello.rxlifecycle3.android.ActivityEvent
 import kotlinx.android.synthetic.main.activity_certify_identity.*
 import org.json.JSONObject
@@ -478,7 +479,11 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
     }
 
     private fun skipServiceAgreement() {
-        WebViewActivity.start(mContext, "http://www.baidu.com")
+//        WebViewActivity.start(mContext, "http://www.baidu.com")
+        val intent = Intent()
+//        intent.putExtra(KEY_CERTIFY_TYPE, certifyType)
+        intent.setClass(mContext, ProtocolActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onDestroy() {

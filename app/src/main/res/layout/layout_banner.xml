@@ -19,7 +19,7 @@
         app:banner_pointDrawable="@drawable/selector_banner_point"
         app:banner_tipTextColor="@android:color/white"
         app:banner_tipTextSize="14dp"
-        android:scaleType="centerInside"
+        android:scaleType="fitCenter"
         app:banner_transitionEffect="cube"/>
 
 </LinearLayout>

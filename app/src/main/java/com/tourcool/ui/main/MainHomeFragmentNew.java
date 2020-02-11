@@ -1,12 +1,16 @@
 package com.tourcool.ui.main;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -23,6 +27,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.aries.ui.util.StatusBarUtil;
 import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
@@ -67,6 +72,8 @@ import com.tourcool.ui.mvp.service.SecondaryServiceActivity;
 import com.tourcool.ui.mvp.service.ServiceActivity;
 import com.tourcool.ui.mvp.weather.WeatherActivity;
 import com.trello.rxlifecycle3.android.FragmentEvent;
+
+import org.apache.commons.lang.SystemUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -374,13 +381,32 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
         bgaBanner.setPadding(SizeUtil.dp2px(10), 0, SizeUtil.dp2px(10), 0);
         bgaBanner.setAdapter((banner, itemView, model, position) -> {
             try {
+                ImageView imageView = (ImageView) itemView;
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 Channel selectChannel = (Channel) model;
-                GlideManager.loadImg(TourCooUtil.getUrl(selectChannel.getIcon()), (ImageView) itemView);
+//                GlideManager.loadImgFitCenter(TourCooUtil.getUrl(selectChannel.getIcon()), imageView);
+                //设置图片宽高比
+                float scale = (float) 750 / (float) 320;
+//获取屏幕的宽度
+                WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+                Point size = new Point();
+                wm.getDefaultDisplay().getSize(size);
+                int screenWidth = size.x;
+//计算BGABanner的应有高度
+                int viewHeight = Math.round(screenWidth / scale);
+//设置BGABanner的宽高属性
+                ViewGroup.LayoutParams banner_params = banner.getLayoutParams();
+                banner_params.height = viewHeight;
+                banner.setLayoutParams(banner_params);
+//此处使用的是glide的override函数直接设置图片尺寸
+                GlideManager.loadImgBySize(TourCooUtil.getUrl(selectChannel.getIcon()), imageView,banner_params.width,banner_params.height);
+
             } catch (Exception e) {
                 TourCooLogUtil.e(TAG, "fillBannerItem:" + e.toString());
             }
 
         });
+        bgaBanner.setAutoPlayAble(channelList.size() > 1);
         bgaBanner.setData(channelList, getTips(channelList));
         bgaBanner.setDelegate((banner, itemView, model, position) -> {
             Channel selectChannel = null;

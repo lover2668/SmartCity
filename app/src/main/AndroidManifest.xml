@@ -150,6 +150,7 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             />
         <activity android:name="com.tourcool.ui.kitchen.TestListActivity" />
+        <activity android:name="com.tourcool.ui.kitchen.ProtocolActivity" />
 
         <meta-data
             android:name="BUGLY_APPID"

@@ -148,16 +148,43 @@ public class GlideManager {
                 .dontAnimate()).into(iv);
     }
 
+
+    public static void loadImgAuto(Object obj, ImageView iv, Drawable placeholder) {
+        Glide.with(iv.getContext()).load(obj).apply(getRequestOptionsAuto()
+                .error(placeholder)
+                .placeholder(placeholder)
+                .fallback(placeholder)
+                .dontAnimate()).into(iv);
+    }
+    public static void loadImgAuto(Object obj, ImageView iv, Drawable placeholder,int width,int height) {
+        Glide.with(iv.getContext()).load(obj).apply(getRequestOptionsAuto()
+                .error(placeholder)
+                .placeholder(placeholder)
+                .fallback(placeholder)
+                .override(width,height)
+                .dontAnimate()).into(iv);
+    }
     public static void loadImg(Object obj, ImageView iv, int placeholderResource) {
         Drawable drawable = getDrawable(iv.getContext(), placeholderResource);
         loadImgCenterCrop(obj, iv, drawable != null ? drawable : sCommonPlaceholderDrawable);
     }
+
+
 
     public static void loadImgCenterInside(Object obj, ImageView iv, int placeholderResource) {
         Drawable drawable = getDrawable(iv.getContext(), placeholderResource);
         loadImgCenterInside(obj, iv, drawable != null ? drawable : sCommonPlaceholderDrawable);
     }
 
+    public static void loadImgAuto(Object obj, ImageView iv, int placeholderResource) {
+        Drawable drawable = getDrawable(iv.getContext(), placeholderResource);
+        loadImgAuto(obj, iv, drawable != null ? drawable : sCommonPlaceholderDrawable);
+    }
+
+    public static void loadImgBySize(Object obj, ImageView iv, int placeholderResource,int width,int height) {
+        Drawable drawable = getDrawable(iv.getContext(), placeholderResource);
+        loadImgAuto(obj, iv, drawable != null ? drawable : sCommonPlaceholderDrawable,width,height);
+    }
     public static void loadImg(Object obj, ImageView iv) {
         loadImg(obj, iv, sCommonPlaceholder);
     }
@@ -166,6 +193,13 @@ public class GlideManager {
         loadImgCenterInside(obj, iv, sCommonPlaceholder);
     }
 
+    public static void loadImgAuto(Object obj, ImageView iv) {
+        loadImgAuto(obj, iv, sCommonPlaceholder);
+    }
+
+    public static void loadImgBySize(Object obj, ImageView iv,int width,int height) {
+        loadImgBySize(obj, iv, sCommonPlaceholder,width,height);
+    }
     /**
      * 加载圆形图片
      *
@@ -277,6 +311,14 @@ public class GlideManager {
         return requestOptions;
     }
 
+    private static RequestOptions getRequestOptionsAuto() {
+        RequestOptions requestOptions = new RequestOptions()
+                //优先级
+                .priority(Priority.HIGH)
+                //缓存策略
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
+        return requestOptions;
+    }
     private static int dp2px(float dipValue) {
         final float scale = Resources.getSystem().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);

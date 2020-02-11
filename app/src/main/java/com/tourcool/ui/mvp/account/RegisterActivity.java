@@ -1,6 +1,7 @@
 package com.tourcool.ui.mvp.account;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -35,6 +36,7 @@ import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.event.account.UserInfoEvent;
 import com.tourcool.event.service.ServiceEvent;
 import com.tourcool.smartcity.R;
+import com.tourcool.ui.kitchen.ProtocolActivity;
 import com.tourcool.ui.mvp.account.contract.RegisterContract;
 import com.tourcool.ui.mvp.account.presenter.RegisterPresenter;
 import com.trello.rxlifecycle3.android.ActivityEvent;
@@ -100,6 +102,7 @@ public class RegisterActivity extends BaseMvpTitleActivity<RegisterPresenter> im
         EditText etPassword = findViewById(R.id.etPassword);
         etPhone = findViewById(R.id.etPhone);
         cBoxAgree = findViewById(R.id.cBoxAgree);
+        findViewById(R.id.tvProtocol).setOnClickListener(this);
         EditText etPasswordConfirm = findViewById(R.id.etPasswordConfirm);
         ImageView ivPhoneValid = findViewById(R.id.ivPhoneValid);
         listenInput(etPhone, ivClearPhone);
@@ -140,6 +143,9 @@ public class RegisterActivity extends BaseMvpTitleActivity<RegisterPresenter> im
             case R.id.tvGetCode:
                 //验证码发送成功开始，倒计时
                 sendVCodeAndCountDownTime(getTextValue(etPhone));
+                break;
+            case R.id.tvProtocol:
+                skipServiceAgreement();
                 break;
             default:
                 break;
@@ -456,4 +462,13 @@ public class RegisterActivity extends BaseMvpTitleActivity<RegisterPresenter> im
         }
         finish();
     }
+
+    private void skipServiceAgreement() {
+//        WebViewActivity.start(mContext, "http://www.baidu.com")
+        Intent intent = new  Intent();
+//        intent.putExtra(KEY_CERTIFY_TYPE, certifyType)
+        intent.setClass(mContext, ProtocolActivity.class);
+        startActivity(intent);
+    }
+
 }

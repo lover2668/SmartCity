@@ -267,6 +267,7 @@ public class MainTabActivity extends FrameMainActivity  implements EasyPermissio
         if(REQUEST_PERMISSION_STORAGE ==requestCode ) {
             if (!EasyPermissions.hasPermissions(MainTabActivity.this, params)) {
                 ToastUtil.show("您未授予权限 应用已退出");
+                finish();
             }
         }
     }
