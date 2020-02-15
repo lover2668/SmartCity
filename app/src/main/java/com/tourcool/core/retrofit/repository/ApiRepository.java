@@ -4,6 +4,7 @@ import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.util.FrameUtil;
 import com.tourcool.bean.certify.FaceCertify;
 import com.tourcool.bean.kitchen.KitchenGroup;
+import com.tourcool.bean.parking.CarInfo;
 import com.tourcool.bean.search.SeachEntity;
 import com.tourcool.bean.weather.WeatherEntity;
 import com.tourcool.core.base.BaseResult;
@@ -301,6 +302,32 @@ public class ApiRepository extends AbstractRepository {
         Map<String, Object> params = new HashMap<>(1);
         params.put("indexCode", serialNumber+"#"+channelNumber);
         return FrameTransformer.switchSchedulers(getApiService().requestKitchenVideoLiveUrl(params).retryWhen(new RetryWhen()));
+    }
+
+    public Observable<BaseResult<String>> requestAddCar(String carNum, int carType) {
+        Map<String, Object> params = new HashMap<>(2);
+        params.put("carNum", carNum);
+        params.put("carType", carType);
+        TourCooLogUtil.i("提交到后台的参数", params);
+        return FrameTransformer.switchSchedulers(getApiService().requestAddCar(params).retryWhen(new RetryWhen()));
+    }
+
+    public Observable<BaseResult<List<CarInfo>>> requestCarList() {
+        return FrameTransformer.switchSchedulers(getApiService().requestCarList().retryWhen(new RetryWhen()));
+    }
+
+    public Observable<BaseResult<String>> requestUnBindCar(String carId) {
+        Map<String, Object> params = new HashMap<>(1);
+        params.put("carId", carId);
+        TourCooLogUtil.i("提交到后台的参数", params);
+        return FrameTransformer.switchSchedulers(getApiService().requestUnBindCar(params).retryWhen(new RetryWhen()));
+    }
+
+    public Observable<BaseResult<Object>> requestQueryParkingRecord(String carId) {
+        Map<String, Object> params = new HashMap<>(1);
+        params.put("carNum", carId);
+        TourCooLogUtil.i("提交到后台的参数", params);
+        return FrameTransformer.switchSchedulers(getApiService().requestQueryParkingRecord(params).retryWhen(new RetryWhen()));
     }
 
 }

@@ -52,7 +52,7 @@ android {
 }
 dependencies {
     compileOnly 'com.google.android.material:material:'.concat(supportVersion)
-//    compileOnly 'androidx.appcompat:appcompat:'.concat(supportVersion)
+    api 'androidx.appcompat:appcompat:1.1.0'
     compileOnly 'androidx.recyclerview:recyclerview:'.concat(supportVersion)
     //万能适配器
     compileOnly 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.49-androidx'

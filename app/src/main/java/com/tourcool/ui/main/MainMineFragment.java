@@ -39,6 +39,8 @@ import com.tourcool.ui.kitchen.VideoListActivity;
 import com.tourcool.ui.mvp.account.LoginActivity;
 import com.tourcool.ui.mvp.account.PersonalDataActivity;
 import com.tourcool.ui.mvp.account.SystemSettingActivity;
+import com.tourcool.ui.parking.CarListActivity;
+import com.tourcool.ui.parking.MineParkingActivity;
 import com.trello.rxlifecycle3.android.FragmentEvent;
 
 
@@ -164,10 +166,12 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
         menuAdapter.setOnItemClickListener((adapter, view, position) -> {
             switch (menuAdapter.getData().get(position).getMatrixName()) {
                 case MINE_ITEM_NAME_REAL_NAME_AUTHENTICATION:
-                    skipCertify();
+//                    skipCertify();
+                    skipParking();
                     break;
                 default:
                     ToastUtil.show("敬请期待");
+
                     break;
             }
         });
@@ -349,7 +353,17 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
         }
 
     }
+    private void skipParking() {
+        if (!AccountHelper.getInstance().isLogin()) {
+            skipLogin();
+        } else {
+            Intent intent = new Intent();
+            intent.setClass(mContext, MineParkingActivity.class);
 
+            startActivity(intent);
+        }
+
+    }
 
     private void skipLogin() {
         Intent intent = new Intent();

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/grayF5F5F5"
+    android:layout_height="match_parent">
+    <include layout="@layout/frame_layout_title_bar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tvAddCar"
+            android:text="添加车辆"
+            android:paddingBottom="@dimen/dp_11"
+            android:paddingTop="@dimen/dp_11"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/dp_25"
+            android:layout_marginEnd="@dimen/dp_25"
+            android:textSize="@dimen/sp_18"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/white"
+            android:layout_marginBottom="@dimen/dp_22"
+            android:background="@drawable/bg_radius_25_blue_00b4ff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_above="@id/tvAddCar"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/rlContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                    android:id="@+id/smartRefreshCommon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginTop="@dimen/dp_25"
+                        android:id="@+id/recyclerViewCommon"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

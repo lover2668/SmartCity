@@ -148,4 +148,188 @@
         <attr name="slidingEnable" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="VerCodeEditText">
+        <attr name="vcCount" format="integer" />
+        <attr name="vcPointEnable" format="boolean" />
+        <attr name="vcMaxLength" format="integer" />
+        <attr name="vcPointPosition" format="integer" />
+        <!---->
+        <attr name="vcNormalBackground" format="reference" />
+        <attr name="vcFocusedBackground" format="reference" />
+        <!---->
+        <attr name="vcWidth" format="dimension" />
+        <attr name="vcHeight" format="dimension" />
+        <attr name="vcMinWidth" format="dimension" />
+        <attr name="vcMinHeight" format="dimension" />
+        <!---->
+        <attr name="vcMargin" format="dimension" />
+        <attr name="vcMarginLeft" format="dimension" />
+        <attr name="vcMarginTop" format="dimension" />
+        <attr name="vcMarginRight" format="dimension" />
+        <attr name="vcMarginBottom" format="dimension" />
+        <!---->
+        <attr name="vcPadding" format="dimension" />
+        <attr name="vcPaddingLeft" format="dimension" />
+        <attr name="vcPaddingTop" format="dimension" />
+        <attr name="vcPaddingRight" format="dimension" />
+        <attr name="vcPaddingBottom" format="dimension" />
+        <!---->
+        <attr name="vcTextSize" format="dimension" />
+        <attr name="vcTextColor" format="color" />
+        <attr name="vcTextCursorDrawable" format="reference" />
+        <attr name="vcGravity" format="flags">
+            <flag name="top" value="0x30" />
+            <flag name="bottom" value="0x50" />
+            <flag name="left" value="0x03" />
+            <flag name="right" value="0x05" />
+            <flag name="center_vertical" value="0x10" />
+            <flag name="fill_vertical" value="0x70" />
+            <flag name="center_horizontal" value="0x01" />
+            <flag name="fill_horizontal" value="0x07" />
+            <flag name="center" value="0x11" />
+            <flag name="fill" value="0x77" />
+            <flag name="clip_vertical" value="0x80" />
+            <flag name="clip_horizontal" value="0x08" />
+            <flag name="start" value="0x00800003" />
+            <flag name="end" value="0x00800005" />
+        </attr>
+        <attr name="vcInputType" format="flags">
+            <flag name="none" value="0x00000000" />
+            <flag name="text" value="0x00000001" />
+            <flag name="textCapCharacters" value="0x00001001" />
+            <flag name="textCapWords" value="0x00002001" />
+            <flag name="textCapSentences" value="0x00004001" />
+            <flag name="textAutoCorrect" value="0x00008001" />
+            <flag name="textAutoComplete" value="0x00010001" />
+            <flag name="textMultiLine" value="0x00020001" />
+            <flag name="textImeMultiLine" value="0x00040001" />
+            <flag name="textNoSuggestions" value="0x00080001" />
+            <flag name="textUri" value="0x00000011" />
+            <flag name="textEmailAddress" value="0x00000021" />
+            <flag name="textEmailSubject" value="0x00000031" />
+            <flag name="textShortMessage" value="0x00000041" />
+            <flag name="textLongMessage" value="0x00000051" />
+            <flag name="textPersonName" value="0x00000061" />
+            <flag name="textPostalAddress" value="0x00000071" />
+            <flag name="textPassword" value="0x00000081" />
+            <flag name="textVisiblePassword" value="0x00000091" />
+            <flag name="textWebEditText" value="0x000000a1" />
+            <flag name="textFilter" value="0x000000b1" />
+            <flag name="textPhonetic" value="0x000000c1" />
+            <flag name="textWebEmailAddress" value="0x000000d1" />
+            <flag name="textWebPassword" value="0x000000e1" />
+            <flag name="number" value="0x00000002" />
+            <flag name="numberSigned" value="0x00001002" />
+            <flag name="numberDecimal" value="0x00002002" />
+            <flag name="numberPassword" value="0x00000012" />
+            <flag name="phone" value="0x00000003" />
+            <flag name="datetime" value="0x00000004" />
+            <flag name="date" value="0x00000014" />
+            <flag name="time" value="0x00000024" />
+        </attr>
+    </declare-styleable>
+
+
+    <declare-styleable name="KingKeyboardView">
+
+        <attr name="android:labelTextSize"/>
+        <attr name="android:keyTextSize"/>
+        <attr name="android:keyTextColor"/>
+        <attr name="android:keyBackground"/>
+        <attr name="kkbDeleteDrawable" format="reference"/>
+        <attr name="kkbCapitalDrawable" format="reference"/>
+        <attr name="kkbCapitalLockDrawable" format="reference"/>
+        <attr name="kkbCancelDrawable" format="reference"/>
+        <attr name="kkbSpaceDrawable" format="reference"/>
+        <attr name="kkbSpecialKeyBackground" format="reference"/>
+        <attr name="kkbDoneKeyBackground" format="reference"/>
+        <attr name="kkbNoneKeyBackground" format="reference"/>
+        <attr name="kkbKeyIconColor" format="color"/>
+        <attr name="kkbKeySpecialTextColor" format="color"/>
+        <attr name="kkbKeyDoneTextColor" format="color"/>
+        <attr name="kkbKeyDoneTextSize" format="dimension"/>
+        <attr name="kkbKeyNoneTextColor" format="color"/>
+        <attr name="kkbKeyDoneText" format="string"/>
+
+    </declare-styleable>
+
+
+
+    <declare-styleable name="King_KeyboardView">
+
+        <attr name="android:keyBackground"/>
+
+        <attr name="android:keyTextSize"/>
+
+        <attr name="android:labelTextSize" />
+
+        <attr name="android:keyTextColor"/>
+
+        <attr name="android:keyPreviewLayout" />
+
+        <attr name="android:keyPreviewOffset" />
+
+        <attr name="android:keyPreviewHeight" />
+
+        <attr name="android:verticalCorrection" />
+
+        <attr name="android:popupLayout" />
+
+        <attr name="android:shadowColor" />
+
+        <attr name="android:shadowRadius" />
+    </declare-styleable>
+
+
+    <declare-styleable name="King_KeyboardViewPreviewState">
+
+        <attr name="android:state_long_pressable"/>
+    </declare-styleable>
+
+    <declare-styleable name="King_Keyboard">
+
+        <attr name="android:keyWidth" />
+
+        <attr name="android:keyHeight"  />
+
+        <attr name="android:horizontalGap" />
+
+        <attr name="android:verticalGap"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="King_Keyboard_Row">
+
+        <attr name="android:rowEdgeFlags"/>
+
+        <attr name="android:keyboardMode"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="King_Keyboard_Key">
+
+        <attr name="android:codes"/>
+
+        <attr name="android:popupKeyboard"/>
+
+        <attr name="android:popupCharacters" />
+
+        <attr name="android:keyEdgeFlags"/>
+
+        <attr name="android:isModifier" />
+
+        <attr name="android:isSticky" />
+
+        <attr name="android:isRepeatable" />
+
+        <attr name="android:iconPreview"/>
+
+        <attr name="android:keyOutputText" />
+
+        <attr name="android:keyLabel" />
+
+        <attr name="android:keyIcon"/>
+
+        <attr name="android:keyboardMode" />
+    </declare-styleable>
 </resources>

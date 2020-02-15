@@ -4,6 +4,8 @@
     <string name="web_app">WebApp</string>
     <string name="activity">活动</string>
     <string name="mine">我的</string>
+    <string name="exception_max_count_is_zero">max count can not be 0</string>
+    <string name="exception_no_max_length">editText not set maxLength? go home you are drunk</string>
     <string name="home_list_content">点击查看示例</string>
     <string name="swipe_back_style">点击跳转滑动返回Activity</string>
     <string name="toast_system">系统Toast</string>
@@ -25,6 +27,8 @@
     <string name="update_now">立即更新</string>
     <string name="upload_file">上传文件演示</string>
     <string name="tip">Work Harder,Live Better!</string>
-
+    <string name="king_keyboard_key_done_text">Done</string>
+    <string name="king_keyboard_key_more_text">More</string>
+    <string name="king_keyboard_key_back_text">Back</string>
 
 </resources>

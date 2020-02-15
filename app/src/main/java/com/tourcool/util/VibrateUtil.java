@@ -17,7 +17,7 @@ public class VibrateUtil {
      */
     public static void vibrate(Context context, long milliseconds) {
         Vibrator vib = (Vibrator) context.getSystemService(Service.VIBRATOR_SERVICE);
-        if (vib.hasVibrator()) {
+        if (vib != null && vib.hasVibrator()) {
             //判断手机硬件是否有振动器
             vib.vibrate(milliseconds);
         }

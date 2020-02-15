@@ -3,6 +3,7 @@ package com.tourcool.core.retrofit.service;
 
 import com.tourcool.bean.certify.FaceCertify;
 import com.tourcool.bean.kitchen.KitchenGroup;
+import com.tourcool.bean.parking.CarInfo;
 import com.tourcool.bean.search.SeachEntity;
 import com.tourcool.bean.weather.WeatherEntity;
 import com.tourcool.core.base.BaseResult;
@@ -272,6 +273,26 @@ public interface ApiService {
     @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
     @GET("public/app/get_transparent_kitchen_addr")
     Observable<BaseResult<String>> requestKitchenVideoLiveUrl(@QueryMap Map<String, Object> map);
+
+
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @POST("car/bind")
+    Observable<BaseResult<String>> requestAddCar(@Body Map<String, Object> map);
+
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @GET("car/list")
+    Observable<BaseResult<List<CarInfo>>> requestCarList();
+
+
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @POST("car/unbind")
+    Observable<BaseResult<String>> requestUnBindCar(@QueryMap Map<String, Object> map);
+
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @GET("order/query-parking-arrears")
+    Observable<BaseResult<Object>> requestQueryParkingRecord(@QueryMap Map<String, Object> map);
+
+
 
 }
 

@@ -2,6 +2,7 @@ package com.tourcool.core.widget;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,7 +81,7 @@ public class IosAlertDialog {
     public IosAlertDialog setMsg(String msg) {
         showMsg = true;
         if ("".equals(msg)) {
-            msgTv.setText("内容");
+            msgTv.setVisibility(View.GONE);
         } else {
             msgTv.setText(msg);
         }
@@ -128,6 +129,22 @@ public class IosAlertDialog {
                 dialog.dismiss();
             }
         });
+        return this;
+    }
+
+
+
+
+    public IosAlertDialog setDialogBackground(Drawable dialogBackground) {
+       container.setBackground(dialogBackground);
+        return this;
+    }
+
+    public IosAlertDialog setNegativeTextColor(int color) {
+        if(negBtn == null){
+            return this;
+        }
+        negBtn.setTextColor(color);
         return this;
     }
 

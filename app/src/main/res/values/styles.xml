@@ -150,6 +150,10 @@
         <item name="android:button">@drawable/checkbox_style</item>
     </style>
 
+    <!-- CustomCheckBox theme -->
+    <style name="CheckBoxThemeSelectCar" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/check_parking_select</item>
+    </style>
     <!-- 自定义仿IOS的AlertDialog的样式 -->
     <style name="AlertDialogStyle" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
