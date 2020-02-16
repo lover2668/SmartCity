@@ -10,6 +10,7 @@ import com.frame.library.core.retrofit.BaseLoadingObserver
 import com.frame.library.core.util.FrameUtil
 import com.frame.library.core.util.NetworkUtil
 import com.frame.library.core.util.ToastUtil
+import com.frame.library.core.widget.titlebar.TitleBarView
 import com.tourcool.adapter.parking.MyCarAdapter
 import com.tourcool.bean.parking.CarInfo
 
@@ -18,10 +19,14 @@ import com.tourcool.core.config.RequestConfig
 import com.tourcool.core.retrofit.repository.ApiRepository
 import com.tourcool.core.widget.IosAlertDialog
 import com.tourcool.smartcity.R
+import com.tourcool.ui.base.BaseBlackTitleActivity
 import com.tourcool.ui.base.BaseCommonTitleActivity
 import com.tourcool.ui.kitchen.VideoListActivity
 import com.trello.rxlifecycle3.android.ActivityEvent
+import kotlinx.android.synthetic.main.activity_parking_arrears_pay.*
 import kotlinx.android.synthetic.main.activity_parking_my_car.*
+import kotlinx.android.synthetic.main.activity_parking_my_car.recyclerViewCommon
+import kotlinx.android.synthetic.main.activity_parking_my_car.smartRefreshCommon
 import me.bakumon.statuslayoutmanager.library.OnStatusChildClickListener
 import me.bakumon.statuslayoutmanager.library.StatusLayoutManager
 
@@ -32,14 +37,17 @@ import me.bakumon.statuslayoutmanager.library.StatusLayoutManager
  * @date 2020年02月14日19:18
  * @Email: 971613168@qq.com
  */
-class CarListActivity : BaseCommonTitleActivity(),View.OnClickListener {
+class CarListActivity : BaseBlackTitleActivity(),View.OnClickListener {
     private var mStatusManager: StatusLayoutManager? = null
     private var adapter: MyCarAdapter? = null
     override fun getContentLayout(): Int {
         return R.layout.activity_parking_my_car
     }
 
-
+    override fun setTitleBar(titleBar: TitleBarView?) {
+        super.setTitleBar(titleBar)
+        titleBar!!.setTitleMainText("我的车辆")
+    }
 
     override fun initView(savedInstanceState: Bundle?) {
         recyclerViewCommon.layoutManager = LinearLayoutManager(mContext)
@@ -146,7 +154,7 @@ class CarListActivity : BaseCommonTitleActivity(),View.OnClickListener {
         if (!NetworkUtil.isConnected(mContext)) {
             mStatusManager!!.showLoadingLayout()
             baseHandler.postDelayed({
-                mStatusManager!!.showCustomLayout(R.layout.view_no_netwrok_layout, R.id.llNoNetwok)
+                mStatusManager!!.showCustomLayout(R.layout.parking_view_no_net_work_layout,R.id.tvRefreshNet)
             }, 300)
             return
         }

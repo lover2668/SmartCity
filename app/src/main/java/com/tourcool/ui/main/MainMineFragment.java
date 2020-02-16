@@ -40,6 +40,7 @@ import com.tourcool.ui.mvp.account.LoginActivity;
 import com.tourcool.ui.mvp.account.PersonalDataActivity;
 import com.tourcool.ui.mvp.account.SystemSettingActivity;
 import com.tourcool.ui.parking.CarListActivity;
+import com.tourcool.ui.parking.FastParkingActivity;
 import com.tourcool.ui.parking.MineParkingActivity;
 import com.trello.rxlifecycle3.android.FragmentEvent;
 
@@ -358,7 +359,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
             skipLogin();
         } else {
             Intent intent = new Intent();
-            intent.setClass(mContext, MineParkingActivity.class);
+            intent.setClass(mContext, FastParkingActivity.class);
 
             startActivity(intent);
         }

@@ -4,6 +4,7 @@ package com.tourcool.core.retrofit.service;
 import com.tourcool.bean.certify.FaceCertify;
 import com.tourcool.bean.kitchen.KitchenGroup;
 import com.tourcool.bean.parking.CarInfo;
+import com.tourcool.bean.parking.ParingRecord;
 import com.tourcool.bean.search.SeachEntity;
 import com.tourcool.bean.weather.WeatherEntity;
 import com.tourcool.core.base.BaseResult;
@@ -290,7 +291,7 @@ public interface ApiService {
 
     @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
     @GET("order/query-parking-arrears")
-    Observable<BaseResult<Object>> requestQueryParkingRecord(@QueryMap Map<String, Object> map);
+    Observable<BaseResult<List<ParingRecord>>> requestQueryParkingRecord(@QueryMap Map<String, Object> map);
 
 
 

@@ -5,6 +5,7 @@ import com.frame.library.core.util.FrameUtil;
 import com.tourcool.bean.certify.FaceCertify;
 import com.tourcool.bean.kitchen.KitchenGroup;
 import com.tourcool.bean.parking.CarInfo;
+import com.tourcool.bean.parking.ParingRecord;
 import com.tourcool.bean.search.SeachEntity;
 import com.tourcool.bean.weather.WeatherEntity;
 import com.tourcool.core.base.BaseResult;
@@ -323,7 +324,7 @@ public class ApiRepository extends AbstractRepository {
         return FrameTransformer.switchSchedulers(getApiService().requestUnBindCar(params).retryWhen(new RetryWhen()));
     }
 
-    public Observable<BaseResult<Object>> requestQueryParkingRecord(String carId) {
+    public Observable<BaseResult<List<ParingRecord>>> requestQueryParkingRecord(String carId) {
         Map<String, Object> params = new HashMap<>(1);
         params.put("carNum", carId);
         TourCooLogUtil.i("提交到后台的参数", params);

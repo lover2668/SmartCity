@@ -8,6 +8,7 @@ import com.frame.library.core.util.ToastUtil
 import com.tourcool.bean.account.AccountHelper
 import com.tourcool.core.util.TourCooUtil
 import com.tourcool.smartcity.R
+import com.tourcool.ui.base.BaseBlackTitleActivity
 import com.tourcool.ui.base.BaseCommonTitleActivity
 import com.tourcool.ui.certify.CertifyMessageActivity
 import com.tourcool.ui.certify.SelectCertifyActivity
@@ -22,7 +23,7 @@ import kotlinx.android.synthetic.main.activity_parking_mine.tvPhoneNumber
  * @date 2020年02月14日16:08
  * @Email: 971613168@qq.com
  */
-class MineParkingActivity : BaseCommonTitleActivity() ,View.OnClickListener{
+class MineParkingActivity : BaseBlackTitleActivity() ,View.OnClickListener{
     override fun getContentLayout(): Int {
         return R.layout.activity_parking_mine
     }
@@ -54,7 +55,7 @@ class MineParkingActivity : BaseCommonTitleActivity() ,View.OnClickListener{
     private fun loadMineInfo(){
         tvNickName.text = AccountHelper.getInstance().userInfo.nickname
         tvPhoneNumber.text = AccountHelper.getInstance().userInfo.phoneNumber
-        GlideManager.loadImg(TourCooUtil.getUrl(AccountHelper.getInstance().userInfo.iconUrl),ivAvatar)
+        GlideManager.loadCircleImg(TourCooUtil.getUrl(AccountHelper.getInstance().userInfo.iconUrl),ivAvatar)
     }
 
 

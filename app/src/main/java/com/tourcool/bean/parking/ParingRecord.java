@@ -31,6 +31,15 @@ public class ParingRecord {
     private String parkingLotCode;
     private long startTime;
     private int parkTime;
+    private boolean isSelect;
+
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        isSelect = select;
+    }
 
     public String getCarNum() {
         return carNum;

@@ -157,6 +157,8 @@
             />
         <activity android:name="com.tourcool.ui.parking.AddCarActivity" />
         <activity android:name="com.tourcool.ui.parking.QueryParkingFeeActivity" />
+        <activity android:name="com.tourcool.ui.parking.PayFeeRecordActivity" />
+        <activity android:name="com.tourcool.ui.parking.FastParkingActivity" />
 
         <meta-data
             android:name="BUGLY_APPID"
