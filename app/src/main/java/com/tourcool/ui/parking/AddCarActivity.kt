@@ -69,6 +69,7 @@ class AddCarActivity : BaseBlackTitleActivity(), View.OnClickListener {
         setupEditText(etPlantNumber3)
         setupEditText(etPlantNumber4)
         setupEditText(etPlantNumber5)
+        etPlantNumber1.requestFocus()
         kingKeyboard.setVibrationEffectEnabled(true)
     }
 
@@ -77,6 +78,7 @@ class AddCarActivity : BaseBlackTitleActivity(), View.OnClickListener {
         if (index != 0) {
             val lastEt = mEditTexts!![index - 1]
             lastEt.requestFocus()
+            lastEt.setSelection(lastEt.text.toString().length)
         }
     }
 
@@ -86,6 +88,7 @@ class AddCarActivity : BaseBlackTitleActivity(), View.OnClickListener {
         if (index < mEditTexts!!.size - 1) {
             val nextEt = mEditTexts!![index + 1]
             nextEt.requestFocus()
+            nextEt.setSelection(nextEt.text.toString().length)
         } else {
             if (mOnCompleteListener != null) {
                 val editable = Editable.Factory.getInstance().newEditable("")

@@ -84,7 +84,8 @@ class QueryParkingFeeActivity : BaseBlackTitleActivity(),View.OnClickListener {
 
     override fun loadData() {
         super.loadData()
-        requestCarList()
+//        requestCarList()
+        requestLastPayPlantNum()
     }
 
     private fun requestCarList() {
@@ -101,7 +102,7 @@ class QueryParkingFeeActivity : BaseBlackTitleActivity(),View.OnClickListener {
                          adapter!!.setNewData(entity.data)
                          mStatusManager!!.showSuccessLayout()
                      }*/
-                 loadFastQueryByCarList(entity.data)
+                    loadFastQueryByCarList(entity.data)
                 } else {
                     ToastUtil.show(entity.errorMsg)
                 }
@@ -135,8 +136,59 @@ class QueryParkingFeeActivity : BaseBlackTitleActivity(),View.OnClickListener {
                         kingKeyboard.hideKeyboard()
             })
         }
-
     }
+
+
+
+    private fun requestLastPayPlantNum() {
+        if (!NetworkUtil.isConnected(mContext)) {
+            ToastUtil.show("请检查网络连接")
+            return
+        }
+        ApiRepository.getInstance().requestLastPayPlantNum().compose(bindUntilEvent(ActivityEvent.DESTROY)).subscribe(object : BaseLoadingObserver<BaseResult<MutableList<String>>>() {
+            override fun onRequestNext(entity: BaseResult<MutableList<String>>) {
+                if (entity.status == RequestConfig.CODE_REQUEST_SUCCESS) {
+                    /* if (entity.data.isEmpty()) {
+                         mStatusManager!!.showEmptyLayout()
+                     } else {
+                         adapter!!.setNewData(entity.data)
+                         mStatusManager!!.showSuccessLayout()
+                     }*/
+                    loadFastQueryByCarPlantNum(entity.data)
+                } else {
+                    ToastUtil.show(entity.errorMsg)
+                }
+
+            }
+
+            override fun onRequestError(e: Throwable?) {
+                super.onRequestError(e)
+                ToastUtil.show(e!!.message)
+            }
+        })
+    }
+
+    private fun loadFastQueryByCarPlantNum(numberList: MutableList<String>?) {
+        if (numberList == null) {
+            setViewGone(llFastQuery, false)
+            return
+        }
+        setViewGone(llFastQuery, numberList.isNotEmpty())
+        if(numberList.isEmpty()){
+            return
+        }
+        for (info in numberList) {
+            val view = LayoutInflater.from(mContext).inflate(R.layout.layout_textview_car_info,null)
+            val textView = view.findViewById<TextView>(R.id.tvCarInfo)
+            textView.text =info
+            llCarListContainer.addView(view)
+            textView.setOnClickListener(View.OnClickListener {
+                fillPlantNum( textView.text.toString())
+                kingKeyboard.hideKeyboard()
+            })
+        }
+    }
+
 
     override fun onClick(v: View?) {
         when (v!!.id) {
@@ -221,6 +273,7 @@ class QueryParkingFeeActivity : BaseBlackTitleActivity(),View.OnClickListener {
         if (index != 0) {
             val lastEt = mEditTexts!![index - 1]
             lastEt.requestFocus()
+            lastEt.setSelection(lastEt.text.toString().length)
         }
     }
 
@@ -230,6 +283,7 @@ class QueryParkingFeeActivity : BaseBlackTitleActivity(),View.OnClickListener {
         if (index < mEditTexts!!.size - 1) {
             val nextEt = mEditTexts!![index + 1]
             nextEt.requestFocus()
+            nextEt.setSelection(nextEt.text.toString().length)
         } else {
             if (mOnCompleteListener != null) {
                 val editable = Editable.Factory.getInstance().newEditable("")

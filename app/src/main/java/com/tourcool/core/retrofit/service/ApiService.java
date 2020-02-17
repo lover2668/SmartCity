@@ -293,7 +293,9 @@ public interface ApiService {
     @GET("order/query-parking-arrears")
     Observable<BaseResult<List<ParingRecord>>> requestQueryParkingRecord(@QueryMap Map<String, Object> map);
 
-
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @GET("car/get-carNum-records")
+    Observable<BaseResult<List<String>>> requestLastPayPlantNum();
 
 }
 

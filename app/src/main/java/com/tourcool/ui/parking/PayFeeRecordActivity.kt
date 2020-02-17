@@ -35,7 +35,7 @@ import me.bakumon.statuslayoutmanager.library.StatusLayoutManager
  * @date 2020年02月16日11:18
  * @Email: 971613168@qq.com
  */
-class PayFeeRecordActivity : BaseBlackTitleActivity() , OnRefreshListener {
+class PayFeeRecordActivity : BaseBlackTitleActivity() , OnRefreshListener ,View.OnClickListener{
     private var plantNum = ""
     private var mStatusManager: StatusLayoutManager? = null
     private var adapter : ParkingRecordAdapter ?= null
@@ -54,6 +54,7 @@ class PayFeeRecordActivity : BaseBlackTitleActivity() , OnRefreshListener {
             ToastUtil.show("未获取到车牌号")
             finish()
         }
+        tvPayParkingFee.setOnClickListener(this)
         smartRefreshCommon.setRefreshHeader(ClassicsHeader(mContext))
         smartRefreshCommon.setOnRefreshListener(this)
         recyclerViewCommon.layoutManager = LinearLayoutManager(mContext)
@@ -152,6 +153,16 @@ class PayFeeRecordActivity : BaseBlackTitleActivity() , OnRefreshListener {
 //        mIFastRefreshLoadView.setMultiStatusView(builder)
         mStatusManager = builder.build()
         mStatusManager!!.showLoadingLayout()
+    }
+
+    override fun onClick(v: View?) {
+        when (v!!.id) {
+            R.id.tvPayParkingFee -> {
+                ToastUtil.show("支付功能暂未开放")
+            }
+            else -> {
+            }
+        }
     }
 
 }

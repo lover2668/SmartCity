@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:gravity="center"
-                    android:text="微信昵称" />
+                    android:text="--" />
 
                 <TextView
                     android:id="@+id/tvPhoneNumber"
@@ -55,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:gravity="center"
-                    android:text="18968689076" />
+                    android:text="--" />
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
@@ -140,6 +140,7 @@
         android:layout_height="@dimen/dp_0_5"/>
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/llFindParking"
         android:paddingTop="@dimen/dp_25"
         android:paddingBottom="@dimen/dp_25"
