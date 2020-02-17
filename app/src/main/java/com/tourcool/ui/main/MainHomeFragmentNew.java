@@ -71,6 +71,7 @@ import com.tourcool.ui.mvp.search.SearchActivity;
 import com.tourcool.ui.mvp.service.SecondaryServiceActivity;
 import com.tourcool.ui.mvp.service.ServiceActivity;
 import com.tourcool.ui.mvp.weather.WeatherActivity;
+import com.tourcool.ui.parking.FastParkingActivity;
 import com.trello.rxlifecycle3.android.FragmentEvent;
 
 import org.apache.commons.lang.SystemUtils;
@@ -85,6 +86,7 @@ import cn.bingoogolapple.bgabanner.transformer.TransitionEffect;
 import static com.frame.library.core.util.StringUtil.LINE_HORIZONTAL;
 import static com.frame.library.core.util.StringUtil.SYMBOL_TEMP;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_KITCHEN;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_PARKING;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NATIVE;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NONE;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_URL;
@@ -574,6 +576,8 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
                         case CLICK_TYPE_URL:
                             if(ITEM_TYPE_KITCHEN.equals(clickChannel.getTitle())){
                                 skipBrightKitchen();
+                            }else if(ITEM_TYPE_PARKING.equals(clickChannel.getTitle())){
+                                skipParking();
                             }else{
                                 WebViewActivity.start(mContext, clickChannel.getLink());
                             }
@@ -780,6 +784,8 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
                     case CLICK_TYPE_URL:
                         if(ITEM_TYPE_KITCHEN.equals(channel.getTitle())){
                             skipBrightKitchen();
+                        }else if(ITEM_TYPE_PARKING.equals(channel.getTitle())){
+                            skipParking();
                         }else{
                             WebViewActivity.start(mContext, TourCooUtil.getUrl(channel.getLink()));
                         }
@@ -950,6 +956,12 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
         startActivity(intent);
     }
 
+    private void skipParking() {
+        Intent intent = new Intent();
+//        intent.setClass(mContext, BrightKitchenVideoListActivity.class);
+        intent.setClass(mContext, FastParkingActivity.class);
+        startActivity(intent);
+    }
 
 
 

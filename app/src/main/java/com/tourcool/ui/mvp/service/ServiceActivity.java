@@ -43,6 +43,7 @@ import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.event.service.ServiceEvent;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.kitchen.VideoListActivity;
+import com.tourcool.ui.parking.FastParkingActivity;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -55,6 +56,7 @@ import java.util.List;
 
 import static com.tourcool.core.config.RequestConfig.CODE_REQUEST_SUCCESS;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_KITCHEN;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_PARKING;
 import static com.tourcool.core.constant.ScreenConsrant.SUB_CHANNEL;
 import static com.tourcool.core.constant.ScreenConsrant.SUB_COLUMN;
 import static com.tourcool.ui.main.MainHomeFragmentNew.EXTRA_CLASSIFY_NAME;
@@ -453,6 +455,8 @@ public class ServiceActivity extends BaseMvpTitleActivity {
             case SUB_CHANNEL:
                 if(ITEM_TYPE_KITCHEN.equals(item.getTitle())){
                     skipBrightKitchen();
+                }else if(ITEM_TYPE_PARKING.equals(item.getTitle())){
+                    skipParking();
                 }else{
                     WebViewActivity.start(mContext, TourCooUtil.getUrl(item.getLink()));
                 }
@@ -529,4 +533,10 @@ public class ServiceActivity extends BaseMvpTitleActivity {
         startActivity(intent);
     }
 
+    private void skipParking() {
+        Intent intent = new Intent();
+//        intent.setClass(mContext, BrightKitchenVideoListActivity.class);
+        intent.setClass(mContext, FastParkingActivity.class);
+        startActivity(intent);
+    }
 }

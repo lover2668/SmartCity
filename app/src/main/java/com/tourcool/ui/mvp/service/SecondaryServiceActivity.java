@@ -19,11 +19,13 @@ import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.base.BaseCommonTitleActivity;
 import com.tourcool.ui.kitchen.VideoListActivity;
+import com.tourcool.ui.parking.FastParkingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_KITCHEN;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_PARKING;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NATIVE;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NONE;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_URL;
@@ -114,6 +116,8 @@ public class SecondaryServiceActivity extends BaseCommonTitleActivity {
                 case CLICK_TYPE_NONE:
                     if(ITEM_TYPE_KITCHEN.equals(matrixBean.getMatrixTitle())|| ITEM_TYPE_KITCHEN.equals(matrixBean.getMatrixName())){
                         skipBrightKitchen();
+                    }else if(ITEM_TYPE_PARKING.equals(matrixBean.getMatrixTitle())|| ITEM_TYPE_PARKING.equals(matrixBean.getMatrixName())){
+                        skipParking();
                     }else{
                         WebViewActivity.start(mContext, TourCooUtil.getUrl(matrixBean.getLink()));
                     }
@@ -131,6 +135,13 @@ public class SecondaryServiceActivity extends BaseCommonTitleActivity {
         Intent intent = new Intent();
         intent.setClass(mContext, VideoListActivity.class);
 //        intent.setClass(mContext, DeviceListActivity.class);
+        startActivity(intent);
+    }
+
+    private void skipParking() {
+        Intent intent = new Intent();
+//        intent.setClass(mContext, DeviceListActivity.class);
+        intent.setClass(mContext, FastParkingActivity.class);
         startActivity(intent);
     }
 }

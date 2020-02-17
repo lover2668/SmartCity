@@ -167,8 +167,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
         menuAdapter.setOnItemClickListener((adapter, view, position) -> {
             switch (menuAdapter.getData().get(position).getMatrixName()) {
                 case MINE_ITEM_NAME_REAL_NAME_AUTHENTICATION:
-//                    skipCertify();
-                    skipParking();
+                    skipCertify();
                     break;
                 default:
                     ToastUtil.show("敬请期待");
@@ -373,9 +372,5 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
     }
 
 
-    private void skipBrightKitchen() {
-        Intent intent = new Intent();
-        intent.setClass(mContext, VideoListActivity.class);
-        startActivity(intent);
-    }
+
 }

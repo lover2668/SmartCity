@@ -41,6 +41,7 @@ import com.tourcool.smartcity.R;
 import com.tourcool.ui.base.BaseCommonTitleActivity;
 import com.tourcool.ui.kitchen.VideoListActivity;
 import com.tourcool.ui.mvp.service.SecondaryServiceActivity;
+import com.tourcool.ui.parking.FastParkingActivity;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 
 
@@ -51,6 +52,7 @@ import java.util.List;
 import static com.tourcool.core.config.RequestConfig.CODE_REQUEST_SUCCESS;
 import static com.tourcool.core.config.RequestConfig.EXCEPTION_NO_NETWORK;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_KITCHEN;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_PARKING;
 import static com.tourcool.core.constant.ScreenConsrant.SUB_COLUMN;
 
 /**
@@ -324,6 +326,8 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
 //                        WebViewActivity.start(mContext, TourCooUtil.getUrl(matrixBean.getLink()), true);
                         if(ITEM_TYPE_KITCHEN.equals(matrixBean.getMatrixName())){
                             skipBrightKitchen();
+                        }else if(ITEM_TYPE_PARKING.equals(matrixBean.getMatrixName())){
+                            skipParking();
                         }else{
                             WebViewActivity.start(mContext, TourCooUtil.getUrl(matrixBean.getLink()),true);
                         }
@@ -364,4 +368,12 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
         intent.setClass(mContext, VideoListActivity.class);
         startActivity(intent);
     }
+
+    private void skipParking() {
+        Intent intent = new Intent();
+//        intent.setClass(mContext, DeviceListActivity.class);
+        intent.setClass(mContext, FastParkingActivity.class);
+        startActivity(intent);
+    }
+
 }

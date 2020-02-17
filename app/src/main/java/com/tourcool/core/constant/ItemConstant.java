@@ -25,4 +25,6 @@ public class ItemConstant {
     public static final String ITEM_TYPE_IMAGE = "IMAGE";
 
     public static final String ITEM_TYPE_KITCHEN = "明厨亮灶";
+
+    public static final String ITEM_TYPE_PARKING = "宜兴停车";
 }
