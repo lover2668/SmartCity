@@ -4,11 +4,15 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
 import android.text.Editable
+import android.text.SpannableString
+import android.text.Spanned
 import android.text.TextWatcher
+import android.text.style.AbsoluteSizeSpan
 import android.view.View
 import android.widget.EditText
 import com.frame.library.core.retrofit.BaseLoadingObserver
 import com.frame.library.core.util.NetworkUtil
+import com.frame.library.core.util.StringUtil
 import com.frame.library.core.util.ToastUtil
 import com.frame.library.core.widget.titlebar.TitleBarView
 import com.tourcool.core.base.BaseResult
@@ -22,6 +26,17 @@ import com.tourcool.ui.base.BaseBlackTitleActivity
 import com.tourcool.ui.base.BaseCommonTitleActivity
 import com.trello.rxlifecycle3.android.ActivityEvent
 import kotlinx.android.synthetic.main.activity_parking_car_bind.*
+import kotlinx.android.synthetic.main.activity_parking_car_bind.etPlantLetter
+import kotlinx.android.synthetic.main.activity_parking_car_bind.etPlantName
+import kotlinx.android.synthetic.main.activity_parking_car_bind.etPlantNumber1
+import kotlinx.android.synthetic.main.activity_parking_car_bind.etPlantNumber2
+import kotlinx.android.synthetic.main.activity_parking_car_bind.etPlantNumber3
+import kotlinx.android.synthetic.main.activity_parking_car_bind.etPlantNumber4
+import kotlinx.android.synthetic.main.activity_parking_car_bind.etPlantNumber5
+import kotlinx.android.synthetic.main.activity_parking_car_bind.etPlantNumber6
+import kotlinx.android.synthetic.main.activity_parking_car_bind.keyboardParent
+import kotlinx.android.synthetic.main.activity_parking_car_bind.radioCarSmall
+import kotlinx.android.synthetic.main.activity_parking_pay_fast.*
 
 /**
  *@description :
@@ -70,6 +85,11 @@ class AddCarActivity : BaseBlackTitleActivity(), View.OnClickListener {
         setupEditText(etPlantNumber4)
         setupEditText(etPlantNumber5)
         etPlantNumber1.requestFocus()
+        //设置"用户名"提示文字的大小
+        val s = SpannableString("新能源")
+        val textSize = AbsoluteSizeSpan(9, true)
+        s.setSpan(textSize, 0, s.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        etPlantNumber6.hint = s
         kingKeyboard.setVibrationEffectEnabled(true)
     }
 
@@ -97,6 +117,7 @@ class AddCarActivity : BaseBlackTitleActivity(), View.OnClickListener {
                 }
                 mOnCompleteListener!!.onComplete(editable, editable.toString())
             }
+            et!!.setSelection(et.text.toString().length)
         }
     }
 
@@ -165,14 +186,19 @@ class AddCarActivity : BaseBlackTitleActivity(), View.OnClickListener {
 
 
     private fun doAddCar(){
-        if(!checkPlantNum()){
-            ToastUtil.show("请输入正确的车牌号")
+        if(!checkPlantNum() ){
+            ToastUtil.show("请输入完整的车牌号")
             return
         }
         kingKeyboard.hideKeyboard()
         var lastNum = etPlantNumber6.text.toString()
         lastNum = lastNum.toUpperCase()
-        requestBindCar(  getPlantNum(mEditTexts!!) +lastNum, getCarType())
+        val num = getPlantNum(mEditTexts!!) +lastNum
+        if(!StringUtil.isCarnumberNo(num) ){
+            ToastUtil.show("请输入正确的车牌号")
+            return
+        }
+        requestBindCar(num  , getCarType())
     }
 
 

@@ -277,24 +277,24 @@ public interface ApiService {
 
 
     @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
-    @POST("car/bind")
+    @POST("app/car/bind")
     Observable<BaseResult<String>> requestAddCar(@Body Map<String, Object> map);
 
     @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
-    @GET("car/list")
+    @GET("app/car/list")
     Observable<BaseResult<List<CarInfo>>> requestCarList();
 
 
     @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
-    @POST("car/unbind")
+    @POST("app/car/unbind")
     Observable<BaseResult<String>> requestUnBindCar(@QueryMap Map<String, Object> map);
 
     @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
-    @GET("order/query-parking-arrears")
+    @GET("app/order/query-parking-arrears")
     Observable<BaseResult<List<ParingRecord>>> requestQueryParkingRecord(@QueryMap Map<String, Object> map);
 
     @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
-    @GET("car/get-carNum-records")
+    @GET("app/car/get-carNum-records")
     Observable<BaseResult<List<String>>> requestLastPayPlantNum();
 
 }

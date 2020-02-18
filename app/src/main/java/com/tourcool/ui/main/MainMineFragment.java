@@ -359,7 +359,6 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
         } else {
             Intent intent = new Intent();
             intent.setClass(mContext, FastParkingActivity.class);
-
             startActivity(intent);
         }
 

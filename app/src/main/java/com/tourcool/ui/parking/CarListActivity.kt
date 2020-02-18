@@ -37,11 +37,15 @@ import me.bakumon.statuslayoutmanager.library.StatusLayoutManager
  * @date 2020年02月14日19:18
  * @Email: 971613168@qq.com
  */
-class CarListActivity : BaseBlackTitleActivity(),View.OnClickListener {
+class CarListActivity : BaseBlackTitleActivity(), View.OnClickListener {
     private var mStatusManager: StatusLayoutManager? = null
     private var adapter: MyCarAdapter? = null
     override fun getContentLayout(): Int {
         return R.layout.activity_parking_my_car
+    }
+
+    companion object {
+        const val CAR_MAX_SIZE = 3
     }
 
     override fun setTitleBar(titleBar: TitleBarView?) {
@@ -84,7 +88,7 @@ class CarListActivity : BaseBlackTitleActivity(),View.OnClickListener {
                 .setDefaultLoadingText(com.tourcool.library.frame.demo.R.string.fast_multi_loading)
                 .setOnStatusChildClickListener(object : OnStatusChildClickListener {
                     override fun onEmptyChildClick(view: View) {
-                       skipBindCar()
+                        skipBindCar()
                     }
 
                     override fun onErrorChildClick(view: View) {
@@ -114,20 +118,20 @@ class CarListActivity : BaseBlackTitleActivity(),View.OnClickListener {
     }
 
 
-  /*  private fun requestBindCar() {
-        if (!NetworkUtil.isConnected(mContext)) {
-            mStatusManager!!.showLoadingLayout()
-            baseHandler.postDelayed({
-                mStatusManager!!.showCustomLayout(R.layout.view_no_netwrok_layout, R.id.llNoNetwok)
-            }, 300)
-            return
-        }
-        ApiRepository.getInstance().requestAddCar("苏BTX109", "1").compose(bindUntilEvent(ActivityEvent.DESTROY)).subscribe(object : BaseLoadingObserver<BaseResult<*>>() {
-            override fun onRequestNext(entity: BaseResult<*>) {
-                if (entity.status == RequestConfig.CODE_REQUEST_SUCCESS) {
-                    mStatusManager!!.showSuccessLayout()
-                    ToastUtil.showSuccess(entity.data.toString())
-                    *//*   if (entity.data.isEmpty()) {
+    /*  private fun requestBindCar() {
+          if (!NetworkUtil.isConnected(mContext)) {
+              mStatusManager!!.showLoadingLayout()
+              baseHandler.postDelayed({
+                  mStatusManager!!.showCustomLayout(R.layout.view_no_netwrok_layout, R.id.llNoNetwok)
+              }, 300)
+              return
+          }
+          ApiRepository.getInstance().requestAddCar("苏BTX109", "1").compose(bindUntilEvent(ActivityEvent.DESTROY)).subscribe(object : BaseLoadingObserver<BaseResult<*>>() {
+              override fun onRequestNext(entity: BaseResult<*>) {
+                  if (entity.status == RequestConfig.CODE_REQUEST_SUCCESS) {
+                      mStatusManager!!.showSuccessLayout()
+                      ToastUtil.showSuccess(entity.data.toString())
+                      *//*   if (entity.data.isEmpty()) {
                            mStatusManager!!.showEmptyLayout()
                        } else {
                            mStatusManager!!.showSuccessLayout()
@@ -154,7 +158,7 @@ class CarListActivity : BaseBlackTitleActivity(),View.OnClickListener {
         if (!NetworkUtil.isConnected(mContext)) {
             mStatusManager!!.showLoadingLayout()
             baseHandler.postDelayed({
-                mStatusManager!!.showCustomLayout(R.layout.parking_view_no_net_work_layout,R.id.tvRefreshNet)
+                mStatusManager!!.showCustomLayout(R.layout.parking_view_no_net_work_layout, R.id.tvRefreshNet)
             }, 300)
             return
         }
@@ -167,7 +171,7 @@ class CarListActivity : BaseBlackTitleActivity(),View.OnClickListener {
                         adapter!!.setNewData(entity.data)
                         mStatusManager!!.showSuccessLayout()
                     }
-                    setViewVisible(tvAddCar,entity.data.isNotEmpty())
+                    setViewVisible(tvAddCar, entity.data.isNotEmpty())
                 } else {
                     ToastUtil.show(entity.errorMsg)
                     smartRefreshCommon.finishRefresh()
@@ -216,6 +220,7 @@ class CarListActivity : BaseBlackTitleActivity(),View.OnClickListener {
                 if (entity.status == RequestConfig.CODE_REQUEST_SUCCESS) {
                     ToastUtil.show("解绑成功")
                     requestCarList()
+                    setResult(Activity.RESULT_OK)
                 }
 
             }
@@ -232,23 +237,29 @@ class CarListActivity : BaseBlackTitleActivity(),View.OnClickListener {
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.tvAddCar -> {
+                if (adapter!!.data.size >= CAR_MAX_SIZE) {
+                    ToastUtil.show("最多只能绑定" + CAR_MAX_SIZE + "辆车哦")
+                    return
+                }
                 skipBindCar()
             }
             else -> {
             }
         }
     }
+
     private fun skipBindCar() {
         val intent = Intent()
         intent.setClass(mContext, AddCarActivity::class.java)
-        startActivityForResult(intent,6001)
+        startActivityForResult(intent, 6001)
     }
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == Activity.RESULT_OK){
+        if (resultCode == Activity.RESULT_OK) {
             requestCarList()
+            setResult(Activity.RESULT_OK)
         }
     }
 }

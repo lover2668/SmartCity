@@ -31,6 +31,7 @@ import com.frame.library.core.util.ToastUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.adapter.MatrixAdapter;
 import com.tourcool.bean.MatrixBean;
+import com.tourcool.bean.account.AccountHelper;
 import com.tourcool.bean.screen.Channel;
 import com.tourcool.bean.search.SeachEntity;
 import com.tourcool.core.base.BaseResult;
@@ -40,6 +41,7 @@ import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.base.BaseCommonTitleActivity;
 import com.tourcool.ui.kitchen.VideoListActivity;
+import com.tourcool.ui.mvp.account.LoginActivity;
 import com.tourcool.ui.mvp.service.SecondaryServiceActivity;
 import com.tourcool.ui.parking.FastParkingActivity;
 import com.trello.rxlifecycle3.android.ActivityEvent;
@@ -370,9 +372,18 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
     }
 
     private void skipParking() {
+        if(!AccountHelper.getInstance().isLogin()){
+            skipLogin();
+            return;
+        }
         Intent intent = new Intent();
-//        intent.setClass(mContext, DeviceListActivity.class);
         intent.setClass(mContext, FastParkingActivity.class);
+        startActivity(intent);
+    }
+
+    private void skipLogin() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, LoginActivity.class);
         startActivity(intent);
     }
 

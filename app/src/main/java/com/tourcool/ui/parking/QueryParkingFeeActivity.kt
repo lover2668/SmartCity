@@ -3,13 +3,17 @@ package com.tourcool.ui.parking
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
+import android.text.SpannableString
+import android.text.Spanned
 import android.text.TextWatcher
+import android.text.style.AbsoluteSizeSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import com.frame.library.core.retrofit.BaseLoadingObserver
 import com.frame.library.core.util.NetworkUtil
+import com.frame.library.core.util.StringUtil
 import com.frame.library.core.util.ToastUtil
 import com.frame.library.core.widget.titlebar.TitleBarView
 import com.tourcool.bean.parking.CarInfo
@@ -23,6 +27,8 @@ import com.tourcool.smartcity.R
 import com.tourcool.ui.base.BaseBlackTitleActivity
 import com.tourcool.ui.base.BaseCommonTitleActivity
 import com.trello.rxlifecycle3.android.ActivityEvent
+import kotlinx.android.synthetic.main.activity_parking_car_bind.*
+import kotlinx.android.synthetic.main.activity_parking_pay_fast.*
 import kotlinx.android.synthetic.main.activity_parking_query_fee_pay.*
 import kotlinx.android.synthetic.main.activity_parking_query_fee_pay.etPlantLetter
 import kotlinx.android.synthetic.main.activity_parking_query_fee_pay.etPlantName
@@ -31,7 +37,10 @@ import kotlinx.android.synthetic.main.activity_parking_query_fee_pay.etPlantNumb
 import kotlinx.android.synthetic.main.activity_parking_query_fee_pay.etPlantNumber3
 import kotlinx.android.synthetic.main.activity_parking_query_fee_pay.etPlantNumber4
 import kotlinx.android.synthetic.main.activity_parking_query_fee_pay.etPlantNumber5
+import kotlinx.android.synthetic.main.activity_parking_query_fee_pay.etPlantNumber6
 import kotlinx.android.synthetic.main.activity_parking_query_fee_pay.keyboardParent
+import kotlinx.android.synthetic.main.activity_parking_query_fee_pay.llCarListContainer
+import kotlinx.android.synthetic.main.activity_parking_query_fee_pay.tvQueryFee
 
 /**
  *@description :
@@ -79,13 +88,18 @@ class QueryParkingFeeActivity : BaseBlackTitleActivity(),View.OnClickListener {
         setupEditText(etPlantNumber4)
         setupEditText(etPlantNumber5)
         kingKeyboard.setVibrationEffectEnabled(true)
+        //设置"用户名"提示文字的大小
+        val s = SpannableString("新能源")
+        val textSize = AbsoluteSizeSpan(9, true)
+        s.setSpan(textSize, 0, s.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        etPlantNumber6.hint = s
         etPlantNumber1.requestFocus()
     }
 
     override fun loadData() {
         super.loadData()
-//        requestCarList()
-        requestLastPayPlantNum()
+        requestCarList()
+
     }
 
     private fun requestCarList() {
@@ -96,17 +110,10 @@ class QueryParkingFeeActivity : BaseBlackTitleActivity(),View.OnClickListener {
         ApiRepository.getInstance().requestCarList().compose(bindUntilEvent(ActivityEvent.DESTROY)).subscribe(object : BaseLoadingObserver<BaseResult<MutableList<CarInfo>>>() {
             override fun onRequestNext(entity: BaseResult<MutableList<CarInfo>>) {
                 if (entity.status == RequestConfig.CODE_REQUEST_SUCCESS) {
-                    /* if (entity.data.isEmpty()) {
-                         mStatusManager!!.showEmptyLayout()
-                     } else {
-                         adapter!!.setNewData(entity.data)
-                         mStatusManager!!.showSuccessLayout()
-                     }*/
                     loadFastQueryByCarList(entity.data)
                 } else {
                     ToastUtil.show(entity.errorMsg)
                 }
-
             }
 
             override fun onRequestError(e: Throwable?) {
@@ -124,6 +131,7 @@ class QueryParkingFeeActivity : BaseBlackTitleActivity(),View.OnClickListener {
         }
         setViewGone(llFastQuery, carList.isNotEmpty())
         if(carList.isEmpty()){
+            llCarListContainer.removeAllViews()
             return
         }
         for (carInfo in carList) {
@@ -174,6 +182,7 @@ class QueryParkingFeeActivity : BaseBlackTitleActivity(),View.OnClickListener {
             return
         }
         setViewGone(llFastQuery, numberList.isNotEmpty())
+        llCarListContainer.removeAllViews()
         if(numberList.isEmpty()){
             return
         }
@@ -201,7 +210,14 @@ class QueryParkingFeeActivity : BaseBlackTitleActivity(),View.OnClickListener {
     }
 
     private fun skipPayParkingRecord() {
-        if(!checkPlantNum()){
+        if(!checkPlantNum() ){
+            ToastUtil.show("请输入完整的车牌号")
+            return
+        }
+        var lastNum = etPlantNumber6.text.toString()
+        lastNum = lastNum.toUpperCase()
+        val num = getPlantNum(mEditTexts!!) +lastNum
+        if(!StringUtil.isCarnumberNo(num) ){
             ToastUtil.show("请输入正确的车牌号")
             return
         }
@@ -252,7 +268,9 @@ class QueryParkingFeeActivity : BaseBlackTitleActivity(),View.OnClickListener {
         when (arrays.size) {
             7 -> {
                 for( index in arrays.indices){
-                    mEditTexts!![index].setText(arrays[index].toString())
+                    val currentEditText =  mEditTexts!![index]
+                    currentEditText.setText(arrays[index].toString())
+                    currentEditText.setSelection(currentEditText.text.toString().length)
                 }
                 etPlantNumber6.setText("")
             }
@@ -261,6 +279,7 @@ class QueryParkingFeeActivity : BaseBlackTitleActivity(),View.OnClickListener {
                     mEditTexts!![index].setText(arrays[index].toString())
                 }
                 etPlantNumber6!!.setText(arrays[arrays.size -1].toString())
+                etPlantNumber6.setSelection(etPlantNumber6.text.toString().length)
             }
             else -> {
                 ToastUtil.show("车牌号有误")
@@ -292,6 +311,7 @@ class QueryParkingFeeActivity : BaseBlackTitleActivity(),View.OnClickListener {
                 }
                 mOnCompleteListener!!.onComplete(editable, editable.toString())
             }
+            et!!.setSelection(et.text.toString().length)
         }
     }
 

@@ -1,5 +1,6 @@
 package com.tourcool.ui.parking
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -68,6 +69,11 @@ class MineParkingActivity : BaseBlackTitleActivity() ,View.OnClickListener{
     private fun skipCarList() {
         val intent = Intent()
         intent.setClass(mContext, CarListActivity::class.java)
-        startActivity(intent)
+        startActivityForResult(intent,6002)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+            setResult(resultCode)
     }
 }

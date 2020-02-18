@@ -29,6 +29,7 @@ import com.frame.library.core.widget.linkage.bean.SimpleServiceEntity;
 import com.frame.library.core.widget.linkage.contract.ILinkagePrimaryAdapterConfig;
 import com.frame.library.core.widget.linkage.contract.ILinkageSecondaryAdapterConfig;
 import com.tourcool.bean.ElemeGroupedItem;
+import com.tourcool.bean.account.AccountHelper;
 import com.tourcool.bean.screen.Channel;
 import com.tourcool.bean.screen.ChildNode;
 import com.tourcool.bean.screen.ColumnItem;
@@ -43,6 +44,7 @@ import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.event.service.ServiceEvent;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.kitchen.VideoListActivity;
+import com.tourcool.ui.mvp.account.LoginActivity;
 import com.tourcool.ui.parking.FastParkingActivity;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 
@@ -534,9 +536,19 @@ public class ServiceActivity extends BaseMvpTitleActivity {
     }
 
     private void skipParking() {
+        if(!AccountHelper.getInstance().isLogin()){
+            skipLogin();
+            return;
+        }
         Intent intent = new Intent();
-//        intent.setClass(mContext, BrightKitchenVideoListActivity.class);
         intent.setClass(mContext, FastParkingActivity.class);
         startActivity(intent);
     }
+
+    private void skipLogin() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, LoginActivity.class);
+        startActivity(intent);
+    }
+
 }

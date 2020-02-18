@@ -2,7 +2,11 @@ package com.tourcool.ui.mvp.service;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -13,12 +17,14 @@ import com.frame.library.core.util.ToastUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.adapter.MatrixAdapter;
 import com.tourcool.bean.MatrixBean;
+import com.tourcool.bean.account.AccountHelper;
 import com.tourcool.bean.screen.Channel;
 import com.tourcool.core.module.WebViewActivity;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.base.BaseCommonTitleActivity;
 import com.tourcool.ui.kitchen.VideoListActivity;
+import com.tourcool.ui.mvp.account.LoginActivity;
 import com.tourcool.ui.parking.FastParkingActivity;
 
 import java.util.ArrayList;
@@ -139,9 +145,18 @@ public class SecondaryServiceActivity extends BaseCommonTitleActivity {
     }
 
     private void skipParking() {
+        if(!AccountHelper.getInstance().isLogin()){
+            skipLogin();
+            return;
+        }
         Intent intent = new Intent();
-//        intent.setClass(mContext, DeviceListActivity.class);
         intent.setClass(mContext, FastParkingActivity.class);
+        startActivity(intent);
+    }
+
+    private void skipLogin() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, LoginActivity.class);
         startActivity(intent);
     }
 }

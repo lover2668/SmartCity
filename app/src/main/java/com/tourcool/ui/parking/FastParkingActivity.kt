@@ -1,15 +1,20 @@
 package com.tourcool.ui.parking
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
+import android.text.SpannableString
+import android.text.Spanned
 import android.text.TextWatcher
+import android.text.style.AbsoluteSizeSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import com.frame.library.core.retrofit.BaseLoadingObserver
 import com.frame.library.core.util.NetworkUtil
+import com.frame.library.core.util.StringUtil
 import com.frame.library.core.util.ToastUtil
 import com.frame.library.core.widget.titlebar.TitleBarView
 import com.tourcool.bean.parking.CarInfo
@@ -77,13 +82,18 @@ class FastParkingActivity : BaseBlackTitleActivity(),View.OnClickListener {
         setupEditText(etPlantNumber3)
         setupEditText(etPlantNumber4)
         setupEditText(etPlantNumber5)
+        //设置"用户名"提示文字的大小
+        val s = SpannableString("新能源")
+        val textSize = AbsoluteSizeSpan(9, true)
+        s.setSpan(textSize, 0, s.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        etPlantNumber6.hint = s
         kingKeyboard.setVibrationEffectEnabled(true)
         etPlantNumber1.requestFocus()
     }
 
     override fun loadData() {
         super.loadData()
-        requestLastPayPlantNum()
+        requestCarList()
     }
 
     private fun fillPlantNum(plantNum : String ?){
@@ -97,7 +107,9 @@ class FastParkingActivity : BaseBlackTitleActivity(),View.OnClickListener {
         when (arrays.size) {
             7 -> {
                 for( index in arrays.indices){
-                    mEditTexts!![index].setText(arrays[index].toString())
+                    val currentEditText =  mEditTexts!![index]
+                    currentEditText.setText(arrays[index].toString())
+                    currentEditText.setSelection(currentEditText.text.toString().length)
                 }
                 etPlantNumber6.setText("")
             }
@@ -106,6 +118,7 @@ class FastParkingActivity : BaseBlackTitleActivity(),View.OnClickListener {
                     mEditTexts!![index].setText(arrays[index].toString())
                 }
                 etPlantNumber6!!.setText(arrays[arrays.size -1].toString())
+                etPlantNumber6.setSelection(etPlantNumber6.text.toString().length)
             }
             else -> {
                 ToastUtil.show("车牌号有误")
@@ -137,6 +150,7 @@ class FastParkingActivity : BaseBlackTitleActivity(),View.OnClickListener {
                 }
                 mOnCompleteListener!!.onComplete(editable, editable.toString())
             }
+            et!!.setSelection(et.text.toString().length)
         }
     }
 
@@ -217,6 +231,17 @@ class FastParkingActivity : BaseBlackTitleActivity(),View.OnClickListener {
                 skipPayParking()
             }
             R.id.tvQueryFee ->{
+                if(!checkPlantNum() ){
+                    ToastUtil.show("请输入完整的车牌号")
+                    return
+                }
+                var lastNum = etPlantNumber6.text.toString()
+                lastNum = lastNum.toUpperCase()
+                val num = getPlantNum(mEditTexts!!) +lastNum
+                if(!StringUtil.isCarnumberNo(num) ){
+                    ToastUtil.show("请输入正确的车牌号")
+                    return
+                }
                 ToastUtil.show("支付功能暂未开放")
             }
             else -> {
@@ -228,7 +253,7 @@ class FastParkingActivity : BaseBlackTitleActivity(),View.OnClickListener {
     private fun skipMineParking() {
         val intent = Intent()
         intent.setClass(mContext, MineParkingActivity::class.java)
-        startActivity(intent)
+        startActivityForResult(intent,6003)
     }
 
 
@@ -246,12 +271,6 @@ class FastParkingActivity : BaseBlackTitleActivity(),View.OnClickListener {
         ApiRepository.getInstance().requestCarList().compose(bindUntilEvent(ActivityEvent.DESTROY)).subscribe(object : BaseLoadingObserver<BaseResult<MutableList<CarInfo>>>() {
             override fun onRequestNext(entity: BaseResult<MutableList<CarInfo>>) {
                 if (entity.status == RequestConfig.CODE_REQUEST_SUCCESS) {
-                    /* if (entity.data.isEmpty()) {
-                         mStatusManager!!.showEmptyLayout()
-                     } else {
-                         adapter!!.setNewData(entity.data)
-                         mStatusManager!!.showSuccessLayout()
-                     }*/
                     loadFastQueryByCarList(entity.data)
                 } else {
                     ToastUtil.show(entity.errorMsg)
@@ -274,8 +293,10 @@ class FastParkingActivity : BaseBlackTitleActivity(),View.OnClickListener {
         setViewGone(llCarListContainer, carList.isNotEmpty())
         if(carList.isEmpty()){
             setViewVisible(tvFastSelectPlantNum, false)
+            llCarListContainer.removeAllViews()
             return
         }
+        setViewVisible(tvFastSelectPlantNum, true)
         for (carInfo in carList) {
             val view = LayoutInflater.from(mContext).inflate(R.layout.layout_textview_car_info,null)
             val textView = view.findViewById<TextView>(R.id.tvCarInfo)
@@ -323,6 +344,7 @@ class FastParkingActivity : BaseBlackTitleActivity(),View.OnClickListener {
             return
         }
         setViewGone(llFastQuery, numberList.isNotEmpty())
+        llCarListContainer.removeAllViews()
         if(numberList.isEmpty()){
             return
         }
@@ -338,5 +360,10 @@ class FastParkingActivity : BaseBlackTitleActivity(),View.OnClickListener {
         }
     }
 
-
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == Activity.RESULT_OK){
+            requestCarList()
+        }
+    }
 }
