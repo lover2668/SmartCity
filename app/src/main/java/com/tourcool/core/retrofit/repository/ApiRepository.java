@@ -334,5 +334,8 @@ public class ApiRepository extends AbstractRepository {
     public Observable<BaseResult<List<String>>> requestLastPayPlantNum() {
         return FrameTransformer.switchSchedulers(getApiService().requestLastPayPlantNum().retryWhen(new RetryWhen()));
     }
+    public Observable<BaseResult<String>> requestFindParkingUrl() {
+        return FrameTransformer.switchSchedulers(getApiService().requestFindParkingUrl().retryWhen(new RetryWhen()));
+    }
 
 }

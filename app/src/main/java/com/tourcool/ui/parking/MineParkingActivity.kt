@@ -5,14 +5,21 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.frame.library.core.manager.GlideManager
+import com.frame.library.core.retrofit.BaseLoadingObserver
+import com.frame.library.core.util.NetworkUtil
 import com.frame.library.core.util.ToastUtil
 import com.tourcool.bean.account.AccountHelper
+import com.tourcool.core.base.BaseResult
+import com.tourcool.core.config.RequestConfig
+import com.tourcool.core.module.WebViewActivity
+import com.tourcool.core.retrofit.repository.ApiRepository
 import com.tourcool.core.util.TourCooUtil
 import com.tourcool.smartcity.R
 import com.tourcool.ui.base.BaseBlackTitleActivity
 import com.tourcool.ui.base.BaseCommonTitleActivity
 import com.tourcool.ui.certify.CertifyMessageActivity
 import com.tourcool.ui.certify.SelectCertifyActivity
+import com.trello.rxlifecycle3.android.ActivityEvent
 import kotlinx.android.synthetic.main.activity_certify_identity.*
 import kotlinx.android.synthetic.main.activity_parking_mine.*
 import kotlinx.android.synthetic.main.activity_parking_mine.tvPhoneNumber
@@ -37,6 +44,7 @@ class MineParkingActivity : BaseBlackTitleActivity() ,View.OnClickListener{
         }
         llMyCar.setOnClickListener(this)
         llPayParkingFee.setOnClickListener(this)
+        llFindParking.setOnClickListener(this)
         loadMineInfo()
     }
 
@@ -47,6 +55,9 @@ class MineParkingActivity : BaseBlackTitleActivity() ,View.OnClickListener{
             }
             R.id.llPayParkingFee->{
                 skipPayParkingFee()
+            }
+            R.id.llFindParking->{
+                requestFindParkingUrl()
             }
             else -> {
             }
@@ -75,5 +86,28 @@ class MineParkingActivity : BaseBlackTitleActivity() ,View.OnClickListener{
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
             setResult(resultCode)
+    }
+
+
+
+    private fun requestFindParkingUrl() {
+        if (!NetworkUtil.isConnected(mContext)) {
+            ToastUtil.show("请检查网络连接")
+            return
+        }
+        ApiRepository.getInstance().requestFindParkingUrl().compose(bindUntilEvent(ActivityEvent.DESTROY)).subscribe(object : BaseLoadingObserver<BaseResult<String>>() {
+            override fun onRequestNext(entity: BaseResult<String>) {
+                if (entity.status == RequestConfig.CODE_REQUEST_SUCCESS) {
+                  WebViewActivity.start(mContext,entity.data)
+                } else {
+                    ToastUtil.show(entity.errorMsg)
+                }
+            }
+
+            override fun onRequestError(e: Throwable?) {
+                super.onRequestError(e)
+                ToastUtil.show(e!!.message)
+            }
+        })
     }
 }

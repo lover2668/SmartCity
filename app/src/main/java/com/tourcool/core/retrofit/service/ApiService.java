@@ -290,12 +290,16 @@ public interface ApiService {
     Observable<BaseResult<String>> requestUnBindCar(@QueryMap Map<String, Object> map);
 
     @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
-    @GET("app/order/query-parking-arrears")
+    @GET("public/order/query-parking-arrears")
     Observable<BaseResult<List<ParingRecord>>> requestQueryParkingRecord(@QueryMap Map<String, Object> map);
 
     @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
     @GET("app/car/get-carNum-records")
     Observable<BaseResult<List<String>>> requestLastPayPlantNum();
+
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @GET("public/order/get-location-url")
+    Observable<BaseResult<String>> requestFindParkingUrl();
 
 }
 

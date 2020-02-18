@@ -194,7 +194,7 @@ class AddCarActivity : BaseBlackTitleActivity(), View.OnClickListener {
         var lastNum = etPlantNumber6.text.toString()
         lastNum = lastNum.toUpperCase()
         val num = getPlantNum(mEditTexts!!) +lastNum
-        if(!StringUtil.isCarnumberNo(num) ){
+        if(!StringUtil.isCarNumberNo(num) ){
             ToastUtil.show("请输入正确的车牌号")
             return
         }

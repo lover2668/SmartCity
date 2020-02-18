@@ -1,6 +1,12 @@
 package com.frame.library.core.util;
 
 import android.text.TextUtils;
+import android.util.Log;
+
+import com.blankj.utilcode.util.StringUtils;
+
+import java.io.UnsupportedEncodingException;
+import java.util.regex.Pattern;
 
 /**
  * @author :JenkinsZhou
@@ -19,6 +25,7 @@ public class StringUtil {
      */
     public static final String SYMBOL_TEMP = "°";
     public static final String LINE_HORIZONTAL = "--";
+
     public static boolean isPhoneNumber(String number) {
         if (TextUtils.isEmpty(number)) {
             return false;
@@ -31,10 +38,10 @@ public class StringUtil {
         if (TextUtils.isEmpty(number)) {
             return false;
         }
-        return number.length() == LENGTH_ID_CARD ;
+        return number.length() == LENGTH_ID_CARD;
     }
 
-    public static String  getNotNullValue(String number) {
+    public static String getNotNullValue(String number) {
         if (TextUtils.isEmpty(number)) {
             return "";
         }
@@ -42,17 +49,44 @@ public class StringUtil {
     }
 
 
-    public static boolean isCarnumberNo(String carNumber) {
-   /*
-   1.常规车牌号：仅允许以汉字开头，后面可录入六个字符，由大写英文字母和阿拉伯数字组成。如：粤B12345；
-   2.武警车牌：允许前两位为大写英文字母，后面可录入五个或六个字符，由大写英文字母和阿拉伯数字组成，其中第三位可录汉字也可录大写英文字母及阿拉伯数字，第三位也可空，如：WJ警00081、WJ京1234J、WJ1234X。
-   3.最后一个为汉字的车牌：允许以汉字开头，后面可录入六个字符，前五位字符，由大写英文字母和阿拉伯数字组成，而最后一个字符为汉字，汉字包括“挂”、“学”、“警”、“军”、“港”、“澳”。如：粤Z1234港。
-   4.新军车牌：以两位为大写英文字母开头，后面以5位阿拉伯数字组成。如：BA12345。
-       */
-        String carNumRegex = "^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[警京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼]{0,1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$";
-        if (TextUtils.isEmpty(carNumber)) return false;
-        else return carNumber.matches(carNumRegex);
+    public static boolean isCarNumberNo(String carNumber) {
+        if (TextUtils.isEmpty(carNumber)) {
+            return false;
+        }
+        if (carNumber.length() < 7 || carNumber.length() > 8) {
+            return false;
+        }
+        String str = carNumber.charAt(carNumber.length() - 1) + "";
+        boolean checkLast = (!str.equalsIgnoreCase("I"))&& (!str.equalsIgnoreCase("O")) &&isLetter(str)|| isNumeric(str)  ;
+        return isChineseChar(carNumber.charAt(0)) && isLetter(carNumber.charAt(1) + "") && checkLast;
     }
 
+    public static boolean isChineseChar(char c) {
+        try {
+            return String.valueOf(c).getBytes("UTF-8").length > 1;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean isNumeric(String str){
+        Pattern pattern = Pattern.compile("[0-9]*");
+        return pattern.matcher(str).matches();
+    }
+    /**
+     * 判断是否是字母
+     *
+     * @param str 传入字符串
+     * @return 是字母返回true，否则返回false
+     */
+
+    public static boolean isLetter(String str) {
+
+        if (str == null) return false;
+
+        return str.matches("[a-zA-Z]+");
+
+    }
 
 }

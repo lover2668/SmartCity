@@ -140,7 +140,7 @@
         android:layout_height="@dimen/dp_0_5"/>
 
     <LinearLayout
-        android:visibility="gone"
+        android:visibility="visible"
         android:id="@+id/llFindParking"
         android:paddingTop="@dimen/dp_25"
         android:paddingBottom="@dimen/dp_25"
