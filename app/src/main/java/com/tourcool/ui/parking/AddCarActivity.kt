@@ -76,6 +76,7 @@ class AddCarActivity : BaseBlackTitleActivity(), View.OnClickListener {
         kingKeyboard.register(etPlantNumber3, KingKeyboard.KeyboardType.LICENSE_PLATE_MODE_CHANGE)
         kingKeyboard.register(etPlantNumber4, KingKeyboard.KeyboardType.LICENSE_PLATE_MODE_CHANGE)
         kingKeyboard.register(etPlantNumber5, KingKeyboard.KeyboardType.LICENSE_PLATE_MODE_CHANGE)
+        kingKeyboard.register(etPlantNumber6, KingKeyboard.KeyboardType.LICENSE_PLATE_MODE_CHANGE)
         kingKeyboard.setKeyboardCustom(R.xml.keyboard_custom)
         setupEditText(etPlantName)
         setupEditText(etPlantLetter)

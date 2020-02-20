@@ -74,6 +74,7 @@ class FastParkingActivity : BaseBlackTitleActivity(),View.OnClickListener {
         kingKeyboard.register(etPlantNumber3, KingKeyboard.KeyboardType.LICENSE_PLATE_MODE_CHANGE)
         kingKeyboard.register(etPlantNumber4, KingKeyboard.KeyboardType.LICENSE_PLATE_MODE_CHANGE)
         kingKeyboard.register(etPlantNumber5, KingKeyboard.KeyboardType.LICENSE_PLATE_MODE_CHANGE)
+        kingKeyboard.register(etPlantNumber6, KingKeyboard.KeyboardType.LICENSE_PLATE_MODE_CHANGE)
         kingKeyboard.setKeyboardCustom(R.xml.keyboard_custom)
         setupEditText(etPlantName)
         setupEditText(etPlantLetter)
@@ -288,6 +289,7 @@ class FastParkingActivity : BaseBlackTitleActivity(),View.OnClickListener {
 
     private fun loadFastQueryByCarList(carList: MutableList<CarInfo>?) {
         if (carList == null) {
+            setViewGone(llCarListContainer, false)
             return
         }
         setViewGone(llCarListContainer, carList.isNotEmpty())
@@ -297,6 +299,7 @@ class FastParkingActivity : BaseBlackTitleActivity(),View.OnClickListener {
             return
         }
         setViewVisible(tvFastSelectPlantNum, true)
+        llCarListContainer.removeAllViews()
         for (carInfo in carList) {
             val view = LayoutInflater.from(mContext).inflate(R.layout.layout_textview_car_info,null)
             val textView = view.findViewById<TextView>(R.id.tvCarInfo)
@@ -348,6 +351,7 @@ class FastParkingActivity : BaseBlackTitleActivity(),View.OnClickListener {
         if(numberList.isEmpty()){
             return
         }
+        llCarListContainer.removeAllViews()
         for (info in numberList) {
             val view = LayoutInflater.from(mContext).inflate(R.layout.layout_textview_car_info,null)
             val textView = view.findViewById<TextView>(R.id.tvCarInfo)

@@ -50,6 +50,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tourcool.adapter.MatrixAdapter;
 import com.tourcool.adapter.TwoLevelChildAdapter;
 import com.tourcool.bean.MatrixBean;
+import com.tourcool.bean.account.AccountHelper;
 import com.tourcool.bean.screen.Channel;
 import com.tourcool.bean.screen.ChildNode;
 import com.tourcool.bean.screen.ColumnItem;
@@ -67,6 +68,7 @@ import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.core.widget.IosAlertDialog;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.kitchen.VideoListActivity;
+import com.tourcool.ui.mvp.account.LoginActivity;
 import com.tourcool.ui.mvp.search.SearchActivity;
 import com.tourcool.ui.mvp.service.SecondaryServiceActivity;
 import com.tourcool.ui.mvp.service.ServiceActivity;
@@ -956,9 +958,18 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
         startActivity(intent);
     }
 
-    private void skipParking() {
+    private void skipLogin() {
         Intent intent = new Intent();
-//        intent.setClass(mContext, BrightKitchenVideoListActivity.class);
+        intent.setClass(mContext, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    private void skipParking() {
+        if(!AccountHelper.getInstance().isLogin()){
+            skipLogin();
+            return;
+        }
+        Intent intent = new Intent();
         intent.setClass(mContext, FastParkingActivity.class);
         startActivity(intent);
     }

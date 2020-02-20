@@ -158,7 +158,21 @@ class PayFeeRecordActivity : BaseBlackTitleActivity() , OnRefreshListener ,View.
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.tvPayParkingFee -> {
-                ToastUtil.show("支付功能暂未开放")
+                var hasSelect = false
+                for(index in 0 until   adapter!!.data.size  ){
+                    if(!(adapter!!.data[index] as ParingRecord).isSelect ){
+                        continue
+                    }else{
+                        hasSelect = true
+                        break
+                    }
+                }
+                if(hasSelect){
+                    ToastUtil.show("支付功能暂未开放")
+                }else{
+                    ToastUtil.show("请先选择缴纳项目")
+                }
+
             }
             else -> {
             }
