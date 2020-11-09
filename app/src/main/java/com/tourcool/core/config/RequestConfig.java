@@ -23,7 +23,10 @@ public class RequestConfig {
     /**
      * 正式环境
      */
-    public static final String BASE_URL_NO_LINE = "http://36.155.115.191:8000";
+//    public static final String BASE_URL_NO_LINE = "http://36.155.115.191:8000";
+
+    public static final String BASE_URL_NO_LINE = "http://36.156.140.151:8000";
+
 
 
     public static final String BASE_URL = BASE_URL_NO_LINE+"/";
