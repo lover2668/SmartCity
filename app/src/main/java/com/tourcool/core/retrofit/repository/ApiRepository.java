@@ -10,18 +10,15 @@ import com.tourcool.bean.search.SeachEntity;
 import com.tourcool.bean.weather.WeatherEntity;
 import com.tourcool.core.base.BaseResult;
 import com.tourcool.core.entity.Authenticate;
-import com.tourcool.core.entity.BasePageResult;
+import com.tourcool.core.entity.BasePageBean;
 import com.tourcool.core.entity.MessageBean;
-import com.tourcool.core.entity.SocialBaseInfo;
 import com.tourcool.core.entity.UpdateEntity;
 import com.frame.library.core.retrofit.FrameRetrofit;
 import com.tourcool.core.MyApplication;
 import com.tourcool.core.base.BaseMovieEntity;
-import com.tourcool.core.entity.social.SocialDetail;
 import com.tourcool.core.retrofit.service.ApiService;
 import com.frame.library.core.retrofit.RetryWhen;
 import com.frame.library.core.retrofit.FrameTransformer;
-import com.tourcool.ui.social_insurance.detail.SocialSecurityResult;
 
 import java.util.HashMap;
 import java.util.List;
@@ -95,7 +92,7 @@ public class ApiRepository extends AbstractRepository {
      * @param ownerId
      * @return
      */
-    public Observable<BaseResult<BasePageResult<MessageBean>>> requestMsgList(int ownerId, int pageIndex) {
+    public Observable<BaseResult<BasePageBean<MessageBean>>> requestMsgList(int ownerId, int pageIndex) {
         Map<String, Object> params = new HashMap<>(3);
         params.put("ownerId", ownerId);
         params.put("pageIndex", pageIndex + "");
@@ -341,16 +338,4 @@ public class ApiRepository extends AbstractRepository {
         return FrameTransformer.switchSchedulers(getApiService().requestFindParkingUrl().retryWhen(new RetryWhen()));
     }
 
-
-    public Observable<BaseResult<SocialBaseInfo>> requestSocialBaseInfo() {
-        return FrameTransformer.switchSchedulers(getApiService().requestSocialBaseInfo().retryWhen(new RetryWhen()));
-    }
-
-
-    public Observable<BaseResult<BaseResult<SocialSecurityResult>>> requestSocialPageDataGs(int pageIndex) {
-        Map<String, Object> params = new HashMap<>(2);
-        params.put("page", pageIndex + "");
-        params.put("pageSize", 10 + "");
-        return FrameTransformer.switchSchedulers(getApiService().requestSocialPageDataGs(params).retryWhen(new RetryWhen()));
-    }
 }

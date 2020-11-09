@@ -159,8 +159,7 @@
         <activity android:name="com.tourcool.ui.parking.QueryParkingFeeActivity" />
         <activity android:name="com.tourcool.ui.parking.PayFeeRecordActivity" />
         <activity android:name="com.tourcool.ui.parking.FastParkingActivity" />
-<activity android:name="com.tourcool.ui.social_insurance.SocialBaseInfoActivity"/>
-        <activity android:name="com.tourcool.ui.social_insurance.detail.SocialListDetailActivity"/>
+
         <meta-data
             android:name="BUGLY_APPID"
             android:value="${bugly_id}" />
