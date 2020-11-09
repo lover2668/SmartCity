@@ -10,12 +10,15 @@ import com.tourcool.bean.weather.WeatherEntity;
 import com.tourcool.core.base.BaseResult;
 import com.tourcool.core.constant.ApiConstant;
 import com.tourcool.core.entity.Authenticate;
-import com.tourcool.core.entity.BasePageBean;
+import com.tourcool.core.entity.BasePageResult;
 import com.tourcool.core.entity.MessageBean;
+import com.tourcool.core.entity.SocialBaseInfo;
 import com.tourcool.core.entity.UpdateEntity;
 import com.frame.library.core.retrofit.FrameRetrofit;
 import com.tourcool.core.base.BaseMovieEntity;
+import com.tourcool.core.entity.social.SocialDetail;
 import com.tourcool.core.retrofit.interceptor.TokenInterceptor;
+import com.tourcool.ui.social_insurance.detail.SocialSecurityResult;
 
 import java.util.List;
 import java.util.Map;
@@ -70,7 +73,7 @@ public interface ApiService {
      * @return
      */
     @POST("message/owner/msg")
-    Observable<BaseResult<BasePageBean<MessageBean>>> requestMsgList(@Body Map<String, Object> map);
+    Observable<BaseResult<BasePageResult<MessageBean>>> requestMsgList(@Body Map<String, Object> map);
 
 
     /**
@@ -157,8 +160,7 @@ public interface ApiService {
     Observable<BaseResult> requestLogout();
 
 
-
-    @Headers({TokenInterceptor.HEADER_NEED_TOKEN,HEADER_NOT_SKIP_LOGIN})
+    @Headers({TokenInterceptor.HEADER_NEED_TOKEN, HEADER_NOT_SKIP_LOGIN})
     @GET("app/user")
     Observable<BaseResult> requestUserInfo();
 
@@ -169,13 +171,13 @@ public interface ApiService {
 
     /**
      * 修改用户信息
+     *
      * @param map
      * @return
      */
     @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
     @PUT("app/user")
     Observable<BaseResult> requestEditUserInfo(@Body Map<String, Object> map);
-
 
 
     /**
@@ -191,6 +193,7 @@ public interface ApiService {
 
     /**
      * 获取未来一周天气
+     *
      * @return
      */
     @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
@@ -199,6 +202,7 @@ public interface ApiService {
 
     /**
      * 搜索
+     *
      * @param map
      * @return
      */
@@ -209,6 +213,7 @@ public interface ApiService {
 
     /**
      * 绑定手机号
+     *
      * @param map
      * @return
      */
@@ -219,6 +224,7 @@ public interface ApiService {
 
     /**
      * 首次短信登录设置密码
+     *
      * @param map
      * @return
      */
@@ -229,6 +235,7 @@ public interface ApiService {
 
     /**
      * 用户认证状态列表
+     *
      * @return
      */
     @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
@@ -237,6 +244,7 @@ public interface ApiService {
 
     /**
      * 支付宝认证
+     *
      * @return
      */
     @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
@@ -246,6 +254,7 @@ public interface ApiService {
 
     /**
      * 身份证认证
+     *
      * @param map
      * @return
      */
@@ -255,6 +264,7 @@ public interface ApiService {
 
     /**
      * 人脸识别认证
+     *
      * @param map
      * @return
      */
@@ -264,6 +274,7 @@ public interface ApiService {
 
     /**
      * 明厨亮灶视频列表
+     *
      * @return
      */
     @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
@@ -301,6 +312,23 @@ public interface ApiService {
     @GET("public/order/get-location-url")
     Observable<BaseResult<String>> requestFindParkingUrl();
 
+    /**
+     * 人社基本信息
+     * @return
+     */
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @GET("app/social/getBaseInfo")
+    Observable<BaseResult<SocialBaseInfo>> requestSocialBaseInfo();
+
+
+    /**
+     * 获取工伤保险缴费记录
+     * @param map
+     * @return
+     */
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @GET("app/social/getGSInfo")
+    Observable<BaseResult<BaseResult<SocialSecurityResult>>> requestSocialPageDataGs(@QueryMap Map<String, Object> map);
 }
 
 

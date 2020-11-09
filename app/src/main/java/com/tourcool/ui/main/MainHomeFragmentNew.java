@@ -27,7 +27,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.aries.ui.util.StatusBarUtil;
 import com.blankj.utilcode.util.ToastUtils;
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
@@ -65,7 +64,6 @@ import com.tourcool.core.module.WebViewActivity;
 import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.DateUtil;
 import com.tourcool.core.util.TourCooUtil;
-import com.tourcool.core.widget.IosAlertDialog;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.kitchen.VideoListActivity;
 import com.tourcool.ui.mvp.account.LoginActivity;
@@ -74,9 +72,9 @@ import com.tourcool.ui.mvp.service.SecondaryServiceActivity;
 import com.tourcool.ui.mvp.service.ServiceActivity;
 import com.tourcool.ui.mvp.weather.WeatherActivity;
 import com.tourcool.ui.parking.FastParkingActivity;
+import com.tourcool.ui.social_insurance.SocialBaseInfoActivity;
+import com.tourcool.ui.social_insurance.detail.SocialListDetailActivity;
 import com.trello.rxlifecycle3.android.FragmentEvent;
-
-import org.apache.commons.lang.SystemUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -89,6 +87,8 @@ import static com.frame.library.core.util.StringUtil.LINE_HORIZONTAL;
 import static com.frame.library.core.util.StringUtil.SYMBOL_TEMP;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_KITCHEN;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_PARKING;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_BASE_INFO;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_GS;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NATIVE;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NONE;
 import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_URL;
@@ -234,7 +234,8 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
         }
         //天气描述
         tvWeatherDesc.setText(weather.getWeather());
-        switch (weather.getWeather()) {
+
+        switch (StringUtil.getNotNullValue(weather.getWeather())) {
             case WEATHER_DUO_YUN:
                 GlideManager.loadImgCenterInside(R.mipmap.ic_weather_duoyun, ivWeather);
                 break;
@@ -403,7 +404,7 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
                 banner_params.height = viewHeight;
                 banner.setLayoutParams(banner_params);
 //此处使用的是glide的override函数直接设置图片尺寸
-                GlideManager.loadImgBySize(TourCooUtil.getUrl(selectChannel.getIcon()), imageView,banner_params.width,banner_params.height);
+                GlideManager.loadImgBySize(TourCooUtil.getUrl(selectChannel.getIcon()), imageView, banner_params.width, banner_params.height);
 
             } catch (Exception e) {
                 TourCooLogUtil.e(TAG, "fillBannerItem:" + e.toString());
@@ -568,21 +569,15 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
                 @Override
                 public void onClick(View v) {
                     Channel clickChannel = channelList.get(homeViewFlipper.getDisplayedChild());
-                    if(clickChannel == null){
+                    if (clickChannel == null) {
                         return;
                     }
                     switch (clickChannel.getJumpWay()) {
                         case CLICK_TYPE_NATIVE:
-                            ToastUtils.showShort("跳转至原生页面");
+//                            ToastUtils.showShort("跳转至原生页面");
                             break;
                         case CLICK_TYPE_URL:
-                            if(ITEM_TYPE_KITCHEN.equals(clickChannel.getTitle())){
-                                skipBrightKitchen();
-                            }else if(ITEM_TYPE_PARKING.equals(clickChannel.getTitle())){
-                                skipParking();
-                            }else{
-                                WebViewActivity.start(mContext, clickChannel.getLink());
-                            }
+                            skipByTitle(clickChannel.getTitle(), clickChannel.getLink());
                             break;
                         default:
                             ToastUtils.showShort("什么也不做");
@@ -784,14 +779,7 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
                 }
                 switch (channel.getJumpWay()) {
                     case CLICK_TYPE_URL:
-                        if(ITEM_TYPE_KITCHEN.equals(channel.getTitle())){
-                            skipBrightKitchen();
-                        }else if(ITEM_TYPE_PARKING.equals(channel.getTitle())){
-                            skipParking();
-                        }else{
-                            WebViewActivity.start(mContext, TourCooUtil.getUrl(channel.getLink()));
-                        }
-//                        WebViewActivity.start(mContext, TourCooUtil.getUrl(channel.getLink()));
+                        skipByTitle(channel.getTitle(), channel.getLink());
                         break;
                     case CLICK_TYPE_NONE:
                         ToastUtil.show("什么也不做");
@@ -958,6 +946,18 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
         startActivity(intent);
     }
 
+    private void skipSocialBase() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, SocialBaseInfoActivity.class);
+        startActivity(intent);
+    }
+
+    private void skipSocialListDetail() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, SocialListDetailActivity.class);
+        startActivity(intent);
+    }
+
     private void skipLogin() {
         Intent intent = new Intent();
         intent.setClass(mContext, LoginActivity.class);
@@ -965,7 +965,7 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
     }
 
     private void skipParking() {
-        if(!AccountHelper.getInstance().isLogin()){
+        if (!AccountHelper.getInstance().isLogin()) {
             skipLogin();
             return;
         }
@@ -974,6 +974,23 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
         startActivity(intent);
     }
 
-
-
+    private void skipByTitle(String title, String link) {
+        switch (StringUtil.getNotNullValue(title)) {
+            case ITEM_TYPE_SOCIAL_BASE_INFO:
+                skipSocialBase();
+                break;
+            case ITEM_TYPE_SOCIAL_QUERY_GS:
+                skipSocialListDetail();
+                break;
+            case ITEM_TYPE_KITCHEN:
+                skipBrightKitchen();
+                break;
+            case ITEM_TYPE_PARKING:
+                skipParking();
+                break;
+            default:
+                WebViewActivity.start(mContext, StringUtil.getNotNullValue(link));
+                break;
+        }
+    }
 }
