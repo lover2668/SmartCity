@@ -22,7 +22,6 @@ import com.tourcool.bean.kitchen.KitchenLiveInfo
 import com.tourcool.bean.kitchen.KitchenGroup
 import com.tourcool.core.base.BaseResult
 import com.tourcool.core.config.RequestConfig
-import com.tourcool.core.permission.PermissionInterface
 import com.tourcool.core.retrofit.repository.ApiRepository
 import com.tourcool.smartcity.R
 import com.tourcool.ui.base.BaseCommonTitleActivity
@@ -112,7 +111,7 @@ class VideoListActivity : BaseCommonTitleActivity(), OnRefreshListener {
         if (!NetworkUtil.isConnected(mContext)) {
             mStatusManager!!.showLoadingLayout()
             baseHandler.postDelayed({
-                mStatusManager!!.showCustomLayout(R.layout.view_no_netwrok_layout,R.id.llNoNetwok)
+                mStatusManager!!.showCustomLayout(R.layout.common_status_layout_no_network,R.id.llNoNetwok)
             },300)
             return
         }
@@ -342,7 +341,7 @@ class VideoListActivity : BaseCommonTitleActivity(), OnRefreshListener {
         val contentView: View? = rlContainer ?: return
         val builder = StatusLayoutManager.Builder(contentView!!)
                 .setDefaultLayoutsBackgroundColor(android.R.color.transparent)
-                .setEmptyLayout(R.layout.view_no_data_layout)
+                .setEmptyLayout(R.layout.common_status_layout_empty)
                 .setErrorLayout(R.layout.view_error_layout)
                 .setErrorClickViewID(R.id.llErrorRequest)
                 .setDefaultEmptyText(com.tourcool.library.frame.demo.R.string.fast_multi_empty)

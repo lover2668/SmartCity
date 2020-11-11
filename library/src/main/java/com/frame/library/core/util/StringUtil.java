@@ -1,9 +1,6 @@
 package com.frame.library.core.util;
 
 import android.text.TextUtils;
-import android.util.Log;
-
-import com.blankj.utilcode.util.StringUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.util.regex.Pattern;
@@ -89,4 +86,10 @@ public class StringUtil {
 
     }
 
+    public static String getNotNullValueLine(String value) {
+        if (TextUtils.isEmpty(value)) {
+            return "-";
+        }
+        return value;
+    }
 }

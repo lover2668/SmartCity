@@ -104,7 +104,7 @@ class DeviceListActivity : BaseCommonTitleActivity(), OnRefreshListener,View.OnC
             baseHandler.postDelayed({
                 mSmartRefresh.finishRefresh(false)
                 showNoNetLayout()
-//                mStatusManager!!.showCustomLayout(R.layout.view_no_netwrok_layout,R.id.llNoNetwok)
+//                mStatusManager!!.showCustomLayout(R.layout.common_status_layout_no_network,R.id.llNoNetwok)
 //                mStatusManager!!.showSuccessLayout()
             },300)
             return
@@ -214,7 +214,7 @@ class DeviceListActivity : BaseCommonTitleActivity(), OnRefreshListener,View.OnC
     private fun setStatusManager() {
         /*val builder = StatusLayoutManager.Builder(llContainerView)
                 .setDefaultLayoutsBackgroundColor(android.R.color.transparent)
-                .setEmptyLayout(R.layout.view_no_data_layout)
+                .setEmptyLayout(R.layout.common_status_layout_empty)
                 .setErrorLayout(R.layout.view_error_layout)
                 .setErrorClickViewID(R.id.llErrorRequest)
                 .setOnStatusChildClickListener(object : OnStatusChildClickListener {

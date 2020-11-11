@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/dp_30"
+        android:paddingEnd="@dimen/dp_30">
+
+        <TextView
+            style="@style/Text12spBlack333333"
+            android:layout_gravity="center_vertical"
+            android:text="姓名" />
+
+        <TextView
+            android:id="@+id/tvHeaderName"
+            style="@style/Text12spBlack333333"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="-" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/dp_30"
+        android:paddingEnd="@dimen/dp_30">
+
+        <TextView
+            style="@style/Text12spBlack333333"
+            android:layout_gravity="center_vertical"
+            android:text="身份证号码" />
+
+        <TextView
+            android:id="@+id/tvHeaderIdCard"
+            style="@style/Text12spBlack333333"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="-" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_15"
+        android:background="@color/grayF5F5F5" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:paddingTop="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_20"
+        android:paddingStart="@dimen/dp_30"
+        android:paddingEnd="@dimen/dp_30">
+
+        <TextView
+            style="@style/Text12spBlack333333"
+            android:layout_width="0dp"
+            android:textStyle="bold"
+            android:gravity="start"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="缴纳年月" />
+
+        <TextView
+            style="@style/Text12spBlack333333"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:text="缴纳基数" />
+
+        <TextView
+            style="@style/Text12spBlack333333"
+            android:layout_width="0dp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="个人缴纳" />
+
+        <TextView
+            style="@style/Text12spBlack333333"
+            android:layout_width="0dp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="单位缴纳" />
+
+        <TextView
+            style="@style/Text12spBlack333333"
+            android:layout_width="0dp"
+            android:textStyle="bold"
+            android:gravity="end"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="缴纳总额" />
+    </LinearLayout>
+</LinearLayout>

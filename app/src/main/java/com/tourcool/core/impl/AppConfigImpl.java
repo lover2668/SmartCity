@@ -7,43 +7,43 @@ import android.os.Build;
 import android.view.View;
 import android.widget.Toast;
 
-import com.frame.library.core.control.LoadingDialog;
-import com.frame.library.core.retrofit.BaseObserver;
-import com.frame.library.core.widget.LoadingDialogWrapper;
-import com.frame.library.core.widget.dialog.FrameLoadingDialog;
-import com.frame.library.core.widget.titlebar.TitleBarView;
-import com.tourcool.core.module.WebAppActivity;
-import com.tourcool.core.retrofit.repository.AbstractRepository;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.aries.ui.util.DrawableUtil;
+import com.aries.ui.util.StatusBarUtil;
+import com.aries.ui.view.radius.RadiusTextView;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.loadmore.LoadMoreView;
 import com.frame.library.core.control.FrameObserverControl;
 import com.frame.library.core.control.FrameRecyclerViewControl;
 import com.frame.library.core.control.IFrameRefreshLoadView;
 import com.frame.library.core.control.LoadMoreFoot;
+import com.frame.library.core.control.LoadingDialog;
 import com.frame.library.core.control.MultiStatusView;
 import com.frame.library.core.control.QuitAppControl;
 import com.frame.library.core.control.TitleBarViewControl;
 import com.frame.library.core.control.ToastControl;
 import com.frame.library.core.manager.LoggerManager;
 import com.frame.library.core.retrofit.BaseLoadingObserver;
+import com.frame.library.core.retrofit.BaseObserver;
 import com.frame.library.core.retrofit.FrameNullException;
-import com.frame.library.core.util.StackUtil;
 import com.frame.library.core.util.SizeUtil;
+import com.frame.library.core.util.StackUtil;
 import com.frame.library.core.util.ToastUtil;
 import com.frame.library.core.widget.FrameLoadMoreView;
-import com.aries.ui.util.DrawableUtil;
-import com.aries.ui.util.StatusBarUtil;
-import com.aries.ui.view.radius.RadiusTextView;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.loadmore.LoadMoreView;
+import com.frame.library.core.widget.LoadingDialogWrapper;
+import com.frame.library.core.widget.dialog.FrameLoadingDialog;
+import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.tourcool.core.module.WebAppActivity;
+import com.tourcool.core.retrofit.repository.AbstractRepository;
 import com.tourcool.smartcity.R;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
 
 import io.reactivex.Observable;
 import me.bakumon.statuslayoutmanager.library.StatusLayoutManager;
@@ -99,11 +99,11 @@ public class AppConfigImpl implements DefaultRefreshHeaderCreator, LoadMoreFoot,
     @Override
     public LoadMoreView createDefaultLoadMoreView(BaseQuickAdapter adapter) {
         if (adapter != null) {
-            //设置动画是否一直开启
+       /*     //设置动画是否一直开启
             adapter.isFirstOnly(false);
             //设置动画
             adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
-            adapter.openLoadAnimation();
+            adapter.openLoadAnimation();*/
         }
         //方式一:设置FastLoadMoreView--可参考FastLoadMoreView.Builder相应set方法
         //默认配置请参考FastLoadMoreView.Builder(mContext)里初始化

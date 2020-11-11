@@ -27,4 +27,15 @@ public class ItemConstant {
     public static final String ITEM_TYPE_KITCHEN = "明厨亮灶";
 
     public static final String ITEM_TYPE_PARKING = "宜兴停车";
+
+    public static final String ITEM_TYPE_SOCIAL_BASE_INFO = "用户基本信息";
+
+    public static final String ITEM_TYPE_SOCIAL_QUERY_GS = "工伤查询";
+
+    public static final String ITEM_TYPE_SOCIAL_QUERY_TAKE_CARE_OLDER = "养老保险";
+
+    public static final String ITEM_TYPE_SOCIAL_QUERY_LOSE_WORK = "失业查询";
+
+    public static final String ITEM_TYPE_SOCIAL_QUERY_BIRTH = "生育查询";
+
 }

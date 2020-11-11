@@ -3,6 +3,7 @@ package com.tourcool.core.impl;
 import android.accounts.AccountsException;
 import android.accounts.NetworkErrorException;
 
+import com.frame.library.core.log.TourCooLogUtil;
 import com.tourcool.core.MyApplication;
 import com.frame.library.core.control.HttpRequestControl;
 import com.frame.library.core.control.IHttpRequestControl;
@@ -95,7 +96,8 @@ public class HttpRequestControlImpl implements HttpRequestControl {
 
     @Override
     public void httpRequestError(IHttpRequestControl httpRequestControl, Throwable e) {
-        LoggerManager.e(TAG, "httpRequestError:" + e.getMessage());
+//        LoggerManager.e(TAG, "httpRequestError:" + e.getMessage());
+        TourCooLogUtil.e(TAG, "httpRequestError:" + e.getMessage());
         int reason = R.string.fast_exception_other_error;
 //        int code = FastError.EXCEPTION_OTHER_ERROR;
         if (!NetworkUtil.isConnected(MyApplication.getContext())) {
@@ -131,9 +133,9 @@ public class HttpRequestControlImpl implements HttpRequestControl {
             }
         }
         if (httpRequestControl == null || httpRequestControl.getStatusLayoutManager() == null) {
-           if(TourCooUtil.getNotNullValue(e.getMessage()).contains(TOKEN_FAILED)){
+            if (TourCooUtil.getNotNullValue(e.getMessage()).contains(TOKEN_FAILED)) {
 //                ToastUtil.show("登录过期");
-            }else {
+            } else {
                 ToastUtil.show(reason);
             }
 
@@ -152,6 +154,10 @@ public class HttpRequestControlImpl implements HttpRequestControl {
         if (adapter != null) {
             adapter.loadMoreComplete();
             if (statusLayoutManager == null) {
+                return;
+            }
+            if (!NetworkUtil.isConnected(MyApplication.getContext())) {
+                statusLayoutManager.showCustomLayout(R.layout.common_status_layout_no_network,R.id.llNoNetwok);
                 return;
             }
             //初始页

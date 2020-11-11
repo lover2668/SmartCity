@@ -28,7 +28,6 @@ public class RequestConfig {
     public static final String BASE_URL_NO_LINE = "http://36.156.140.151:8000";
 
 
-
     public static final String BASE_URL = BASE_URL_NO_LINE+"/";
 
 

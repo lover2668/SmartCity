@@ -18,6 +18,7 @@ import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.manager.GlideManager;
 import com.frame.library.core.retrofit.BaseLoadingObserver;
 import com.frame.library.core.threadpool.ThreadPoolManager;
+import com.frame.library.core.util.StringUtil;
 import com.frame.library.core.util.ToastUtil;
 import com.frame.library.core.widget.linkage.LinkageRecyclerView;
 import com.frame.library.core.widget.linkage.adapter.viewholder.LinkagePrimaryViewHolder;
@@ -46,6 +47,8 @@ import com.tourcool.smartcity.R;
 import com.tourcool.ui.kitchen.VideoListActivity;
 import com.tourcool.ui.mvp.account.LoginActivity;
 import com.tourcool.ui.parking.FastParkingActivity;
+import com.tourcool.ui.social.SocialBaseInfoActivity;
+import com.tourcool.ui.social.detail.SocialListDetailActivity;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -59,8 +62,15 @@ import java.util.List;
 import static com.tourcool.core.config.RequestConfig.CODE_REQUEST_SUCCESS;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_KITCHEN;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_PARKING;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_BASE_INFO;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_BIRTH;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_GS;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_LOSE_WORK;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_TAKE_CARE_OLDER;
 import static com.tourcool.core.constant.ScreenConsrant.SUB_CHANNEL;
 import static com.tourcool.core.constant.ScreenConsrant.SUB_COLUMN;
+import static com.tourcool.core.constant.SocialConstant.EXTRA_SOCIAL_TYPE;
+import static com.tourcool.core.constant.SocialConstant.TIP_GO_CERTIFY;
 import static com.tourcool.ui.main.MainHomeFragmentNew.EXTRA_CLASSIFY_NAME;
 import static com.tourcool.ui.main.MainHomeFragmentNew.EXTRA_FIRST_CHILD_ID;
 
@@ -455,13 +465,14 @@ public class ServiceActivity extends BaseMvpTitleActivity {
         }
         switch (item.getType()) {
             case SUB_CHANNEL:
-                if(ITEM_TYPE_KITCHEN.equals(item.getTitle())){
+                /*if(ITEM_TYPE_KITCHEN.equals(item.getTitle())){
                     skipBrightKitchen();
                 }else if(ITEM_TYPE_PARKING.equals(item.getTitle())){
                     skipParking();
                 }else{
                     WebViewActivity.start(mContext, TourCooUtil.getUrl(item.getLink()));
-                }
+                }*/
+                skipByParams(item.getTitle(),TourCooUtil.getUrl(item.getLink()));
                 break;
             case SUB_COLUMN:
                 TourCooLogUtil.i("点击了栏目", item.getChildren());
@@ -551,4 +562,56 @@ public class ServiceActivity extends BaseMvpTitleActivity {
         startActivity(intent);
     }
 
+
+    private void skipByParams(String title, String link) {
+        switch (StringUtil.getNotNullValue(title)) {
+            case ITEM_TYPE_SOCIAL_BASE_INFO:
+                skipSocialBase();
+                break;
+            case ITEM_TYPE_SOCIAL_QUERY_GS:
+            case ITEM_TYPE_SOCIAL_QUERY_TAKE_CARE_OLDER:
+            case ITEM_TYPE_SOCIAL_QUERY_LOSE_WORK:
+            case ITEM_TYPE_SOCIAL_QUERY_BIRTH:
+                skipSocialListDetail(title);
+                break;
+            case ITEM_TYPE_KITCHEN:
+                skipBrightKitchen();
+                break;
+            case ITEM_TYPE_PARKING:
+                skipParking();
+                break;
+            default:
+                WebViewActivity.start(mContext, StringUtil.getNotNullValue(link));
+                break;
+        }
+    }
+
+    private void skipSocialBase() {
+        if(!AccountHelper.getInstance().isLogin()){
+            skipLogin();
+            return;
+        }
+        if (!AccountHelper.getInstance().getUserInfo().isVerified()) {
+            ToastUtil.show(TIP_GO_CERTIFY);
+            return;
+        }
+        Intent intent = new Intent();
+        intent.setClass(mContext, SocialBaseInfoActivity.class);
+        startActivity(intent);
+    }
+
+    private void skipSocialListDetail(String type) {
+        if(!AccountHelper.getInstance().isLogin()){
+            skipLogin();
+            return;
+        }
+        if (!AccountHelper.getInstance().getUserInfo().isVerified()) {
+            ToastUtil.show(TIP_GO_CERTIFY);
+            return;
+        }
+        Intent intent = new Intent();
+        intent.setClass(mContext, SocialListDetailActivity.class);
+        intent.putExtra(EXTRA_SOCIAL_TYPE, type);
+        startActivity(intent);
+    }
 }

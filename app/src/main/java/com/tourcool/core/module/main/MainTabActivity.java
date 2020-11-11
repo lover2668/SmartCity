@@ -1,7 +1,6 @@
 package com.tourcool.core.module.main;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,39 +9,29 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
-import com.aries.ui.helper.navigation.KeyboardHelper;
 import com.aries.ui.view.tab.BuildConfig;
 import com.frame.library.core.util.ToastUtil;
 import com.tourcool.core.module.WebViewActivity;
 import com.frame.library.core.entity.FrameTabEntity;
 import com.frame.library.core.manager.LoggerManager;
-import com.frame.library.core.manager.RxJavaManager;
 import com.frame.library.core.module.activity.FrameMainActivity;
-import com.frame.library.core.retrofit.BaseObserver;
 import com.aries.ui.view.tab.CommonTabLayout;
 import com.didichuxing.doraemonkit.util.PermissionUtil;
-import com.tourcool.core.permission.PermissionHelper;
-import com.tourcool.core.permission.PermissionInterface;
-import com.tourcool.core.widget.InputDialog;
 import com.tourcool.core.widget.IosAlertDialog;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.main.MainHomeFragmentNew;
 import com.tourcool.ui.main.MainMineFragment;
-import com.tourcool.ui.main.TestFragment;
-import com.trello.rxlifecycle3.android.ActivityEvent;
+import com.tourcool.ui.main.ServiceFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
 import pub.devrel.easypermissions.AfterPermissionGranted;
-import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
 /**
@@ -83,7 +72,7 @@ public class MainTabActivity extends FrameMainActivity  implements EasyPermissio
         ArrayList<FrameTabEntity> tabEntities = new ArrayList<>();
         tabEntities.add(new FrameTabEntity(R.string.home, R.mipmap.icon_tab_home_un_selected, R.mipmap.ic_home_select, MainHomeFragmentNew.newInstance()));
 //        tabEntities.add(new FrameTabEntity("资讯", R.drawable.ic_app_normal, R.drawable.ic_app_selected, MainHomeFragmentNew.newInstance()));
-        tabEntities.add(new FrameTabEntity("服务", R.mipmap.ic_service_unselect, R.mipmap.ic_service_select, TestFragment.newInstance()));
+        tabEntities.add(new FrameTabEntity("服务", R.mipmap.ic_service_unselect, R.mipmap.ic_service_select, ServiceFragment.newInstance()));
         tabEntities.add(new FrameTabEntity("我的", R.mipmap.ic_mine_unselect, R.mipmap.ic_mine_select, MainMineFragment.newInstance()));
         return tabEntities;
     }

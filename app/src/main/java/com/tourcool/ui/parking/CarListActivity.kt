@@ -20,10 +20,7 @@ import com.tourcool.core.retrofit.repository.ApiRepository
 import com.tourcool.core.widget.IosAlertDialog
 import com.tourcool.smartcity.R
 import com.tourcool.ui.base.BaseBlackTitleActivity
-import com.tourcool.ui.base.BaseCommonTitleActivity
-import com.tourcool.ui.kitchen.VideoListActivity
 import com.trello.rxlifecycle3.android.ActivityEvent
-import kotlinx.android.synthetic.main.activity_parking_arrears_pay.*
 import kotlinx.android.synthetic.main.activity_parking_my_car.*
 import kotlinx.android.synthetic.main.activity_parking_my_car.recyclerViewCommon
 import kotlinx.android.synthetic.main.activity_parking_my_car.smartRefreshCommon
@@ -122,7 +119,7 @@ class CarListActivity : BaseBlackTitleActivity(), View.OnClickListener {
           if (!NetworkUtil.isConnected(mContext)) {
               mStatusManager!!.showLoadingLayout()
               baseHandler.postDelayed({
-                  mStatusManager!!.showCustomLayout(R.layout.view_no_netwrok_layout, R.id.llNoNetwok)
+                  mStatusManager!!.showCustomLayout(R.layout.common_status_layout_no_network, R.id.llNoNetwok)
               }, 300)
               return
           }
@@ -211,7 +208,7 @@ class CarListActivity : BaseBlackTitleActivity(), View.OnClickListener {
         if (!NetworkUtil.isConnected(mContext)) {
             mStatusManager!!.showLoadingLayout()
             baseHandler.postDelayed({
-                mStatusManager!!.showCustomLayout(R.layout.view_no_netwrok_layout, R.id.llNoNetwok)
+                mStatusManager!!.showCustomLayout(R.layout.common_status_layout_no_network, R.id.llNoNetwok)
             }, 300)
             return
         }

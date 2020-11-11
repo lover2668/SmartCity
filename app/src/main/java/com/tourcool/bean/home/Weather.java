@@ -73,4 +73,7 @@ public class Weather {
     public void setWea_img(String wea_img) {
         this.wea_img = wea_img;
     }
+
+    public Weather() {
+    }
 }

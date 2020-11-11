@@ -28,6 +28,9 @@ public class UserInfoDao extends AbstractDao<UserInfo, Void> {
         public final static Property IconUrl = new Property(1, String.class, "iconUrl", false, "ICON_URL");
         public final static Property Nickname = new Property(2, String.class, "nickname", false, "NICKNAME");
         public final static Property PhoneNumber = new Property(3, String.class, "phoneNumber", false, "PHONE_NUMBER");
+        public final static Property Name = new Property(4, String.class, "name", false, "NAME");
+        public final static Property IdCard = new Property(5, String.class, "idCard", false, "ID_CARD");
+        public final static Property Verified = new Property(6, boolean.class, "verified", false, "VERIFIED");
     }
 
 
@@ -46,7 +49,10 @@ public class UserInfoDao extends AbstractDao<UserInfo, Void> {
                 "\"AUTHENTICATION_LEVEL\" INTEGER NOT NULL ," + // 0: authenticationLevel
                 "\"ICON_URL\" TEXT," + // 1: iconUrl
                 "\"NICKNAME\" TEXT," + // 2: nickname
-                "\"PHONE_NUMBER\" TEXT);"); // 3: phoneNumber
+                "\"PHONE_NUMBER\" TEXT," + // 3: phoneNumber
+                "\"NAME\" TEXT," + // 4: name
+                "\"ID_CARD\" TEXT," + // 5: idCard
+                "\"VERIFIED\" INTEGER NOT NULL );"); // 6: verified
     }
 
     /** Drops the underlying database table. */
@@ -74,6 +80,17 @@ public class UserInfoDao extends AbstractDao<UserInfo, Void> {
         if (phoneNumber != null) {
             stmt.bindString(4, phoneNumber);
         }
+ 
+        String name = entity.getName();
+        if (name != null) {
+            stmt.bindString(5, name);
+        }
+ 
+        String idCard = entity.getIdCard();
+        if (idCard != null) {
+            stmt.bindString(6, idCard);
+        }
+        stmt.bindLong(7, entity.getVerified() ? 1L: 0L);
     }
 
     @Override
@@ -95,6 +112,17 @@ public class UserInfoDao extends AbstractDao<UserInfo, Void> {
         if (phoneNumber != null) {
             stmt.bindString(4, phoneNumber);
         }
+ 
+        String name = entity.getName();
+        if (name != null) {
+            stmt.bindString(5, name);
+        }
+ 
+        String idCard = entity.getIdCard();
+        if (idCard != null) {
+            stmt.bindString(6, idCard);
+        }
+        stmt.bindLong(7, entity.getVerified() ? 1L: 0L);
     }
 
     @Override
@@ -108,7 +136,10 @@ public class UserInfoDao extends AbstractDao<UserInfo, Void> {
             cursor.getInt(offset + 0), // authenticationLevel
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // iconUrl
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // nickname
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // phoneNumber
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // phoneNumber
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // name
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // idCard
+            cursor.getShort(offset + 6) != 0 // verified
         );
         return entity;
     }
@@ -119,6 +150,9 @@ public class UserInfoDao extends AbstractDao<UserInfo, Void> {
         entity.setIconUrl(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setNickname(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setPhoneNumber(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setName(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setIdCard(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setVerified(cursor.getShort(offset + 6) != 0);
      }
     
     @Override

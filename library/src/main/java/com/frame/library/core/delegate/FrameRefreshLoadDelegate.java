@@ -119,7 +119,9 @@ public class FrameRefreshLoadDelegate<T> {
                 .setDefaultEmptyClickViewTextColor(ContextCompat.getColor(mContext, R.color.colorTitleText))
                 .setDefaultLoadingText(R.string.fast_multi_loading)
                 .setDefaultErrorText(R.string.fast_multi_error)
-                .setDefaultErrorClickViewTextColor(ContextCompat.getColor(mContext, R.color.colorTitleText))
+                .setEmptyLayout(R.layout.common_status_layout_empty)
+                .setErrorLayout(R.layout.common_status_layout_data_error).setErrorClickViewID(R.id.llDataError)
+//                .setDefaultErrorClickViewTextColor(ContextCompat.getColor(mContext, R.color.colorTitleText))
                 .setOnStatusChildClickListener(new OnStatusChildClickListener() {
                     @Override
                     public void onEmptyChildClick(View view) {

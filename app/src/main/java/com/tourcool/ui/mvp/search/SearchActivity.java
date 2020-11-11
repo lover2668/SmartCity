@@ -27,6 +27,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.retrofit.BaseLoadingObserver;
 import com.frame.library.core.util.SizeUtil;
+import com.frame.library.core.util.StringUtil;
 import com.frame.library.core.util.ToastUtil;
 import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.adapter.MatrixAdapter;
@@ -44,8 +45,9 @@ import com.tourcool.ui.kitchen.VideoListActivity;
 import com.tourcool.ui.mvp.account.LoginActivity;
 import com.tourcool.ui.mvp.service.SecondaryServiceActivity;
 import com.tourcool.ui.parking.FastParkingActivity;
+import com.tourcool.ui.social.SocialBaseInfoActivity;
+import com.tourcool.ui.social.detail.SocialListDetailActivity;
 import com.trello.rxlifecycle3.android.ActivityEvent;
-
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -55,7 +57,14 @@ import static com.tourcool.core.config.RequestConfig.CODE_REQUEST_SUCCESS;
 import static com.tourcool.core.config.RequestConfig.EXCEPTION_NO_NETWORK;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_KITCHEN;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_PARKING;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_BASE_INFO;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_BIRTH;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_GS;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_LOSE_WORK;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_TAKE_CARE_OLDER;
 import static com.tourcool.core.constant.ScreenConsrant.SUB_COLUMN;
+import static com.tourcool.core.constant.SocialConstant.EXTRA_SOCIAL_TYPE;
+import static com.tourcool.core.constant.SocialConstant.TIP_GO_CERTIFY;
 
 /**
  * @author :JenkinsZhou
@@ -257,14 +266,14 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
 
 
     private void loadEmptyView() {
-        View emptyView = View.inflate(mContext, R.layout.view_no_data_layout, null);
+        View emptyView = View.inflate(mContext, R.layout.common_status_layout_empty, null);
         removeAllView();
         llContainer.addView(emptyView);
         viewList.add(emptyView);
     }
 
     private void loadNoNetworkView() {
-        View noNetworkView = View.inflate(mContext, R.layout.view_no_netwrok_layout, null);
+        View noNetworkView = View.inflate(mContext, R.layout.common_status_layout_no_network, null);
         removeAllView();
         llContainer.addView(noNetworkView);
         viewList.add(noNetworkView);
@@ -325,14 +334,14 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
                         startActivity(intent);
                         break;
                     default:
-//                        WebViewActivity.start(mContext, TourCooUtil.getUrl(matrixBean.getLink()), true);
-                        if(ITEM_TYPE_KITCHEN.equals(matrixBean.getMatrixName())){
+                       /* if(ITEM_TYPE_KITCHEN.equals(matrixBean.getMatrixName())){
                             skipBrightKitchen();
                         }else if(ITEM_TYPE_PARKING.equals(matrixBean.getMatrixName())){
                             skipParking();
                         }else{
                             WebViewActivity.start(mContext, TourCooUtil.getUrl(matrixBean.getLink()),true);
-                        }
+                        }*/
+                        skipByParams(matrixBean.getMatrixName(),TourCooUtil.getUrl(matrixBean.getLink()));
                         break;
                 }
 
@@ -387,4 +396,57 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
         startActivity(intent);
     }
 
+
+    private void skipSocialBase() {
+        if(!AccountHelper.getInstance().isLogin()){
+            skipLogin();
+            return;
+        }
+        if (!AccountHelper.getInstance().getUserInfo().isVerified()) {
+            ToastUtil.show(TIP_GO_CERTIFY);
+            return;
+        }
+        Intent intent = new Intent();
+        intent.setClass(mContext, SocialBaseInfoActivity.class);
+        startActivity(intent);
+    }
+
+    private void skipSocialListDetail(String type) {
+        if(!AccountHelper.getInstance().isLogin()){
+            skipLogin();
+            return;
+        }
+        if (!AccountHelper.getInstance().getUserInfo().isVerified()) {
+            ToastUtil.show(TIP_GO_CERTIFY);
+            return;
+        }
+        Intent intent = new Intent();
+        intent.setClass(mContext, SocialListDetailActivity.class);
+        intent.putExtra(EXTRA_SOCIAL_TYPE, type);
+        startActivity(intent);
+    }
+
+
+    private void skipByParams(String title, String link) {
+        switch (StringUtil.getNotNullValue(title)) {
+            case ITEM_TYPE_SOCIAL_BASE_INFO:
+                skipSocialBase();
+                break;
+            case ITEM_TYPE_SOCIAL_QUERY_GS:
+            case ITEM_TYPE_SOCIAL_QUERY_TAKE_CARE_OLDER:
+            case ITEM_TYPE_SOCIAL_QUERY_LOSE_WORK:
+            case ITEM_TYPE_SOCIAL_QUERY_BIRTH:
+                skipSocialListDetail(title);
+                break;
+            case ITEM_TYPE_KITCHEN:
+                skipBrightKitchen();
+                break;
+            case ITEM_TYPE_PARKING:
+                skipParking();
+                break;
+            default:
+                WebViewActivity.start(mContext, StringUtil.getNotNullValue(link));
+                break;
+        }
+    }
 }

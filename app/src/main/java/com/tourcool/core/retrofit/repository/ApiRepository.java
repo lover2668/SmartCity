@@ -1,30 +1,37 @@
 package com.tourcool.core.retrofit.repository;
 
 import com.frame.library.core.log.TourCooLogUtil;
+import com.frame.library.core.retrofit.FrameRetrofit;
+import com.frame.library.core.retrofit.FrameTransformer;
+import com.frame.library.core.retrofit.RetryWhen;
 import com.frame.library.core.util.FrameUtil;
+import com.frame.library.core.util.StringUtil;
 import com.tourcool.bean.certify.FaceCertify;
 import com.tourcool.bean.kitchen.KitchenGroup;
 import com.tourcool.bean.parking.CarInfo;
 import com.tourcool.bean.parking.ParingRecord;
 import com.tourcool.bean.search.SeachEntity;
+import com.tourcool.bean.social.SocialBaseInfo;
+import com.tourcool.bean.social.SocialSecurityResult;
 import com.tourcool.bean.weather.WeatherEntity;
-import com.tourcool.core.base.BaseResult;
-import com.tourcool.core.entity.Authenticate;
-import com.tourcool.core.entity.BasePageBean;
-import com.tourcool.core.entity.MessageBean;
-import com.tourcool.core.entity.UpdateEntity;
-import com.frame.library.core.retrofit.FrameRetrofit;
 import com.tourcool.core.MyApplication;
 import com.tourcool.core.base.BaseMovieEntity;
+import com.tourcool.core.base.BaseResult;
+import com.tourcool.core.entity.Authenticate;
+import com.tourcool.core.entity.BasePageResult;
+import com.tourcool.core.entity.MessageBean;
+import com.tourcool.core.entity.UpdateEntity;
 import com.tourcool.core.retrofit.service.ApiService;
-import com.frame.library.core.retrofit.RetryWhen;
-import com.frame.library.core.retrofit.FrameTransformer;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_BIRTH;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_LOSE_WORK;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_TAKE_CARE_OLDER;
 
 /**
  * @Author: JenkinsZhou on 2018/11/19 14:25
@@ -92,7 +99,7 @@ public class ApiRepository extends AbstractRepository {
      * @param ownerId
      * @return
      */
-    public Observable<BaseResult<BasePageBean<MessageBean>>> requestMsgList(int ownerId, int pageIndex) {
+    public Observable<BaseResult<BasePageResult<MessageBean>>> requestMsgList(int ownerId, int pageIndex) {
         Map<String, Object> params = new HashMap<>(3);
         params.put("ownerId", ownerId);
         params.put("pageIndex", pageIndex + "");
@@ -299,9 +306,9 @@ public class ApiRepository extends AbstractRepository {
         return FrameTransformer.switchSchedulers(getApiService().requestKitchenList().retryWhen(new RetryWhen()));
     }
 
-    public Observable<BaseResult<String>> requestKitchenVideoLiveUrl(String serialNumber,String channelNumber) {
+    public Observable<BaseResult<String>> requestKitchenVideoLiveUrl(String serialNumber, String channelNumber) {
         Map<String, Object> params = new HashMap<>(1);
-        params.put("indexCode", serialNumber+"#"+channelNumber);
+        params.put("indexCode", serialNumber + "#" + channelNumber);
         return FrameTransformer.switchSchedulers(getApiService().requestKitchenVideoLiveUrl(params).retryWhen(new RetryWhen()));
     }
 
@@ -334,8 +341,33 @@ public class ApiRepository extends AbstractRepository {
     public Observable<BaseResult<List<String>>> requestLastPayPlantNum() {
         return FrameTransformer.switchSchedulers(getApiService().requestLastPayPlantNum().retryWhen(new RetryWhen()));
     }
+
     public Observable<BaseResult<String>> requestFindParkingUrl() {
         return FrameTransformer.switchSchedulers(getApiService().requestFindParkingUrl().retryWhen(new RetryWhen()));
     }
 
+    public Observable<BaseResult<SocialBaseInfo>> requestSocialBaseInfo() {
+        return FrameTransformer.switchSchedulers(getApiService().requestSocialBaseInfo().retryWhen(new RetryWhen()));
+    }
+
+
+    public Observable<BaseResult<SocialSecurityResult>> requestSocialPageDataByType(int pageIndex, String socialType) {
+        Map<String, Object> params = new HashMap<>(2);
+        params.put("page", pageIndex + "");
+        params.put("pageSize", 10 + "");
+        switch (StringUtil.getNotNullValue(socialType)) {
+            //养老查询
+            case ITEM_TYPE_SOCIAL_QUERY_TAKE_CARE_OLDER:
+                return FrameTransformer.switchSchedulers(getApiService().requestSocialPageDataTakeCareOlder(params).retryWhen(new RetryWhen()));
+            //失业查询
+            case ITEM_TYPE_SOCIAL_QUERY_LOSE_WORK:
+                return FrameTransformer.switchSchedulers(getApiService().requestSocialPageDataLoseWork(params).retryWhen(new RetryWhen()));
+            //生育查询
+            case ITEM_TYPE_SOCIAL_QUERY_BIRTH:
+                return FrameTransformer.switchSchedulers(getApiService().requestSocialPageDataBirth(params).retryWhen(new RetryWhen()));
+            default:
+                return FrameTransformer.switchSchedulers(getApiService().requestSocialPageDataGs(params).retryWhen(new RetryWhen()));
+        }
+
+    }
 }

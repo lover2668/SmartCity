@@ -1,20 +1,22 @@
 package com.tourcool.core.retrofit.service;
 
 
+import com.frame.library.core.retrofit.FrameRetrofit;
 import com.tourcool.bean.certify.FaceCertify;
 import com.tourcool.bean.kitchen.KitchenGroup;
 import com.tourcool.bean.parking.CarInfo;
 import com.tourcool.bean.parking.ParingRecord;
 import com.tourcool.bean.search.SeachEntity;
+import com.tourcool.bean.social.SocialBaseInfo;
+import com.tourcool.bean.social.SocialSecurityResult;
 import com.tourcool.bean.weather.WeatherEntity;
+import com.tourcool.core.base.BaseMovieEntity;
 import com.tourcool.core.base.BaseResult;
 import com.tourcool.core.constant.ApiConstant;
 import com.tourcool.core.entity.Authenticate;
-import com.tourcool.core.entity.BasePageBean;
+import com.tourcool.core.entity.BasePageResult;
 import com.tourcool.core.entity.MessageBean;
 import com.tourcool.core.entity.UpdateEntity;
-import com.frame.library.core.retrofit.FrameRetrofit;
-import com.tourcool.core.base.BaseMovieEntity;
 import com.tourcool.core.retrofit.interceptor.TokenInterceptor;
 
 import java.util.List;
@@ -70,7 +72,7 @@ public interface ApiService {
      * @return
      */
     @POST("message/owner/msg")
-    Observable<BaseResult<BasePageBean<MessageBean>>> requestMsgList(@Body Map<String, Object> map);
+    Observable<BaseResult<BasePageResult<MessageBean>>> requestMsgList(@Body Map<String, Object> map);
 
 
     /**
@@ -300,6 +302,53 @@ public interface ApiService {
     @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
     @GET("public/order/get-location-url")
     Observable<BaseResult<String>> requestFindParkingUrl();
+
+    /**
+     * 人社基本信息
+     * @return
+     */
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @GET("app/social/getBaseInfo")
+    Observable<BaseResult<SocialBaseInfo>> requestSocialBaseInfo();
+
+
+    /**
+     * 获取工伤保险缴费记录
+     * @param map
+     * @return
+     */
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @GET("app/social/getGSInfo")
+    Observable<BaseResult<SocialSecurityResult>> requestSocialPageDataGs(@QueryMap Map<String, Object> map);
+
+
+    /**
+     * 获取失业保险缴费记录
+     * @param map
+     * @return
+     */
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @GET("app/social/getSHIYEInfo")
+    Observable<BaseResult<SocialSecurityResult>> requestSocialPageDataLoseWork(@QueryMap Map<String, Object> map);
+
+    /**
+     * 获取生育保险缴费记录
+     * @param map
+     * @return
+     */
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @GET("app/social/getSYInfo")
+    Observable<BaseResult<SocialSecurityResult>> requestSocialPageDataBirth(@QueryMap Map<String, Object> map);
+
+    /**
+     * 获取养老保险缴费记录
+     * @param map
+     * @return
+     */
+    @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
+    @GET("app/social/getYLInfo")
+    Observable<BaseResult<SocialSecurityResult>> requestSocialPageDataTakeCareOlder(@QueryMap Map<String, Object> map);
+
 
 }
 

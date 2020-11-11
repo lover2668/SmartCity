@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import org.greenrobot.greendao.annotation.Entity;
-import org.litepal.crud.LitePalSupport;
 import org.greenrobot.greendao.annotation.Generated;
 
 /**
@@ -23,12 +22,71 @@ public class UserInfo  implements Parcelable {
      * iconUrl :
      * nickname :
      * phoneNumber :
+     * "idCard": "",
+     *                 "name": "",
      */
 
     private int authenticationLevel;
     private String iconUrl;
     private String nickname;
     private String phoneNumber;
+    private String name;
+    private String idCard;
+    private boolean verified;
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.authenticationLevel);
+        dest.writeString(this.iconUrl);
+        dest.writeString(this.nickname);
+        dest.writeString(this.phoneNumber);
+        dest.writeString(this.name);
+        dest.writeString(this.idCard);
+        dest.writeByte(this.verified ? (byte) 1 : (byte) 0);
+    }
+
+    public UserInfo() {
+    }
+
+    protected UserInfo(Parcel in) {
+        this.authenticationLevel = in.readInt();
+        this.iconUrl = in.readString();
+        this.nickname = in.readString();
+        this.phoneNumber = in.readString();
+        this.name = in.readString();
+        this.idCard = in.readString();
+        this.verified = in.readByte() != 0;
+    }
+
+    @Generated(hash = 236875673)
+    public UserInfo(int authenticationLevel, String iconUrl, String nickname,
+            String phoneNumber, String name, String idCard, boolean verified) {
+        this.authenticationLevel = authenticationLevel;
+        this.iconUrl = iconUrl;
+        this.nickname = nickname;
+        this.phoneNumber = phoneNumber;
+        this.name = name;
+        this.idCard = idCard;
+        this.verified = verified;
+    }
+
+    public static final Creator<UserInfo> CREATOR = new Creator<UserInfo>() {
+        @Override
+        public UserInfo createFromParcel(Parcel source) {
+            return new UserInfo(source);
+        }
+
+        @Override
+        public UserInfo[] newArray(int size) {
+            return new UserInfo[size];
+        }
+    };
 
     public int getAuthenticationLevel() {
         return authenticationLevel;
@@ -62,47 +120,35 @@ public class UserInfo  implements Parcelable {
         this.phoneNumber = phoneNumber;
     }
 
-
-    @Override
-    public int describeContents() {
-        return 0;
+    public String getName() {
+        return name;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.authenticationLevel);
-        dest.writeString(this.iconUrl);
-        dest.writeString(this.nickname);
-        dest.writeString(this.phoneNumber);
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public UserInfo() {
+    public String getIdCard() {
+        return idCard;
     }
 
-    protected UserInfo(Parcel in) {
-        this.authenticationLevel = in.readInt();
-        this.iconUrl = in.readString();
-        this.nickname = in.readString();
-        this.phoneNumber = in.readString();
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
     }
 
-    @Generated(hash = 1214017)
-    public UserInfo(int authenticationLevel, String iconUrl, String nickname, String phoneNumber) {
-        this.authenticationLevel = authenticationLevel;
-        this.iconUrl = iconUrl;
-        this.nickname = nickname;
-        this.phoneNumber = phoneNumber;
+    public boolean isVerified() {
+        return verified;
     }
 
-    public static final Parcelable.Creator<UserInfo> CREATOR = new Parcelable.Creator<UserInfo>() {
-        @Override
-        public UserInfo createFromParcel(Parcel source) {
-            return new UserInfo(source);
-        }
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
 
-        @Override
-        public UserInfo[] newArray(int size) {
-            return new UserInfo[size];
-        }
-    };
+    public static Creator<UserInfo> getCREATOR() {
+        return CREATOR;
+    }
+
+    public boolean getVerified() {
+        return this.verified;
+    }
 }

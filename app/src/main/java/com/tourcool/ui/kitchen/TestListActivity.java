@@ -86,7 +86,7 @@ public class TestListActivity extends BaseCommonTitleActivity implements OnRefre
     private void  requestVideoList() {
        /* if (!NetworkUtil.isConnected(mContext)) {
 //            mStatusManager.showLoadingLayout();
-            baseHandler.postDelayed(() -> mStatusManager.showCustomLayout(R.layout.view_no_netwrok_layout,R.id.llNoNetwok),300);
+            baseHandler.postDelayed(() -> mStatusManager.showCustomLayout(R.layout.common_status_layout_no_network,R.id.llNoNetwok),300);
             return;
         }*/
         ApiRepository.getInstance().requestKitchenList().compose(bindUntilEvent(ActivityEvent.DESTROY)).subscribe(
@@ -128,7 +128,7 @@ public class TestListActivity extends BaseCommonTitleActivity implements OnRefre
         View llContentView = findViewById(R.id.llContentView);
         mStatusManager  = new StatusLayoutManager.Builder(llContentView)
                 .setDefaultLayoutsBackgroundColor(android.R.color.transparent)
-                .setEmptyLayout(R.layout.view_no_data_layout)
+                .setEmptyLayout(R.layout.common_status_layout_empty)
                 .setErrorLayout(R.layout.view_error_layout)
                 .setErrorClickViewID(R.id.llErrorRequest)
                 .setDefaultEmptyText(com.tourcool.library.frame.demo.R.string.fast_multi_empty)
