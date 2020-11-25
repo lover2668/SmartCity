@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.tourcool.bean.garbage.GabageEntity;
+import com.tourcool.bean.garbage.GarbageEntity;
 import com.tourcool.smartcity.R;
 
 /**
@@ -14,13 +14,13 @@ import com.tourcool.smartcity.R;
  * @date 2019年10月23日15:59
  * @Email: 971613168@qq.com
  */
-public class GabageClassifyAdapter extends BaseQuickAdapter<GabageEntity, BaseViewHolder> {
+public class GabageClassifyAdapter extends BaseQuickAdapter<GarbageEntity, BaseViewHolder> {
 
     public GabageClassifyAdapter() {
         super(R.layout.item_two_level_layout);
     }
     @Override
-    protected void convert(@NonNull BaseViewHolder helper, GabageEntity item) {
+    protected void convert(@NonNull BaseViewHolder helper, GarbageEntity item) {
 
     }
 }

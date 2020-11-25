@@ -3,6 +3,10 @@ package com.tourcool.core.retrofit.service;
 
 import com.frame.library.core.retrofit.FrameRetrofit;
 import com.tourcool.bean.certify.FaceCertify;
+import com.tourcool.bean.express.ExpressBean;
+import com.tourcool.bean.express.ExpressCompany;
+import com.tourcool.bean.garbage.Garbage;
+import com.tourcool.bean.garbage.GarbageHotKey;
 import com.tourcool.bean.kitchen.KitchenGroup;
 import com.tourcool.bean.parking.CarInfo;
 import com.tourcool.bean.parking.ParingRecord;
@@ -31,6 +35,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 import static com.tourcool.core.retrofit.interceptor.TokenInterceptor.HEADER_NOT_SKIP_LOGIN;
@@ -159,8 +164,7 @@ public interface ApiService {
     Observable<BaseResult> requestLogout();
 
 
-
-    @Headers({TokenInterceptor.HEADER_NEED_TOKEN,HEADER_NOT_SKIP_LOGIN})
+    @Headers({TokenInterceptor.HEADER_NEED_TOKEN, HEADER_NOT_SKIP_LOGIN})
     @GET("app/user")
     Observable<BaseResult> requestUserInfo();
 
@@ -171,13 +175,13 @@ public interface ApiService {
 
     /**
      * 修改用户信息
+     *
      * @param map
      * @return
      */
     @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
     @PUT("app/user")
     Observable<BaseResult> requestEditUserInfo(@Body Map<String, Object> map);
-
 
 
     /**
@@ -193,6 +197,7 @@ public interface ApiService {
 
     /**
      * 获取未来一周天气
+     *
      * @return
      */
     @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
@@ -201,6 +206,7 @@ public interface ApiService {
 
     /**
      * 搜索
+     *
      * @param map
      * @return
      */
@@ -211,6 +217,7 @@ public interface ApiService {
 
     /**
      * 绑定手机号
+     *
      * @param map
      * @return
      */
@@ -221,6 +228,7 @@ public interface ApiService {
 
     /**
      * 首次短信登录设置密码
+     *
      * @param map
      * @return
      */
@@ -231,6 +239,7 @@ public interface ApiService {
 
     /**
      * 用户认证状态列表
+     *
      * @return
      */
     @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
@@ -239,6 +248,7 @@ public interface ApiService {
 
     /**
      * 支付宝认证
+     *
      * @return
      */
     @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
@@ -248,6 +258,7 @@ public interface ApiService {
 
     /**
      * 身份证认证
+     *
      * @param map
      * @return
      */
@@ -257,6 +268,7 @@ public interface ApiService {
 
     /**
      * 人脸识别认证
+     *
      * @param map
      * @return
      */
@@ -266,6 +278,7 @@ public interface ApiService {
 
     /**
      * 明厨亮灶视频列表
+     *
      * @return
      */
     @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
@@ -305,6 +318,7 @@ public interface ApiService {
 
     /**
      * 人社基本信息
+     *
      * @return
      */
     @Headers(TokenInterceptor.HEADER_NEED_TOKEN)
@@ -314,6 +328,7 @@ public interface ApiService {
 
     /**
      * 获取工伤保险缴费记录
+     *
      * @param map
      * @return
      */
@@ -324,6 +339,7 @@ public interface ApiService {
 
     /**
      * 获取失业保险缴费记录
+     *
      * @param map
      * @return
      */
@@ -333,6 +349,7 @@ public interface ApiService {
 
     /**
      * 获取生育保险缴费记录
+     *
      * @param map
      * @return
      */
@@ -342,6 +359,7 @@ public interface ApiService {
 
     /**
      * 获取养老保险缴费记录
+     *
      * @param map
      * @return
      */
@@ -349,6 +367,32 @@ public interface ApiService {
     @GET("app/social/getYLInfo")
     Observable<BaseResult<SocialSecurityResult>> requestSocialPageDataTakeCareOlder(@QueryMap Map<String, Object> map);
 
+
+    @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
+    @GET("public/app/searchGarbage")
+    Observable<BaseResult<Garbage>> requestSearchGarbage(@Query("key") String key);
+
+    /**
+     * 热门搜索
+     *
+     * @return
+     */
+    @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
+    @GET("public/app/getGarbageHotWord")
+    Observable<BaseResult<List<GarbageHotKey>>> requestGarbageHotWord();
+
+    /**
+     * 快递公司列表
+     *
+     * @return
+     */
+    @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
+    @GET("public/app/getExpressDeliveryCompany")
+    Observable<BaseResult<List<ExpressCompany>>> requestExpressCompany();
+
+    @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
+    @GET("public/app/getExpressDeliveryDetail")
+    Observable<BaseResult<ExpressBean>> requestExpressDeliveryDetail(@QueryMap Map<String, Object> map);
 
 }
 

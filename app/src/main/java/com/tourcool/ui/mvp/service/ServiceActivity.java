@@ -71,8 +71,8 @@ import static com.tourcool.core.constant.ScreenConsrant.SUB_CHANNEL;
 import static com.tourcool.core.constant.ScreenConsrant.SUB_COLUMN;
 import static com.tourcool.core.constant.SocialConstant.EXTRA_SOCIAL_TYPE;
 import static com.tourcool.core.constant.SocialConstant.TIP_GO_CERTIFY;
-import static com.tourcool.ui.main.MainHomeFragmentNew.EXTRA_CLASSIFY_NAME;
-import static com.tourcool.ui.main.MainHomeFragmentNew.EXTRA_FIRST_CHILD_ID;
+import static com.tourcool.ui.main.MainHomeFragment.EXTRA_CLASSIFY_NAME;
+import static com.tourcool.ui.main.MainHomeFragment.EXTRA_FIRST_CHILD_ID;
 
 /**
  * @author :JenkinsZhou

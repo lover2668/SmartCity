@@ -23,7 +23,7 @@ import com.aries.ui.view.tab.CommonTabLayout;
 import com.didichuxing.doraemonkit.util.PermissionUtil;
 import com.tourcool.core.widget.IosAlertDialog;
 import com.tourcool.smartcity.R;
-import com.tourcool.ui.main.MainHomeFragmentNew;
+import com.tourcool.ui.main.MainHomeFragment;
 import com.tourcool.ui.main.MainMineFragment;
 import com.tourcool.ui.main.ServiceFragment;
 
@@ -70,7 +70,7 @@ public class MainTabActivity extends FrameMainActivity  implements EasyPermissio
     @Override
     public List<FrameTabEntity> getTabList() {
         ArrayList<FrameTabEntity> tabEntities = new ArrayList<>();
-        tabEntities.add(new FrameTabEntity(R.string.home, R.mipmap.icon_tab_home_un_selected, R.mipmap.ic_home_select, MainHomeFragmentNew.newInstance()));
+        tabEntities.add(new FrameTabEntity(R.string.home, R.mipmap.icon_tab_home_un_selected, R.mipmap.ic_home_select, MainHomeFragment.newInstance()));
 //        tabEntities.add(new FrameTabEntity("资讯", R.drawable.ic_app_normal, R.drawable.ic_app_selected, MainHomeFragmentNew.newInstance()));
         tabEntities.add(new FrameTabEntity("服务", R.mipmap.ic_service_unselect, R.mipmap.ic_service_select, ServiceFragment.newInstance()));
         tabEntities.add(new FrameTabEntity("我的", R.mipmap.ic_mine_unselect, R.mipmap.ic_mine_select, MainMineFragment.newInstance()));

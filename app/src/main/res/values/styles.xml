@@ -107,18 +107,21 @@
         <item name="android:textSize">@dimen/sp_14</item>
         <item name="android:textColor">@color/whiteCommon</item>
     </style>
+
     <style name="Text14spBlue5593FF">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/sp_14</item>
         <item name="android:textColor">@color/blue5593FF</item>
     </style>
+
     <style name="Text12spBlue5593FF">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/sp_12</item>
         <item name="android:textColor">@color/blue5593FF</item>
     </style>
+
     <style name="Text12spWhiteFFFFFF">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -132,6 +135,7 @@
         <item name="android:textSize">@dimen/sp_12</item>
         <item name="android:textColor">@color/grayAAAAAA</item>
     </style>
+
     <style name="Text14spBlack333333">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -139,6 +143,13 @@
         <item name="android:textColor">@color/black333333</item>
     </style>
 
+    <style name="Text13spBlack333333" parent="Text14spBlack333333">
+        <item name="android:textSize">@dimen/sp_13</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+    <style name="Text13spGrayA2A2A2" parent="Text13spBlack333333">
+      <item name="android:textColor">@color/grayA2A2A2</item>
+    </style>
     <style name="Text12spBlack333333">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -146,7 +157,6 @@
         <item name="android:textSize">@dimen/sp_12</item>
         <item name="android:textColor">@color/black333333</item>
     </style>
-
 
 
     <style name="Text14spGrayA2A2A2">

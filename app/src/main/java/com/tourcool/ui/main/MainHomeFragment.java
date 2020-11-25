@@ -65,6 +65,9 @@ import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.DateUtil;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.smartcity.R;
+import com.tourcool.ui.constellation.ConstellationListActivity;
+import com.tourcool.ui.express.ExpressQueryActivity;
+import com.tourcool.ui.garbage.GarbageQueryActivity;
 import com.tourcool.ui.kitchen.VideoListActivity;
 import com.tourcool.ui.mvp.account.LoginActivity;
 import com.tourcool.ui.mvp.search.SearchActivity;
@@ -85,6 +88,9 @@ import cn.bingoogolapple.bgabanner.transformer.TransitionEffect;
 
 import static com.frame.library.core.util.StringUtil.LINE_HORIZONTAL;
 import static com.frame.library.core.util.StringUtil.SYMBOL_TEMP;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_CONSTELLATION;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_EXPRESS;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_GARBAGE;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_KITCHEN;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_PARKING;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_BASE_INFO;
@@ -117,7 +123,7 @@ import static com.tourcool.core.constant.WeatherConstant.WEATHER_YIN;
  * @Email: 971613168@qq.com
  */
 @SuppressWarnings("unchecked")
-public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnClickListener, OnRefreshListener {
+public class MainHomeFragment extends BaseTitleFragment implements View.OnClickListener, OnRefreshListener {
     private Handler mHandler = new Handler();
     private SmartRefreshLayout mRefreshLayout;
     private static final String AIR_QUALITY = "空气质量";
@@ -168,9 +174,9 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
         getHomeInfo();
     }
 
-    public static MainHomeFragmentNew newInstance() {
+    public static MainHomeFragment newInstance() {
         Bundle args = new Bundle();
-        MainHomeFragmentNew fragment = new MainHomeFragmentNew();
+        MainHomeFragment fragment = new MainHomeFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -258,24 +264,24 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
                 GlideManager.loadImgCenterInside(R.mipmap.ic_weather_unknown, ivWeather);
                 break;
         }
-        tvAirQuality.setText(transfirmAirQuailty(weather.getQuality()));
-        tvTemperature.setText(transfirmTemp(weather.getTemp()));
-        tvDate.setText(transfirmDate(weather.getDate()));
+        tvAirQuality.setText(transformAirQuality(weather.getQuality()));
+        tvTemperature.setText(transformTemp(weather.getTemp()));
+        tvDate.setText(transformDate(weather.getDate()));
         rlWeather.setOnClickListener(this);
     }
 
-    private String transfirmDate(String date) {
+    private String transformDate(String date) {
         return "[" + DateUtil.formatDateToMonthAndDaySlash(date) + "]";
     }
 
-    private String transfirmAirQuailty(String air) {
+    private String transformAirQuality(String air) {
         if (TextUtils.isEmpty(air)) {
             return AIR_QUALITY + ": " + LINE_HORIZONTAL;
         }
         return air.contains(AIR_QUALITY) ? air : AIR_QUALITY + ": " + air;
     }
 
-    private String transfirmTemp(String temp) {
+    private String transformTemp(String temp) {
         if (TextUtils.isEmpty(temp)) {
             return LINE_HORIZONTAL + SYMBOL_TEMP;
         }
@@ -1016,9 +1022,46 @@ public class MainHomeFragmentNew extends BaseTitleFragment implements View.OnCli
             case ITEM_TYPE_PARKING:
                 skipParking();
                 break;
+            case ITEM_TYPE_CONSTELLATION:
+                skipConstellation();
+                break;
+            case ITEM_TYPE_EXPRESS:
+                skipExpress();
+                break;
+            case ITEM_TYPE_GARBAGE:
+                skipGarbage();
+                break;
             default:
                 WebViewActivity.start(mContext, StringUtil.getNotNullValue(link));
                 break;
         }
+    }
+
+    /**
+     * 星座
+     */
+    private void skipConstellation() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, ConstellationListActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * 快递物流
+     */
+    private void skipExpress() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, ExpressQueryActivity.class);
+        startActivity(intent);
+    }
+
+
+    /**
+     * 快递物流
+     */
+    private void skipGarbage() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, GarbageQueryActivity.class);
+        startActivity(intent);
     }
 }

@@ -22,16 +22,16 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.frame.library.core.manager.LoggerManager;
-import com.aries.ui.util.DrawableUtil;
-
-import java.util.List;
-import java.util.Random;
-
 import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+
+import com.aries.ui.util.DrawableUtil;
+import com.frame.library.core.manager.LoggerManager;
+
+import java.util.List;
+import java.util.Random;
 
 /**
  * @Author: JenkinsZhou on 2018/7/23 9:29
@@ -58,7 +58,7 @@ public class FrameUtil {
         try {
             //兼容android P，直接调用@hide注解的方法来获取application对象
             Application app = ActivityThread.currentApplication();
-            LoggerManager.e("getApplication0:" + app);
+            LoggerManager.i("getApplication0:" + app);
             if (app != null) {
                 return app;
             }

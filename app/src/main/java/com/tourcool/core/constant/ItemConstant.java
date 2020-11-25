@@ -38,4 +38,13 @@ public class ItemConstant {
 
     public static final String ITEM_TYPE_SOCIAL_QUERY_BIRTH = "生育查询";
 
+    public static final String ITEM_TYPE_CONSTELLATION = "星座运势";
+
+    public static final String ITEM_TYPE_EXPRESS = "快递查询";
+
+    public static final String ITEM_TYPE_GARBAGE = "垃圾分类";
+
+
+
+
 }

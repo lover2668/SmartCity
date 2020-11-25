@@ -161,6 +161,12 @@
         <activity android:name="com.tourcool.ui.parking.FastParkingActivity" />
         <activity android:name="com.tourcool.ui.social.SocialBaseInfoActivity" />
         <activity android:name="com.tourcool.ui.social.detail.SocialListDetailActivity" />
+        <activity android:name="com.tourcool.ui.constellation.ConstellationListActivity" />
+        <activity android:name="com.tourcool.ui.constellation.ConstellationTabActivity" />
+        <activity android:name="com.tourcool.ui.express.ExpressQueryActivity" />
+        <activity android:name="com.tourcool.ui.express.ExpressDetailActivity" />
+        <activity android:name="com.tourcool.ui.garbage.GarbageQueryActivity" />
+        <activity android:name="com.tourcool.ui.garbage.GarbageDetailActivity" />
 
         <meta-data
             android:name="BUGLY_APPID"

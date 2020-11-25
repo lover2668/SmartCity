@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/ic_bg_weather"
+    android:orientation="vertical">
+
+    <include layout="@layout/frame_layout_title_bar" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_86"
+        android:src="@mipmap/ic_garbage" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_18"
+        android:text="一键查询免烦恼 从我做起爱环保"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_12" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_36"
+        android:layout_marginEnd="@dimen/dp_15"
+        android:background="@drawable/bg_radius_30_white"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/dp_10"
+            android:padding="@dimen/dp_10"
+            android:src="@mipmap/ic_search_gray" />
+
+        <EditText
+            android:id="@+id/etGarbageName"
+            android:layout_width="0dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:background="@null"
+            android:hint="请输入查询的垃圾名称"
+            android:paddingTop="@dimen/dp_16"
+            android:paddingBottom="@dimen/dp_16"
+            android:textColor="@color/black333333"
+            android:textColorHint="#BBBBBB"
+            android:textSize="@dimen/sp_14" />
+
+        <ImageView
+            android:id="@+id/ivClearInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/dp_15"
+            android:padding="@dimen/dp_10"
+            android:src="@mipmap/ic_delete_gray" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_28"
+        android:text="－ 热门搜索 －"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_14" />
+</LinearLayout>

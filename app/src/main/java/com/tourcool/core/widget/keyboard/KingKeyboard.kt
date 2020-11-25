@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.media.AudioManager
 import android.os.Build
-import android.os.VibrationEffect
 import android.os.Vibrator
 import android.text.InputType
 import android.util.Log
@@ -20,7 +19,7 @@ import com.tourcool.util.VibrateUtil
 
 /**
  *@description :
- *@company :翼迈科技股份有限公司
+ *@company :途酷科技
  * @author :JenkinsZhou
  * @date 2020年02月15日12:55
  * @Email: 971613168@qq.com

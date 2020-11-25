@@ -7,6 +7,10 @@ import com.frame.library.core.retrofit.RetryWhen;
 import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.util.StringUtil;
 import com.tourcool.bean.certify.FaceCertify;
+import com.tourcool.bean.express.ExpressBean;
+import com.tourcool.bean.express.ExpressCompany;
+import com.tourcool.bean.garbage.Garbage;
+import com.tourcool.bean.garbage.GarbageHotKey;
 import com.tourcool.bean.kitchen.KitchenGroup;
 import com.tourcool.bean.parking.CarInfo;
 import com.tourcool.bean.parking.ParingRecord;
@@ -351,6 +355,7 @@ public class ApiRepository extends AbstractRepository {
     }
 
 
+
     public Observable<BaseResult<SocialSecurityResult>> requestSocialPageDataByType(int pageIndex, String socialType) {
         Map<String, Object> params = new HashMap<>(2);
         params.put("page", pageIndex + "");
@@ -370,4 +375,35 @@ public class ApiRepository extends AbstractRepository {
         }
 
     }
+
+    /**
+     * 查询垃圾
+     * @param key
+     * @return
+     */
+    public Observable<BaseResult<Garbage>> requestSearchGarbage(String key) {
+        return FrameTransformer.switchSchedulers(getApiService().requestSearchGarbage(key).retryWhen(new RetryWhen()));
+    }
+
+    /**
+     * 查询垃圾热词
+     * @return
+     */
+    public Observable<BaseResult<List<GarbageHotKey>>> requestGarbageHotWord() {
+        return FrameTransformer.switchSchedulers(getApiService().requestGarbageHotWord().retryWhen(new RetryWhen()));
+    }
+    public Observable<BaseResult<List<ExpressCompany>>> requestExpressCompany() {
+        return FrameTransformer.switchSchedulers(getApiService().requestExpressCompany().retryWhen(new RetryWhen()));
+    }
+
+    public Observable<BaseResult<ExpressBean>> requestExpressDeliveryDetail(String company,String num,String mobile) {
+        Map<String, Object> params = new HashMap<>(2);
+        params.put("com", company);
+        params.put("no", num);
+        params.put("mobile", mobile);
+        TourCooLogUtil.i("提交到后台的参数", params);
+        return FrameTransformer.switchSchedulers(getApiService().requestExpressDeliveryDetail(params).retryWhen(new RetryWhen()));
+    }
+
+
 }

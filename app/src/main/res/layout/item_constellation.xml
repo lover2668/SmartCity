@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/ivConstellationInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:minWidth="@dimen/dp_68"
+        android:minHeight="@dimen/dp_68"
+        android:src="@mipmap/ic_star_bai_yang" />
+
+    <TextView
+        android:id="@+id/tvConstellationName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_13"
+        android:text="白羊座"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_14" />
+
+    <TextView
+        android:id="@+id/tvConstellationMonth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_8"
+        android:text="3.21-4.19"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_12" />
+
+
+</LinearLayout>

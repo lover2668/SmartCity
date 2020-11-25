@@ -1,8 +1,11 @@
 package com.tourcool.ui.social
 
 import android.os.Bundle
+import android.text.TextUtils
+import android.widget.TextView
 import com.frame.library.core.retrofit.BaseLoadingObserver
 import com.frame.library.core.util.NetworkUtil
+import com.frame.library.core.util.StringUtil
 import com.frame.library.core.util.ToastUtil
 import com.frame.library.core.widget.titlebar.TitleBarView
 import com.tourcool.bean.social.SocialBaseInfo
@@ -14,7 +17,7 @@ import com.tourcool.ui.base.BaseCommonTitleActivity
 import com.trello.rxlifecycle3.android.ActivityEvent
 import kotlinx.android.synthetic.main.activity_society_info.*
 
-class SocialBaseInfoActivity: BaseCommonTitleActivity() {
+class SocialBaseInfoActivity : BaseCommonTitleActivity() {
 
     override fun getContentLayout(): Int {
         return R.layout.activity_society_info
@@ -58,13 +61,21 @@ class SocialBaseInfoActivity: BaseCommonTitleActivity() {
     }
 
     private fun showSocialBaseInfo(info: SocialBaseInfo) {
-        tvAccount.text = info.idNo
-        tvCbDw.text = info.company
-        tvRecentPayMonth.text =info. jfny
-        tvInsuranceMedical.text = info.ylbxye+"元"
-        tvInsuranceInjury.text = info.gsjnje+"元"
-        tvInsuranceBirth.text = info.yyjnje+"元"
-        tvInsuranceLossJob.text = info.syjnje+"元"
+        tvAccount.text =StringUtil.getNotNullValueLine(info.idNo)
+        tvCbDw.text = StringUtil.getNotNullValueLine(info.company)
+        tvRecentPayMonth.text = StringUtil.getNotNullValueLine(info.jfny)
+        showMoney(tvInsuranceMedical,info.ylbxye)
+        showMoney(tvInsuranceInjury,info.gsjnje)
+        showMoney(tvInsuranceBirth,info.yyjnje)
+        showMoney(tvInsuranceLossJob,info.syjnje)
+    }
 
+    private fun showMoney(textView: TextView?, money: String?) {
+        if (TextUtils.isEmpty(money)) {
+            textView?.text = StringUtil.getNotNullValueLine(money)
+        } else {
+            val result = money + "元"
+            textView?.text = result
+        }
     }
 }

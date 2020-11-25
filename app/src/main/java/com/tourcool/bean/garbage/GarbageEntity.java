@@ -9,7 +9,7 @@ import java.util.List;
  * @date 2019年10月23日16:01
  * @Email: 971613168@qq.com
  */
-public class GabageEntity {
+public class GarbageEntity {
     private int parentId;
     private String desc;
     private int id;

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/dp_15"
+    android:paddingEnd="@dimen/dp_15">
+
+
+    <LinearLayout
+        android:id="@+id/llExpressInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_24"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvExpressInfo"
+            style="@style/Text14spBlack333333"
+            android:layout_marginStart="@dimen/dp_8"
+            android:text="离开纳雍县 发往纳雍县阳长邮政支局【毕节地区】" />
+
+        <TextView
+            android:layout_marginBottom="@dimen/dp_24"
+            android:id="@+id/tvExpressDate"
+            style="@style/Text11spGraya2a2a2"
+            android:layout_marginStart="@dimen/dp_8"
+            android:layout_marginTop="@dimen/dp_12"
+            android:text="2016-06-18 17:34:00" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/llExpressInfo"
+        android:layout_alignBottom="@id/llExpressInfo"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_width="@dimen/dp_10"
+            android:layout_height="@dimen/dp_10"
+            android:src="@mipmap/ic_circle_blue" />
+
+        <View
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="#EEEEEE" />
+    </LinearLayout>
+</RelativeLayout>
