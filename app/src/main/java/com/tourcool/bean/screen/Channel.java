@@ -18,6 +18,7 @@ public class Channel implements Parcelable, Serializable {
     private String icon;
     private String circleIcon;
     private String type;
+    private String content;
 
     public String getType() {
         return type;
@@ -100,6 +101,14 @@ public class Channel implements Parcelable, Serializable {
         return jumpWay;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public void setJumpWay(int jumpWay) {
         this.jumpWay = jumpWay;
     }
@@ -148,6 +157,7 @@ public class Channel implements Parcelable, Serializable {
         dest.writeString(this.icon);
         dest.writeString(this.circleIcon);
         dest.writeString(this.type);
+        dest.writeString(this.content);
         dest.writeString(this.title);
         dest.writeString(this.description);
         dest.writeInt(this.jumpWay);
@@ -167,6 +177,7 @@ public class Channel implements Parcelable, Serializable {
         this.icon = in.readString();
         this.circleIcon = in.readString();
         this.type = in.readString();
+        this.content = in.readString();
         this.title = in.readString();
         this.description = in.readString();
         this.jumpWay = in.readInt();

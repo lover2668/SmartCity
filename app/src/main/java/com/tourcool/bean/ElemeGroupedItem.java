@@ -19,8 +19,6 @@ package com.tourcool.bean;
 
 import com.frame.library.core.widget.linkage.bean.BaseGroupedItem;
 
-import java.util.List;
-
 /**
  * Create by KunMinX at 19/4/27
  */
@@ -42,6 +40,24 @@ public class ElemeGroupedItem extends BaseGroupedItem<ElemeGroupedItem.ItemInfo>
         private Object children;
         private String columnName;
         private String parentsName;
+        private String richContent;
+        private int jumpWay;
+
+        public int getJumpWay() {
+            return jumpWay;
+        }
+
+        public void setJumpWay(int jumpWay) {
+            this.jumpWay = jumpWay;
+        }
+
+        public String getRichContent() {
+            return richContent;
+        }
+
+        public void setRichContent(String richContent) {
+            this.richContent = richContent;
+        }
 
         public String getParentsName() {
             return parentsName;
@@ -83,20 +99,14 @@ public class ElemeGroupedItem extends BaseGroupedItem<ElemeGroupedItem.ItemInfo>
             this.link = link;
         }
 
-        public ItemInfo(String title, String group, String content) {
-            super(title, group);
+        public ItemInfo(String title, String group, String content,String richContent) {
+            super(title, group,richContent);
             this.content = content;
         }
 
-        public ItemInfo(String title, String group, String content, String imgUrl) {
-            this(title, group, content);
-            this.imgUrl = imgUrl;
-        }
 
-        public ItemInfo(String title, String group, String content, String imgUrl, String link) {
-            this(title, group, content, imgUrl);
-            this.link = link;
-        }
+
+
 
         public String getContent() {
             return content;

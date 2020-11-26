@@ -7,7 +7,7 @@ package com.tourcool.core.constant;
  * @date 2019年10月17日14:18
  * @Email: 971613168@qq.com
  */
-public class ScreenConsrant {
+public class ScreenConstant {
 
      /*  WEATHER(0, "天气样式", new Integer[]{4}),
                 HORIZONTAL_BANNER(1, "水平滚动Banner样式", new Integer[]{2}),
@@ -36,7 +36,23 @@ public class ScreenConsrant {
 
     public static final int CLICK_TYPE_NATIVE = 3;
 
-    public static final int CLICK_TYPE_URL= 1;
 
-    public static final int CLICK_TYPE_NONE= 0;
+    public static final int CLICK_TYPE_NONE = 0;
+
+    /**
+     * 待开发
+     */
+    public static final int CLICK_TYPE_WAITING = -1;
+
+    /**
+     * 预加载
+     */
+    public static final int CLICK_TYPE_PRELOAD =3;
+    /**
+     * 外链
+     */
+    public static final int CLICK_TYPE_LINK_OUTER = 1;
+    public static final int CLICK_TYPE_LINK_INNER = 2;
+    public static final String TIP_WAIT_DEV = "正在开发中";
+
 }

@@ -44,7 +44,7 @@ public class ItemConstant {
 
     public static final String ITEM_TYPE_GARBAGE = "垃圾分类";
 
-
+    public static final String ITEM_TYPE_YELLOW_CALENDER = "查黄历";
 
 
 }

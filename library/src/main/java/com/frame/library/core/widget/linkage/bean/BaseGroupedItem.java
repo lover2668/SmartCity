@@ -43,6 +43,7 @@ public abstract class BaseGroupedItem<T extends BaseGroupedItem.ItemInfo> implem
     public static class ItemInfo {
         private String group;
         private String title;
+        private String richContent;
         private int id;
 
         public int getId() {
@@ -53,9 +54,10 @@ public abstract class BaseGroupedItem<T extends BaseGroupedItem.ItemInfo> implem
             this.id = id;
         }
 
-        public ItemInfo(String title, String group) {
+        public ItemInfo(String title, String group,String richContent) {
             this.title = title;
             this.group = group;
+            this.richContent = richContent;
         }
 
         public String getTitle() {
@@ -72,6 +74,14 @@ public abstract class BaseGroupedItem<T extends BaseGroupedItem.ItemInfo> implem
 
         public void setGroup(String group) {
             this.group = group;
+        }
+
+        public String getRichContent() {
+            return richContent;
+        }
+
+        public void setRichContent(String richContent) {
+            this.richContent = richContent;
         }
     }
 }

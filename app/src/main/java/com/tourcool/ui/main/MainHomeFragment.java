@@ -26,7 +26,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.aries.ui.util.StatusBarUtil;
-import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
@@ -59,12 +58,13 @@ import com.tourcool.bean.weather.SimpleWeather;
 import com.tourcool.core.MyApplication;
 import com.tourcool.core.base.BaseResult;
 import com.tourcool.core.config.RequestConfig;
-import com.tourcool.core.constant.ScreenConsrant;
+import com.tourcool.core.constant.ScreenConstant;
 import com.tourcool.core.module.WebViewActivity;
 import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.DateUtil;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.smartcity.R;
+import com.tourcool.ui.calender.YellowCalenderDetailActivity;
 import com.tourcool.ui.constellation.ConstellationListActivity;
 import com.tourcool.ui.express.ExpressQueryActivity;
 import com.tourcool.ui.garbage.GarbageQueryActivity;
@@ -77,6 +77,8 @@ import com.tourcool.ui.mvp.weather.WeatherActivity;
 import com.tourcool.ui.parking.FastParkingActivity;
 import com.tourcool.ui.social.SocialBaseInfoActivity;
 import com.tourcool.ui.social.detail.SocialListDetailActivity;
+import com.tourcool.widget.webview.CommonWebViewActivity;
+import com.tourcool.widget.webview.WebViewConstant;
 import com.trello.rxlifecycle3.android.FragmentEvent;
 
 import java.io.Serializable;
@@ -98,22 +100,29 @@ import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_BIR
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_GS;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_LOSE_WORK;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_TAKE_CARE_OLDER;
-import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NATIVE;
-import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_NONE;
-import static com.tourcool.core.constant.ScreenConsrant.CLICK_TYPE_URL;
-import static com.tourcool.core.constant.ScreenConsrant.LAYOUT_STYLE_CONTAINS_SUBLISTS;
-import static com.tourcool.core.constant.ScreenConsrant.LAYOUT_STYLE_HORIZONTAL_BANNER;
-import static com.tourcool.core.constant.ScreenConsrant.LAYOUT_STYLE_IMAGE;
-import static com.tourcool.core.constant.ScreenConsrant.LAYOUT_STYLE_IMAGE_TEXT_LIST;
-import static com.tourcool.core.constant.ScreenConsrant.LAYOUT_STYLE_VERTICAL_BANNER;
-import static com.tourcool.core.constant.ScreenConsrant.SUB_CHANNEL;
-import static com.tourcool.core.constant.ScreenConsrant.SUB_COLUMN;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_YELLOW_CALENDER;
+import static com.tourcool.core.constant.ScreenConstant.CLICK_TYPE_LINK_INNER;
+import static com.tourcool.core.constant.ScreenConstant.CLICK_TYPE_LINK_OUTER;
+import static com.tourcool.core.constant.ScreenConstant.CLICK_TYPE_NATIVE;
+import static com.tourcool.core.constant.ScreenConstant.CLICK_TYPE_NONE;
+import static com.tourcool.core.constant.ScreenConstant.CLICK_TYPE_WAITING;
+import static com.tourcool.core.constant.ScreenConstant.LAYOUT_STYLE_CONTAINS_SUBLISTS;
+import static com.tourcool.core.constant.ScreenConstant.LAYOUT_STYLE_HORIZONTAL_BANNER;
+import static com.tourcool.core.constant.ScreenConstant.LAYOUT_STYLE_IMAGE;
+import static com.tourcool.core.constant.ScreenConstant.LAYOUT_STYLE_IMAGE_TEXT_LIST;
+import static com.tourcool.core.constant.ScreenConstant.LAYOUT_STYLE_VERTICAL_BANNER;
+import static com.tourcool.core.constant.ScreenConstant.SUB_CHANNEL;
+import static com.tourcool.core.constant.ScreenConstant.SUB_COLUMN;
+import static com.tourcool.core.constant.ScreenConstant.TIP_WAIT_DEV;
 import static com.tourcool.core.constant.SocialConstant.EXTRA_SOCIAL_TYPE;
 import static com.tourcool.core.constant.SocialConstant.TIP_GO_CERTIFY;
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_DUO_YUN;
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_QING;
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_XIAO_YU;
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_YIN;
+import static com.tourcool.widget.webview.WebViewConstant.EXTRA_RICH_TEXT_ENABLE;
+import static com.tourcool.widget.webview.WebViewConstant.EXTRA_WEB_VIEW_TITLE;
+import static com.tourcool.widget.webview.WebViewConstant.EXTRA_WEB_VIEW_URL;
 
 /**
  * @author :JenkinsZhou
@@ -433,10 +442,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
                 TourCooLogUtil.e(TAG, "fillBannerItem:" + e.toString());
             }
             if (selectChannel != null) {
-                String link = TourCooUtil.getUrl(selectChannel.getLink());
-                if (!TextUtils.isEmpty(link)) {
-                    WebViewActivity.start(mContext, link, true);
-                }
+                skipByChannel(selectChannel);
             }
         });
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) bgaBanner.getLayoutParams();
@@ -521,7 +527,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
      * @param screenPart
      */
     private void loadHomeViewFlipperData(ScreenPart screenPart, boolean translate) {
-        if (screenPart == null || ScreenConsrant.LAYOUT_STYLE_VERTICAL_BANNER != screenPart.getLayoutStyle() || screenPart.getChildren() == null) {
+        if (screenPart == null || ScreenConstant.LAYOUT_STYLE_VERTICAL_BANNER != screenPart.getLayoutStyle() || screenPart.getChildren() == null) {
             return;
         }
         List<ChildNode> childNodeList = screenPart.getChildren();
@@ -584,17 +590,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
                     if (clickChannel == null) {
                         return;
                     }
-                    switch (clickChannel.getJumpWay()) {
-                        case CLICK_TYPE_NATIVE:
-                            ToastUtils.showShort("跳转至原生页面");
-                            break;
-                        case CLICK_TYPE_URL:
-                            skipByParams(clickChannel.getTitle(), clickChannel.getLink());
-                            break;
-                        default:
-                            ToastUtils.showShort("什么也不做");
-                            break;
-                    }
+                    skipByChannel(clickChannel);
                 }
             });
             homeViewFlipper.addView(contentLayout);
@@ -620,7 +616,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
 
 
     private void loadSecondList(ScreenPart screenPart) {
-        boolean illegal = screenPart == null || ScreenConsrant.LAYOUT_STYLE_CONTAINS_SUBLISTS != screenPart.getLayoutStyle() || screenPart.getChildren() == null || screenPart.getDetail() == null;
+        boolean illegal = screenPart == null || ScreenConstant.LAYOUT_STYLE_CONTAINS_SUBLISTS != screenPart.getLayoutStyle() || screenPart.getChildren() == null || screenPart.getDetail() == null;
         if (illegal) {
             return;
         }
@@ -789,20 +785,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
                 if (channel == null) {
                     return;
                 }
-                switch (channel.getJumpWay()) {
-                    case CLICK_TYPE_URL:
-                        skipByParams(channel.getTitle(), channel.getLink());
-//                        WebViewActivity.start(mContext, TourCooUtil.getUrl(channel.getLink()));
-                        break;
-                    case CLICK_TYPE_NONE:
-//                        ToastUtil.show("什么也不做");
-                        break;
-                    case CLICK_TYPE_NATIVE:
-//                        ToastUtil.show("跳转原生页面");
-                        break;
-                    default:
-                        break;
-                }
+                skipByChannel(channel);
             }
         });
     }
@@ -818,6 +801,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
         matrixBean.setLink(StringUtil.getNotNullValue(channel.getLink()));
         matrixBean.setJumpWay(channel.getJumpWay());
         matrixBean.setType(channel.getType());
+        matrixBean.setContent(channel.getContent());
         return matrixBean;
     }
 
@@ -1005,7 +989,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
     }
 
 
-    private void skipByParams(String title, String link) {
+    private void skipByCondition(String title, String link) {
         switch (StringUtil.getNotNullValue(title)) {
             case ITEM_TYPE_SOCIAL_BASE_INFO:
                 skipSocialBase();
@@ -1031,8 +1015,11 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
             case ITEM_TYPE_GARBAGE:
                 skipGarbage();
                 break;
+            case ITEM_TYPE_YELLOW_CALENDER:
+                skipYellowCalender();
+                break;
             default:
-                WebViewActivity.start(mContext, StringUtil.getNotNullValue(link));
+                skipWebView(link,title);
                 break;
         }
     }
@@ -1063,5 +1050,62 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
         Intent intent = new Intent();
         intent.setClass(mContext, GarbageQueryActivity.class);
         startActivity(intent);
+    }
+
+
+    /**
+     * 查黄历
+     */
+    private void skipYellowCalender() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, YellowCalenderDetailActivity.class);
+        startActivity(intent);
+    }
+
+    private void skipWebView(String link,String title) {
+        Intent intent = new Intent();
+        intent.putExtra(EXTRA_WEB_VIEW_URL, link);
+        intent.putExtra(EXTRA_RICH_TEXT_ENABLE, false);
+        intent.putExtra(EXTRA_WEB_VIEW_TITLE, title);
+        intent.setClass(mContext, CommonWebViewActivity.class);
+        startActivity(intent);
+    }
+
+    private void skipWebViewRich(String richContent,String urlTitle) {
+        Intent intent = new Intent();
+        intent.putExtra(EXTRA_RICH_TEXT_ENABLE, true);
+        intent.putExtra(EXTRA_WEB_VIEW_URL, "");
+        intent.putExtra(EXTRA_WEB_VIEW_TITLE, urlTitle);
+        WebViewConstant.richText = richContent;
+        intent.setClass(mContext, CommonWebViewActivity.class);
+        startActivity(intent);
+    }
+
+
+    private void skipByChannel(Channel channel) {
+        switch (channel.getJumpWay()) {
+            case CLICK_TYPE_LINK_OUTER:
+                //展示外链
+                skipWebView(StringUtil.getNotNullValue(channel.getLink()),channel.getTitle());
+                break;
+            case CLICK_TYPE_NONE:
+//                        ToastUtil.show("什么也不做");
+                break;
+            case CLICK_TYPE_NATIVE:
+                //展示原生
+                skipByCondition(channel.getTitle(), channel.getLink());
+                break;
+            case CLICK_TYPE_LINK_INNER:
+                //展示外链
+                skipWebViewRich(channel.getContent(),channel.getTitle());
+                break;
+
+            case CLICK_TYPE_WAITING:
+                //待开发
+                ToastUtil.show(TIP_WAIT_DEV);
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -1,7 +1,5 @@
 package com.tourcool.core.config;
 
-import com.tourcool.smartcity.BuildConfig;
-
 /**
  * @author :JenkinsZhou
  * @description :
@@ -12,7 +10,7 @@ import com.tourcool.smartcity.BuildConfig;
 public class AppConfig {
 
 
-    public static final boolean DEBUG_MODE = true;
+    public static final boolean DEBUG_MODE = false;
     /**
      * 标题栏主标题文字大小(sp)
      */

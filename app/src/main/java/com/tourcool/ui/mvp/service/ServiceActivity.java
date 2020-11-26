@@ -67,8 +67,8 @@ import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_BIR
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_GS;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_LOSE_WORK;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_TAKE_CARE_OLDER;
-import static com.tourcool.core.constant.ScreenConsrant.SUB_CHANNEL;
-import static com.tourcool.core.constant.ScreenConsrant.SUB_COLUMN;
+import static com.tourcool.core.constant.ScreenConstant.SUB_CHANNEL;
+import static com.tourcool.core.constant.ScreenConstant.SUB_COLUMN;
 import static com.tourcool.core.constant.SocialConstant.EXTRA_SOCIAL_TYPE;
 import static com.tourcool.core.constant.SocialConstant.TIP_GO_CERTIFY;
 import static com.tourcool.ui.main.MainHomeFragment.EXTRA_CLASSIFY_NAME;
@@ -353,7 +353,7 @@ public class ServiceActivity extends BaseMvpTitleActivity {
                         break;
                     }
                     item = new ElemeGroupedItem(false, null);
-                    item.info = new ElemeGroupedItem.ItemInfo(channel.getTitle(), screenPart.getColumnName(), channel.getDescription());
+                    item.info = new ElemeGroupedItem.ItemInfo(channel.getTitle(), screenPart.getColumnName(), channel.getDescription(),channel.getContent());
                     item.info.setType(SUB_CHANNEL);
                     if (TextUtils.isEmpty(channel.getCircleIcon())) {
                         item.info.setImgUrl(TourCooUtil.getUrl(channel.getIcon()));
@@ -369,7 +369,7 @@ public class ServiceActivity extends BaseMvpTitleActivity {
                         break;
                     }
                     item = new ElemeGroupedItem(false, null);
-                    item.info = new ElemeGroupedItem.ItemInfo(columnItem.getName(), screenPart.getColumnName(), columnItem.getName());
+                    item.info = new ElemeGroupedItem.ItemInfo(columnItem.getName(), screenPart.getColumnName(), columnItem.getName(),columnItem.getLink());
                     item.info.setType(SUB_COLUMN);
                     item.info.setColumnName(screenPart.getColumnName());
                     item.info.setChildren(childNode.getChildren());

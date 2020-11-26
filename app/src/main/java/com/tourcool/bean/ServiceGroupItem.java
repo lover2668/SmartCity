@@ -19,12 +19,13 @@ public class ServiceGroupItem extends BaseGroupedItem {
 
     public static class ItemInfo extends BaseGroupedItem.ItemInfo {
         private String content;
+        private String richText;
         private String imgUrl;
         private List<MatrixBean> matrixBeanList;
 
 
-        public ItemInfo(String title, String group, List<MatrixBean> matrixBeanList) {
-            super(title, group);
+        public ItemInfo(String title, String group, List<MatrixBean> matrixBeanList, String richText) {
+            super(title, group, richText);
             this.matrixBeanList = matrixBeanList;
         }
 

@@ -44,7 +44,6 @@ import com.tourcool.core.retrofit.interceptor.TokenInterceptor;
 import com.tourcool.core.util.NotificationUtil;
 import com.tourcool.smartcity.BuildConfig;
 import com.tourcool.smartcity.R;
-import com.xuexiang.xui.XUI;
 
 import org.litepal.LitePalApplication;
 
@@ -171,7 +170,6 @@ public class MyApplication  extends LitePalApplication {
         CrashReport.initCrashReport(getApplicationContext());
         //初始化通知栏控制
         NotificationUtil.getInstance().init(getApplicationContext());
-        XUI.init(mContext);
         //设置用户下载App的初始渠道
         String appChannel = (String) SpUtil.get(getApplicationContext(), SPConstant.SP_KEY_APP_CHANNEL, "");
         LoggerManager.i(TAG, "appChannel0:" + appChannel + ";week:" + FormatUtil.formatWeek(System.currentTimeMillis()) + ";:" + Calendar.getInstance().get(Calendar.DAY_OF_WEEK));

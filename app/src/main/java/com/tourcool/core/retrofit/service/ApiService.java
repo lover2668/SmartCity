@@ -2,6 +2,7 @@ package com.tourcool.core.retrofit.service;
 
 
 import com.frame.library.core.retrofit.FrameRetrofit;
+import com.tourcool.bean.canlender.YellowCalendarDetail;
 import com.tourcool.bean.certify.FaceCertify;
 import com.tourcool.bean.express.ExpressBean;
 import com.tourcool.bean.express.ExpressCompany;
@@ -397,6 +398,10 @@ public interface ApiService {
     @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
     @GET("public/app/getConstellation")
     Observable<BaseResult<Object>> requestConstellation(@QueryMap Map<String, Object> map);
+
+    @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
+    @GET("public/app/getYellowCalendarByDate")
+    Observable<BaseResult<YellowCalendarDetail>> requestYellowCalendar(@QueryMap Map<String, Object> map);
 }
 
 

@@ -36,17 +36,22 @@ import com.tourcool.bean.account.AccountHelper;
 import com.tourcool.bean.screen.Channel;
 import com.tourcool.bean.search.SeachEntity;
 import com.tourcool.core.base.BaseResult;
-import com.tourcool.core.module.WebViewActivity;
 import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.base.BaseCommonTitleActivity;
+import com.tourcool.ui.calender.YellowCalenderDetailActivity;
+import com.tourcool.ui.constellation.ConstellationListActivity;
+import com.tourcool.ui.express.ExpressQueryActivity;
+import com.tourcool.ui.garbage.GarbageQueryActivity;
 import com.tourcool.ui.kitchen.VideoListActivity;
 import com.tourcool.ui.mvp.account.LoginActivity;
 import com.tourcool.ui.mvp.service.SecondaryServiceActivity;
 import com.tourcool.ui.parking.FastParkingActivity;
 import com.tourcool.ui.social.SocialBaseInfoActivity;
 import com.tourcool.ui.social.detail.SocialListDetailActivity;
+import com.tourcool.widget.webview.CommonWebViewActivity;
+import com.tourcool.widget.webview.WebViewConstant;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 
 import java.io.Serializable;
@@ -55,6 +60,9 @@ import java.util.List;
 
 import static com.tourcool.core.config.RequestConfig.CODE_REQUEST_SUCCESS;
 import static com.tourcool.core.config.RequestConfig.EXCEPTION_NO_NETWORK;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_CONSTELLATION;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_EXPRESS;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_GARBAGE;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_KITCHEN;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_PARKING;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_BASE_INFO;
@@ -62,9 +70,19 @@ import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_BIR
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_GS;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_LOSE_WORK;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_TAKE_CARE_OLDER;
-import static com.tourcool.core.constant.ScreenConsrant.SUB_COLUMN;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_YELLOW_CALENDER;
+import static com.tourcool.core.constant.ScreenConstant.CLICK_TYPE_LINK_INNER;
+import static com.tourcool.core.constant.ScreenConstant.CLICK_TYPE_LINK_OUTER;
+import static com.tourcool.core.constant.ScreenConstant.CLICK_TYPE_NATIVE;
+import static com.tourcool.core.constant.ScreenConstant.CLICK_TYPE_NONE;
+import static com.tourcool.core.constant.ScreenConstant.CLICK_TYPE_WAITING;
+import static com.tourcool.core.constant.ScreenConstant.SUB_COLUMN;
+import static com.tourcool.core.constant.ScreenConstant.TIP_WAIT_DEV;
 import static com.tourcool.core.constant.SocialConstant.EXTRA_SOCIAL_TYPE;
 import static com.tourcool.core.constant.SocialConstant.TIP_GO_CERTIFY;
+import static com.tourcool.widget.webview.WebViewConstant.EXTRA_RICH_TEXT_ENABLE;
+import static com.tourcool.widget.webview.WebViewConstant.EXTRA_WEB_VIEW_TITLE;
+import static com.tourcool.widget.webview.WebViewConstant.EXTRA_WEB_VIEW_URL;
 
 /**
  * @author :JenkinsZhou
@@ -214,6 +232,7 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
         if (channel == null) {
             return null;
         }
+        TourCooLogUtil.i("---------transformMatrix",channel);
         MatrixBean matrixBean = new MatrixBean();
         matrixBean.setLink(TourCooUtil.getNotNullValue(channel.getLink()));
         matrixBean.setMatrixName(channel.getName());
@@ -224,12 +243,13 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
         matrixBean.setColumnName("服务");
         matrixBean.setParentsName(channel.getName());
         //取方形图标
-        if(TextUtils.isEmpty(channel.getCircleIcon())){
+        if (TextUtils.isEmpty(channel.getCircleIcon())) {
             matrixBean.setMatrixIconUrl(TourCooUtil.getUrl(channel.getIcon()));
-        }else {
+        } else {
             matrixBean.setMatrixIconUrl(TourCooUtil.getUrl(channel.getCircleIcon()));
         }
-
+        matrixBean.setContent(channel.getContent());
+        matrixBean.setRichText(channel.getContent());
         return matrixBean;
     }
 
@@ -341,7 +361,8 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
                         }else{
                             WebViewActivity.start(mContext, TourCooUtil.getUrl(matrixBean.getLink()),true);
                         }*/
-                        skipByParams(matrixBean.getMatrixName(),TourCooUtil.getUrl(matrixBean.getLink()));
+                    TourCooLogUtil.i("---------",matrixBean);
+                        skipByMatrix(matrixBean);
                         break;
                 }
 
@@ -381,7 +402,7 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
     }
 
     private void skipParking() {
-        if(!AccountHelper.getInstance().isLogin()){
+        if (!AccountHelper.getInstance().isLogin()) {
             skipLogin();
             return;
         }
@@ -398,7 +419,7 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
 
 
     private void skipSocialBase() {
-        if(!AccountHelper.getInstance().isLogin()){
+        if (!AccountHelper.getInstance().isLogin()) {
             skipLogin();
             return;
         }
@@ -412,7 +433,7 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
     }
 
     private void skipSocialListDetail(String type) {
-        if(!AccountHelper.getInstance().isLogin()){
+        if (!AccountHelper.getInstance().isLogin()) {
             skipLogin();
             return;
         }
@@ -427,7 +448,7 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
     }
 
 
-    private void skipByParams(String title, String link) {
+    /*private void skipByParams(String title, String link) {
         switch (StringUtil.getNotNullValue(title)) {
             case ITEM_TYPE_SOCIAL_BASE_INFO:
                 skipSocialBase();
@@ -446,6 +467,125 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
                 break;
             default:
                 WebViewActivity.start(mContext, StringUtil.getNotNullValue(link));
+                break;
+        }
+    }*/
+    private void skipByCondition(String title, String link) {
+        switch (StringUtil.getNotNullValue(title)) {
+            case ITEM_TYPE_SOCIAL_BASE_INFO:
+                skipSocialBase();
+                break;
+            case ITEM_TYPE_SOCIAL_QUERY_GS:
+            case ITEM_TYPE_SOCIAL_QUERY_TAKE_CARE_OLDER:
+            case ITEM_TYPE_SOCIAL_QUERY_LOSE_WORK:
+            case ITEM_TYPE_SOCIAL_QUERY_BIRTH:
+                skipSocialListDetail(title);
+                break;
+            case ITEM_TYPE_KITCHEN:
+                skipBrightKitchen();
+                break;
+            case ITEM_TYPE_PARKING:
+                skipParking();
+                break;
+            case ITEM_TYPE_CONSTELLATION:
+                skipConstellation();
+                break;
+            case ITEM_TYPE_EXPRESS:
+                skipExpress();
+                break;
+            case ITEM_TYPE_GARBAGE:
+                skipGarbage();
+                break;
+            case ITEM_TYPE_YELLOW_CALENDER:
+                skipYellowCalender();
+                break;
+            default:
+                skipWebView(link, title);
+                break;
+        }
+    }
+
+    /**
+     * 星座
+     */
+    private void skipConstellation() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, ConstellationListActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * 快递物流
+     */
+    private void skipExpress() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, ExpressQueryActivity.class);
+        startActivity(intent);
+    }
+
+
+    /**
+     * 快递物流
+     */
+    private void skipGarbage() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, GarbageQueryActivity.class);
+        startActivity(intent);
+    }
+
+
+    /**
+     * 查黄历
+     */
+    private void skipYellowCalender() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, YellowCalenderDetailActivity.class);
+        startActivity(intent);
+    }
+
+    private void skipWebView(String link, String title) {
+        Intent intent = new Intent();
+        intent.putExtra(EXTRA_WEB_VIEW_URL, link);
+        intent.putExtra(EXTRA_RICH_TEXT_ENABLE, false);
+        intent.putExtra(EXTRA_WEB_VIEW_TITLE, title);
+        intent.setClass(mContext, CommonWebViewActivity.class);
+        startActivity(intent);
+    }
+
+    private void skipWebViewRich(String richContent, String urlTitle) {
+        Intent intent = new Intent();
+        intent.putExtra(EXTRA_RICH_TEXT_ENABLE, true);
+        intent.putExtra(EXTRA_WEB_VIEW_URL, "");
+        intent.putExtra(EXTRA_WEB_VIEW_TITLE, urlTitle);
+        WebViewConstant.richText = richContent;
+        intent.setClass(mContext, CommonWebViewActivity.class);
+        startActivity(intent);
+    }
+
+
+    private void skipByMatrix(MatrixBean matrixBean) {
+        switch (matrixBean.getJumpWay()) {
+            case CLICK_TYPE_LINK_OUTER:
+                //展示外链
+                skipWebView(StringUtil.getNotNullValue(matrixBean.getLink()), matrixBean.getMatrixTitle());
+                break;
+            case CLICK_TYPE_NONE:
+//                        ToastUtil.show("什么也不做");
+                break;
+            case CLICK_TYPE_NATIVE:
+                //展示原生
+                skipByCondition(matrixBean.getMatrixName(), matrixBean.getLink());
+                break;
+            case CLICK_TYPE_LINK_INNER:
+                //展示外链
+                skipWebViewRich(matrixBean.getRichText(), matrixBean.getMatrixTitle());
+                break;
+
+            case CLICK_TYPE_WAITING:
+                //待开发
+                ToastUtil.show(TIP_WAIT_DEV);
+                break;
+            default:
                 break;
         }
     }

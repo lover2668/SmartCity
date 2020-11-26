@@ -71,7 +71,7 @@ public class ServiceSecondLinkAdapter implements ILinkageSecondaryAdapterConfig<
         //二级布局为网格布局
         childRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
         adapter.bindToRecyclerView(childRecyclerView);
-        if (item.info instanceof ServiceGroupItem.ItemInfo) {
+        if (item.info != null) {
             adapter.setNewData(item.info.getMatrixBeanList());
         }
 

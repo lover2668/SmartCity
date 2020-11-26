@@ -45,7 +45,6 @@
                 android:layout_width="0dp"
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_weight="1"
-                android:text="8"
                 android:textColor="#629BFF" />
         </LinearLayout>
 
@@ -111,7 +110,6 @@
                 android:id="@+id/tvProgressAll"
                 style="@style/Text13spBlack333333"
                 android:layout_marginStart="@dimen/dp_10"
-                android:text="8"
                 android:textColor="#629BFF" />
         </LinearLayout>
 
@@ -142,7 +140,6 @@
                 android:id="@+id/tvProgressHealthy"
                 style="@style/Text13spBlack333333"
                 android:layout_marginStart="@dimen/dp_10"
-                android:text="8"
                 android:textColor="#629BFF" />
         </LinearLayout>
 
@@ -166,14 +163,12 @@
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_weight="1"
                 android:max="100"
-                android:progress="40"
                 android:progressDrawable="@drawable/progress_bar_drawable" />
 
             <TextView
                 android:id="@+id/tvProgressLove"
                 style="@style/Text13spBlack333333"
                 android:layout_marginStart="@dimen/dp_10"
-                android:text="8"
                 android:textColor="#629BFF" />
         </LinearLayout>
 
@@ -198,14 +193,12 @@
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_weight="1"
                 android:max="100"
-                android:progress="40"
                 android:progressDrawable="@drawable/progress_bar_drawable" />
 
             <TextView
                 android:id="@+id/tvProgressWork"
                 style="@style/Text13spBlack333333"
                 android:layout_marginStart="@dimen/dp_10"
-                android:text="8"
                 android:textColor="#629BFF" />
         </LinearLayout>
 
@@ -229,14 +222,12 @@
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_weight="1"
                 android:max="100"
-                android:progress="40"
                 android:progressDrawable="@drawable/progress_bar_drawable" />
 
             <TextView
                 android:id="@+id/tvProgressMoney"
                 style="@style/Text13spBlack333333"
                 android:layout_marginStart="@dimen/dp_10"
-                android:text="8"
                 android:textColor="#629BFF" />
         </LinearLayout>
 

@@ -14,8 +14,16 @@ public class MatrixBean implements MultiItemEntity {
     private String matrixIconUrl;
     private String matrixName;
     private int matrixIconResourcesId;
-
-
+    private String content;
+    private String matrixTitle;
+    private String link;
+    private int jumpWay;
+    private String type;
+    private Object children;
+    private String columnName;
+    private String parentsName;
+    private String richText;
+    private int id;
 
     private int itemType = MineMenuAdapter.TYPE_ITEM;
 
@@ -39,14 +47,7 @@ public class MatrixBean implements MultiItemEntity {
         this.matrixTitle = matrixTitle;
     }
 
-    private String matrixTitle;
-    private String link;
-    private int jumpWay;
-    private String type;
-    private Object children;
-    private String columnName;
-    private String parentsName;
-    private int id;
+
 
     public int getId() {
         return id;
@@ -137,5 +138,21 @@ public class MatrixBean implements MultiItemEntity {
     @Override
     public int getItemType() {
         return itemType;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getRichText() {
+        return richText;
+    }
+
+    public void setRichText(String richText) {
+        this.richText = richText;
     }
 }

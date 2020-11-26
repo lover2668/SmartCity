@@ -35,15 +35,11 @@ import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.event.account.UserInfoEvent;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.certify.SelectCertifyActivity;
-import com.tourcool.ui.kitchen.VideoListActivity;
 import com.tourcool.ui.mvp.account.LoginActivity;
 import com.tourcool.ui.mvp.account.PersonalDataActivity;
 import com.tourcool.ui.mvp.account.SystemSettingActivity;
-import com.tourcool.ui.parking.CarListActivity;
 import com.tourcool.ui.parking.FastParkingActivity;
-import com.tourcool.ui.parking.MineParkingActivity;
 import com.trello.rxlifecycle3.android.FragmentEvent;
-
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -145,9 +141,9 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
         MatrixBean matrixBean2 = new MatrixBean("", MINE_ITEM_NAME_SOCIAL_SECURITY);
         matrixBean2.setMatrixIconResourcesId(R.mipmap.ic_mine_social_security);
         matrixBeanList.add(matrixBean2);
-        MatrixBean matrixBean3 = new MatrixBean("", MINE_ITEM_NAME_ACCUMULATION_FUND);
+       /* MatrixBean matrixBean3 = new MatrixBean("", MINE_ITEM_NAME_ACCUMULATION_FUND);
         matrixBean3.setMatrixIconResourcesId(R.mipmap.ic_mine_accumulation_fund);
-        matrixBeanList.add(matrixBean3);
+        matrixBeanList.add(matrixBean3);*/
         matrixBeanList.add(new MatrixBean("", "", MineMenuAdapter.TYPE_LINE));
         MatrixBean matrixBean4 = new MatrixBean("", MINE_ITEM_NAME_REAL_NAME_AUTHENTICATION);
         matrixBean4.setMatrixIconResourcesId(R.mipmap.ic_mine_real_name_authentication);

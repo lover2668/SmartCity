@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.frame.library.core.util.FrameUtil
 import com.frame.library.core.util.SizeUtil
 import com.frame.library.core.util.StringUtil
 import com.frame.library.core.widget.titlebar.TitleBarView
@@ -103,7 +104,7 @@ class ConstellationTabActivity : BaseTitleTransparentActivity() {
             override fun getTitleView(context: Context?, index: Int): IPagerTitleView? {
                 val clipPagerTitleView = ClipPagerTitleView(context)
                 clipPagerTitleView.text = mTabNameList.get(index)
-                clipPagerTitleView.textColor = Color.parseColor("#e94220")
+                clipPagerTitleView.textColor = FrameUtil.getColor(R.color.colorPrimary)
                 clipPagerTitleView.clipColor = Color.WHITE
                 clipPagerTitleView.setOnClickListener {
                     mViewPager.currentItem = index

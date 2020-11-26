@@ -6,6 +6,7 @@ import com.frame.library.core.retrofit.FrameTransformer;
 import com.frame.library.core.retrofit.RetryWhen;
 import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.util.StringUtil;
+import com.tourcool.bean.canlender.YellowCalendarDetail;
 import com.tourcool.bean.certify.FaceCertify;
 import com.tourcool.bean.express.ExpressBean;
 import com.tourcool.bean.express.ExpressCompany;
@@ -412,6 +413,15 @@ public class ApiRepository extends AbstractRepository {
         TourCooLogUtil.i("提交到后台的参数", params);
         return FrameTransformer.switchSchedulers(getApiService().requestConstellation(params).retryWhen(new RetryWhen()));
     }
+
+
+    public Observable<BaseResult<YellowCalendarDetail>> requestYellowCalendar(String date) {
+        Map<String, Object> params = new HashMap<>(1);
+        params.put("date", date);
+        TourCooLogUtil.i("提交到后台的参数", params);
+        return FrameTransformer.switchSchedulers(getApiService().requestYellowCalendar(params).retryWhen(new RetryWhen()));
+    }
+
 
 
 }

@@ -36,8 +36,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
-
-import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.widget.linkage.adapter.LinkagePrimaryAdapter;
 import com.frame.library.core.widget.linkage.adapter.LinkageSecondaryAdapter;
 import com.frame.library.core.widget.linkage.adapter.viewholder.LinkagePrimaryViewHolder;
@@ -268,7 +266,7 @@ public class LinkageRecyclerView<T extends BaseGroupedItem.ItemInfo> extends Rel
             }
         }
 
-        DefaultGroupedItem.ItemInfo info = new DefaultGroupedItem.ItemInfo(null, lastGroupName);
+        DefaultGroupedItem.ItemInfo info = new DefaultGroupedItem.ItemInfo(null, lastGroupName,lastGroupName);
         BaseGroupedItem<T> footerItem = (BaseGroupedItem<T>) new DefaultGroupedItem(info);
         mInitItems.add(footerItem);
 

@@ -64,4 +64,6 @@
 
     <color name="king_keyboard_none_key_bg_normal">#ffefefef</color>
     <color name="king_keyboard_none_key_bg_pressed">#ffefefef</color>
+
+
 </resources>

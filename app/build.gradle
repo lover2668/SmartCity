@@ -211,7 +211,15 @@ dependencies {
     implementation 'com.shuyu:GSYVideoPlayer:7.1.2'
     implementation 'pub.devrel:easypermissions:2.0.0'
     implementation files('libs/jsoup-1.11.3.jar')
-    implementation 'com.github.xuexiangjys:XUI:1.1.5'
     implementation 'com.github.YangsBryant:BSearchEdit:1.0.8'
     implementation 'com.google.android:flexbox:2.0.1'
+    implementation 'com.tencent.tbs.tbssdk:sdk:43697'
+    implementation 'com.contrarywind:Android-PickerView:4.1.9'
+
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+
+    // 基础依赖包，必须要依赖
+    implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
+    // fragment快速实现（可选）
+    implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0'
 }

@@ -42,17 +42,22 @@ import com.tourcool.bean.screen.ChildNode;
 import com.tourcool.bean.screen.ColumnItem;
 import com.tourcool.bean.screen.ScreenPart;
 import com.tourcool.core.base.BaseResult;
-import com.tourcool.core.module.WebViewActivity;
 import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.event.service.ServiceEvent;
 import com.tourcool.smartcity.R;
+import com.tourcool.ui.calender.YellowCalenderDetailActivity;
+import com.tourcool.ui.constellation.ConstellationListActivity;
+import com.tourcool.ui.express.ExpressQueryActivity;
+import com.tourcool.ui.garbage.GarbageQueryActivity;
 import com.tourcool.ui.kitchen.VideoListActivity;
 import com.tourcool.ui.mvp.account.LoginActivity;
 import com.tourcool.ui.mvp.service.SecondaryServiceActivity;
 import com.tourcool.ui.parking.FastParkingActivity;
 import com.tourcool.ui.social.SocialBaseInfoActivity;
 import com.tourcool.ui.social.detail.SocialListDetailActivity;
+import com.tourcool.widget.webview.CommonWebViewActivity;
+import com.tourcool.widget.webview.WebViewConstant;
 import com.trello.rxlifecycle3.android.FragmentEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -64,6 +69,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.tourcool.core.config.RequestConfig.CODE_REQUEST_SUCCESS;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_CONSTELLATION;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_EXPRESS;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_GARBAGE;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_KITCHEN;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_PARKING;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_BASE_INFO;
@@ -71,10 +79,20 @@ import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_BIR
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_GS;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_LOSE_WORK;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_SOCIAL_QUERY_TAKE_CARE_OLDER;
-import static com.tourcool.core.constant.ScreenConsrant.SUB_CHANNEL;
-import static com.tourcool.core.constant.ScreenConsrant.SUB_COLUMN;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_YELLOW_CALENDER;
+import static com.tourcool.core.constant.ScreenConstant.CLICK_TYPE_LINK_INNER;
+import static com.tourcool.core.constant.ScreenConstant.CLICK_TYPE_LINK_OUTER;
+import static com.tourcool.core.constant.ScreenConstant.CLICK_TYPE_NATIVE;
+import static com.tourcool.core.constant.ScreenConstant.CLICK_TYPE_NONE;
+import static com.tourcool.core.constant.ScreenConstant.CLICK_TYPE_WAITING;
+import static com.tourcool.core.constant.ScreenConstant.SUB_CHANNEL;
+import static com.tourcool.core.constant.ScreenConstant.SUB_COLUMN;
+import static com.tourcool.core.constant.ScreenConstant.TIP_WAIT_DEV;
 import static com.tourcool.core.constant.SocialConstant.EXTRA_SOCIAL_TYPE;
 import static com.tourcool.core.constant.SocialConstant.TIP_GO_CERTIFY;
+import static com.tourcool.widget.webview.WebViewConstant.EXTRA_RICH_TEXT_ENABLE;
+import static com.tourcool.widget.webview.WebViewConstant.EXTRA_WEB_VIEW_TITLE;
+import static com.tourcool.widget.webview.WebViewConstant.EXTRA_WEB_VIEW_URL;
 
 /**
  * @author :JenkinsZhou
@@ -361,8 +379,11 @@ public class ServiceFragment extends BaseTitleFragment implements OnRefreshListe
                         break;
                     }
                     item = new ElemeGroupedItem(false, null);
-                    item.info = new ElemeGroupedItem.ItemInfo(channel.getTitle(), screenPart.getColumnName(), channel.getDescription());
+                    item.info = new ElemeGroupedItem.ItemInfo(channel.getTitle(), screenPart.getColumnName(), channel.getDescription(),channel.getContent());
                     item.info.setType(SUB_CHANNEL);
+                    item.info.setRichContent(channel.getContent());
+                    TourCooLogUtil.i("富文本--->"+channel.getContent());
+                    item.info.setJumpWay(channel.getJumpWay());
                     if (TextUtils.isEmpty(channel.getCircleIcon())) {
                         item.info.setImgUrl(TourCooUtil.getUrl(channel.getIcon()));
                     } else {
@@ -377,10 +398,12 @@ public class ServiceFragment extends BaseTitleFragment implements OnRefreshListe
                         break;
                     }
                     item = new ElemeGroupedItem(false, null);
-                    item.info = new ElemeGroupedItem.ItemInfo(columnItem.getName(), screenPart.getColumnName(), columnItem.getName());
+                    item.info = new ElemeGroupedItem.ItemInfo(columnItem.getName(), screenPart.getColumnName(), columnItem.getName(),columnItem.getLink());
                     item.info.setType(SUB_COLUMN);
                     item.info.setColumnName(screenPart.getColumnName());
                     item.info.setChildren(childNode.getChildren());
+                    item.info.setJumpWay(columnItem.getJumpWay());
+                    TourCooLogUtil.i("富文本--->呃呃呃呃呃");
                     item.info.setParentsName(columnItem.getName());
                     if (TextUtils.isEmpty(columnItem.getCircleIcon())) {
                         item.info.setImgUrl(TourCooUtil.getUrl(columnItem.getIcon()));
@@ -414,13 +437,7 @@ public class ServiceFragment extends BaseTitleFragment implements OnRefreshListe
         }
         switch (item.getType()) {
             case SUB_CHANNEL:
-//                WebViewActivity.start(mContext, TourCooUtil.getUrl(item.getLink()), true);
-               /* if(ITEM_TYPE_KITCHEN.equals(item.getTitle())){
-                    skipBrightKitchen();
-                }else{
-                    WebViewActivity.start(mContext, item.getLink(),true);
-                }*/
-                skipByParams(item.getTitle(), item.getLink());
+                skipByJumpWay(item.getJumpWay(),item.getTitle(),item.getLink(),item.getRichContent());
                 break;
             case SUB_COLUMN:
                 TourCooLogUtil.i("点击了栏目", item.getChildren());
@@ -508,28 +525,6 @@ public class ServiceFragment extends BaseTitleFragment implements OnRefreshListe
         startActivity(intent);
     }
 
-    private void skipByParams(String title, String link) {
-        switch (StringUtil.getNotNullValue(title)) {
-            case ITEM_TYPE_SOCIAL_BASE_INFO:
-                skipSocialBase();
-                break;
-            case ITEM_TYPE_SOCIAL_QUERY_GS:
-            case ITEM_TYPE_SOCIAL_QUERY_TAKE_CARE_OLDER:
-            case ITEM_TYPE_SOCIAL_QUERY_LOSE_WORK:
-            case ITEM_TYPE_SOCIAL_QUERY_BIRTH:
-                skipSocialListDetail(title);
-                break;
-            case ITEM_TYPE_KITCHEN:
-                skipBrightKitchen();
-                break;
-            case ITEM_TYPE_PARKING:
-                skipParking();
-                break;
-            default:
-                WebViewActivity.start(mContext, StringUtil.getNotNullValue(link));
-                break;
-        }
-    }
 
     private void skipSocialBase() {
         if(!AccountHelper.getInstance().isLogin()){
@@ -575,4 +570,123 @@ public class ServiceFragment extends BaseTitleFragment implements OnRefreshListe
         startActivity(intent);
     }
 
+    private void skipByCondition(String title, String link) {
+        switch (StringUtil.getNotNullValue(title)) {
+            case ITEM_TYPE_SOCIAL_BASE_INFO:
+                skipSocialBase();
+                break;
+            case ITEM_TYPE_SOCIAL_QUERY_GS:
+            case ITEM_TYPE_SOCIAL_QUERY_TAKE_CARE_OLDER:
+            case ITEM_TYPE_SOCIAL_QUERY_LOSE_WORK:
+            case ITEM_TYPE_SOCIAL_QUERY_BIRTH:
+                skipSocialListDetail(title);
+                break;
+            case ITEM_TYPE_KITCHEN:
+                skipBrightKitchen();
+                break;
+            case ITEM_TYPE_PARKING:
+                skipParking();
+                break;
+            case ITEM_TYPE_CONSTELLATION:
+                skipConstellation();
+                break;
+            case ITEM_TYPE_EXPRESS:
+                skipExpress();
+                break;
+            case ITEM_TYPE_GARBAGE:
+                skipGarbage();
+                break;
+            case ITEM_TYPE_YELLOW_CALENDER:
+                skipYellowCalender();
+                break;
+            default:
+                skipWebView(link,title);
+                break;
+        }
+    }
+
+    /**
+     * 星座
+     */
+    private void skipConstellation() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, ConstellationListActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * 快递物流
+     */
+    private void skipExpress() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, ExpressQueryActivity.class);
+        startActivity(intent);
+    }
+
+
+    /**
+     * 快递物流
+     */
+    private void skipGarbage() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, GarbageQueryActivity.class);
+        startActivity(intent);
+    }
+
+
+    /**
+     * 查黄历
+     */
+    private void skipYellowCalender() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, YellowCalenderDetailActivity.class);
+        startActivity(intent);
+    }
+
+    private void skipWebView(String link,String title) {
+        Intent intent = new Intent();
+        intent.putExtra(EXTRA_WEB_VIEW_URL, link);
+        intent.putExtra(EXTRA_RICH_TEXT_ENABLE, false);
+        intent.putExtra(EXTRA_WEB_VIEW_TITLE, title);
+        intent.setClass(mContext, CommonWebViewActivity.class);
+        startActivity(intent);
+    }
+
+    private void skipWebViewRich(String richContent,String title) {
+        Intent intent = new Intent();
+        intent.putExtra(EXTRA_RICH_TEXT_ENABLE, true);
+        intent.putExtra(EXTRA_WEB_VIEW_URL, "");
+        intent.putExtra(EXTRA_WEB_VIEW_TITLE, title);
+        WebViewConstant.richText = richContent;
+        intent.setClass(mContext, CommonWebViewActivity.class);
+        startActivity(intent);
+    }
+
+
+    private void skipByJumpWay(int  jumpWay,String title,String link,String richText) {
+        switch (jumpWay) {
+            case CLICK_TYPE_LINK_OUTER:
+                //展示外链
+                skipWebView(StringUtil.getNotNullValue(link),title);
+                break;
+            case CLICK_TYPE_NONE:
+//                        ToastUtil.show("什么也不做");
+                break;
+            case CLICK_TYPE_NATIVE:
+                //展示原生
+                skipByCondition(title, link);
+                break;
+            case CLICK_TYPE_LINK_INNER:
+                //展示外链
+                skipWebViewRich(richText,title);
+                break;
+
+            case CLICK_TYPE_WAITING:
+                //待开发
+                ToastUtil.show(TIP_WAIT_DEV);
+                break;
+            default:
+                break;
+        }
+    }
 }
