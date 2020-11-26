@@ -1,9 +1,9 @@
 package com.tourcool.ui.constellation
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.frame.library.core.util.FrameUtil
 import com.frame.library.core.widget.titlebar.TitleBarView
 import com.tourcool.adapter.constellation.ConstellationAdapter
 import com.tourcool.bean.constellation.ConstellationInfo
@@ -28,14 +28,16 @@ class ConstellationListActivity : BaseTitleTransparentActivity() {
         super.setTitleBar(titleBar)
         titleBar?.setTitleMainText("星座运势")
     }
+
     override fun initView(savedInstanceState: Bundle?) {
         constellationRefreshLayout.setEnableRefresh(false)
         constellationRefreshLayout.setEnableLoadMore(false)
         constellationRefreshLayout.setEnableHeaderTranslationContent(true)
                 .setEnableOverScrollDrag(true)
         loadConstellationList()
-        adapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
-            skip()
+        adapter!!.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+            val info = adapter!!.data[position] as ConstellationInfo
+            skip(info.name,info.month)
         }
     }
 
@@ -51,9 +53,17 @@ class ConstellationListActivity : BaseTitleTransparentActivity() {
         adapter!!.setNewData(constellationList)
     }
 
-    private fun skip(){
-        /*val intent = Intent()
-        intent.setClass(mContext,ConstellationTabActivity::class.java)*/
-        FrameUtil.startActivity(mContext,ConstellationTabActivity::class.java)
+    companion object {
+        const val EXTRA_STAR_NAME = "EXTRA_STAR_NAME"
+        const val EXTRA_STAR_DATE = "EXTRA_STAR_DATE"
+
+    }
+
+    private fun skip(starName: String,starDate:String) {
+        val intent = Intent()
+        intent.setClass(mContext, ConstellationTabActivity::class.java)
+        intent.putExtra(EXTRA_STAR_NAME, starName)
+        intent.putExtra(EXTRA_STAR_DATE, starDate)
+        startActivity(intent)
     }
 }

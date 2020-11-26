@@ -26,7 +26,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/dp_14"
-            android:text="巨蟹座"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_14" />
 
@@ -36,7 +35,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/dp_14"
-            android:text="巨蟹座"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_12" />
     </LinearLayout>

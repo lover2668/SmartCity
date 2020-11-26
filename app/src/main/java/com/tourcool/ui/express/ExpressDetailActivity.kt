@@ -56,7 +56,6 @@ class ExpressDetailActivity : BaseTitleTransparentActivity() {
     }
 
     private fun requestExpressDetail() {
-//ApiRepository.getInstance().requestExpressDeliveryDetail()
         ApiRepository.getInstance().requestExpressDeliveryDetail(company, expressNum, mobile).compose(bindUntilEvent(ActivityEvent.DESTROY)).subscribe(object : BaseLoadingObserver<BaseResult<ExpressBean>>() {
             override fun onRequestNext(entity: BaseResult<ExpressBean>?) {
                 if (entity == null) {

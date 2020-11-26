@@ -13,6 +13,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
+            android:paddingBottom="@dimen/dp_20"
             android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -23,81 +24,63 @@
 
                 <TextView
                     style="@style/Text13spBlack333333"
-                    android:text="本周日期 " />
+                    android:text="年度 " />
 
                 <TextView
+                    android:id="@+id/tvYearTh"
                     style="@style/Text13spBlack333333"
                     android:layout_width="0dp"
                     android:layout_marginStart="@dimen/dp_10"
                     android:layout_weight="1"
-                    android:text=" 2020年6月25日 "
                     android:textColor="#629BFF" />
 
                 <!-- <TextView
                      style="@style/Text13spBlack333333"
                      android:text="幸运数字" />-->
 
-                <TextView
+               <!-- <TextView
                     style="@style/Text13spBlack333333"
                     android:layout_width="0dp"
                     android:layout_marginStart="@dimen/dp_10"
                     android:layout_weight="1"
                     android:text="第27周"
-                    android:textColor="#629BFF" />
+                    android:textColor="#629BFF" />-->
             </LinearLayout>
 
             <include layout="@layout/line_horizontal_gray_eeeeee_0_5_dp" />
 
             <TextView
-                android:layout_marginTop="@dimen/dp_18"
+                android:layout_marginTop="@dimen/star_margin_top"
                 style="@style/Text13spBlack333333"
-                android:text="健康运势" />
+                android:text="年度密码" />
 
             <TextView
+                android:id="@+id/tvYearPass"
                 style="@style/Text13spGrayA2A2A2"
-                android:layout_marginTop="@dimen/dp_18"
-                android:text="动能量高，适合开展锻炼计划，尤其是练习耐力的运动运动" />
-
+                android:layout_marginTop="@dimen/star_margin_top"
+/>
             <TextView
-                android:layout_marginTop="@dimen/dp_18"
+                android:layout_marginTop="@dimen/star_margin_top"
                 style="@style/Text13spBlack333333"
-                android:text="求职运势" />
+                android:text="事业运" />
 
             <TextView
+                android:id="@+id/tvYearWork"
                 style="@style/Text13spGrayA2A2A2"
-                android:layout_marginTop="@dimen/dp_18"
-                android:text="动能量高，适合开展锻炼计划，尤其是练习耐力的运动运动" />
-
+                android:layout_marginTop="@dimen/star_margin_top"
+/>
 
             <TextView
-                android:layout_marginTop="@dimen/dp_18"
+                android:layout_marginTop="@dimen/star_margin_top"
                 style="@style/Text13spBlack333333"
-                android:text="爱情运势" />
+                android:text="感情运" />
 
             <TextView
+                android:id="@+id/tvYearLove"
                 style="@style/Text13spGrayA2A2A2"
-                android:layout_marginTop="@dimen/dp_18"
-                android:text="动能量高，适合开展锻炼计划，尤其是练习耐力的运动运动" />
+                android:layout_marginTop="@dimen/star_margin_top"
+/>
 
-            <TextView
-                android:layout_marginTop="@dimen/dp_18"
-                style="@style/Text13spBlack333333"
-                android:text="财富运势" />
-
-            <TextView
-                style="@style/Text13spGrayA2A2A2"
-                android:layout_marginTop="@dimen/dp_18"
-                android:text="动能量高，适合开展锻炼计划，尤其是练习耐力的运动运动" />
-
-            <TextView
-                android:layout_marginTop="@dimen/dp_18"
-                style="@style/Text13spBlack333333"
-                android:text="工作运势" />
-
-            <TextView
-                style="@style/Text13spGrayA2A2A2"
-                android:layout_marginTop="@dimen/dp_18"
-                android:text="动能量高，适合开展锻炼计划，尤其是练习耐力的运动运动" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
