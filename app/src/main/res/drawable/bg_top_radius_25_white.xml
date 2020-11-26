@@ -6,5 +6,3 @@
         android:topRightRadius="@dimen/dp_25" />
     <solid android:color="@color/white" />
 </shape>
-
-

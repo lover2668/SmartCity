@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_20"
-        android:text="申通快递"
+        android:text="-"
         android:textColor="@color/white"
         android:textSize="@dimen/sp_16" />
 
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_12"
-        android:text="ST12787483742707"
+        android:text="-"
         android:textColor="@color/white"
         android:textSize="@dimen/sp_16" />
 

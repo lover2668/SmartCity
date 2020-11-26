@@ -10,7 +10,7 @@
         <!--是否改变图片列表界面状态栏字体颜色为黑色-->
         <item name="picture.statusFontColor">true</item>
         <!--返回键图标-->
-        <item name="picture.leftBack.icon">@drawable/frame_ic_back_white</item>
+        <item name="picture.leftBack.icon">@drawable/ic_back_white</item>
         <!--标题下拉箭头-->
         <item name="picture.arrow_down.icon">@drawable/ic_arrow_bottom</item>
         <!--标题上拉箭头-->
@@ -42,7 +42,7 @@
         <!--预览界面底部背景色-->
         <item name="picture.ac_preview.bottom.bg">@color/colorTitleBackground</item>
         <!--预览界面返回箭头-->
-        <item name="picture.preview.leftBack.icon">@drawable/fast_ic_back</item>
+        <item name="picture.preview.leftBack.icon">@drawable/ic_back_white</item>
 <!--        是否改变预览界面状态栏字体颜色为黑色-->
         <!--<item name="picture.preview.statusFontColor">true</item>-->
         <!--裁剪页面标题背景色-->

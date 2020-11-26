@@ -1,8 +1,13 @@
 package com.tourcool.ui.express
 
+import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
+import android.text.TextUtils
+import android.view.View
+import com.bryant.editlibrary.BSearchEdit
 import com.frame.library.core.retrofit.BaseLoadingObserver
-import com.frame.library.core.util.FrameUtil
+import com.frame.library.core.util.SizeUtil
 import com.frame.library.core.util.ToastUtil
 import com.frame.library.core.widget.titlebar.TitleBarView
 import com.tourcool.bean.express.ExpressCompany
@@ -21,18 +26,26 @@ import kotlinx.android.synthetic.main.activity_express_query.*
  * @date 2020年11月25日19:02
  * @Email: 971613168@qq.com
  */
-class ExpressQueryActivity : BaseCommonTitleActivity() {
+class ExpressQueryActivity : BaseCommonTitleActivity(), View.OnClickListener {
+    private var bSearchEdit: BSearchEdit? = null
+    private var currentSelectPosition = -1
+    private val expressList = ArrayList<ExpressCompany>()
     override fun getContentLayout(): Int {
         return R.layout.activity_express_query
     }
 
     override fun initView(savedInstanceState: Bundle?) {
         tvQuery.setOnClickListener {
-            FrameUtil.startActivity(mContext, ExpressDetailActivity::class.java)
+            skipDetail()
         }
-        tvExpressCompany.setOnClickListener {
-            requestExpressCompany()
+        etExpressCom.post {
+            initSearchView(etExpressCom.width.toFloat())
         }
+        etExpressCom.inputType = InputType.TYPE_NULL
+        etExpressCom.setOnClickListener(this)
+        llExpressContent.setOnClickListener(this)
+        ivExpressSelect.setOnClickListener(this)
+
     }
 
     override fun setTitleBar(titleBar: TitleBarView?) {
@@ -56,11 +69,72 @@ class ExpressQueryActivity : BaseCommonTitleActivity() {
     }
 
     private fun showExpressCompany(list: MutableList<ExpressCompany>?) {
-        ToastUtil.show("热词数量：" + list!!.size)
+        val companyList = ArrayList<String>()
+        if (list == null) {
+            ToastUtil.show("未获取到物流公司")
+            return
+        }
+        list.forEach {
+            companyList.add(it.com)
+        }
+        expressList.clear()
+        expressList.addAll(list)
+        bSearchEdit!!.setSearchList(companyList)
+        bSearchEdit!!.showPopup()
     }
 
-    companion object{
-        const val EXTRA_EXPRESS_COM = "EXTRA_EXPRESS_COM"
+    companion object {
+        const val EXTRA_EXPRESS_COM_NO = "EXTRA_EXPRESS_COM_NO"
+        const val EXTRA_EXPRESS_COM_NAME = "EXTRA_EXPRESS_COM_NAME"
         const val EXTRA_EXPRESS_NO = "EXTRA_EXPRESS_NO"
+        const val EXTRA_PHONE = "EXTRA_PHONE"
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.llExpressContent, R.id.ivExpressSelect, R.id.etExpressCom -> {
+
+                requestExpressCompany()
+            }
+            else -> {
+            }
+        }
+    }
+
+    private fun initSearchView(widthPx: Float) {
+        //第三个必须要设置窗体的宽度，单位dp
+        bSearchEdit = BSearchEdit(this, etExpressCom, SizeUtil.px2dp(widthPx))
+        bSearchEdit!!.setTimely(false)
+        bSearchEdit!!.build()
+        bSearchEdit!!.setTextClickListener { position, text ->
+            currentSelectPosition = position
+            etExpressCom.setText(text!!)
+        }
+    }
+
+    private fun skipDetail() {
+        if (TextUtils.isEmpty(etExpressNum.text.toString())) {
+            ToastUtil.show("请输入快递单号")
+            return
+        }
+        if (TextUtils.isEmpty(etExpressCom.text.toString())) {
+            ToastUtil.show("请选择快递公司")
+            return
+        }
+        if (TextUtils.isEmpty(etPhone.text.toString())) {
+            ToastUtil.show("请输入收货人手机号")
+            return
+        }
+        if (currentSelectPosition < 0 || currentSelectPosition >= expressList.size) {
+            ToastUtil.show("未获取到快递公司")
+            return
+        }
+        val intent = Intent()
+        intent.putExtra(EXTRA_EXPRESS_COM_NO, expressList[currentSelectPosition].no)
+        intent.putExtra(EXTRA_EXPRESS_COM_NAME, expressList[currentSelectPosition].com)
+        intent.putExtra(EXTRA_EXPRESS_NO, etExpressNum.text.toString())
+        intent.putExtra(EXTRA_PHONE, etPhone.text.toString())
+        intent.setClass(mContext, ExpressDetailActivity::class.java)
+        startActivity(intent)
     }
 }

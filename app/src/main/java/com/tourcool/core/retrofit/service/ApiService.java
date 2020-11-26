@@ -394,6 +394,9 @@ public interface ApiService {
     @GET("public/app/getExpressDeliveryDetail")
     Observable<BaseResult<ExpressBean>> requestExpressDeliveryDetail(@QueryMap Map<String, Object> map);
 
+    @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
+    @GET("public/app/getConstellation")
+    Observable<BaseResult<Object>> requestConstellation(@QueryMap Map<String, Object> map);
 }
 
 

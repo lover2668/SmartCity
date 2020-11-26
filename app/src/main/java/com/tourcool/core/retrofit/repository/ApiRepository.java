@@ -405,5 +405,13 @@ public class ApiRepository extends AbstractRepository {
         return FrameTransformer.switchSchedulers(getApiService().requestExpressDeliveryDetail(params).retryWhen(new RetryWhen()));
     }
 
+    public Observable<BaseResult<Object>> requestConstellation(String consName,String type) {
+        Map<String, Object> params = new HashMap<>(2);
+        params.put("consName", consName);
+        params.put("type", type);
+        TourCooLogUtil.i("提交到后台的参数", params);
+        return FrameTransformer.switchSchedulers(getApiService().requestConstellation(params).retryWhen(new RetryWhen()));
+    }
+
 
 }

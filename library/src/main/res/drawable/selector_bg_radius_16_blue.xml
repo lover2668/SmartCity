@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/bg_radius_16_blue" android:state_enabled="true" android:state_pressed="false" />
-    <item android:drawable="@drawable/bg_radius_blue_little16" android:state_enabled="true" android:state_pressed="true" />
-    <item android:drawable="@drawable/bg_radius_16_blue" />
-</selector>

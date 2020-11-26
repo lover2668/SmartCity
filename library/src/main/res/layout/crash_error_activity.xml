@@ -9,7 +9,7 @@
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/colorAccent">
+        android:background="@color/blue00B4FF">
 
         <TextView
             android:id="@+id/tv_title"
@@ -37,7 +37,7 @@
             android:id="@+id/custom_activity_on_crash_error_activity_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/error_image" />
+            android:src="@mipmap/error_image" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -53,7 +53,7 @@
             android:layout_width="fill_parent"
             android:layout_height="45dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/btn_selector"
+            android:background="@color/blue5E8FEB"
             android:text="查看错误信息"
             android:textColor="#FFFFFF"
             android:textSize="16sp" />
@@ -63,7 +63,7 @@
             android:layout_width="fill_parent"
             android:layout_height="45dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/btn_selector"
+            android:background="@color/blue00B4FF"
             android:text="上传错误信息"
             android:textColor="#FFFFFF"
             android:textSize="16sp" />

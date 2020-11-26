@@ -2,6 +2,7 @@ package com.tourcool.ui.express
 
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.frame.library.core.log.TourCooLogUtil
 import com.frame.library.core.retrofit.BaseLoadingObserver
 import com.frame.library.core.util.StringUtil
 import com.frame.library.core.util.ToastUtil
@@ -13,8 +14,10 @@ import com.tourcool.core.config.RequestConfig
 import com.tourcool.core.retrofit.repository.ApiRepository
 import com.tourcool.smartcity.R
 import com.tourcool.ui.base.BaseTitleTransparentActivity
-import com.tourcool.ui.express.ExpressQueryActivity.Companion.EXTRA_EXPRESS_COM
+import com.tourcool.ui.express.ExpressQueryActivity.Companion.EXTRA_EXPRESS_COM_NAME
+import com.tourcool.ui.express.ExpressQueryActivity.Companion.EXTRA_EXPRESS_COM_NO
 import com.tourcool.ui.express.ExpressQueryActivity.Companion.EXTRA_EXPRESS_NO
+import com.tourcool.ui.express.ExpressQueryActivity.Companion.EXTRA_PHONE
 import com.trello.rxlifecycle3.android.ActivityEvent
 import kotlinx.android.synthetic.main.activity_express_detail.*
 
@@ -28,6 +31,7 @@ import kotlinx.android.synthetic.main.activity_express_detail.*
 class ExpressDetailActivity : BaseTitleTransparentActivity() {
     private var adapter: ExpressStepAdapter? = null
     private var company: String? = null
+    private var companyName: String? = null
     private var expressNum: String? = null
     private var mobile: String? = null
     override fun getContentLayout(): Int {
@@ -35,16 +39,19 @@ class ExpressDetailActivity : BaseTitleTransparentActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        company = intent.getStringExtra(EXTRA_EXPRESS_COM)
+        companyName = intent.getStringExtra(EXTRA_EXPRESS_COM_NAME)
+        company = intent.getStringExtra(EXTRA_EXPRESS_COM_NO)
         company = StringUtil.getNotNullValue(company)
         expressNum = intent.getStringExtra(EXTRA_EXPRESS_NO)
         expressNum = StringUtil.getNotNullValue(expressNum)
-        company = "yd"
-        expressNum = "4310311758328"
-        mobile = "18133676739"
+        mobile = intent.getStringExtra(EXTRA_PHONE)
+        mobile = StringUtil.getNotNullValue(mobile)
         rvExpress.layoutManager = LinearLayoutManager(mContext)
         adapter = ExpressStepAdapter()
         adapter!!.bindToRecyclerView(rvExpress)
+        tvExpressName.text = companyName+"快递"
+        tvExpressNumber.text = expressNum
+        TourCooLogUtil.i("物流公司："+company)
         requestExpressDetail()
     }
 
@@ -66,5 +73,6 @@ class ExpressDetailActivity : BaseTitleTransparentActivity() {
 
     private fun showDataList(data: MutableList<ExpressInfo>) {
         adapter?.setNewData(data)
+
     }
 }

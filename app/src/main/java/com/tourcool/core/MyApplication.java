@@ -14,49 +14,43 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.multidex.MultiDex;
-import androidx.multidex.MultiDexApplication;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.tourcool.bean.greendao.GreenDaoHelper;
-import com.tourcool.core.impl.GlobalClickCallbacks;
-import com.tourcool.core.retrofit.interceptor.TokenInterceptor;
+import com.frame.library.core.UiManager;
+import com.frame.library.core.crash.CrashManager;
+import com.frame.library.core.log.TourCooLogUtil;
+import com.frame.library.core.log.widget.LogFileEngineFactory;
+import com.frame.library.core.log.widget.config.LogLevel;
+import com.frame.library.core.manager.LoggerManager;
+import com.frame.library.core.retrofit.FrameRetrofit;
+import com.frame.library.core.util.FormatUtil;
 import com.frame.library.core.util.FrameUtil;
+import com.frame.library.core.util.SizeUtil;
+import com.frame.library.core.util.SpUtil;
+import com.orhanobut.logger.PrettyFormatStrategy;
+import com.tencent.bugly.crashreport.CrashReport;
+import com.tourcool.bean.greendao.GreenDaoHelper;
 import com.tourcool.core.config.AppConfig;
 import com.tourcool.core.config.RequestConfig;
 import com.tourcool.core.constant.ApiConstant;
 import com.tourcool.core.constant.SPConstant;
 import com.tourcool.core.impl.ActivityControlImpl;
 import com.tourcool.core.impl.AppConfigImpl;
+import com.tourcool.core.impl.GlobalClickCallbacks;
 import com.tourcool.core.impl.HttpRequestControlImpl;
 import com.tourcool.core.impl.SwipeBackControlImpl;
-import com.tourcool.core.module.WebViewActivity;
 import com.tourcool.core.module.main.MainTabActivity;
+import com.tourcool.core.retrofit.interceptor.TokenInterceptor;
 import com.tourcool.core.util.NotificationUtil;
-import com.frame.library.core.UiManager;
-import com.frame.library.core.crash.CrashManager;
-import com.frame.library.core.log.TourCooLogUtil;
-import com.frame.library.core.log.widget.LogFileEngineFactory;
-import com.frame.library.core.log.widget.config.LogLevel;
-import com.frame.library.core.retrofit.FrameRetrofit;
-import com.frame.library.core.manager.LoggerManager;
-import com.frame.library.core.util.FormatUtil;
-import com.frame.library.core.util.StackUtil;
-import com.frame.library.core.util.SpUtil;
-import com.frame.library.core.util.SizeUtil;
-import com.didichuxing.doraemonkit.DoraemonKit;
-import com.didichuxing.doraemonkit.kit.webdoor.WebDoorManager;
-import com.orhanobut.logger.PrettyFormatStrategy;
-import com.tencent.bugly.crashreport.CrashReport;
 import com.tourcool.smartcity.BuildConfig;
 import com.tourcool.smartcity.R;
+import com.xuexiang.xui.XUI;
 
 import org.litepal.LitePalApplication;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static com.frame.library.core.log.LogConfig.PATH_LOG_SAVE;
 import static com.frame.library.core.log.LogConfig.TAG_LOG_PRE_SUFFIX;
@@ -177,7 +171,7 @@ public class MyApplication  extends LitePalApplication {
         CrashReport.initCrashReport(getApplicationContext());
         //初始化通知栏控制
         NotificationUtil.getInstance().init(getApplicationContext());
-
+        XUI.init(mContext);
         //设置用户下载App的初始渠道
         String appChannel = (String) SpUtil.get(getApplicationContext(), SPConstant.SP_KEY_APP_CHANNEL, "");
         LoggerManager.i(TAG, "appChannel0:" + appChannel + ";week:" + FormatUtil.formatWeek(System.currentTimeMillis()) + ";:" + Calendar.getInstance().get(Calendar.DAY_OF_WEEK));

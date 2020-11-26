@@ -9,8 +9,11 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.TextView.OnEditorActionListener
 import com.frame.library.core.retrofit.BaseLoadingObserver
+import com.frame.library.core.util.SizeUtil
 import com.frame.library.core.util.ToastUtil
 import com.frame.library.core.widget.titlebar.TitleBarView
 import com.tourcool.bean.garbage.GarbageHotKey
@@ -101,7 +104,23 @@ class GarbageQueryActivity : BaseTitleTransparentActivity() {
 
     //    list: MutableList<GarbageHotKey>?
     private fun showGarbageHotKey(list: MutableList<GarbageHotKey>?) {
-        ToastUtil.show("热词数量：" + list!!.size)
+        if (list == null) {
+            return
+        }
+        list.forEach {
+            val labelContentView = View.inflate(mContext, R.layout.textview_label_new, null) as LinearLayout
+            val label = labelContentView.findViewById<TextView>(R.id.tvLabel)
+            label.text = it.itemName
+            val margin = SizeUtil.dp2px(10f)
+            flexBoxLayout.addView(labelContentView)
+            val lp: LinearLayout.LayoutParams = LinearLayout.LayoutParams(labelContentView.layoutParams)
+            lp.setMargins(margin, margin, 0, margin)
+            label.setOnClickListener {
+                etGarbageName.setText(label.text)
+                doSkip()
+            }
+        }
     }
+
 
 }

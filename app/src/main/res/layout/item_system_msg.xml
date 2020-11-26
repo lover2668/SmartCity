@@ -21,7 +21,7 @@
         android:layout_height="wrap_content">
         <TextView
             android:id="@+id/tvMsgContent"
-            android:background="@drawable/bg_radius_5_white"
+            android:background="@drawable/bg_radius_10_white"
             android:text="水温异常，故障报警，已为你推荐最近的修理厂"
             android:layout_marginTop="@dimen/dp_10"
             android:paddingLeft="@dimen/dp_10"

@@ -43,6 +43,7 @@ android {
             // 设置支持的SO库架构 //, 'armeabi','x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
             abiFilters 'armeabi'
         }
+        vectorDrawables.useSupportLibrary = true
     }
 
     dexOptions {
@@ -94,11 +95,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    gradle.projectsEvaluated {
+  /*  gradle.projectsEvaluated {
         tasks.withType(JavaCompile) {
             options.compilerArgs << "-Xlint:deprecation" << '-Xlint:-unchecked'
         }
-    }
+    }*/
 //    configurations.all {
 //        resolutionStrategy {
 //            force 'com.squareup.okhttp3:logging-interceptor:3.12.2'
@@ -210,4 +211,7 @@ dependencies {
     implementation 'com.shuyu:GSYVideoPlayer:7.1.2'
     implementation 'pub.devrel:easypermissions:2.0.0'
     implementation files('libs/jsoup-1.11.3.jar')
+    implementation 'com.github.xuexiangjys:XUI:1.1.5'
+    implementation 'com.github.YangsBryant:BSearchEdit:1.0.8'
+    implementation 'com.google.android:flexbox:2.0.1'
 }

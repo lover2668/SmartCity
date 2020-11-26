@@ -1,6 +1,5 @@
 package com.tourcool.ui.base;
 
-import android.app.Activity;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -28,7 +27,7 @@ public abstract class BaseBlackTitleActivity extends FrameTitleActivity {
         if (titleBar != null) {
             setMarginTop(titleBar);
             titleBar.setBgResource(R.color.white);
-            titleBar.setLeftTextDrawable(R.drawable.fast_ic_back);
+            titleBar.setLeftTextDrawable(R.drawable.ic_back);
             titleBar.setTitleMainTextColor(FrameUtil.getColor(R.color.black231717));
             titleBar.getMainTitleTextView().setTextSize(TITLE_MAIN_TITLE_SIZE);
         }

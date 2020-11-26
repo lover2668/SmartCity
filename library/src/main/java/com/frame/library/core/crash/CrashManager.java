@@ -60,7 +60,7 @@ public final class CrashManager {
     private static boolean launchErrorActivityWhenInBackground = true;
     private static boolean showErrorDetails = true;
     private static boolean enableAppRestart = true;
-    private static int defaultErrorActivityDrawableId = R.drawable.error_image;
+    private static int defaultErrorActivityDrawableId = R.drawable.ic_error;
     private static Class<? extends Activity> errorActivityClass = null;
     private static Class<? extends Activity> restartActivityClass = null;
     private static ISave iSave;
@@ -205,7 +205,7 @@ public final class CrashManager {
     }
 
     public static int getDefaultErrorActivityDrawableIdFromIntent(Intent intent) {
-        return intent.getIntExtra(CrashManager.EXTRA_IMAGE_DRAWABLE_ID, R.drawable.error_image);
+        return intent.getIntExtra(CrashManager.EXTRA_IMAGE_DRAWABLE_ID, R.drawable.ic_error);
     }
 
     public static String getStackTraceFromIntent(Intent intent) {
