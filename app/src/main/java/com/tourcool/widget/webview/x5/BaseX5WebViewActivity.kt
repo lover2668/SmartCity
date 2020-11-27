@@ -4,7 +4,6 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.ProgressBar
 import com.blankj.utilcode.util.ScreenUtils
-import com.frame.library.core.log.TourCooLogUtil
 import com.tencent.smtt.sdk.DownloadListener
 import com.tencent.smtt.sdk.WebSettings
 import com.tourcool.core.module.activity.BaseTitleActivity
@@ -116,8 +115,7 @@ abstract class BaseX5WebViewActivity : BaseTitleActivity() {
         val doc = Jsoup.parse(content)
         //修改视频标签
         val body = doc.select("body")
-        body.attr("style","padding: 0 10px")
-        TourCooLogUtil.i("isbody"+body)
+        body.attr("style","padding: 0 5px")
         //修改视频标签
         val embeds = doc.getElementsByTag("embed")
         for (element in embeds) {

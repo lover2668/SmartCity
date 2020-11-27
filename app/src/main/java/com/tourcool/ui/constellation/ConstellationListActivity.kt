@@ -37,7 +37,7 @@ class ConstellationListActivity : BaseTitleTransparentActivity() {
         loadConstellationList()
         adapter!!.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
             val info = adapter!!.data[position] as ConstellationInfo
-            skip(info.name,info.month)
+            skip(info.name,info.month,info.imageIcon)
         }
     }
 
@@ -70,14 +70,16 @@ class ConstellationListActivity : BaseTitleTransparentActivity() {
     companion object {
         const val EXTRA_STAR_NAME = "EXTRA_STAR_NAME"
         const val EXTRA_STAR_DATE = "EXTRA_STAR_DATE"
-
+        const val EXTRA_STAR_IMAGE = "EXTRA_STAR_IMAGE"
     }
 
-    private fun skip(starName: String,starDate:String) {
+    private fun skip(starName: String,starDate:String,imageId : Int) {
         val intent = Intent()
         intent.setClass(mContext, ConstellationTabActivity::class.java)
         intent.putExtra(EXTRA_STAR_NAME, starName)
         intent.putExtra(EXTRA_STAR_DATE, starDate)
+        intent.putExtra(EXTRA_STAR_IMAGE, imageId)
+
         startActivity(intent)
     }
 }

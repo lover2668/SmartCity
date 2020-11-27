@@ -16,9 +16,11 @@
 
         <ImageView
             android:id="@+id/ivStar"
+            android:minHeight="@dimen/dp_50"
+            android:minWidth="@dimen/dp_50"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_star_bai_yang" />
+           />
 
         <TextView
             android:id="@+id/tvStarName"

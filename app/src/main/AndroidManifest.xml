@@ -171,6 +171,8 @@
         <activity android:name="com.tourcool.ui.calender.YellowCalenderDetailActivity" />
         <activity android:name="com.tourcool.widget.webview.ImagePagerActivity" />
         <activity android:name="com.tourcool.widget.webview.CommonWebViewActivity" />
+        <activity android:name="com.tourcool.ui.driver.DriverIllegalQueryActivity" />
+        <activity android:name="com.tourcool.ui.driver.DriverAgainstDetailActivity" />
 
         <meta-data
             android:name="BUGLY_APPID"

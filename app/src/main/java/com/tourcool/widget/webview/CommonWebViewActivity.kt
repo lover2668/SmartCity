@@ -32,11 +32,11 @@ class CommonWebViewActivity : BaseX5WebViewActivity() {
     override fun setTitleContent(title: String) {
         val length = StringUtil.getNotNullValue(title).length
         val isShort = length < MAX_LENGTH_TITLE
-        if (!TextUtils.isEmpty(title) && !isRichText && !isShort) {
+        if (!TextUtils.isEmpty(title) && !isRichText && isShort) {
             mTitleBar?.setTitleMainText(title)
         } else {
             if (!TextUtils.isEmpty(mTitle)) {
-                mTitleBar?.setTitleMainText(title)
+                mTitleBar?.setTitleMainText(mTitle)
             }
         }
     }

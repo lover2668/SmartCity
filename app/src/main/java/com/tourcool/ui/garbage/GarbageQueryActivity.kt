@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.TextView.OnEditorActionListener
+import com.aries.ui.helper.navigation.KeyboardHelper
 import com.frame.library.core.retrofit.BaseLoadingObserver
 import com.frame.library.core.util.SizeUtil
 import com.frame.library.core.util.ToastUtil
@@ -64,6 +65,7 @@ class GarbageQueryActivity : BaseTitleTransparentActivity() {
             ToastUtil.show("请先输入垃圾名称")
             return
         }
+        KeyboardHelper.closeKeyboard(mContext)
         val intent = Intent()
         intent.setClass(mContext, GarbageDetailActivity::class.java)
         intent.putExtra(EXTRA_GARBAGE_NAME, etGarbageName.text.toString())

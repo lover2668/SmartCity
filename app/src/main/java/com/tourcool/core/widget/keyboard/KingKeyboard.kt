@@ -90,10 +90,12 @@ open class KingKeyboard {
     private val keyboardTypeArray by lazy {
         SparseArray<Int>()
     }
+
     /**
      * 键盘显示动画
      */
     private lateinit var showAnimation: Animation
+
     /**
      * 键盘隐藏动画
      */
@@ -110,16 +112,18 @@ open class KingKeyboard {
     private var vibrator: Vibrator? = null
 
     private var audioManager: AudioManager? = null
+
     /**
      * 是否震动
      */
     private var isVibrationEffect = false
+
     /**
      * 是否播放音效
      */
     private var isPlaySoundEffect = false
 
-    companion object{
+    companion object {
 
         private const val TAG = "KingKeyboard"
 
@@ -130,26 +134,32 @@ open class KingKeyboard {
          * Shift键 -> 一般用来切换键盘大小写字母
          */
         const val KEYCODE_SHIFT = -1
+
         /**
          * 模式改变 -> 切换键盘输入法
          */
         const val KEYCODE_MODE_CHANGE = -2
+
         /**
          * 取消键 -> 关闭输入法
          */
         const val KEYCODE_CANCEL = -3
+
         /**
          * 完成键 -> 长出现在右下角蓝色的完成按钮
          */
         const val KEYCODE_DONE = -4
+
         /**
          * 删除键 -> 删除输入框内容
          */
         const val KEYCODE_DELETE = -5
+
         /**
          * Alt键 -> 预留，暂时未使用
          */
         const val KEYCODE_ALT = -6
+
         /**
          * 空格键
          */
@@ -216,7 +226,7 @@ open class KingKeyboard {
      * @param keyboardParentView 键盘的父布局容器 -> 一般在界面底部，用来容纳键盘布局
      *
      */
-    constructor(activity: Activity, keyboardParentView: ViewGroup):
+    constructor(activity: Activity, keyboardParentView: ViewGroup) :
             this(activity,
                     activity.window.decorView.findViewById<ViewGroup>(android.R.id.content).getChildAt(0) as ViewGroup,
                     keyboardParentView
@@ -228,13 +238,14 @@ open class KingKeyboard {
      * @param rootView 界面的根布局 -> 也可以是当前界面包含所有的EditText的公共父布局
      * @param keyboardParentView 键盘的父布局容器 -> 一般在界面底部，用来容纳键盘布局
      */
-    constructor(context: Context, rootView: ViewGroup, keyboardParentView: ViewGroup):
+    constructor(context: Context, rootView: ViewGroup, keyboardParentView: ViewGroup) :
             this(context,
                     rootView,
                     keyboardParentView,
                     LayoutInflater.from(context).inflate(R.layout.king_keyboard_container, null),
                     R.id.keyboardView
             )
+
     /**
      * 构造
      * @param context 上下文
@@ -247,18 +258,18 @@ open class KingKeyboard {
         this.context = context
         currentKeyboard = keyboardNormal
         intKeyboard(context)
-        intKeyboardView(rootView,keyboardParentView,keyboardContainer,keyboardViewId)
+        intKeyboardView(rootView, keyboardParentView, keyboardContainer, keyboardViewId)
 
     }
 
-    open fun intKeyboard(context: Context){
+    open fun intKeyboard(context: Context) {
 
     }
 
     /**
      * 初始化KeyboardView
      */
-    private fun intKeyboardView(rootView: ViewGroup, keyboardParentView: ViewGroup, keyboardContainer: View, @IdRes keyboardViewId: Int){
+    private fun intKeyboardView(rootView: ViewGroup, keyboardParentView: ViewGroup, keyboardContainer: View, @IdRes keyboardViewId: Int) {
         //初始化键盘相关
         keyboardViewGroup = keyboardContainer
         keyboardView = keyboardViewGroup.findViewById(keyboardViewId)
@@ -267,7 +278,7 @@ open class KingKeyboard {
             it.keyboard = currentKeyboard
             it.isEnabled = true
             it.isPreviewEnabled = false
-            it.onKeyboardActionListener = object: KeyboardView.OnKeyboardActionListener{
+            it.onKeyboardActionListener = object : KeyboardView.OnKeyboardActionListener {
 
                 override fun swipeRight() {
                     onKeyboardActionListener?.swipeRight()
@@ -297,7 +308,7 @@ open class KingKeyboard {
                     playSoundEffect()
                     sendVibrationEffect()
                     //根据不同的按键值去处理
-                    when(primaryCode){
+                    when (primaryCode) {
                         KEYCODE_SHIFT -> keyShift()
                         KEYCODE_MODE_CHANGE -> keyModeChange()
                         KEYCODE_CANCEL -> keyCancel(primaryCode)
@@ -322,9 +333,9 @@ open class KingKeyboard {
                         //直接输入按键值
                         in 32..Int.MAX_VALUE -> keyInput(primaryCode)
                         //无效的按键值，打印相关日志
-                        else -> Log.d(TAG,"primaryCode:$primaryCode")
+                        else -> Log.d(TAG, "primaryCode:$primaryCode")
                     }
-                    onKeyboardActionListener?.onKey(primaryCode,keyCodes)
+                    onKeyboardActionListener?.onKey(primaryCode, keyCodes)
 
                 }
 
@@ -348,13 +359,13 @@ open class KingKeyboard {
                 0.0f, Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, 1.0f)
         hideAnimation.duration = ANIM_DURATION_TIME
 
-        hideAnimation.setAnimationListener(object : Animation.AnimationListener{
+        hideAnimation.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationRepeat(animation: Animation?) {
 
             }
 
             override fun onAnimationEnd(animation: Animation?) {
-                if(keyboardViewGroup.isVisible){
+                if (keyboardViewGroup.isVisible) {
                     keyboardViewGroup.isVisible = false
                 }
             }
@@ -366,7 +377,7 @@ open class KingKeyboard {
         })
 
         onTouchListener = View.OnTouchListener { v, event ->
-            if(event.action == MotionEvent.ACTION_UP){
+            if (event.action == MotionEvent.ACTION_UP) {
                 viewFocus(v)
             }
 
@@ -374,10 +385,10 @@ open class KingKeyboard {
         }
 
         globalFocusChangeListener = ViewTreeObserver.OnGlobalFocusChangeListener { oldFocus, newFocus ->
-            if(newFocus is EditText){
-                if(editTextArray.containsKey(newFocus.id)){//newFocus使用的是KingKeyboard
+            if (newFocus is EditText) {
+                if (editTextArray.containsKey(newFocus.id)) {//newFocus使用的是KingKeyboard
                     viewFocus(newFocus)
-                }else{
+                } else {
                     //没有使用KingKeyboard，可能使用的是系统输入法，则隐藏KingKeyboard
                     hideKeyboard()
                 }
@@ -400,7 +411,7 @@ open class KingKeyboard {
      *
      * @param keyboard 键盘
      */
-    fun setKeyboardCustom(keyboard: Keyboard){
+    fun setKeyboardCustom(keyboard: Keyboard) {
         this.keyboardCustom = keyboard
     }
 
@@ -414,7 +425,7 @@ open class KingKeyboard {
      *
      * @param keyboard 键盘
      */
-    fun setKeyboardCustomModeChange(keyboard: Keyboard){
+    fun setKeyboardCustomModeChange(keyboard: Keyboard) {
         this.keyboardCustomModeChange = keyboard
     }
 
@@ -428,7 +439,7 @@ open class KingKeyboard {
      *
      * @param keyboard 键盘
      */
-    fun setKeyboardCustomMore(keyboard: Keyboard){
+    fun setKeyboardCustomMore(keyboard: Keyboard) {
         this.keyboardCustomMore = keyboard
     }
 
@@ -441,8 +452,8 @@ open class KingKeyboard {
      *
      * @param xmlLayoutResId 键盘布局的资源文件，其中包含键盘布局和键值码等相关信息
      */
-    fun setKeyboardCustom(xmlLayoutResId: Int){
-        this.keyboardCustom = Keyboard(context,xmlLayoutResId)
+    fun setKeyboardCustom(xmlLayoutResId: Int) {
+        this.keyboardCustom = Keyboard(context, xmlLayoutResId)
     }
 
     /**
@@ -455,8 +466,8 @@ open class KingKeyboard {
      *
      * @param xmlLayoutResId 键盘布局的资源文件，其中包含键盘布局和键值码等相关信息
      */
-    fun setKeyboardCustomModeChange(xmlLayoutResId: Int){
-        this.keyboardCustomModeChange = Keyboard(context,xmlLayoutResId)
+    fun setKeyboardCustomModeChange(xmlLayoutResId: Int) {
+        this.keyboardCustomModeChange = Keyboard(context, xmlLayoutResId)
     }
 
     /**
@@ -469,19 +480,19 @@ open class KingKeyboard {
      *
      * @param xmlLayoutResId 键盘布局的资源文件，其中包含键盘布局和键值码等相关信息
      */
-    fun setKeyboardCustomMore(xmlLayoutResId: Int){
-        this.keyboardCustomMore = Keyboard(context,xmlLayoutResId)
+    fun setKeyboardCustomMore(xmlLayoutResId: Int) {
+        this.keyboardCustomMore = Keyboard(context, xmlLayoutResId)
     }
 
     /**
      * 获取当前键盘输入法类型
      * return 返回当前键盘输入法类型
      */
-    fun getKeyboardType(): Int{
+    fun getKeyboardType(): Int {
         return keyboardType
     }
 
-    private fun disableShowSoftInput(editText: EditText){
+    private fun disableShowSoftInput(editText: EditText) {
         try {
             val method = EditText::class.java.getMethod("setShowSoftInputOnFocus", Boolean::class.java)
             method.isAccessible = true
@@ -494,11 +505,11 @@ open class KingKeyboard {
     /**
      * 执行当获View获取焦点时的一些逻辑，如：显示键盘
      */
-    private fun viewFocus(v: View){
-        if(v is EditText){
+    private fun viewFocus(v: View) {
+        if (v is EditText) {
             v.hideSystemInputMethod()
             disableShowSoftInput(v)
-            if(v.hasFocus()){
+            if (v.hasFocus()) {
                 currentEditText = v
                 keyboardType = keyboardTypeArray[v.id]!!
                 switchKeyboard()
@@ -519,15 +530,15 @@ open class KingKeyboard {
         editText.setOnTouchListener(onTouchListener)
     }
 
-    fun onResume(){
+    fun onResume() {
         currentEditText?.let {
-            if(it.hasFocus()){
-                it.postDelayed({ it.hideSystemInputMethod() },100)
+            if (it.hasFocus()) {
+                it.postDelayed({ it.hideSystemInputMethod() }, 100)
             }
         }
     }
 
-    fun onDestroy(){
+    fun onDestroy() {
         currentEditText?.let {
             it.clearAnimation()
             currentEditText = null
@@ -539,15 +550,15 @@ open class KingKeyboard {
     /**
      * 键盘输入法是否显示
      */
-    fun isShow(): Boolean{
+    fun isShow(): Boolean {
         return keyboardViewGroup.isVisible
     }
 
     /**
      * 显示键盘输入法
      */
-    private fun show(){
-        if(!keyboardViewGroup.isVisible){
+    private fun show() {
+        if (!keyboardViewGroup.isVisible) {
             keyboardViewGroup.apply {
                 isVisible = true
                 clearAnimation()
@@ -559,8 +570,8 @@ open class KingKeyboard {
     /**
      * 隐藏键盘输入法
      */
-    open fun hideKeyboard(){
-        if(keyboardViewGroup.isVisible){
+    open fun hideKeyboard() {
+        if (keyboardViewGroup.isVisible) {
             keyboardViewGroup.apply {
                 clearAnimation()
                 startAnimation(hideAnimation)
@@ -571,7 +582,7 @@ open class KingKeyboard {
     /**
      * 设置背景
      */
-    fun setBackground(drawable: Drawable?){
+    fun setBackground(drawable: Drawable?) {
         drawable?.let {
             keyboardViewGroup.background = drawable
         }
@@ -580,7 +591,7 @@ open class KingKeyboard {
     /**
      * 设置背景
      */
-    fun setBackgroundResource(drawableId: Int){
+    fun setBackgroundResource(drawableId: Int) {
         keyboardViewGroup.setBackgroundResource(drawableId)
     }
 
@@ -594,14 +605,14 @@ open class KingKeyboard {
     /**
      * 对外提供获取KingKeyboardView的配置
      */
-    fun getKeyboardViewConfig(): KingKeyboardView.Config?{
+    fun getKeyboardViewConfig(): KingKeyboardView.Config? {
         return keyboardView?.getConfig()
     }
 
     /**
      * 对外提供设置KingKeyboardView的配置
      */
-    fun setKeyboardViewConfig(config: KingKeyboardView.Config){
+    fun setKeyboardViewConfig(config: KingKeyboardView.Config) {
         keyboardView?.setConfig(config)
     }
 
@@ -610,63 +621,63 @@ open class KingKeyboard {
     /**
      * 是否开启音效 -> 暂不对外提供
      */
-    private fun isSoundEffectsEnabled(): Boolean{
+    private fun isSoundEffectsEnabled(): Boolean {
         return isPlaySoundEffect
     }
 
     /**
      * 设置是否开启音效 -> 暂不对外提供
      */
-    private fun setSoundEffectEnabled(soundEffectEnabled: Boolean){
+    private fun setSoundEffectEnabled(soundEffectEnabled: Boolean) {
         this.isPlaySoundEffect = soundEffectEnabled
     }
 
     /**
      * 是否开启震动
      */
-    fun isVibrationEffectEnabled(): Boolean{
+    fun isVibrationEffectEnabled(): Boolean {
         return isVibrationEffect
     }
 
     /**
      * 设置是否开启震动
      */
-    fun setVibrationEffectEnabled(vibrationEffectEnabled: Boolean){
+    fun setVibrationEffectEnabled(vibrationEffectEnabled: Boolean) {
         this.isVibrationEffect = vibrationEffectEnabled
     }
 
     /**
      * 对外提供监听键盘相关动作
      */
-    fun setOnKeyboardActionListener(listener: KeyboardView.OnKeyboardActionListener?){
+    fun setOnKeyboardActionListener(listener: KeyboardView.OnKeyboardActionListener?) {
         this.onKeyboardActionListener = listener
     }
 
     /**
      * 对外提供监听“完成”按键
      */
-    fun setOnKeyDoneListener(listener: OnKeyListener?){
+    fun setOnKeyDoneListener(listener: OnKeyListener?) {
         this.onKeyDoneListener = listener
     }
 
     /**
      * 对外提供监听“关闭键盘”按键
      */
-    fun setOnKeyCancelListener(listener: OnKeyListener?){
+    fun setOnKeyCancelListener(listener: OnKeyListener?) {
         this.onKeyCancelListener = listener
     }
 
     /**
      * 对外提供监听扩展自定义的按键
      */
-    fun setOnKeyExtraListener(listener: OnKeyListener?){
+    fun setOnKeyExtraListener(listener: OnKeyListener?) {
         this.onKeyExtraListener = listener
     }
 
     /**
      * 监听“完成”按键接口
      */
-    interface OnKeyListener{
+    interface OnKeyListener {
         /**
          * 点击触发按键时，触发此回调方法
          * @param primaryCode 为原始code值，即Key的code
@@ -679,8 +690,8 @@ open class KingKeyboard {
     /**
      * 切换键盘输入法
      */
-    private fun switchKeyboard(){
-        when(keyboardType){
+     fun switchKeyboard() {
+        when (keyboardType) {
             KeyboardType.NORMAL -> {
                 currentKeyboard = keyboardNormal
             }
@@ -747,11 +758,78 @@ open class KingKeyboard {
 
     }
 
+    fun switchKeyboard(keyboardType: Int) {
+        when (keyboardType) {
+            KeyboardType.NORMAL -> {
+                currentKeyboard = keyboardNormal
+            }
+            KeyboardType.NORMAL_MODE_CHANGE -> {
+                currentKeyboard = keyboardNormalModeChange
+            }
+            KeyboardType.NORMAL_MORE -> {
+                currentKeyboard = keyboardNormalMore
+            }
+            KeyboardType.LETTER -> {
+                currentKeyboard = keyboardLetter
+            }
+            KeyboardType.LOWERCASE_LETTER_ONLY -> {
+                currentKeyboard = keyboardLowercaseLetter
+            }
+            KeyboardType.UPPERCASE_LETTER_ONLY -> {
+                currentKeyboard = keyboardUppercaseLetter
+            }
+            KeyboardType.LETTER_NUMBER -> {
+                currentKeyboard = keyboardLetterNumber
+            }
+            KeyboardType.NUMBER -> {
+                currentKeyboard = keyboardNumber
+            }
+            KeyboardType.NUMBER_DECIMAL -> {
+                currentKeyboard = keyboardNumberDecimal
+            }
+            KeyboardType.PHONE -> {
+                currentKeyboard = keyboardPhone
+            }
+            KeyboardType.ID_CARD -> {
+                currentKeyboard = keyboardIDCard
+            }
+            KeyboardType.LICENSE_PLATE -> {
+                currentKeyboard = keyboardLicensePlate
+            }
+            KeyboardType.LICENSE_PLATE_MODE_CHANGE -> {
+                currentKeyboard = keyboardLicensePlateNumber
+            }
+            KeyboardType.LICENSE_PLATE_MORE -> {
+                currentKeyboard = keyboardLicensePlateMore
+            }
+            KeyboardType.LICENSE_PLATE_PROVINCE -> {
+                currentKeyboard = keyboardLicensePlateProvince
+            }
+            KeyboardType.LICENSE_PLATE_NUMBER -> {
+                currentKeyboard = keyboardLicensePlateNumber
+            }
+            KeyboardType.CUSTOM -> {//当自定义了键盘，但没有自定义相关布局时，使用默认键盘keyboardNormal
+                currentKeyboard = keyboardCustom ?: keyboardNormal
+            }
+            KeyboardType.CUSTOM_MODE_CHANGE -> {//当自定义了键盘，但没有自定义相关布局时，使用默认键盘keyboardNormalModeChange
+                currentKeyboard = keyboardCustomModeChange ?: keyboardNormalModeChange
+            }
+            KeyboardType.CUSTOM_MORE -> {//当自定义了键盘，但没有自定义相关布局时，使用默认键盘keyboardNormalMore
+                currentKeyboard = keyboardCustomMore ?: keyboardNormalMore
+            }
+
+        }
+
+        keyboardView?.run {
+            keyboard = currentKeyboard
+        }
+    }
+
     /**
      * 模式改变，切换键盘
      */
-    private fun keyModeChange(){
-        when(keyboardType){
+    private fun keyModeChange() {
+        when (keyboardType) {
             KeyboardType.NORMAL -> {
                 keyboardType = KeyboardType.NORMAL_MODE_CHANGE
             }
@@ -778,42 +856,42 @@ open class KingKeyboard {
     /**
      * 取消，关闭键盘
      */
-    private fun keyCancel(primaryCode: Int){
+    private fun keyCancel(primaryCode: Int) {
         hideKeyboard()
-        onKeyCancelListener?.onKey(currentEditText,primaryCode)
+        onKeyCancelListener?.onKey(currentEditText, primaryCode)
     }
 
     /**
      * 完成
      */
-    private fun keyDone(primaryCode: Int){
+    private fun keyDone(primaryCode: Int) {
         hideKeyboard()
-        onKeyDoneListener?.onKey(currentEditText,primaryCode)
+        onKeyDoneListener?.onKey(currentEditText, primaryCode)
     }
 
     /**
      * Alt键，暂时未用到
      */
-    private fun keyAlt(){
+    private fun keyAlt() {
 
     }
 
     /**
      * 返回
      */
-    private fun keyBack(isBack: Boolean){
-        when(keyboardType){
+    private fun keyBack(isBack: Boolean) {
+        when (keyboardType) {
             KeyboardType.NORMAL_MODE_CHANGE -> {
                 keyboardType = KeyboardType.NORMAL
             }
             KeyboardType.NORMAL_MORE -> {
-                keyboardType = if(isBack) KeyboardType.NORMAL else KeyboardType.NORMAL_MODE_CHANGE
+                keyboardType = if (isBack) KeyboardType.NORMAL else KeyboardType.NORMAL_MODE_CHANGE
             }
             KeyboardType.CUSTOM_MODE_CHANGE -> {
                 keyboardType = KeyboardType.CUSTOM
             }
             KeyboardType.CUSTOM_MORE -> {
-                keyboardType = if(isBack) KeyboardType.CUSTOM else KeyboardType.CUSTOM_MODE_CHANGE
+                keyboardType = if (isBack) KeyboardType.CUSTOM else KeyboardType.CUSTOM_MODE_CHANGE
             }
             KeyboardType.LICENSE_PLATE -> {
                 keyboardType = KeyboardType.LICENSE_PLATE_NUMBER
@@ -822,7 +900,7 @@ open class KingKeyboard {
                 keyboardType = KeyboardType.LICENSE_PLATE
             }
             KeyboardType.LICENSE_PLATE_MORE -> {
-                keyboardType = if(isBack) KeyboardType.LICENSE_PLATE else KeyboardType.LICENSE_PLATE_MODE_CHANGE
+                keyboardType = if (isBack) KeyboardType.LICENSE_PLATE else KeyboardType.LICENSE_PLATE_MODE_CHANGE
             }
             KeyboardType.LICENSE_PLATE_PROVINCE -> {
                 keyboardType = KeyboardType.LICENSE_PLATE_NUMBER
@@ -838,9 +916,9 @@ open class KingKeyboard {
     /**
      * 更多
      */
-    private fun keyMore(){
+    private fun keyMore() {
 
-        when(keyboardType){
+        when (keyboardType) {
             KeyboardType.NORMAL -> {
                 keyboardType = KeyboardType.NORMAL_MORE
             }
@@ -868,13 +946,13 @@ open class KingKeyboard {
     /**
      * 输入
      */
-    private fun keyInput(primaryCode: Int){
+    private fun keyInput(primaryCode: Int) {
         currentEditText?.let {
             val start = it.selectionStart
             val end = it.selectionEnd
 
-            it.text?.replace(start,end, primaryCode.toChar().toString())
-            if(isCap && !isAllCaps){//如果当前是大写键盘，并且并且没有锁定，则自动变换成小写键盘
+            it.text?.replace(start, end, primaryCode.toChar().toString())
+            if (isCap && !isAllCaps) {//如果当前是大写键盘，并且并且没有锁定，则自动变换成小写键盘
                 isCap = false
                 isAllCaps = false
                 toLowerCaseKey(currentKeyboard)
@@ -893,9 +971,9 @@ open class KingKeyboard {
     /**
      * 播放音效
      */
-    private fun playSoundEffect(effectType: Int = AudioManager.FX_KEYPRESS_STANDARD){
-        if(isPlaySoundEffect){
-            if(audioManager == null){
+    private fun playSoundEffect(effectType: Int = AudioManager.FX_KEYPRESS_STANDARD) {
+        if (isPlaySoundEffect) {
+            if (audioManager == null) {
                 audioManager = (context.getSystemService(Context.AUDIO_SERVICE) as? AudioManager)
                 audioManager?.ringerMode = AudioManager.RINGER_MODE_NORMAL
             }
@@ -906,9 +984,9 @@ open class KingKeyboard {
     /**
      * 震动
      */
-    private fun sendVibrationEffect(){
-        if(isVibrationEffect){
-            if(vibrator == null){
+    private fun sendVibrationEffect() {
+        if (isVibrationEffect) {
+            if (vibrator == null) {
                 vibrator = (context.getSystemService(Context.VIBRATOR_SERVICE) as? Vibrator)
             }
 
@@ -918,11 +996,11 @@ open class KingKeyboard {
                     if (Build.VERSION.SDK_INT >= 26) {
 //                        it.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK))
                         VibrateUtil.vibrate(context, 50)
-                    }else{
+                    } else {
                         VibrateUtil.vibrate(context, 50)
                     }
                 }
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
@@ -932,37 +1010,37 @@ open class KingKeyboard {
     /**
      * 按下
      */
-    private fun keyDown(keycode: Int,action: Int = KeyEvent.ACTION_DOWN){
+    private fun keyDown(keycode: Int, action: Int = KeyEvent.ACTION_DOWN) {
         currentEditText?.let {
-            it.onKeyDown(keycode, KeyEvent(action,keycode))
+            it.onKeyDown(keycode, KeyEvent(action, keycode))
         }
     }
 
     /**
      * 触发删除
      */
-    private fun keyDelete(){
+    private fun keyDelete() {
         keyDown(KeyEvent.KEYCODE_DEL)
     }
 
     /**
      * 触发自定义可扩展按键
      */
-    private fun keyExtra(primaryCode: Int){
-        Log.d(TAG,"primaryCode:$primaryCode")
-        onKeyExtraListener?.onKey(currentEditText,primaryCode)
+    private fun keyExtra(primaryCode: Int) {
+        Log.d(TAG, "primaryCode:$primaryCode")
+        onKeyExtraListener?.onKey(currentEditText, primaryCode)
     }
 
     /**
      * 触发Shift，切换大小字母键盘
      */
-    private fun keyShift(){
+    private fun keyShift() {
 
         //将键盘进行大小写键盘切换
 
-        if(isAllCaps){//上次状态为大写锁定时，转换为小写
+        if (isAllCaps) {//上次状态为大写锁定时，转换为小写
             toLowerCaseKey(currentKeyboard)
-        }else{//反之上次状态即为小写时，转换为大写
+        } else {//反之上次状态即为小写时，转换为大写
             toUpperCaseKey(currentKeyboard)
         }
 
@@ -987,18 +1065,17 @@ open class KingKeyboard {
         }
 
 
-
     }
 
     /**
      * 转换为大写
      */
-    private fun toUpperCaseKey(keyboard: Keyboard){
+    private fun toUpperCaseKey(keyboard: Keyboard) {
         keyboard.run {
-            for(key in keys){
-                if(key.label?.length == 1){// 一个字符
+            for (key in keys) {
+                if (key.label?.length == 1) {// 一个字符
                     var c = key.label.toString()[0]
-                    if(c.isLowerCase()){ //是小写字母
+                    if (c.isLowerCase()) { //是小写字母
                         //转换为大写
                         val letter = c.toUpperCase()
                         key.label = letter.toString()
@@ -1014,12 +1091,12 @@ open class KingKeyboard {
     /**
      * 转换为小写
      */
-    private fun toLowerCaseKey(keyboard: Keyboard){
+    private fun toLowerCaseKey(keyboard: Keyboard) {
         keyboard.run {
-            for(key in keys){
-                if(key.label?.length == 1){// 一个字符
+            for (key in keys) {
+                if (key.label?.length == 1) {// 一个字符
                     var c = key.label.toString()[0]
-                    if(c.isUpperCase()){ //是大写字母
+                    if (c.isUpperCase()) { //是大写字母
                         //转换为小写
                         val letter = c.toLowerCase()
                         key.label = letter.toString()
@@ -1036,15 +1113,17 @@ open class KingKeyboard {
     /**
      * 键盘类型
      */
-    object KeyboardType{
+    object KeyboardType {
         /**
          * 默认键盘 - 字母带符号
          */
         const val NORMAL = 0x00000001
+
         /**
          * 默认键盘 - 切换键盘
          */
         internal const val NORMAL_MODE_CHANGE = 0x00000002
+
         /**
          * 默认键盘 - 更多
          */
@@ -1059,6 +1138,7 @@ open class KingKeyboard {
          * 仅小写字母键盘
          */
         const val LOWERCASE_LETTER_ONLY = 0x00000101
+
         /**
          * 仅大写字母键盘
          */
@@ -1073,6 +1153,7 @@ open class KingKeyboard {
          * 数字键盘
          */
         const val NUMBER = 0x00000301
+
         /**
          * 浮点数键盘（数字加“.”符号）
          */
@@ -1087,6 +1168,7 @@ open class KingKeyboard {
          * 身份证键盘
          */
         const val ID_CARD = 0x00000304
+
         /**
          * 车牌键盘 - 车牌 -> 归属地 + 切换车牌号
          */
@@ -1116,10 +1198,12 @@ open class KingKeyboard {
          * 预留自定义键盘类型
          */
         const val CUSTOM = 0x00001001
+
         /**
          * 预留自定义键盘类型 - 键盘模式切换
          */
         const val CUSTOM_MODE_CHANGE = 0x00001002
+
         /**
          * 预留自定义键盘类型 - 更多
          */

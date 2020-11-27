@@ -90,7 +90,7 @@
         android:layout_height="@dimen/dp_1"
         android:layout_marginTop="@dimen/dp_19"
         android:layout_marginBottom="@dimen/dp_19"
-        android:background="@color/white" />
+        android:background="#98D6FF" />
 
     <TextView
         android:layout_marginStart="@dimen/dp_15"
@@ -100,5 +100,15 @@
         android:layout_marginBottom="@dimen/dp_19"
         android:textColor="@color/white"
         android:textSize="@dimen/sp_14"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvAgainstTime"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_19"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_12"
         android:textStyle="bold" />
 </LinearLayout>

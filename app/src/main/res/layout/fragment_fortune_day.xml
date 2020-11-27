@@ -247,7 +247,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/star_today_margin_top"
             android:layout_marginBottom="@dimen/dp_20"
-            android:text="有些思考的小漩涡，可能让你忽然的放空，生活中许多的细节让你感触良多，五味杂陈，常常有时候就慢动作定格，想法在某处冻结停留，陷入一阵自我对话的沉思之中，这个时"
             android:textColor="@color/grayA2A2A2" />
         </LinearLayout>
 </androidx.core.widget.NestedScrollView>

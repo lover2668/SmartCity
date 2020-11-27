@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.frame.library.core.manager.GlideManager
 import com.frame.library.core.util.FrameUtil
 import com.frame.library.core.util.SizeUtil
 import com.frame.library.core.util.StringUtil
@@ -34,6 +35,7 @@ class ConstellationTabActivity : BaseTitleTransparentActivity() {
     private val mFragments = ArrayList<Fragment>()
     private var mStarName = ""
     private var mStarDate = ""
+    private var imageId = -1
     private var mChannelPagerAdapter: ConstellationPagerAdapter? = null
     override fun getContentLayout(): Int {
         return R.layout.activity_constellation_tab
@@ -49,7 +51,8 @@ class ConstellationTabActivity : BaseTitleTransparentActivity() {
         mStarName = StringUtil.getNotNullValue(mStarName)
         mStarDate = intent.getStringExtra(ConstellationListActivity.EXTRA_STAR_DATE)
         mStarDate = StringUtil.getNotNullValue(mStarDate)
-
+        imageId =   intent.getIntExtra(ConstellationListActivity.EXTRA_STAR_IMAGE,-1)
+        GlideManager.loadCircleImg(imageId,ivStar)
         initFragment()
         initMagicIndicator()
         tvStarName.text = mStarName
