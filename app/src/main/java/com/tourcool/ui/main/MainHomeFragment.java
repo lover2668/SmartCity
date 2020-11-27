@@ -49,6 +49,7 @@ import com.tourcool.adapter.MatrixAdapter;
 import com.tourcool.adapter.TwoLevelChildAdapter;
 import com.tourcool.bean.MatrixBean;
 import com.tourcool.bean.account.AccountHelper;
+import com.tourcool.bean.account.UserInfo;
 import com.tourcool.bean.screen.Channel;
 import com.tourcool.bean.screen.ChildNode;
 import com.tourcool.bean.screen.ColumnItem;
@@ -63,8 +64,10 @@ import com.tourcool.core.module.WebViewActivity;
 import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.DateUtil;
 import com.tourcool.core.util.TourCooUtil;
+import com.tourcool.event.account.UserInfoEvent;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.calender.YellowCalenderDetailActivity;
+import com.tourcool.ui.certify.SelectCertifyActivity;
 import com.tourcool.ui.constellation.ConstellationListActivity;
 import com.tourcool.ui.express.ExpressQueryActivity;
 import com.tourcool.ui.garbage.GarbageQueryActivity;
@@ -81,6 +84,10 @@ import com.tourcool.widget.webview.CommonWebViewActivity;
 import com.tourcool.widget.webview.WebViewConstant;
 import com.trello.rxlifecycle3.android.FragmentEvent;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,6 +97,8 @@ import cn.bingoogolapple.bgabanner.transformer.TransitionEffect;
 
 import static com.frame.library.core.util.StringUtil.LINE_HORIZONTAL;
 import static com.frame.library.core.util.StringUtil.SYMBOL_TEMP;
+import static com.tourcool.core.config.RequestConfig.CODE_REQUEST_SUCCESS;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_CERTIFY_NAME;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_CONSTELLATION;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_EXPRESS;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_GARBAGE;
@@ -163,6 +172,9 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        if (!EventBus.getDefault().isRegistered(MainHomeFragment.this)) {
+            EventBus.getDefault().register(MainHomeFragment.this);
+        }
         initRefresh();
         llContainer = mContentView.findViewById(R.id.llContainer);
         tvTemperature = mContentView.findViewById(R.id.tvTemperature);
@@ -582,7 +594,6 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
 //            ivNewsIcon = contentLayout.findViewById(R.id.icBulletin);
             tvNewsContent = contentLayout.findViewById(R.id.tvNewsContent);
             tvNewsContent.setText(newsBean.getTitle());
-            Channel finalChannel = channel;
             tvNewsContent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -594,7 +605,6 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
                 }
             });
             homeViewFlipper.addView(contentLayout);
-            //todo
         }
         viewList.add(viewFlipperRoot);
         View lineView = createLineView();
@@ -754,10 +764,13 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
         if (channel == null || imageView == null) {
             return;
         }
-        String link = channel.getLink();
-        if (!TextUtils.isEmpty(link)) {
-            imageView.setOnClickListener(v -> WebViewActivity.start(mContext, TourCooUtil.getUrl(link), true));
-        }
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                skipByChannel(channel);
+            }
+        });
+
     }
 
 
@@ -989,7 +1002,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
     }
 
 
-    private void skipByCondition(String title, String link) {
+    private void skipNativeByCondition(String title, String link) {
         switch (StringUtil.getNotNullValue(title)) {
             case ITEM_TYPE_SOCIAL_BASE_INFO:
                 skipSocialBase();
@@ -1018,8 +1031,11 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
             case ITEM_TYPE_YELLOW_CALENDER:
                 skipYellowCalender();
                 break;
+            case ITEM_TYPE_CERTIFY_NAME:
+                skipCertify();
+                break;
             default:
-                skipWebView(link,title);
+                skipWebView(link, title);
                 break;
         }
     }
@@ -1062,7 +1078,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
         startActivity(intent);
     }
 
-    private void skipWebView(String link,String title) {
+    private void skipWebView(String link, String title) {
         Intent intent = new Intent();
         intent.putExtra(EXTRA_WEB_VIEW_URL, link);
         intent.putExtra(EXTRA_RICH_TEXT_ENABLE, false);
@@ -1071,7 +1087,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
         startActivity(intent);
     }
 
-    private void skipWebViewRich(String richContent,String urlTitle) {
+    private void skipWebViewRich(String richContent, String urlTitle) {
         Intent intent = new Intent();
         intent.putExtra(EXTRA_RICH_TEXT_ENABLE, true);
         intent.putExtra(EXTRA_WEB_VIEW_URL, "");
@@ -1086,18 +1102,18 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
         switch (channel.getJumpWay()) {
             case CLICK_TYPE_LINK_OUTER:
                 //展示外链
-                skipWebView(StringUtil.getNotNullValue(channel.getLink()),channel.getTitle());
+                skipWebView(StringUtil.getNotNullValue(channel.getLink()), channel.getTitle());
                 break;
             case CLICK_TYPE_NONE:
 //                        ToastUtil.show("什么也不做");
                 break;
             case CLICK_TYPE_NATIVE:
                 //展示原生
-                skipByCondition(channel.getTitle(), channel.getLink());
+                skipNativeByCondition(channel.getTitle(), channel.getLink());
                 break;
             case CLICK_TYPE_LINK_INNER:
-                //展示外链
-                skipWebViewRich(channel.getContent(),channel.getTitle());
+                //展示富文本
+                skipWebViewRich(channel.getContent(), channel.getTitle());
                 break;
 
             case CLICK_TYPE_WAITING:
@@ -1107,5 +1123,70 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
             default:
                 break;
         }
+    }
+
+    private void skipCertify() {
+        if (!AccountHelper.getInstance().isLogin()) {
+            skipLogin();
+        } else {
+            Intent intent = new Intent();
+            intent.setClass(mContext, SelectCertifyActivity.class);
+            startActivity(intent);
+        }
+    }
+
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(MainHomeFragment.this);
+        super.onDestroy();
+    }
+
+
+    /**
+     * 收到用户信息消息
+     *
+     * @param userInfoEvent
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUserInfoRefreshEvent(UserInfoEvent userInfoEvent) {
+        if (userInfoEvent == null) {
+            return;
+        }
+        TourCooLogUtil.i(TAG, "刷新用户信息");
+        if (AccountHelper.getInstance().isLogin()) {
+            refreshUserInfo();
+        }
+
+    }
+
+
+    /**
+     * 刷新用户信息
+     */
+    private void refreshUserInfo() {
+        ApiRepository.getInstance().requestUserInfo().compose(bindUntilEvent(FragmentEvent.DESTROY)).
+                subscribe(new BaseLoadingObserver<BaseResult>() {
+                    @Override
+                    public void onRequestNext(BaseResult entity) {
+                        if (entity == null) {
+                            return;
+                        }
+                        if (entity.status == CODE_REQUEST_SUCCESS) {
+                            UserInfo userInfo = parseJavaBean(entity.data, UserInfo.class);
+                            if (userInfo == null) {
+                                return;
+                            }
+                            AccountHelper.getInstance().saveUserInfoToDisk(userInfo);
+                        }
+                    }
+
+                    @Override
+                    public void onRequestError(Throwable e) {
+
+                        TourCooLogUtil.e(TAG, e.toString());
+
+                    }
+                });
     }
 }

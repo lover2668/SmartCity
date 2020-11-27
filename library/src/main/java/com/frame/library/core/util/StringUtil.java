@@ -1,6 +1,12 @@
 package com.frame.library.core.util;
 
 import android.text.TextUtils;
+import android.util.Log;
+
+import com.blankj.utilcode.util.ScreenUtils;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
@@ -100,4 +106,8 @@ public class StringUtil {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         return format.format(date);
     }
+
+
+
+
 }

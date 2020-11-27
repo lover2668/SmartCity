@@ -9,7 +9,6 @@
     <include layout="@layout/frame_layout_title_bar" />
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:layout_marginTop="@dimen/dp_10"
         android:id="@+id/constellationRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

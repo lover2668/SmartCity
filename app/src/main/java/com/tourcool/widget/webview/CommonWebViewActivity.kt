@@ -1,10 +1,12 @@
 package com.tourcool.widget.webview
 
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
 import android.view.KeyEvent
 import com.frame.library.core.util.StringUtil
 import com.frame.library.core.widget.titlebar.TitleBarView
+import com.gyf.immersionbar.ImmersionBar
 import com.tourcool.smartcity.R
 import com.tourcool.widget.webview.WebViewConstant.*
 import com.tourcool.widget.webview.x5.BaseX5WebViewActivity
@@ -21,9 +23,16 @@ class CommonWebViewActivity : BaseX5WebViewActivity() {
     private var url = ""
     private var isRichText = false
     private var mTitle = ""
+    private var webHandler = Handler()
+
+    companion object {
+        const val MAX_LENGTH_TITLE = 20
+    }
 
     override fun setTitleContent(title: String) {
-        if (!TextUtils.isEmpty(title)) {
+        val length = StringUtil.getNotNullValue(title).length
+        val isShort = length < MAX_LENGTH_TITLE
+        if (!TextUtils.isEmpty(title) && !isRichText && !isShort) {
             mTitleBar?.setTitleMainText(title)
         } else {
             if (!TextUtils.isEmpty(mTitle)) {
@@ -42,13 +51,13 @@ class CommonWebViewActivity : BaseX5WebViewActivity() {
         try {
             mTitle = intent.getStringExtra(EXTRA_WEB_VIEW_TITLE)
         } catch (e: Exception) {
-
+            e.printStackTrace()
         }
 
 
         initProgressBar(mPageLoadingProgressBar)
         initWebView(mWebView)
-
+        initBar()
         mPageLoadingProgressBar.progressDrawable = this.resources
                 .getDrawable(R.drawable.color_progressbar)
         if (isRichText) {
@@ -56,7 +65,7 @@ class CommonWebViewActivity : BaseX5WebViewActivity() {
         } else {
             loadUrl(url)
         }
-        setImmersionBar(false)
+
     }
 
     override fun setTitleBar(titleBar: TitleBarView?) {
@@ -72,6 +81,14 @@ class CommonWebViewActivity : BaseX5WebViewActivity() {
         return super.onKeyDown(keyCode, event)
     }
 
-    private fun setImmersionBar(darkFont: Boolean) {
+
+
+    private fun initBar() {
+        webHandler.postDelayed(Runnable {
+            ImmersionBar.with(this)
+                    .statusBarDarkFont(true)
+                    .navigationBarDarkIcon(true)
+                    .init()
+        }, 300)
     }
 }

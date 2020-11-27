@@ -46,5 +46,5 @@ public class ItemConstant {
 
     public static final String ITEM_TYPE_YELLOW_CALENDER = "查黄历";
 
-
+    public static final String ITEM_TYPE_CERTIFY_NAME = "实名认证";
 }

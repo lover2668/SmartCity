@@ -3,12 +3,16 @@ package com.tourcool.widget.webview.x5
 import android.view.KeyEvent
 import android.view.View
 import android.widget.ProgressBar
+import com.blankj.utilcode.util.ScreenUtils
+import com.frame.library.core.log.TourCooLogUtil
 import com.tencent.smtt.sdk.DownloadListener
 import com.tencent.smtt.sdk.WebSettings
 import com.tourcool.core.module.activity.BaseTitleActivity
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
+import org.jsoup.select.Elements
 
-public abstract class BaseX5WebViewActivity : BaseTitleActivity() {
+abstract class BaseX5WebViewActivity : BaseTitleActivity() {
 
     private lateinit var mWebView: X5WebView
 
@@ -108,9 +112,12 @@ public abstract class BaseX5WebViewActivity : BaseTitleActivity() {
      *
      * @param webView
      */
-    private fun imageFillWidth(content: String) {
+    private fun imageFillWidth(content: String?) {
         val doc = Jsoup.parse(content)
-
+        //修改视频标签
+        val body = doc.select("body")
+        body.attr("style","padding: 0 10px")
+        TourCooLogUtil.i("isbody"+body)
         //修改视频标签
         val embeds = doc.getElementsByTag("embed")
         for (element in embeds) {
@@ -129,7 +136,7 @@ public abstract class BaseX5WebViewActivity : BaseTitleActivity() {
 
         //对数据进行包装,除去WebView默认存在的一定像素的边距问题
         doc.body().append("<p></p>") //修复富文本为纯图片时部分手机显示不出来
-        val data = "<html><head><style>img{width:100% !important;}</style></head><body style='margin:0;padding:0'>${doc}</body></html>"
+        val data = "<html><head><style>img{width:100% !important;}</style></head>${doc}</html>"
 
 
 //        加载使用 jsoup 处理过的 html 文本
@@ -160,5 +167,30 @@ public abstract class BaseX5WebViewActivity : BaseTitleActivity() {
         super.onDestroy()
     }
 
+    /**
+     * 设置img标签下的width为手机屏幕宽度，height自适应
+     *
+     * @param data html字符串
+     * @return 更新宽高属性后的html字符串
+     */
+    open fun getNewData(data: String?): String {
+        val document: Document = Jsoup.parse(data)
+        val body: Elements = document.select("body")
+        body.attr("style", "padding: 0 10px")
+        val pElements: Elements = document.select("p:has(img)")
+        for (pElement in pElements) {
+            pElement.attr("style", "font-size:0px;margin:10px;max-width"+ScreenUtils.getScreenWidth().toString() + "px")
+//            pElement.attr("max-width", ScreenUtils.getScreenWidth().toString() + "px")
 
+
+        }
+        val imgElements: Elements = document.select("img")
+        for (imgElement in imgElements) {
+            //重新设置宽高
+            imgElement.attr("max-width", "100%")
+                    .attr("height", "auto")
+            imgElement.attr("style", "max-width:100%;height:auto;padding:0px;margin:0px")
+        }
+        return document.toString()
+    }
 }

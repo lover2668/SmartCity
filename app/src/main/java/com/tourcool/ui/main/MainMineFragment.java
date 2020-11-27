@@ -39,6 +39,7 @@ import com.tourcool.ui.mvp.account.LoginActivity;
 import com.tourcool.ui.mvp.account.PersonalDataActivity;
 import com.tourcool.ui.mvp.account.SystemSettingActivity;
 import com.tourcool.ui.parking.FastParkingActivity;
+import com.tourcool.ui.social.SocialBaseInfoActivity;
 import com.trello.rxlifecycle3.android.FragmentEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -49,6 +50,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.tourcool.core.config.RequestConfig.CODE_REQUEST_SUCCESS;
+import static com.tourcool.core.constant.SocialConstant.TIP_GO_CERTIFY;
 
 /**
  * @author :JenkinsZhou
@@ -165,9 +167,11 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
                 case MINE_ITEM_NAME_REAL_NAME_AUTHENTICATION:
                     skipCertify();
                     break;
+                case MINE_ITEM_NAME_SOCIAL_SECURITY:
+                    skipSocialBase();
+                    break;
                 default:
                     ToastUtil.show("敬请期待");
-
                     break;
             }
         });
@@ -222,7 +226,6 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
             } else {
                 showUserInfo(AccountHelper.getInstance().getUserInfo());
             }
-
         } else {
             showUserInfo(userInfo);
         }
@@ -235,6 +238,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
     }
 
     private void showUserInfo(UserInfo userInfo) {
+        finishRefresh();
         if (userInfo == null) {
             showUnLogin();
             return;
@@ -261,6 +265,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
             return;
         }
         if (!AccountHelper.getInstance().isLogin()) {
+            finishRefresh();
             showUnLogin();
             return;
         }
@@ -344,11 +349,10 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
         } else {
             Intent intent = new Intent();
             intent.setClass(mContext, SelectCertifyActivity.class);
-
             startActivity(intent);
         }
-
     }
+
     private void skipParking() {
         if (!AccountHelper.getInstance().isLogin()) {
             skipLogin();
@@ -366,6 +370,18 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
         startActivity(intent);
     }
 
-
+    private void skipSocialBase() {
+        if (!AccountHelper.getInstance().isLogin()) {
+            skipLogin();
+            return;
+        }
+        if (!AccountHelper.getInstance().getUserInfo().isVerified()) {
+            ToastUtil.show(TIP_GO_CERTIFY);
+            return;
+        }
+        Intent intent = new Intent();
+        intent.setClass(mContext, SocialBaseInfoActivity.class);
+        startActivity(intent);
+    }
 
 }

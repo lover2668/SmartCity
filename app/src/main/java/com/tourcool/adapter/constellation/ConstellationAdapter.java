@@ -23,7 +23,7 @@ public class ConstellationAdapter extends BaseQuickAdapter<ConstellationInfo, Ba
 
     @Override
     protected void convert(@NonNull BaseViewHolder helper, ConstellationInfo item) {
-        GlideManager.loadImg(item.getImageIcon(), helper.getView(R.id.ivConstellationInfo));
+        GlideManager.loadCircleImg(item.getImageIcon(), helper.getView(R.id.ivConstellationInfo));
         helper.setText(R.id.tvConstellationName, item.getName());
         helper.setText(R.id.tvConstellationMonth, item.getMonth());
     }

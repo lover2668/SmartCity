@@ -104,8 +104,10 @@ class ConstellationTabActivity : BaseTitleTransparentActivity() {
             override fun getTitleView(context: Context?, index: Int): IPagerTitleView? {
                 val clipPagerTitleView = ClipPagerTitleView(context)
                 clipPagerTitleView.text = mTabNameList.get(index)
-                clipPagerTitleView.textColor = FrameUtil.getColor(R.color.colorPrimary)
+                clipPagerTitleView.textColor = FrameUtil.getColor(R.color.grayA2A2A2)
                 clipPagerTitleView.clipColor = Color.WHITE
+                clipPagerTitleView.textSize = SizeUtil.sp2px(12f).toFloat()
+
                 clipPagerTitleView.setOnClickListener {
                     mViewPager.currentItem = index
                 }
@@ -118,9 +120,9 @@ class ConstellationTabActivity : BaseTitleTransparentActivity() {
                 val borderWidth: Float = SizeUtil.dp2px(1f).toFloat()
                 val lineHeight = navigatorHeight - 2 * borderWidth
                 indicator.lineHeight = lineHeight
-                indicator.roundRadius = lineHeight / 2
+                indicator.roundRadius = (lineHeight / 2)
                 indicator.yOffset = borderWidth
-                indicator.setColors(Color.parseColor("#bc2a2a"))
+                indicator.setColors(FrameUtil.getColor(R.color.colorPrimary))
                 return indicator
             }
         }
