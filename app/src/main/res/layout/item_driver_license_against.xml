@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/dp_10"
-    android:background="@drawable/bg_radius_10_white"
+    android:paddingStart="@dimen/dp_5"
+    android:paddingEnd="@dimen/dp_5"
+    android:background="@drawable/bg_radius_15_white"
     android:orientation="vertical">
 
     <LinearLayout

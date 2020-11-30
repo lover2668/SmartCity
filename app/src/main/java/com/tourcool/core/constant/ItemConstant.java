@@ -48,5 +48,7 @@ public class ItemConstant {
 
     public static final String ITEM_TYPE_DRIVER_AGAINST = "违章查询";
 
+    public static final String ITEM_TYPE_DRIVER_SCORE = "驾驶员计分查询";
+
     public static final String ITEM_TYPE_CERTIFY_NAME = "实名认证";
 }

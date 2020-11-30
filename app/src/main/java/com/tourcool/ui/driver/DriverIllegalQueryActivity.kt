@@ -2,17 +2,15 @@ package com.tourcool.ui.driver
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
+import android.text.InputType
 import android.text.TextUtils
-import android.text.TextWatcher
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.view.OptionsPickerView
 import com.frame.library.core.util.ToastUtil
 import com.frame.library.core.widget.titlebar.TitleBarView
-import com.tourcool.core.widget.keyboard.KingKeyboard
-import com.tourcool.core.widget.keyboard.KingKeyboard.KeyboardType.LICENSE_PLATE_PROVINCE
 import com.tourcool.smartcity.R
 import com.tourcool.ui.base.BaseCommonTitleActivity
+import com.tourcool.widget.keyboard.PlateKeyboardView
 import kotlinx.android.synthetic.main.activity_driving_against_query.*
 import java.util.*
 
@@ -25,24 +23,33 @@ import java.util.*
  */
 class DriverIllegalQueryActivity : BaseCommonTitleActivity() {
     private var pvCarTypeOptions: OptionsPickerView<CarType>? = null
-    private lateinit var kingKeyboard: KingKeyboard
+//    private lateinit var kingKeyboard: KingKeyboard
     private val carTypeList = ArrayList<CarType>()
     private var selectCarType: CarType? = null
+    private var keyboardView: PlateKeyboardView? = null
     override fun getContentLayout(): Int {
         return R.layout.activity_driving_against_query
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        initKeyboard()
+//        initKeyboard()
+        keyboardView = PlateKeyboardView(mContext)
+        etDriverLicense.inputType = InputType.TYPE_NULL
+        etDriverLicense.setOnClickListener {
+            keyboardView!!.showKeyboard(etDriverLicense)
+        }
         initCarTypeSelect()
+
+
         tvQuery.setOnClickListener {
             doQuery()
+
         }
         tvCarType.setOnClickListener {
             pvCarTypeOptions?.show()
         }
         llContentView.setOnClickListener {
-            hideKeyBoard()
+//            hideKeyBoard()
         }
     }
 
@@ -67,7 +74,7 @@ class DriverIllegalQueryActivity : BaseCommonTitleActivity() {
             ToastUtil.show("未获取到车辆类型")
             return
         }
-        kingKeyboard.hideKeyboard()
+//        kingKeyboard.hideKeyboard()
         skipAgainstDetail()
     }
 
@@ -106,37 +113,37 @@ class DriverIllegalQueryActivity : BaseCommonTitleActivity() {
         tvCarType.text = carType?.typeDesc
     }
 
-    private fun initKeyboard() {
+    /*private fun initKeyboard() {
         kingKeyboard = KingKeyboard(this, keyboardParent)
         //然后将EditText注册到KingKeyboard即可
         kingKeyboard.register(etDriverLicense, KingKeyboard.KeyboardType.LICENSE_PLATE)
-    }
+    }*/
 
     override fun onResume() {
         super.onResume()
-        kingKeyboard.onResume()
+//        kingKeyboard.onResume()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        kingKeyboard.onDestroy()
+//        kingKeyboard.onDestroy()
     }
 
     override fun onBackPressed() {
-        if (kingKeyboard.isShow()) {
+      /*  if (kingKeyboard.isShow()) {
             kingKeyboard.hideKeyboard()
             return
-        }
+        }*/
         super.onBackPressed()
     }
 
-    private fun hideKeyBoard() {
+   /* private fun hideKeyBoard() {
         if (kingKeyboard.isShow()) {
             kingKeyboard.hideKeyboard()
         }
-    }
+    }*/
 
-    private fun listenPlantInput() {
+/*    private fun listenPlantInput() {
         etDriverLicense.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
@@ -153,5 +160,5 @@ class DriverIllegalQueryActivity : BaseCommonTitleActivity() {
             }
 
         })
-    }
+    }*/
 }

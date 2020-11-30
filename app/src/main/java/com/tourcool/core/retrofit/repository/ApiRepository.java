@@ -435,5 +435,13 @@ public class ApiRepository extends AbstractRepository {
         return FrameTransformer.switchSchedulers(getApiService().requestDriverAgainstInfo(params).retryWhen(new RetryWhen()));
     }
 
+    public Observable<BaseResult<String>> requestDriverLicenseScore(String license, String dossier) {
+        Map<String, Object> params = new HashMap<>(1);
+        params.put("dabh", dossier);
+        params.put("jszh", license);
+        TourCooLogUtil.i("提交到后台的参数", params);
+        return FrameTransformer.switchSchedulers(getApiService().requestDriverLicenseScore(params).retryWhen(new RetryWhen()));
+    }
+
 
 }

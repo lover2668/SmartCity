@@ -23,7 +23,7 @@ public class DriverAgainstAdapter extends BaseQuickAdapter<DriverAgainstDetail, 
     @Override
     protected void convert(@NonNull BaseViewHolder helper, DriverAgainstDetail item) {
         helper.setText(R.id.tvAgainstDate, item.getDate());
-        helper.setText(R.id.tvHandleResult, item.getDate());
+        helper.setText(R.id.tvHandleResult, item.getHandledStr());
         helper.setText(R.id.tvAgainstLocate, item.getArea());
         helper.setText(R.id.tvAgainstCity, item.getWzcity());
         helper.setText(R.id.tvAgainstHandleDept, item.getCjjg());

@@ -73,7 +73,7 @@
                 android:background="@null"
                 android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:gravity="right"
-                android:hint="请输入12位档案编号"
+                android:hint="请输入档案编号"
                 android:inputType="textUri|textMultiLine"
                 android:maxLength="18"
                 android:padding="@dimen/dp_5"

@@ -31,4 +31,6 @@
 
     <dimen name="star_margin_top">@dimen/dp_10</dimen>
     <dimen name="star_today_margin_top">@dimen/dp_12</dimen>
+
+
 </resources>

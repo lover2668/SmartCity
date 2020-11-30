@@ -62,8 +62,11 @@ class DriverAgainstDetailActivity : BaseTitleTransparentActivity() {
         headerView.findViewById<TextView>(R.id.tvEngineNum).text = engineNum
         tvAgainstTime = headerView.findViewById(R.id.tvAgainstTime)
         adapter = DriverAgainstAdapter()
-        adapter!!.addHeaderView(headerView)
         adapter!!.bindToRecyclerView(againstRecyclerView)
+        adapter!!.addHeaderView(headerView)
+        val emptyView = View.inflate(mContext,R.layout.common_status_layout_empty,null)
+        adapter!!.emptyView = emptyView
+
     }
 
     override fun loadData() {
@@ -91,7 +94,7 @@ class DriverAgainstDetailActivity : BaseTitleTransparentActivity() {
         if (detail == null) {
             return
         }
-        val time = "(" + detail.lists!!.size.toString() + ")次"
+        val time = "(" + detail.lists!!.size.toString() + "次)"
         tvAgainstTime?.text = time
         adapter?.setNewData(detail.lists)
     }

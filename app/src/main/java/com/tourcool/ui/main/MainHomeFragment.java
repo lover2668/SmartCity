@@ -69,6 +69,7 @@ import com.tourcool.smartcity.R;
 import com.tourcool.ui.calender.YellowCalenderDetailActivity;
 import com.tourcool.ui.certify.SelectCertifyActivity;
 import com.tourcool.ui.constellation.ConstellationListActivity;
+import com.tourcool.ui.driver.AgainstScoreQueryActivity;
 import com.tourcool.ui.driver.DriverIllegalQueryActivity;
 import com.tourcool.ui.express.ExpressQueryActivity;
 import com.tourcool.ui.garbage.GarbageQueryActivity;
@@ -102,6 +103,7 @@ import static com.tourcool.core.config.RequestConfig.CODE_REQUEST_SUCCESS;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_CERTIFY_NAME;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_CONSTELLATION;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_DRIVER_AGAINST;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_DRIVER_SCORE;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_EXPRESS;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_GARBAGE;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_KITCHEN;
@@ -1039,6 +1041,9 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
             case ITEM_TYPE_DRIVER_AGAINST:
                 skipDriverAgainst();
                 break;
+            case ITEM_TYPE_DRIVER_SCORE:
+                skipDriverScore();
+                break;
             default:
                 skipWebView(link, title);
                 break;
@@ -1199,6 +1204,12 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
     private void skipDriverAgainst() {
         Intent intent = new Intent();
         intent.setClass(mContext, DriverIllegalQueryActivity.class);
+        startActivity(intent);
+    }
+
+    private void skipDriverScore() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, AgainstScoreQueryActivity.class);
         startActivity(intent);
     }
 }

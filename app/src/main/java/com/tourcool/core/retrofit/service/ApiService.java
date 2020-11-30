@@ -407,6 +407,10 @@ public interface ApiService {
     @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
     @GET("public/app/getViolationByCarInfo")
     Observable<BaseResult<DriverAgainstInfo>> requestDriverAgainstInfo(@QueryMap Map<String, Object> map);
+
+    @Headers(TokenInterceptor.HEADER_NO_NEED_TOKEN)
+    @GET("public/app/getDriverLicenseScore")
+    Observable<BaseResult<String>> requestDriverLicenseScore(@QueryMap Map<String, Object> map);
 }
 
 
