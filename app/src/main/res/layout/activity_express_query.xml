@@ -81,8 +81,8 @@
                 android:drawableEnd="@mipmap/ic_arrow_down"
                 android:textColorHint="@color/grayA2A2A2"
                 android:textSize="@dimen/sp_14" />-->
-            <EditText
-                android:id="@+id/etExpressCom"
+            <TextView
+                android:id="@+id/tvExpressCom"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -105,7 +105,12 @@
 
         </LinearLayout>
 
-        <include layout="@layout/line_horizontal_gray_eeeeee_0_5_dp" />
+        <View
+            android:id="@+id/viewLineVertical"
+            android:background="@color/grayEEEEEE"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0_5"/>
+      <!--  <include layout="@layout/line_horizontal_gray_eeeeee_0_5_dp" />-->
 
         <!--发动机号-->
 

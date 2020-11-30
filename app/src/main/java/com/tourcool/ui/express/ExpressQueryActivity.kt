@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.text.InputType
 import android.text.TextUtils
 import android.view.View
-import com.bryant.editlibrary.BSearchEdit
 import com.frame.library.core.retrofit.BaseLoadingObserver
 import com.frame.library.core.util.SizeUtil
 import com.frame.library.core.util.StringUtil
@@ -17,6 +16,7 @@ import com.tourcool.core.config.RequestConfig
 import com.tourcool.core.retrofit.repository.ApiRepository
 import com.tourcool.smartcity.R
 import com.tourcool.ui.base.BaseCommonTitleActivity
+import com.tourcool.widget.searchview.BSearchEdit
 import com.trello.rxlifecycle3.android.ActivityEvent
 import kotlinx.android.synthetic.main.activity_express_query.*
 
@@ -39,11 +39,11 @@ class ExpressQueryActivity : BaseCommonTitleActivity(), View.OnClickListener {
         tvQuery.setOnClickListener {
             skipDetail()
         }
-        etExpressCom.post {
-            initSearchView(etExpressCom.width.toFloat())
+        tvExpressCom.post {
+            initSearchView(viewLineVertical.width.toFloat())
         }
-        etExpressCom.inputType = InputType.TYPE_NULL
-        etExpressCom.setOnClickListener(this)
+        tvExpressCom.inputType = InputType.TYPE_NULL
+        tvExpressCom.setOnClickListener(this)
         llExpressContent.setOnClickListener(this)
         ivExpressSelect.setOnClickListener(this)
 
@@ -93,7 +93,7 @@ class ExpressQueryActivity : BaseCommonTitleActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.llExpressContent, R.id.ivExpressSelect, R.id.etExpressCom -> {
+            R.id.llExpressContent, R.id.ivExpressSelect, R.id.tvExpressCom -> {
 
                 requestExpressCompany()
             }
@@ -104,12 +104,12 @@ class ExpressQueryActivity : BaseCommonTitleActivity(), View.OnClickListener {
 
     private fun initSearchView(widthPx: Float) {
         //第三个必须要设置窗体的宽度，单位dp
-        bSearchEdit = BSearchEdit(this, etExpressCom, SizeUtil.px2dp(widthPx))
+        bSearchEdit = BSearchEdit(this, viewLineVertical, SizeUtil.px2dp(widthPx))
         bSearchEdit!!.setTimely(false)
         bSearchEdit!!.build()
         bSearchEdit!!.setTextClickListener { position, text ->
             currentSelectPosition = position
-            etExpressCom.setText(text!!)
+            tvExpressCom.setText(text!!)
         }
     }
 
@@ -118,7 +118,7 @@ class ExpressQueryActivity : BaseCommonTitleActivity(), View.OnClickListener {
             ToastUtil.show("请输入快递单号")
             return
         }
-        if (TextUtils.isEmpty(etExpressCom.text.toString())) {
+        if (TextUtils.isEmpty(tvExpressCom.text.toString())) {
             ToastUtil.show("请选择快递公司")
             return
         }
