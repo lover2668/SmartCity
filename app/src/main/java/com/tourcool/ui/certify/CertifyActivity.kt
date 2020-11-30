@@ -9,7 +9,6 @@ import android.os.Message
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import com.alibaba.fastjson.JSON
 import com.alipay.mobile.android.verify.sdk.ServiceFactory
 import com.alipay.sdk.app.AuthTask
@@ -25,7 +24,6 @@ import com.tourcool.bean.ali.AuthResult
 import com.tourcool.bean.certify.FaceCertify
 import com.tourcool.core.base.BaseResult
 import com.tourcool.core.config.RequestConfig
-import com.tourcool.core.module.WebViewActivity
 import com.tourcool.core.retrofit.repository.ApiRepository
 import com.tourcool.smartcity.R
 import com.tourcool.ui.base.BaseCommonTitleActivity
@@ -439,11 +437,12 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
                 if (entity.status == RequestConfig.CODE_REQUEST_SUCCESS) {
                     faceCertifyCallback(entity.data)
                 } else {
-                    if (StringUtil.getNotNullValue(entity.errorMsg).contains("人脸识别认证服务调用失败")) {
+                    ToastUtil.show(entity.errorMsg)
+                   /* if (StringUtil.getNotNullValue(entity.errorMsg).contains("人脸识别认证服务调用失败")) {
                         ToastUtil.show("请输入正确的身份证号")
                     } else {
                         ToastUtil.show(entity.errorMsg)
-                    }
+                    }*/
                 }
             }
         })

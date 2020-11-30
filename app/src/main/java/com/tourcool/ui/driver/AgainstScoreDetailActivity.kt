@@ -3,6 +3,7 @@ package com.tourcool.ui.driver
 import android.os.Bundle
 import com.frame.library.core.retrofit.BaseLoadingObserver
 import com.frame.library.core.util.ToastUtil
+import com.frame.library.core.widget.titlebar.TitleBarView
 import com.tourcool.core.base.BaseResult
 import com.tourcool.core.config.RequestConfig
 import com.tourcool.core.retrofit.repository.ApiRepository
@@ -26,7 +27,10 @@ class AgainstScoreDetailActivity : BaseTitleTransparentActivity() {
     override fun getContentLayout(): Int {
         return R.layout.activity_driving_against_score_total
     }
-
+    override fun setTitleBar(titleBar: TitleBarView?) {
+        super.setTitleBar(titleBar)
+        titleBar?.setTitleMainText("驾驶员累计计分")
+    }
     override fun loadData() {
         super.loadData()
         tvDriverLicense.text = driverLicense

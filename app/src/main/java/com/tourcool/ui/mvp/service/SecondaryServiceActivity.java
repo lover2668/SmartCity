@@ -21,7 +21,10 @@ import com.tourcool.core.util.TourCooUtil;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.base.BaseCommonTitleActivity;
 import com.tourcool.ui.calender.YellowCalenderDetailActivity;
+import com.tourcool.ui.certify.SelectCertifyActivity;
 import com.tourcool.ui.constellation.ConstellationListActivity;
+import com.tourcool.ui.driver.AgainstScoreQueryActivity;
+import com.tourcool.ui.driver.DriverIllegalQueryActivity;
 import com.tourcool.ui.express.ExpressQueryActivity;
 import com.tourcool.ui.garbage.GarbageQueryActivity;
 import com.tourcool.ui.kitchen.VideoListActivity;
@@ -35,7 +38,10 @@ import com.tourcool.widget.webview.WebViewConstant;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_CERTIFY_NAME;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_CONSTELLATION;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_DRIVER_AGAINST;
+import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_DRIVER_SCORE;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_EXPRESS;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_GARBAGE;
 import static com.tourcool.core.constant.ItemConstant.ITEM_TYPE_KITCHEN;
@@ -214,7 +220,7 @@ public class SecondaryServiceActivity extends BaseCommonTitleActivity {
                 break;
             case CLICK_TYPE_NATIVE:
                 //展示原生
-                skipByCondition(matrixBean.getMatrixTitle(), matrixBean.getLink());
+                skipNativeByCondition(matrixBean.getMatrixTitle(), matrixBean.getLink());
                 break;
             case CLICK_TYPE_LINK_INNER:
                 //展示外链
@@ -249,7 +255,7 @@ public class SecondaryServiceActivity extends BaseCommonTitleActivity {
         startActivity(intent);
     }
 
-    private void skipByCondition(String title, String link) {
+   /* private void skipByCondition(String title, String link) {
         switch (StringUtil.getNotNullValue(title)) {
             case ITEM_TYPE_SOCIAL_BASE_INFO:
                 skipSocialBase();
@@ -282,7 +288,7 @@ public class SecondaryServiceActivity extends BaseCommonTitleActivity {
                 skipWebView(link,title);
                 break;
         }
-    }
+    }*/
 
     /**
      * 星座
@@ -322,5 +328,69 @@ public class SecondaryServiceActivity extends BaseCommonTitleActivity {
         startActivity(intent);
     }
 
+    private void skipNativeByCondition(String title, String link) {
+        switch (StringUtil.getNotNullValue(title)) {
+            case ITEM_TYPE_SOCIAL_BASE_INFO:
+                skipSocialBase();
+                break;
+            case ITEM_TYPE_SOCIAL_QUERY_GS:
+            case ITEM_TYPE_SOCIAL_QUERY_TAKE_CARE_OLDER:
+            case ITEM_TYPE_SOCIAL_QUERY_LOSE_WORK:
+            case ITEM_TYPE_SOCIAL_QUERY_BIRTH:
+                skipSocialListDetail(title);
+                break;
+            case ITEM_TYPE_KITCHEN:
+                skipBrightKitchen();
+                break;
+            case ITEM_TYPE_PARKING:
+                skipParking();
+                break;
+            case ITEM_TYPE_CONSTELLATION:
+                skipConstellation();
+                break;
+            case ITEM_TYPE_EXPRESS:
+                skipExpress();
+                break;
+            case ITEM_TYPE_GARBAGE:
+                skipGarbage();
+                break;
+            case ITEM_TYPE_YELLOW_CALENDER:
+                skipYellowCalender();
+                break;
+            case ITEM_TYPE_CERTIFY_NAME:
+                skipCertify();
+                break;
+            case ITEM_TYPE_DRIVER_AGAINST:
+                skipDriverAgainst();
+                break;
+            case ITEM_TYPE_DRIVER_SCORE:
+                skipDriverScore();
+                break;
+            default:
+                skipWebView(link, title);
+                break;
+        }
+    }
 
+    private void skipCertify() {
+        if (!AccountHelper.getInstance().isLogin()) {
+            skipLogin();
+        } else {
+            Intent intent = new Intent();
+            intent.setClass(mContext, SelectCertifyActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    private void skipDriverAgainst() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, DriverIllegalQueryActivity.class);
+        startActivity(intent);
+    }
+
+    private void skipDriverScore() {
+        Intent intent = new Intent();
+        intent.setClass(mContext, AgainstScoreQueryActivity.class);
+        startActivity(intent);
+    }
 }

@@ -96,14 +96,14 @@ class DriverIllegalQueryActivity : BaseCommonTitleActivity() {
 
     private fun initCarTypeSelect() {
         // 不联动的多级选项
-        carTypeList.add(CarType("02", "小型汽车"))
-        carTypeList.add(CarType("01", "大型汽车"))
+        carTypeList.add(CarType("02", "小型燃油车"))
+        carTypeList.add(CarType("01", "大型燃油车"))
         carTypeList.add(CarType("52", "新能源小型车"))
         carTypeList.add(CarType("51", "新能源大型车"))
         pvCarTypeOptions = OptionsPickerBuilder(this) { options1, options2, options3, v ->
             selectCarType = carTypeList[options1]
             showCarType(selectCarType)
-        }.setContentTextSize(18).setCyclic(true, false, false).setItemVisibleCount(5).build()
+        }.setContentTextSize(22).setCyclic(false, false, false).setItemVisibleCount(5).build()
 
         pvCarTypeOptions!!.setNPicker(carTypeList, null, null)
         pvCarTypeOptions!!.setSelectOptions(0)

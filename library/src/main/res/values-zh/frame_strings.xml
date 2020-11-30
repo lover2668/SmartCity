@@ -14,7 +14,7 @@
     <string name="fast_exception_accounts">登录失效,请重新登录</string>
     <string name="fast_exception_connect">连接异常</string>
     <string name="fast_exception_socket">Socket连接超时</string>
-    <string name="fast_exception_http">服务器连接异常</string>
+    <string name="fast_exception_http">服务器开了点小差</string>
     <string name="fast_exception_unknown_host">无法解析主机(DNS错误)</string>
     <string name="fast_exception_json_syntax">Json数据格式化错误</string>
     <string name="fast_exception_time_out">访问超时</string>

@@ -8,6 +8,7 @@ import android.view.View
 import com.bryant.editlibrary.BSearchEdit
 import com.frame.library.core.retrofit.BaseLoadingObserver
 import com.frame.library.core.util.SizeUtil
+import com.frame.library.core.util.StringUtil
 import com.frame.library.core.util.ToastUtil
 import com.frame.library.core.widget.titlebar.TitleBarView
 import com.tourcool.bean.express.ExpressCompany
@@ -123,6 +124,10 @@ class ExpressQueryActivity : BaseCommonTitleActivity(), View.OnClickListener {
         }
         if (TextUtils.isEmpty(etPhone.text.toString())) {
             ToastUtil.show("请输入收货人手机号")
+            return
+        }
+        if (!StringUtil.isPhoneNumber(etPhone.text.toString())) {
+            ToastUtil.show("请输入正确的手机号")
             return
         }
         if (currentSelectPosition < 0 || currentSelectPosition >= expressList.size) {

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import com.frame.library.core.util.ToastUtil
+import com.frame.library.core.widget.titlebar.TitleBarView
 import com.tourcool.smartcity.R
 import com.tourcool.ui.base.BaseCommonTitleActivity
 import kotlinx.android.synthetic.main.activity_driving_against_score_result.*
@@ -20,10 +21,15 @@ class AgainstScoreQueryActivity : BaseCommonTitleActivity() {
         return R.layout.activity_driving_against_score_result
     }
 
+
     override fun initView(savedInstanceState: Bundle?) {
         tvQuery.setOnClickListener {
             doSkip()
         }
+    }
+    override fun setTitleBar(titleBar: TitleBarView?) {
+        super.setTitleBar(titleBar)
+        titleBar?.setTitleMainText("驾驶员累计计分查询")
     }
 
     companion object {

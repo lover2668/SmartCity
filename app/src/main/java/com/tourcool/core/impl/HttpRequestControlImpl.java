@@ -41,7 +41,7 @@ import retrofit2.HttpException;
 public class HttpRequestControlImpl implements HttpRequestControl {
     private static final int REFRESH_DELAY = 50;
     private static String TAG = "HttpRequestControlImpl";
-    public static final String TOKEN_FAILED = "401";
+    public static final String TOKEN_FAILED = "invalid_token";
 
     @Override
     public void httpRequestSuccess(IHttpRequestControl httpRequestControl, List<?> list, OnHttpRequestListener listener) {
@@ -134,7 +134,7 @@ public class HttpRequestControlImpl implements HttpRequestControl {
         }
         if (httpRequestControl == null || httpRequestControl.getStatusLayoutManager() == null) {
             if (TourCooUtil.getNotNullValue(e.getMessage()).contains(TOKEN_FAILED)) {
-//                ToastUtil.show("登录过期");
+                ToastUtil.show("登录过期");
             } else {
                 ToastUtil.show(reason);
             }
