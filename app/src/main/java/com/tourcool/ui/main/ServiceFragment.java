@@ -37,6 +37,7 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tourcool.bean.ElemeGroupedItem;
 import com.tourcool.bean.account.AccountHelper;
+import com.tourcool.bean.account.UserInfo;
 import com.tourcool.bean.screen.Channel;
 import com.tourcool.bean.screen.ChildNode;
 import com.tourcool.bean.screen.ColumnItem;
@@ -44,6 +45,7 @@ import com.tourcool.bean.screen.ScreenPart;
 import com.tourcool.core.base.BaseResult;
 import com.tourcool.core.retrofit.repository.ApiRepository;
 import com.tourcool.core.util.TourCooUtil;
+import com.tourcool.event.account.UserInfoEvent;
 import com.tourcool.event.service.ServiceEvent;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.calender.YellowCalenderDetailActivity;
@@ -725,5 +727,53 @@ public class ServiceFragment extends BaseTitleFragment implements OnRefreshListe
         Intent intent = new Intent();
         intent.setClass(mContext, AgainstScoreQueryActivity.class);
         startActivity(intent);
+    }
+
+
+    /**
+     * 收到用户信息消息
+     *
+     * @param userInfoEvent
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUserInfoRefreshEvent(UserInfoEvent userInfoEvent) {
+        if (userInfoEvent == null) {
+            return;
+        }
+        TourCooLogUtil.i(TAG, "刷新用户信息");
+        if (AccountHelper.getInstance().isLogin()) {
+            refreshUserInfo();
+        }
+
+    }
+
+
+    /**
+     * 刷新用户信息
+     */
+    private void refreshUserInfo() {
+        ApiRepository.getInstance().requestUserInfo().compose(bindUntilEvent(FragmentEvent.DESTROY)).
+                subscribe(new BaseLoadingObserver<BaseResult>() {
+                    @Override
+                    public void onRequestNext(BaseResult entity) {
+                        if (entity == null) {
+                            return;
+                        }
+                        if (entity.status == CODE_REQUEST_SUCCESS) {
+                            UserInfo userInfo = parseJavaBean(entity.data, UserInfo.class);
+                            if (userInfo == null) {
+                                return;
+                            }
+                            AccountHelper.getInstance().saveUserInfoToDisk(userInfo);
+                        }
+                    }
+
+                    @Override
+                    public void onRequestError(Throwable e) {
+
+                        TourCooLogUtil.e(TAG, e.toString());
+
+                    }
+                });
     }
 }
