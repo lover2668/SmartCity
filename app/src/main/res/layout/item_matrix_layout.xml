@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/llMatrix"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:maxHeight="@dimen/dp_300"
 
     >
 
     <LinearLayout
+        android:id="@+id/llMatrix"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingBottom="@dimen/dp_18"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_marginTop="@dimen/dp_8"
-        android:layout_marginBottom="@dimen/dp_18"
         android:orientation="vertical">
 
         <ImageView
@@ -34,7 +33,6 @@
             android:gravity="center"
             android:maxLines="3"
             android:text="巴士管家"
-
             android:textColor="#555555"
             android:textSize="@dimen/sp_12" />
     </LinearLayout>

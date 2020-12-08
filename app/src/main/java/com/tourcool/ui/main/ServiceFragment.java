@@ -285,14 +285,7 @@ public class ServiceFragment extends BaseTitleFragment implements OnRefreshListe
                 TourCooLogUtil.e(TAG, "onBindViewHolder---->item.info = null");
                 return;
             }
-            RelativeLayout llMatrix = holder.getView(R.id.llMatrix);
-            llMatrix.post(new Runnable() {
-                @Override
-                public void run() {
-                    TourCooLogUtil.i(TAG, "llMatrix宽高：---->"+llMatrix.getHeight()+"---"+llMatrix.getWidth());
-                }
-            });
-            llMatrix.setOnClickListener(new View.OnClickListener() {
+            holder.getView(R.id.llMatrix).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     handleClickEvent(item.info);
