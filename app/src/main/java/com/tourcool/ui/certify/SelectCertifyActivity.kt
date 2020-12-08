@@ -147,17 +147,17 @@ class SelectCertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
 
     private fun loadCertifyType(list: List<Authenticate>, callbackType: Int) {
         val typeList: MutableList<CertifyType> = ArrayList()
-        val certifyTypeAli = CertifyType("支付宝账号认证", R.mipmap.ic_certify_ali)
+//        val certifyTypeAli = CertifyType("支付宝账号认证", R.mipmap.ic_certify_ali)
         val certifyTypeIdCard = CertifyType("身份证实名认证", R.mipmap.ic_certify_id_card)
         val certifyTypeFace = CertifyType("支付宝人脸识别", R.mipmap.ic_certify_face)
         for (authenticate in list) {
             when (authenticate.type) {
                 2 -> {
-                    //支付宝认证
+                  /*  //支付宝认证
                     certifyTypeAli.isCertified = authenticate.isAuthenticated
                     if (callbackType == 2) {
                         certifyTypeAli.isCertified = true
-                    }
+                    }*/
                 }
                 3 -> {
                     //身份证认证
@@ -175,7 +175,7 @@ class SelectCertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
                 }
             }
         }
-        typeList.add(certifyTypeAli)
+//        typeList.add(certifyTypeAli)
         typeList.add(certifyTypeIdCard)
         typeList.add(certifyTypeFace)
         adapter!!.setNewData(typeList)

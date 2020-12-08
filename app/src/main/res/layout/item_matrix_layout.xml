@@ -1,31 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llMatrix"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/llMatrix"
-    android:paddingTop="@dimen/dp_8"
-    android:background="@color/whiteCommon"
-    android:paddingBottom="@dimen/dp_18"
-    android:orientation="vertical">
+    android:background="@color/white"
+    android:maxHeight="@dimen/dp_300"
 
-    <ImageView
-        android:id="@+id/ivMatrixIcon"
-        android:layout_width="@dimen/dp_46"
-        android:layout_height="@dimen/dp_46"
-        android:layout_gravity="center_horizontal"
-        android:src="@mipmap/ic_weather_unknown" />
+    >
 
-    <TextView
-        android:id="@+id/tvMatrixIconName"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="@dimen/dp_10"
-        android:layout_marginEnd="@dimen/dp_10"
+        android:layout_centerVertical="true"
         android:layout_marginTop="@dimen/dp_8"
-        android:gravity="center"
-        android:text="巴士管家"
-        android:textColor="#555555"
-        android:textSize="@dimen/sp_12" />
+        android:layout_marginBottom="@dimen/dp_18"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/ivMatrixIcon"
+            android:layout_width="@dimen/dp_46"
+            android:layout_height="@dimen/dp_46"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/ic_weather_unknown" />
+
+        <TextView
+            android:id="@+id/tvMatrixIconName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:gravity="center"
+            android:maxLines="3"
+            android:text="巴士管家"
+
+            android:textColor="#555555"
+            android:textSize="@dimen/sp_12" />
+    </LinearLayout>
+
+
+</RelativeLayout>

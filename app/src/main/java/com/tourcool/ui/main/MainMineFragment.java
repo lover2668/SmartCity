@@ -67,7 +67,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
     private LinearLayout llUnlogin;
     private TextView tvNickName;
     private TextView tvPhone;
-    public static final String MINE_ITEM_NAME_POINT = "我的积分";
+//    public static final String MINE_ITEM_NAME_POINT = "我的积分";
     public static final String MINE_ITEM_NAME_CARD = "我的卡";
     public static final String MINE_ITEM_NAME_SOCIAL_SECURITY = "我的社保";
     public static final String MINE_ITEM_NAME_ACCUMULATION_FUND = "我的公积金";
@@ -132,10 +132,10 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
 
     private List<MatrixBean> getMatrixList() {
         List<MatrixBean> matrixBeanList = new ArrayList<>();
-        MatrixBean matrixBean = new MatrixBean("", MINE_ITEM_NAME_POINT);
+      /*  MatrixBean matrixBean = new MatrixBean("", MINE_ITEM_NAME_POINT);
         matrixBean.setMatrixIconResourcesId(R.mipmap.ic_mine_point);
         matrixBeanList.add(matrixBean);
-        matrixBeanList.add(new MatrixBean("", "", MineMenuAdapter.TYPE_LINE));
+        matrixBeanList.add(new MatrixBean("", "", MineMenuAdapter.TYPE_LINE));*/
         MatrixBean matrixBean1 = new MatrixBean("", MINE_ITEM_NAME_CARD);
         matrixBean1.setMatrixIconResourcesId(R.mipmap.ic_mine_bank_card);
         matrixBeanList.add(matrixBean1);

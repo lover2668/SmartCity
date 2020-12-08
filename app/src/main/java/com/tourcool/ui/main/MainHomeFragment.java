@@ -485,9 +485,11 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
                 case SUB_CHANNEL:
                     matrixBean = convertMatrix(parseJavaBean(childNode.getDetail(), Channel.class));
                     if (screenPart.getDetail() != null && matrixBean != null) {
+                        matrixBean.setType(SUB_CHANNEL);
                         matrixBean.setParentsName(screenPart.getDetail().getName());
-                        TourCooLogUtil.e(TAG, "screenPart.getDetail().getName()=" + screenPart.getDetail().getName());
+                        TourCooLogUtil.d(TAG, "screenPart.getDetail().getName()=" + screenPart.getDetail().getName());
                     }
+
                     if (matrixBean == null) {
                         TourCooLogUtil.e(TAG, "matrixBean==null!");
                         return null;
@@ -520,7 +522,6 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
         matrixBean.setMatrixIconUrl(TourCooUtil.getUrl(columnItem.getIcon()));
         matrixBean.setLink(StringUtil.getNotNullValue(columnItem.getLink()));
         matrixBean.setJumpWay(columnItem.getJumpWay());
-        matrixBean.setType(SUB_COLUMN);
         //这里修复了bug
         matrixBean.setColumnName(screenPart.getDetail().getName());
         matrixBean.setParentsName(columnItem.getName());
@@ -531,6 +532,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
         } else {
             matrixBean.setMatrixIconUrl(TourCooUtil.getUrl(columnItem.getCircleIcon()));
         }
+        matrixBean.setType(SUB_COLUMN);
         matrixBean.setLink(TourCooUtil.getUrl(columnItem.getLink()));
         matrixBean.setId(columnItem.getId());
         return matrixBean;
@@ -701,6 +703,9 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
 //                intent.putExtra("secondService", item.getChildren());
                     startActivity(intent);
                     break;
+                case SUB_CHANNEL:
+                    skipByMatrix(matrixBean);
+                    break;
                 default:
                     WebViewActivity.start(mContext, TourCooUtil.getUrl(matrixBean.getLink()), true);
                     break;
@@ -819,6 +824,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
         matrixBean.setJumpWay(channel.getJumpWay());
         matrixBean.setType(channel.getType());
         matrixBean.setContent(channel.getContent());
+        matrixBean.setRichText(channel.getContent());
         return matrixBean;
     }
 
@@ -1126,6 +1132,32 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
                 skipWebViewRich(channel.getContent(), channel.getTitle());
                 break;
 
+            case CLICK_TYPE_WAITING:
+                //待开发
+                ToastUtil.show(TIP_WAIT_DEV);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void skipByMatrix(MatrixBean matrixBean) {
+        switch (matrixBean.getJumpWay()) {
+            case CLICK_TYPE_LINK_OUTER:
+                //展示外链
+                skipWebView(StringUtil.getNotNullValue(matrixBean.getLink()), matrixBean.getMatrixTitle());
+                break;
+            case CLICK_TYPE_NONE:
+//                        ToastUtil.show("什么也不做");
+                break;
+            case CLICK_TYPE_NATIVE:
+                //展示原生
+                skipNativeByCondition(matrixBean.getMatrixTitle(), matrixBean.getLink());
+                break;
+            case CLICK_TYPE_LINK_INNER:
+                //展示富文本
+                skipWebViewRich(matrixBean.getRichText(), matrixBean.getMatrixTitle());
+                break;
             case CLICK_TYPE_WAITING:
                 //待开发
                 ToastUtil.show(TIP_WAIT_DEV);

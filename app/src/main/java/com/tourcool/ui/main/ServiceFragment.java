@@ -282,17 +282,24 @@ public class ServiceFragment extends BaseTitleFragment implements OnRefreshListe
                 //TODO
             });*/
             if (item.info == null) {
-                  TourCooLogUtil.e(TAG,"onBindViewHolder---->item.info = null");
+                TourCooLogUtil.e(TAG, "onBindViewHolder---->item.info = null");
                 return;
             }
-            holder.getView(R.id.llMatrix).setOnClickListener(new View.OnClickListener() {
+            RelativeLayout llMatrix = holder.getView(R.id.llMatrix);
+            llMatrix.post(new Runnable() {
+                @Override
+                public void run() {
+                    TourCooLogUtil.i(TAG, "llMatrix宽高：---->"+llMatrix.getHeight()+"---"+llMatrix.getWidth());
+                }
+            });
+            llMatrix.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     handleClickEvent(item.info);
                 }
             });
             tvMatrixIconName.setText(item.info.getTitle());
-            GlideManager.loadCircleImg(TourCooUtil.getUrl(item.info.getImgUrl()), imageView,R.mipmap.ic_splash_logo);
+            GlideManager.loadCircleImg(TourCooUtil.getUrl(item.info.getImgUrl()), imageView, R.mipmap.ic_splash_logo);
         }
 
         @Override
@@ -387,10 +394,10 @@ public class ServiceFragment extends BaseTitleFragment implements OnRefreshListe
                         break;
                     }
                     item = new ElemeGroupedItem(false, null);
-                    item.info = new ElemeGroupedItem.ItemInfo(channel.getTitle(), screenPart.getColumnName(), channel.getDescription(),channel.getContent());
+                    item.info = new ElemeGroupedItem.ItemInfo(channel.getTitle(), screenPart.getColumnName(), channel.getDescription(), channel.getContent());
                     item.info.setType(SUB_CHANNEL);
                     item.info.setRichContent(channel.getContent());
-                    TourCooLogUtil.i("富文本--->"+channel.getContent());
+                    TourCooLogUtil.i("富文本--->" + channel.getContent());
                     item.info.setJumpWay(channel.getJumpWay());
                     if (TextUtils.isEmpty(channel.getCircleIcon())) {
                         item.info.setImgUrl(TourCooUtil.getUrl(channel.getIcon()));
@@ -406,7 +413,7 @@ public class ServiceFragment extends BaseTitleFragment implements OnRefreshListe
                         break;
                     }
                     item = new ElemeGroupedItem(false, null);
-                    item.info = new ElemeGroupedItem.ItemInfo(columnItem.getName(), screenPart.getColumnName(), columnItem.getName(),columnItem.getLink());
+                    item.info = new ElemeGroupedItem.ItemInfo(columnItem.getName(), screenPart.getColumnName(), columnItem.getName(), columnItem.getLink());
                     item.info.setType(SUB_COLUMN);
                     item.info.setColumnName(screenPart.getColumnName());
                     item.info.setChildren(childNode.getChildren());
@@ -445,7 +452,7 @@ public class ServiceFragment extends BaseTitleFragment implements OnRefreshListe
         }
         switch (item.getType()) {
             case SUB_CHANNEL:
-                skipByJumpWay(item.getJumpWay(),item.getTitle(),item.getLink(),item.getRichContent());
+                skipByJumpWay(item.getJumpWay(), item.getTitle(), item.getLink(), item.getRichContent());
                 break;
             case SUB_COLUMN:
                 TourCooLogUtil.i("点击了栏目", item.getChildren());
@@ -458,7 +465,7 @@ public class ServiceFragment extends BaseTitleFragment implements OnRefreshListe
                 intent.putExtra("columnName", item.getColumnName());
                 intent.putExtra("groupName", item.getParentsName());
                 intent.putExtra("channelList", (Serializable) channelList);
-                TourCooLogUtil.i("channelList=",  channelList.size());
+                TourCooLogUtil.i("channelList=", channelList.size());
 //                intent.putExtra("secondService", item.getChildren());
                 startActivity(intent);
                 break;
@@ -515,7 +522,7 @@ public class ServiceFragment extends BaseTitleFragment implements OnRefreshListe
             jsonObject = (JSONObject) jsonArray.get(i);
             JSONObject detail = (JSONObject) jsonObject.get("detail");
             if (detail == null) {
-                  TourCooLogUtil.e(TAG,"detail == null");
+                TourCooLogUtil.e(TAG, "detail == null");
                 continue;
             }
             Channel channel = JSON.parseObject(detail.toJSONString(), Channel.class);
@@ -535,7 +542,7 @@ public class ServiceFragment extends BaseTitleFragment implements OnRefreshListe
 
 
     private void skipSocialBase() {
-        if(!AccountHelper.getInstance().isLogin()){
+        if (!AccountHelper.getInstance().isLogin()) {
             skipLogin();
             return;
         }
@@ -549,7 +556,7 @@ public class ServiceFragment extends BaseTitleFragment implements OnRefreshListe
     }
 
     private void skipSocialListDetail(String type) {
-        if(!AccountHelper.getInstance().isLogin()){
+        if (!AccountHelper.getInstance().isLogin()) {
             skipLogin();
             return;
         }
@@ -562,6 +569,7 @@ public class ServiceFragment extends BaseTitleFragment implements OnRefreshListe
         intent.putExtra(EXTRA_SOCIAL_TYPE, type);
         startActivity(intent);
     }
+
     private void skipParking() {
         if (!AccountHelper.getInstance().isLogin()) {
             skipLogin();
@@ -660,7 +668,7 @@ public class ServiceFragment extends BaseTitleFragment implements OnRefreshListe
         startActivity(intent);
     }
 
-    private void skipWebView(String link,String title) {
+    private void skipWebView(String link, String title) {
         Intent intent = new Intent();
         intent.putExtra(EXTRA_WEB_VIEW_URL, link);
         intent.putExtra(EXTRA_RICH_TEXT_ENABLE, false);
@@ -669,7 +677,7 @@ public class ServiceFragment extends BaseTitleFragment implements OnRefreshListe
         startActivity(intent);
     }
 
-    private void skipWebViewRich(String richContent,String title) {
+    private void skipWebViewRich(String richContent, String title) {
         Intent intent = new Intent();
         intent.putExtra(EXTRA_RICH_TEXT_ENABLE, true);
         intent.putExtra(EXTRA_WEB_VIEW_URL, "");
@@ -680,11 +688,11 @@ public class ServiceFragment extends BaseTitleFragment implements OnRefreshListe
     }
 
 
-    private void skipByJumpWay(int  jumpWay,String title,String link,String richText) {
+    private void skipByJumpWay(int jumpWay, String title, String link, String richText) {
         switch (jumpWay) {
             case CLICK_TYPE_LINK_OUTER:
                 //展示外链
-                skipWebView(StringUtil.getNotNullValue(link),title);
+                skipWebView(StringUtil.getNotNullValue(link), title);
                 break;
             case CLICK_TYPE_NONE:
 //                        ToastUtil.show("什么也不做");
@@ -695,7 +703,7 @@ public class ServiceFragment extends BaseTitleFragment implements OnRefreshListe
                 break;
             case CLICK_TYPE_LINK_INNER:
                 //展示外链
-                skipWebViewRich(richText,title);
+                skipWebViewRich(richText, title);
                 break;
 
             case CLICK_TYPE_WAITING:

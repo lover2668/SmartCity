@@ -29,6 +29,7 @@
             android:layout_marginEnd="@dimen/dp_10"
             android:layout_toStartOf="@id/ivChildItemIcon"
             android:text="旅游资源"
+            android:maxLines="1"
             android:textColor="@color/black333333"
             android:textSize="@dimen/sp_14" />
 
@@ -41,6 +42,7 @@
             android:layout_marginEnd="@dimen/dp_10"
             android:layout_toStartOf="@id/ivChildItemIcon"
             android:text="最全面的旅游资源"
+            android:maxLines="1"
             android:textColor="@color/grayA2A2A2"
             android:textSize="@dimen/sp_12" />
     </RelativeLayout>

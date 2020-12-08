@@ -18,8 +18,8 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import com.tourcool.adapter.kitchen.KitchenVideoAdapter
-import com.tourcool.bean.kitchen.KitchenLiveInfo
 import com.tourcool.bean.kitchen.KitchenGroup
+import com.tourcool.bean.kitchen.KitchenLiveInfo
 import com.tourcool.core.base.BaseResult
 import com.tourcool.core.config.RequestConfig
 import com.tourcool.core.retrofit.repository.ApiRepository
@@ -29,8 +29,6 @@ import com.tourcool.ui.kitchen.DeviceListActivity.Companion.EXTRA_GROUP_NAME
 import com.tourcool.ui.kitchen.DeviceListActivity.Companion.STRING_TITLE_ALL
 import com.trello.rxlifecycle3.android.ActivityEvent
 import kotlinx.android.synthetic.main.activity_bright_kitchen_video_list.*
-import kotlinx.android.synthetic.main.activity_bright_kitchen_video_list.mSmartRefresh
-import kotlinx.android.synthetic.main.activity_bright_kitchen_video_list.rvCommon
 import me.bakumon.statuslayoutmanager.library.OnStatusChildClickListener
 import me.bakumon.statuslayoutmanager.library.StatusLayoutManager
 
@@ -111,8 +109,8 @@ class VideoListActivity : BaseCommonTitleActivity(), OnRefreshListener {
         if (!NetworkUtil.isConnected(mContext)) {
             mStatusManager!!.showLoadingLayout()
             baseHandler.postDelayed({
-                mStatusManager!!.showCustomLayout(R.layout.common_status_layout_no_network,R.id.llNoNetwok)
-            },300)
+                mStatusManager!!.showCustomLayout(R.layout.common_status_layout_no_network, R.id.llNoNetwok)
+            }, 300)
             return
         }
         ApiRepository.getInstance().requestKitchenList().compose(bindUntilEvent(ActivityEvent.DESTROY)).subscribe(object : BaseLoadingObserver<BaseResult<MutableList<KitchenGroup>>>() {
@@ -153,13 +151,13 @@ class VideoListActivity : BaseCommonTitleActivity(), OnRefreshListener {
         tempList.clear()
         tempList.addAll(videoList!!)
         setLayoutStatus(videoList)
-        if(groupName.isNullOrEmpty() ||  groupName == STRING_TITLE_ALL){
+        if (groupName.isNullOrEmpty() || groupName == STRING_TITLE_ALL) {
             //就不过滤数据了 直接显示全部
-            LogUtils.i("VideoListActivity","不过滤了")
-        }else{
+            LogUtils.i("VideoListActivity", "不过滤了")
+        } else {
             val id = findCurrentVideoGroupId(videoList, groupName)
-            LogUtils.i("VideoListActivity","---------->"+id)
-            videoList = getFilterVideoList(videoList!!,id)
+            LogUtils.i("VideoListActivity", "---------->" + id)
+            videoList = getFilterVideoList(videoList!!, id)
         }
         adapter!!.setNewData(videoList)
         scrollToFirstItem()
@@ -285,12 +283,14 @@ class VideoListActivity : BaseCommonTitleActivity(), OnRefreshListener {
     }
 
     private fun findCurrentVideoGroupId(list: MutableList<KitchenLiveInfo>?, groupName: String?): String {
-        if (groupName == null || groupName == STRING_TITLE_ALL) {
+        if (groupName == null) {
+            return "-1"
+        }
+        if (groupName == STRING_TITLE_ALL) {
             return ""
         }
-        TourCooLogUtil.i("VideoListActivity", "找到的id--->" + groupName)
-        if (list == null || groupName == STRING_TITLE_ALL) {
-            return ""
+        if (list == null) {
+            return "-1"
         } else {
             for (group in list) {
                 if (group.groupName == (groupName)) {
@@ -298,26 +298,26 @@ class VideoListActivity : BaseCommonTitleActivity(), OnRefreshListener {
                 }
             }
         }
-        return ""
+        return "-1"
     }
 
 
-   private fun getFilterVideoList(list: MutableList<KitchenLiveInfo> ?,groupId : String): ArrayList<KitchenLiveInfo> {
-       val filterList  = ArrayList<KitchenLiveInfo>()
-       if(list == null){
-           return filterList
-       }
-       for (kitchenLiveInfo in list) {
-           if(groupId.isNullOrEmpty()){
-               filterList.addAll(tempList)
-               return filterList
-           }
-           if(groupId ==kitchenLiveInfo.groupId ){
-               filterList.add(kitchenLiveInfo)
-           }
-       }
-       return filterList
-   }
+    private fun getFilterVideoList(list: MutableList<KitchenLiveInfo>?, groupId: String): ArrayList<KitchenLiveInfo> {
+        val filterList = ArrayList<KitchenLiveInfo>()
+        if (list == null) {
+            return filterList
+        }
+        for (kitchenLiveInfo in list) {
+            if (groupId.isNullOrEmpty()) {
+                filterList.addAll(tempList)
+                return filterList
+            }
+            if (groupId == kitchenLiveInfo.groupId) {
+                filterList.add(kitchenLiveInfo)
+            }
+        }
+        return filterList
+    }
 
 
     private fun assignmentVideoInfo(list: MutableList<KitchenGroup>?) {
@@ -382,8 +382,8 @@ class VideoListActivity : BaseCommonTitleActivity(), OnRefreshListener {
         mStatusManager!!.showLoadingLayout()
     }
 
-    private fun scrollToFirstItem(){
-        if(adapter!!.data.isNotEmpty()){
+    private fun scrollToFirstItem() {
+        if (adapter!!.data.isNotEmpty()) {
             rvCommon.scrollToPosition(0)
         }
     }

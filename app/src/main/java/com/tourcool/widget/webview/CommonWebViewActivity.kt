@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_service_webview.*
  * @Email: 971613168@qq.com
  */
 class CommonWebViewActivity : BaseX5WebViewActivity() {
-    private var url = ""
+    private var url: String? = null
     private var isRichText = false
     private var mTitle = ""
     private var webHandler = Handler()
@@ -46,7 +46,7 @@ class CommonWebViewActivity : BaseX5WebViewActivity() {
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        url = intent.getStringExtra(EXTRA_WEB_VIEW_URL)
+        url = intent?.getStringExtra(EXTRA_WEB_VIEW_URL)
         isRichText = intent.getBooleanExtra(EXTRA_RICH_TEXT_ENABLE, false)
         try {
             mTitle = intent.getStringExtra(EXTRA_WEB_VIEW_TITLE)
@@ -63,7 +63,7 @@ class CommonWebViewActivity : BaseX5WebViewActivity() {
         if (isRichText) {
             loadHtml(StringUtil.getNotNullValue(WebViewConstant.richText))
         } else {
-            loadUrl(url)
+            loadUrl(StringUtil.getNotNullValue(url))
         }
 
     }
@@ -80,7 +80,6 @@ class CommonWebViewActivity : BaseX5WebViewActivity() {
         }
         return super.onKeyDown(keyCode, event)
     }
-
 
 
     private fun initBar() {

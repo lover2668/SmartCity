@@ -39,10 +39,12 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:gravity="right"
-                android:inputType="textUri|textMultiLine"
+                android:inputType="textEmailAddress"
+                android:digits="@string/only_can_input"
                 android:maxLength="35"
                 android:hint="请输入快递单号"
                 android:padding="@dimen/dp_5"
+
                 android:textColorHint="@color/grayA2A2A2"
                 android:textSize="@dimen/sp_14" />
         </LinearLayout>

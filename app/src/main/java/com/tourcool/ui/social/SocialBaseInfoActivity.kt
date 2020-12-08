@@ -61,7 +61,7 @@ class SocialBaseInfoActivity : BaseCommonTitleActivity() {
     }
 
     private fun showSocialBaseInfo(info: SocialBaseInfo) {
-        tvAccount.text =StringUtil.getNotNullValueLine(info.idNo)
+        tvAccount.text =StringUtil.getNotNullValueLine(info.sbzh)
         tvCbDw.text = StringUtil.getNotNullValueLine(info.company)
         tvRecentPayMonth.text = StringUtil.getNotNullValueLine(info.jfny)
         showMoney(tvInsuranceMedical,info.ylbxye)

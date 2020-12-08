@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_30"
+        android:visibility="gone"
         android:minWidth="@dimen/dp_90"
         android:minHeight="@dimen/dp_90" />
 
@@ -22,11 +23,18 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_18"
-        android:layout_marginBottom="@dimen/dp_38"
         android:text="-"
         android:textColor="@color/white"
-        android:textSize="@dimen/sp_14" />
-
+        android:textSize="@dimen/sp_24" />
+    <TextView
+        android:id="@+id/tvGarbageType"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_38"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -45,14 +53,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tvGarbageType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="-"
-                    android:textColor="#629BFF"
-                    android:textSize="@dimen/sp_16" />
+
 
                 <TextView
                     android:layout_marginTop="@dimen/dp_10"
