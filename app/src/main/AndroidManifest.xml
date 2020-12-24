@@ -175,6 +175,8 @@
         <activity android:name="com.tourcool.ui.driver.DriverAgainstDetailActivity" />
         <activity android:name="com.tourcool.ui.driver.AgainstScoreQueryActivity" />
         <activity android:name="com.tourcool.ui.driver.AgainstScoreDetailActivity" />
+        <activity android:name="com.tourcool.ui.citizen_card.CitizenCardTabActivity" />
+        <activity android:name="com.tourcool.ui.citizen_card.CitizenCardQrCodeActivity" />
 
         <meta-data
             android:name="BUGLY_APPID"

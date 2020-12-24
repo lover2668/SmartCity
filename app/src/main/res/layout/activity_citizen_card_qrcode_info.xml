@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/ic_bg_weather"
+    android:orientation="vertical">
+
+    <include layout="@layout/frame_layout_title_bar" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_25"
+                android:layout_marginEnd="@dimen/dp_25"
+                android:background="@mipmap/ic_bg_qr_code"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/Text13spBlack333333"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:layout_marginBottom="@dimen/dp_15"
+                    android:text="请将二维码对准摄像头" />
+
+                <include layout="@layout/line_horizontal_gray_eeeeee_0_5_dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_155"
+                        android:layout_height="@dimen/dp_155"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/dp_50"
+                        android:src="@mipmap/ic_no_network" />
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/tvLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:background="@drawable/selector_radius_25_blue_4287ff"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/dp_25"
+                    android:paddingTop="@dimen/dp_9"
+                    android:paddingEnd="@dimen/dp_25"
+                    android:paddingBottom="@dimen/dp_9"
+                    android:text="刷新二维码"
+                    android:textColor="@color/whiteCommon"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    style="@style/Text12spGrayA2A2A2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:layout_marginBottom="@dimen/dp_30"
+                    android:text="为了不影响您的使用，请确保市民卡余额大于XX元" />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_0_5"
+                    android:layout_marginStart="@dimen/dp_18"
+                    android:layout_marginEnd="@dimen/dp_18"
+                    android:background="@color/grayE0E0E0" />
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:maxWidth="@dimen/dp_46"
+                            android:maxHeight="@dimen/dp_46"
+                            android:src="@mipmap/ic_citizen_car_count" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:text="开通车次"
+                            android:textColor="#555555"
+                            android:textSize="@dimen/sp_12" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:maxWidth="@dimen/dp_46"
+                            android:maxHeight="@dimen/dp_46"
+                            android:src="@mipmap/ic_citizen_car_count" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:text="开通车次"
+                            android:textColor="#555555"
+                            android:textSize="@dimen/sp_12" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:maxWidth="@dimen/dp_46"
+                            android:maxHeight="@dimen/dp_46"
+                            android:src="@mipmap/ic_citizen_car_count" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:text="开通车次"
+                            android:textColor="#555555"
+                            android:textSize="@dimen/sp_12" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:maxWidth="@dimen/dp_46"
+                            android:maxHeight="@dimen/dp_46"
+                            android:src="@mipmap/ic_citizen_car_count" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:text="开通车次"
+                            android:textColor="#555555"
+                            android:textSize="@dimen/sp_12" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_25"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_25"
+                android:background="@drawable/bg_radius_10_white"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/dp_18"
+                android:paddingTop="@dimen/dp_12"
+                android:paddingEnd="@dimen/dp_18"
+                android:paddingBottom="@dimen/dp_12">
+
+                <TextView
+                    style="@style/Text13spBlack333333"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:text="当前余额" />
+
+                <TextView
+                    android:id="@+id/tvCurrentMoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20.00元"
+                    android:textStyle="bold"
+                    android:textColor="#5593FF" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

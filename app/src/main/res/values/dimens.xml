@@ -27,7 +27,7 @@
     <dimen name="king_keyboard_done_text_size">@dimen/sp_20</dimen>
 
     <dimen name="king_keyboard_label_text_size">@dimen/sp_16</dimen>
-    <dimen name="common_navigator_height">@dimen/dp_30</dimen>
+    <dimen name="common_navigator_height">@dimen/dp_36</dimen>
 
     <dimen name="star_margin_top">@dimen/dp_10</dimen>
     <dimen name="star_today_margin_top">@dimen/dp_12</dimen>

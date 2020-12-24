@@ -1,14 +1,10 @@
 package com.frame.library.core.util;
 
 import android.text.TextUtils;
-import android.util.Log;
-
-import com.blankj.utilcode.util.ScreenUtils;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
@@ -108,6 +104,13 @@ public class StringUtil {
     }
 
 
-
+    public static String formatDouble(double d) {
+        BigDecimal bg = new BigDecimal(d).setScale(2, RoundingMode.UP);
+        double num = bg.doubleValue();
+        if (Math.round(num) - num == 0) {
+            return String.valueOf((long) num);
+        }
+        return String.valueOf(num);
+    }
 
 }

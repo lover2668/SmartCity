@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -68,12 +70,12 @@ import com.tourcool.event.account.UserInfoEvent;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.calender.YellowCalenderDetailActivity;
 import com.tourcool.ui.certify.SelectCertifyActivity;
+import com.tourcool.ui.citizen_card.CitizenCardTabActivity;
 import com.tourcool.ui.constellation.ConstellationListActivity;
 import com.tourcool.ui.driver.AgainstScoreQueryActivity;
 import com.tourcool.ui.driver.DriverIllegalQueryActivity;
 import com.tourcool.ui.express.ExpressQueryActivity;
 import com.tourcool.ui.garbage.GarbageQueryActivity;
-import com.tourcool.ui.kitchen.VideoListActivity;
 import com.tourcool.ui.mvp.account.LoginActivity;
 import com.tourcool.ui.mvp.search.SearchActivity;
 import com.tourcool.ui.mvp.service.SecondaryServiceActivity;
@@ -158,6 +160,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
     private TextView tvDate;
     private ImageView ivWeather;
     private List<View> viewList = new ArrayList<>();
+    private  SparseArray<View> views = new SparseArray<>();
     /**
      * 搜索框高度
      */
@@ -961,8 +964,8 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
 
     private void skipBrightKitchen() {
         Intent intent = new Intent();
-//        intent.setClass(mContext, BrightKitchenVideoListActivity.class);
-        intent.setClass(mContext, VideoListActivity.class);
+        intent.setClass(mContext, CitizenCardTabActivity.class);
+//        intent.setClass(mContext, VideoListActivity.class);
         startActivity(intent);
     }
 
@@ -1243,5 +1246,16 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
         Intent intent = new Intent();
         intent.setClass(mContext, AgainstScoreQueryActivity.class);
         startActivity(intent);
+    }
+
+
+    @SuppressWarnings("unchecked")
+    private  <T extends View> T getView(@IdRes int viewId) {
+        View view = views.get(viewId);
+        if (view == null) {
+            view = mContentView.findViewById(viewId);
+            views.put(viewId, view);
+        }
+        return (T) view;
     }
 }

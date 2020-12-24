@@ -17,6 +17,7 @@ public class WeatherConstant {
 
     public static final String WEATHER_XIAO_YU = "小雨";
 
+    public static final String WEATHER_YU= "雨";
     public static final String WEATHER_RAIN_AND_SNOW = "雨夹雪";
 
     public static final String WEATHER_SMALL_SNOW = "小雪";

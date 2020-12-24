@@ -149,7 +149,6 @@ greendao {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':library')
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-1'
     //以下库里使用compileOnly只是编译,使用时需根据项目选择相应版本
     //万能适配器
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.49-androidx'
@@ -225,5 +224,7 @@ dependencies {
 
     //RXText
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.3'
 
 }

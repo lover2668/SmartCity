@@ -9,14 +9,14 @@ import java.util.List;
 
 
 /**
- * @description: 运势的adapter
+ * @description: fragment适配器
  */
 
-public class ConstellationPagerAdapter extends FragmentStatePagerAdapter {
+public class TabPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<Fragment> mFragments;
 
-    public ConstellationPagerAdapter(List<Fragment> fragmentList, FragmentManager fm) {
+    public TabPagerAdapter(List<Fragment> fragmentList, FragmentManager fm) {
         super(fm);
         mFragments = fragmentList != null ? fragmentList : new ArrayList<>();
     }

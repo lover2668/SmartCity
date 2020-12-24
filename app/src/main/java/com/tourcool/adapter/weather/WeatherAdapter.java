@@ -21,6 +21,7 @@ import static com.tourcool.core.constant.WeatherConstant.WEATHER_SMALL_SNOW;
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_TOP_RAIN;
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_XIAO_YU;
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_YIN;
+import static com.tourcool.core.constant.WeatherConstant.WEATHER_YU;
 
 /**
  * @author :JenkinsZhou
@@ -54,6 +55,7 @@ public class WeatherAdapter extends BaseQuickAdapter<SimpleWeather, BaseViewHold
                 GlideManager.loadImgCenterInside(R.mipmap.ic_weather_yin, ivWeather);
                 break;
             case WEATHER_XIAO_YU:
+            case WEATHER_YU:
                 GlideManager.loadImgCenterInside(R.mipmap.ic_weather_xiao_yu, ivWeather);
                 break;
             case WEATHER_RAIN_AND_SNOW:

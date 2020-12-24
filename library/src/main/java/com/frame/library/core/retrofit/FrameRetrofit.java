@@ -3,12 +3,13 @@ package com.frame.library.core.retrofit;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.blankj.utilcode.util.LogUtils;
+import androidx.annotation.Nullable;
+
 import com.frame.library.core.log.TourCooLogUtil;
 import com.frame.library.core.manager.LoggerManager;
 import com.frame.library.core.util.SsLUtil;
+import com.tourcool.library.frame.demo.BuildConfig;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,16 +18,12 @@ import java.util.concurrent.TimeUnit;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
 
-import androidx.annotation.Nullable;
-
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -416,7 +413,9 @@ public class FrameRetrofit {
                             TourCooLogUtil.json(finalTag, message);
                             return;
                         }
-                        Log.d(finalTag, message);
+                        if(BuildConfig.DEBUG){
+                            Log.d(finalTag, message);
+                        }
                     }
                 });
             }

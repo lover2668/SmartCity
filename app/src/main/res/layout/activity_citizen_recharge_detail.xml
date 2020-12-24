@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/grayF5F5F5"
+    android:layout_height="match_parent">
+    <include layout="@layout/frame_layout_title_bar" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tvConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/selector_blue_5593ff"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:minHeight="@dimen/dp_48"
+            android:text="退款"
+            android:textColor="@color/whiteCommon"
+            android:textSize="@dimen/sp_16" />
+
+        <androidx.core.widget.NestedScrollView
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:layout_above="@id/tvConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_15"
+                android:background="@drawable/bg_radius_10_white"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/dp_15"
+                android:paddingEnd="@dimen/dp_15">
+
+                <LinearLayout
+                    android:id="@+id/llEditPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/Text14spBlack333333"
+                        android:layout_gravity="center_vertical"
+                        android:text="手机号"
+                        android:textSize="@dimen/sp_14" />
+
+                    <EditText
+                        android:id="@+id/etPhoneNumber"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="right"
+                        android:hint="请输入手机号"
+                        android:inputType="phone"
+                        android:paddingTop="@dimen/dp_16"
+                        android:maxLength="11"
+                        android:paddingBottom="@dimen/dp_16"
+                        android:textSize="@dimen/sp_14" />
+                </LinearLayout>
+
+                <include layout="@layout/line_horizontal_gray_eeeeee_0_5_dp" />
+
+
+                <LinearLayout
+                    android:id="@+id/llClearCache"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        style="@style/Text14spBlack333333"
+                        android:layout_gravity="center_vertical"
+                        android:text="订单号"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/tvOrderNum"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="right"
+                        android:text="2187383487207973790"
+                        android:paddingTop="@dimen/dp_16"
+                        android:paddingBottom="@dimen/dp_16"
+                        android:textSize="@dimen/sp_14" />
+
+
+
+                </LinearLayout>
+
+                <include layout="@layout/line_horizontal_gray_eeeeee_0_5_dp" />
+
+                <LinearLayout
+                    android:id="@+id/llLoginPass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/Text14spBlack333333"
+                        android:layout_gravity="center_vertical"
+                        android:text="交易金额"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/tvOrderMoney"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="right"
+                        android:text="2.00元"
+                        android:paddingTop="@dimen/dp_16"
+                        android:paddingBottom="@dimen/dp_16"
+                        android:textSize="@dimen/sp_14" />
+                </LinearLayout>
+
+                <include layout="@layout/line_horizontal_gray_eeeeee_0_5_dp" />
+
+                <LinearLayout
+                    android:id="@+id/llNewPassConfirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/Text14spBlack333333"
+                        android:layout_gravity="center_vertical"
+                        android:text="交易日期"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/etPasswordConfirm"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="right"
+                        android:text="2020-10-10  14:00"
+                        android:paddingTop="@dimen/dp_16"
+                        android:paddingBottom="@dimen/dp_16"
+                        android:textSize="@dimen/sp_14" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/Text14spBlack333333"
+                        android:layout_gravity="center_vertical"
+                        android:text="交易内容"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="right"
+                        android:text="市民卡充值"
+                        android:paddingTop="@dimen/dp_16"
+                        android:paddingBottom="@dimen/dp_16"
+                        android:textSize="@dimen/sp_14" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/Text14spBlack333333"
+                        android:layout_gravity="center_vertical"
+                        android:text="交易状态"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="right"
+                        android:text="已完成"
+                        android:paddingTop="@dimen/dp_16"
+                        android:paddingBottom="@dimen/dp_16"
+                        android:textSize="@dimen/sp_14" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/Text14spBlack333333"
+                        android:layout_gravity="center_vertical"
+                        android:text="付款方式"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="right"
+                        android:text="市民卡账户"
+                        android:paddingTop="@dimen/dp_16"
+                        android:paddingBottom="@dimen/dp_16"
+                        android:textSize="@dimen/sp_14" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/Text14spBlack333333"
+                        android:layout_gravity="center_vertical"
+                        android:text="市民卡号"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="right"
+                        android:text="136889486289648"
+                        android:paddingTop="@dimen/dp_16"
+                        android:paddingBottom="@dimen/dp_16"
+                        android:textSize="@dimen/sp_14" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+    </RelativeLayout>
+</LinearLayout>

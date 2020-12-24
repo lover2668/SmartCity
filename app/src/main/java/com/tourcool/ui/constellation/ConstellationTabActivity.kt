@@ -9,7 +9,7 @@ import com.frame.library.core.util.FrameUtil
 import com.frame.library.core.util.SizeUtil
 import com.frame.library.core.util.StringUtil
 import com.frame.library.core.widget.titlebar.TitleBarView
-import com.tourcool.adapter.constellation.ConstellationPagerAdapter
+import com.tourcool.adapter.constellation.TabPagerAdapter
 import com.tourcool.smartcity.R
 import com.tourcool.ui.base.BaseTitleTransparentActivity
 import kotlinx.android.synthetic.main.activity_constellation_tab.*
@@ -36,7 +36,7 @@ class ConstellationTabActivity : BaseTitleTransparentActivity() {
     private var mStarName = ""
     private var mStarDate = ""
     private var imageId = -1
-    private var mChannelPagerAdapter: ConstellationPagerAdapter? = null
+    private var mChannelPagerAdapter: TabPagerAdapter? = null
     override fun getContentLayout(): Int {
         return R.layout.activity_constellation_tab
     }
@@ -57,7 +57,7 @@ class ConstellationTabActivity : BaseTitleTransparentActivity() {
         initMagicIndicator()
         tvStarName.text = mStarName
         tvMonth.text = mStarDate
-        mChannelPagerAdapter = ConstellationPagerAdapter(mFragments, supportFragmentManager)
+        mChannelPagerAdapter = TabPagerAdapter(mFragments, supportFragmentManager)
         mViewPager.adapter = mChannelPagerAdapter
         mViewPager.offscreenPageLimit = mTabNameList.size
         commonNavigator.notifyDataSetChanged()

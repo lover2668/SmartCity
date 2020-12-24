@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0_5"
+        android:layout_marginStart="@dimen/dp_12"
+        android:layout_marginEnd="@dimen/dp_12"
+        android:background="@color/grayEEEEEE" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/Text13spBlack333333"
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:text="充值金额"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/mRechargeRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:minHeight="@dimen/dp_80" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_0_5"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:layout_marginEnd="@dimen/dp_12"
+                    android:background="@color/grayEEEEEE" />
+
+
+                <TextView
+                    style="@style/Text13spBlack333333"
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:text="支付方式"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_18"
+                    android:layout_marginEnd="@dimen/dp_18"
+                    android:orientation="horizontal"
+
+                    >
+
+                    <LinearLayout
+                        android:id="@+id/llPayTypeAli"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/dp_18"
+                        android:paddingBottom="@dimen/dp_18">
+
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:minWidth="@dimen/dp_18"
+                            android:minHeight="@dimen/dp_18"
+                            android:src="@mipmap/ic_pay_ali_small" />
+
+                        <TextView
+                            style="@style/Text13spBlack333333"
+                            android:layout_width="0dp"
+                            android:layout_marginStart="@dimen/dp_4"
+                            android:layout_weight="1"
+                            android:text="支付宝支付" />
+
+                        <CheckBox
+                            android:id="@+id/cbAli"
+                            android:clickable="false"
+                            android:focusable="false"
+                            style="@style/CheckBoxPayTypeTheme"
+                            android:layout_width="@dimen/dp_12"
+                            android:layout_height="@dimen/dp_12"
+                            android:padding="@dimen/dp_5" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/llPayTypeWeChat"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_26"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/dp_18"
+                        android:paddingBottom="@dimen/dp_18">
+
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:minWidth="@dimen/dp_18"
+                            android:minHeight="@dimen/dp_18"
+                            android:src="@mipmap/ic_pay_type_wechat" />
+
+                        <TextView
+                            style="@style/Text13spBlack333333"
+                            android:layout_width="0dp"
+                            android:layout_marginStart="@dimen/dp_4"
+                            android:layout_weight="1"
+                            android:text="微信支付" />
+
+                        <CheckBox
+                            android:id="@+id/cbWeChat"
+                            style="@style/CheckBoxPayTypeTheme"
+                            android:layout_width="@dimen/dp_12"
+                            android:layout_height="@dimen/dp_12"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:padding="@dimen/dp_5" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_0_5"
+                        android:layout_marginStart="@dimen/dp_12"
+                        android:layout_marginEnd="@dimen/dp_12"
+                        android:background="@color/grayEEEEEE" />-->
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0_5"
+        android:layout_marginStart="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginEnd="@dimen/dp_12"
+        android:background="@color/grayEEEEEE" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_22"
+        android:layout_marginEnd="@dimen/dp_12"
+        android:layout_marginBottom="@dimen/dp_18"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/rlBack"
+            android:layout_width="@dimen/dp_44"
+            android:layout_height="@dimen/dp_44"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/bg_circle_blue">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/ic_arrow_left_blue" />
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/dp_12"
+            android:background="@drawable/selector_radius_25_blue_4287ff"
+            android:gravity="center"
+            android:minHeight="@dimen/dp_42"
+            android:text="确定支付"
+            android:textColor="@color/whiteCommon"
+            android:textSize="@dimen/sp_14" />
+
+    </LinearLayout>
+    <!--<androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/Text13spBlack333333"
+                    android:layout_marginStart="@dimen/dp_18"
+                    android:layout_marginTop="@dimen/dp_18"
+                    android:text="充值金额"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:minHeight="@dimen/dp_200" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_0_5"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:layout_marginEnd="@dimen/dp_12"
+                    android:background="@color/grayEEEEEE" />
+
+
+                <TextView
+                    style="@style/Text13spBlack333333"
+                    android:layout_marginStart="@dimen/dp_18"
+                    android:layout_marginTop="@dimen/dp_18"
+                    android:text="充值金额"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>-->
+
+
+</LinearLayout>

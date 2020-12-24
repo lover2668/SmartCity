@@ -150,6 +150,11 @@
     <style name="Text13spGrayA2A2A2" parent="Text13spBlack333333">
       <item name="android:textColor">@color/grayA2A2A2</item>
     </style>
+
+    <style name="Text12spGrayA2A2A2" parent="Text13spBlack333333">
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:textColor">@color/grayA2A2A2</item>
+    </style>
     <style name="Text12spBlack333333">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -168,6 +173,11 @@
     <!-- CustomCheckBox theme -->
     <style name="CustomCheckBoxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/checkbox_style</item>
+    </style>
+
+    <!-- CustomCheckBox theme -->
+    <style name="CheckBoxPayTypeTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_pay_type_style</item>
     </style>
 
     <!-- CustomCheckBox theme -->

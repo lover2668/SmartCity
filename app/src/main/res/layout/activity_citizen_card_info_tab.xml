@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/ic_bg_weather"
+    android:orientation="vertical">
+
+    <include layout="@layout/frame_layout_title_bar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_22"
+            android:layout_marginEnd="@dimen/dp_22"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/dp_15"
+            android:background="@drawable/bg_radius15_blue_shadow_gray"
+            android:paddingTop="@dimen/dp_20"
+            android:paddingEnd="@dimen/dp_15"
+            android:paddingBottom="@dimen/dp_22">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/TextBold14spBlack333333"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="姓   名"
+                            android:textColor="@color/white" />
+
+                        <TextView
+                            style="@style/Text12spBlack333333"
+                            android:layout_width="0dp"
+                            android:layout_marginStart="@dimen/dp_10"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:gravity="start"
+                            android:text="张三"
+                            android:textColor="@color/white" />
+
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+
+
+
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextBold14spBlack333333"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="证件号"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/tvIdCard"
+                        style="@style/Text12spBlack333333"
+                        android:layout_width="0dp"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:gravity="start"
+                        android:text="341529199910109928"
+                        android:textColor="@color/white" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/TextBold14spBlack333333"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="卡   号"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        style="@style/Text12spBlack333333"
+                        android:layout_width="0dp"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:gravity="start"
+                        android:text="3415291"
+                        android:textColor="@color/white" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/logo"
+                    android:layout_marginTop="@dimen/dp_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/ic_citizen_card_logo" />
+
+                <ImageView
+                    android:layout_below="@id/logo"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dp_35"
+                    android:src="@mipmap/ic_qrcode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp_125"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_top_radius_25_white"
+            android:orientation="vertical">
+            <net.lucode.hackware.magicindicator.MagicIndicator
+                android:id="@+id/magicIndicator"
+                android:layout_marginTop="@dimen/dp_12"
+                android:layout_marginStart="@dimen/dp_15"
+                android:layout_marginEnd="@dimen/dp_15"
+                android:layout_marginBottom="@dimen/dp_12"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_36"
+                />
+
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/mViewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dp_1"
+                >
+
+            </androidx.viewpager.widget.ViewPager>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</LinearLayout>
