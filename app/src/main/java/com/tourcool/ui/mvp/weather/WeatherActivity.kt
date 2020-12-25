@@ -12,7 +12,6 @@ import com.frame.library.core.manager.GlideManager
 import com.frame.library.core.retrofit.BaseLoadingObserver
 import com.frame.library.core.util.ToastUtil
 import com.frame.library.core.widget.titlebar.TitleBarView
-import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
@@ -53,7 +52,7 @@ class WeatherActivity : BaseTitleTransparentActivity(), View.OnClickListener, On
         return R.layout.activity_weather
     }
 
-    override fun initView(savedInstanceState: Bundle ?) {
+    override fun initView(savedInstanceState: Bundle?) {
         smartRefreshCommon!!.setRefreshHeader(ClassicsHeader(mContext))
         smartRefreshCommon.setOnRefreshListener(this)
         headerView = View.inflate(mContext, R.layout.header_weather_layout, null)
@@ -134,12 +133,20 @@ class WeatherActivity : BaseTitleTransparentActivity(), View.OnClickListener, On
         tvWeatherDesc!!.text = simpleWeather.weather
         tvAirQuality!!.text = "空气质量：" + simpleWeather.quality
         tvWindDesc!!.text = simpleWeather.winddirect + "：" + simpleWeather.windspeed + "级"
+
+
         when (simpleWeather.weather) {
             WeatherConstant.WEATHER_QING -> GlideManager.loadImg(R.mipmap.ic_weather_day_qing, ivWeather)
             WeatherConstant.WEATHER_DUO_YUN -> GlideManager.loadImg(R.mipmap.ic_weather_duoyun, ivWeather)
             WeatherConstant.WEATHER_YIN -> GlideManager.loadImgCenterInside(R.mipmap.ic_weather_yin, ivWeather)
-            WeatherConstant.WEATHER_XIAO_YU -> GlideManager.loadImgCenterInside(R.mipmap.ic_weather_xiao_yu, ivWeather)
-            else -> GlideManager.loadImgCenterInside(R.mipmap.ic_weather_unknown, ivWeather)
+            WeatherConstant.WEATHER_XIAO_YU, WeatherConstant.WEATHER_YU -> GlideManager.loadImgCenterInside(R.mipmap.ic_weather_xiao_yu, ivWeather)
+            WeatherConstant.WEATHER_RAIN_AND_SNOW -> GlideManager.loadImgCenterInside(R.mipmap.ic_weather_rain_and_snow, ivWeather)
+            WeatherConstant.WEATHER_SMALL_SNOW -> GlideManager.loadImgCenterInside(R.mipmap.ic_weather_small_snow, ivWeather)
+            WeatherConstant.WEATHER_RAIN_MIDDLE -> GlideManager.loadImgCenterInside(R.mipmap.ic_weather_middle_snow, ivWeather)
+            WeatherConstant.WEATHER_HEAVY_RAIN, WeatherConstant.WEATHER_TOP_RAIN -> GlideManager.loadImgCenterInside(R.mipmap.ic_weather_top_rain, ivWeather)
+            else -> {
+                GlideManager.loadImgCenterInside(R.mipmap.ic_weather_unknown, ivWeather)
+            }
         }
     }
 

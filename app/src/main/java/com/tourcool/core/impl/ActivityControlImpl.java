@@ -16,40 +16,32 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
-import com.frame.library.core.basis.BaseActivity;
+import com.aries.ui.helper.navigation.KeyboardHelper;
+import com.aries.ui.helper.navigation.NavigationViewHelper;
+import com.aries.ui.helper.status.StatusViewHelper;
+import com.aries.ui.util.StatusBarUtil;
+import com.didichuxing.doraemonkit.ui.UniversalActivity;
 import com.frame.library.core.FrameLifecycleCallbacks;
+import com.frame.library.core.basis.BaseActivity;
 import com.frame.library.core.basis.BaseFragment;
-import com.frame.library.core.log.TourCooLogUtil;
-import com.frame.library.core.util.FrameUtil;
-import com.tourcool.core.MyApplication;
-import com.tourcool.core.module.SplashActivity;
-import com.tourcool.core.module.main.MainTabActivity;
-import com.tourcool.core.module.main.sample.TestStatusActivity;
 import com.frame.library.core.control.ActivityDispatchEventControl;
 import com.frame.library.core.control.ActivityFragmentControl;
 import com.frame.library.core.control.ActivityKeyEventControl;
 import com.frame.library.core.impl.FrameActivityLifecycleCallbacks;
 import com.frame.library.core.manager.LoggerManager;
-import com.frame.library.core.util.StackUtil;
+import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.util.SizeUtil;
-import com.frame.library.core.util.SnackBarUtil;
+import com.frame.library.core.util.StackUtil;
 import com.frame.library.core.util.ToastUtil;
-import com.aries.ui.helper.navigation.KeyboardHelper;
-import com.aries.ui.helper.navigation.NavigationBarUtil;
-import com.aries.ui.helper.navigation.NavigationViewHelper;
-import com.aries.ui.helper.status.StatusViewHelper;
-import com.aries.ui.util.FindViewUtil;
-import com.aries.ui.util.StatusBarUtil;
-import com.didichuxing.doraemonkit.ui.UniversalActivity;
 import com.luck.picture.lib.PictureBaseActivity;
-import com.luck.picture.lib.PicturePreviewActivity;
-import com.tourcool.smartcity.BuildConfig;
+import com.tourcool.core.MyApplication;
+import com.tourcool.core.module.SplashActivity;
+import com.tourcool.core.module.main.sample.TestStatusActivity;
 import com.tourcool.smartcity.R;
 
 import java.util.List;
@@ -206,7 +198,7 @@ public class ActivityControlImpl implements ActivityFragmentControl, ActivityKey
      */
     @Override
     public boolean setNavigationBar(Activity activity, NavigationViewHelper helper, View bottomView) {
-        //其它默认属性请参考FastLifecycleCallbacks
+       /* //其它默认属性请参考FastLifecycleCallbacks
         helper.setLogEnable(BuildConfig.DEBUG)
                 .setPlusNavigationViewEnable(true, !isPlusView(activity), true)
                 .setNavigationBarLightMode(NavigationBarUtil.isSupportNavigationBarFontChange() && isPlusView(activity))
@@ -219,7 +211,7 @@ public class ActivityControlImpl implements ActivityFragmentControl, ActivityKey
             KeyboardHelper.with(activity)
                     .setEnable()
                     .setOnKeyboardVisibilityChangedListener(getOnKeyboardVisibilityChangedListener(activity));
-        }
+        }*/
         return MyApplication.isControlNavigation();
     }
 

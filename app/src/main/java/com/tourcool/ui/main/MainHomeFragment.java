@@ -18,7 +18,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -132,9 +131,15 @@ import static com.tourcool.core.constant.ScreenConstant.TIP_WAIT_DEV;
 import static com.tourcool.core.constant.SocialConstant.EXTRA_SOCIAL_TYPE;
 import static com.tourcool.core.constant.SocialConstant.TIP_GO_CERTIFY;
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_DUO_YUN;
+import static com.tourcool.core.constant.WeatherConstant.WEATHER_HEAVY_RAIN;
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_QING;
+import static com.tourcool.core.constant.WeatherConstant.WEATHER_RAIN_AND_SNOW;
+import static com.tourcool.core.constant.WeatherConstant.WEATHER_RAIN_MIDDLE;
+import static com.tourcool.core.constant.WeatherConstant.WEATHER_SMALL_SNOW;
+import static com.tourcool.core.constant.WeatherConstant.WEATHER_TOP_RAIN;
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_XIAO_YU;
 import static com.tourcool.core.constant.WeatherConstant.WEATHER_YIN;
+import static com.tourcool.core.constant.WeatherConstant.WEATHER_YU;
 import static com.tourcool.widget.webview.WebViewConstant.EXTRA_RICH_TEXT_ENABLE;
 import static com.tourcool.widget.webview.WebViewConstant.EXTRA_WEB_VIEW_TITLE;
 import static com.tourcool.widget.webview.WebViewConstant.EXTRA_WEB_VIEW_URL;
@@ -160,7 +165,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
     private TextView tvDate;
     private ImageView ivWeather;
     private List<View> viewList = new ArrayList<>();
-    private  SparseArray<View> views = new SparseArray<>();
+    private SparseArray<View> views = new SparseArray<>();
     /**
      * 搜索框高度
      */
@@ -275,7 +280,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
         //天气描述
 
         tvWeatherDesc.setText(StringUtil.getNotNullValue(weather.getWeather()));
-        switch (StringUtil.getNotNullValue(weather.getWeather())) {
+      /*  switch (StringUtil.getNotNullValue(weather.getWeather())) {
             case WEATHER_DUO_YUN:
                 GlideManager.loadImgCenterInside(R.mipmap.ic_weather_duoyun, ivWeather);
                 break;
@@ -291,7 +296,40 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
             default:
                 GlideManager.loadImgCenterInside(R.mipmap.ic_weather_unknown, ivWeather);
                 break;
+        }*/
+        switch ((StringUtil.getNotNullValue(weather.getWeather()))) {
+            case WEATHER_QING:
+                GlideManager.loadImg(R.mipmap.ic_weather_day_qing, ivWeather);
+                break;
+            case WEATHER_DUO_YUN:
+                GlideManager.loadImg(R.mipmap.ic_weather_duoyun, ivWeather);
+                break;
+            case WEATHER_YIN:
+                GlideManager.loadImgCenterInside(R.mipmap.ic_weather_yin, ivWeather);
+                break;
+            case WEATHER_XIAO_YU:
+            case WEATHER_YU:
+                GlideManager.loadImgCenterInside(R.mipmap.ic_weather_xiao_yu, ivWeather);
+                break;
+            case WEATHER_RAIN_AND_SNOW:
+                GlideManager.loadImgCenterInside(R.mipmap.ic_weather_rain_and_snow, ivWeather);
+                break;
+            case WEATHER_SMALL_SNOW:
+                GlideManager.loadImgCenterInside(R.mipmap.ic_weather_small_snow, ivWeather);
+                break;
+            case WEATHER_RAIN_MIDDLE:
+                GlideManager.loadImgCenterInside(R.mipmap.ic_weather_middle_snow, ivWeather);
+                break;
+            //暴雨和雷雨
+            case WEATHER_HEAVY_RAIN:
+            case WEATHER_TOP_RAIN:
+                GlideManager.loadImgCenterInside(R.mipmap.ic_weather_top_rain, ivWeather);
+                break;
+            default:
+                GlideManager.loadImgCenterInside(R.mipmap.ic_weather_unknown, ivWeather);
+                break;
         }
+
         tvAirQuality.setText(transformAirQuality(weather.getQuality()));
         tvTemperature.setText(transformTemp(weather.getTemp()));
         tvDate.setText(transformDate(weather.getDate()));
@@ -337,38 +375,46 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
             switch (screenPart.getLayoutStyle()) {
                 case LAYOUT_STYLE_IMAGE_TEXT_LIST:
                     //加载矩阵
-                    loadMatrix(getMatrixList(screenPart), false);
+                    loadMatrix(getMatrixList(screenPart), false, screenPart.getScreenPartId());
                     break;
                 case LAYOUT_STYLE_HORIZONTAL_BANNER:
                     //横向banner图
-                    loadHorizontalBanner(screenPart);
+                    loadHorizontalBanner(screenPart, screenPart.getScreenPartId());
                     break;
                 case LAYOUT_STYLE_VERTICAL_BANNER:
                     //垂直新闻
-                    loadHomeViewFlipperData(screenPart, false);
+                    loadHomeViewFlipperData(screenPart, false, screenPart.getScreenPartId());
                     break;
                 case LAYOUT_STYLE_CONTAINS_SUBLISTS:
-                    loadSecondList(screenPart);
+                    loadSecondList(screenPart, screenPart.getScreenPartId());
                     break;
                 case LAYOUT_STYLE_IMAGE:
-                    loadImageView(screenPart);
+                    loadImageView(screenPart, screenPart.getScreenPartId());
                     break;
                 default:
                     break;
             }
         }
-        View lineView = createLineView();
-        llContainer.addView(lineView);
+        View lineView = createLineView(1);
+        addViewToContainer(lineView);
         viewList.add(lineView);
-        View lineView1 = createLineView();
-        llContainer.addView(lineView1);
+        View lineView1 = createLineView(2);
+        addViewToContainer(lineView1);
         viewList.add(lineView1);
     }
 
 
-    private void loadMatrix(List<MatrixBean> matrixList, boolean translate) {
-        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.item_recycler_view, null);
-        RecyclerView recyclerView = linearLayout.findViewById(R.id.rvCommon);
+    private void loadMatrix(List<MatrixBean> matrixList, boolean translate, int tag) {
+        LinearLayout linearLayout = getViewByViewId(R.id.llMatrix, tag);
+        if (linearLayout == null) {
+            linearLayout = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.item_recycler_view, null);
+            cacheView(R.id.llMatrix, tag, linearLayout);
+        }
+        RecyclerView recyclerView = getViewByViewId(R.id.rvCommon, tag);
+        if (recyclerView == null) {
+            recyclerView = linearLayout.findViewById(R.id.rvCommon);
+            cacheView(R.id.rvCommon, tag, recyclerView);
+        }
         if (recyclerView == null) {
             return;
         }
@@ -382,9 +428,9 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
         adapter.bindToRecyclerView(recyclerView);
         adapter.setNewData(matrixList);
         viewList.add(linearLayout);
-        llContainer.addView(linearLayout);
-        View lineView = createLineView();
-        llContainer.addView(lineView);
+        addViewToContainer(linearLayout);
+        View lineView = createLineView(tag);
+        addViewToContainer(lineView);
         viewList.add(lineView);
         recyclerView.setPadding(0, SizeUtil.dp2px(10f), 0, 0);
         if (translate) {
@@ -393,7 +439,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
         initMatrixClickListener(adapter);
     }
 
-    private void loadHorizontalBanner(ScreenPart screenPart) {
+    private void loadHorizontalBanner(ScreenPart screenPart, int tag) {
         if (screenPart == null || screenPart.getLayoutStyle() != LAYOUT_STYLE_HORIZONTAL_BANNER || screenPart.getChildren() == null) {
             TourCooLogUtil.e(TAG, "loadHorizentalBanner()--->数据不匹配");
             return;
@@ -421,8 +467,18 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
                 imageList.add(TourCooUtil.getUrl(currentChannel.getIcon()));
             }
         }*/
-        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.layout_banner, null);
-        BGABanner bgaBanner = linearLayout.findViewById(R.id.banner);
+        LinearLayout linearLayout = getViewByViewId(R.id.llBanner, tag);
+        BGABanner bgaBanner = getViewByViewId(R.id.banner, tag);
+        if (linearLayout == null) {
+            linearLayout = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.layout_banner, null);
+            cacheView(R.id.llBanner, tag, linearLayout);
+        }
+        if (bgaBanner == null) {
+            bgaBanner = linearLayout.findViewById(R.id.banner);
+            cacheView(R.id.banner, tag, bgaBanner);
+        } else {
+            TourCooLogUtil.i("banner已经从缓存中获取");
+        }
         bgaBanner.setPadding(SizeUtil.dp2px(10), 0, SizeUtil.dp2px(10), 0);
         bgaBanner.setAdapter((banner, itemView, model, position) -> {
             try {
@@ -468,7 +524,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
         params.height = MyApplication.getImageHeight();
         bgaBanner.setTransitionEffect(TransitionEffect.Default);
         viewList.add(linearLayout);
-        llContainer.addView(linearLayout);
+        addViewToContainer(linearLayout);
     }
 
 
@@ -547,7 +603,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
      *
      * @param screenPart
      */
-    private void loadHomeViewFlipperData(ScreenPart screenPart, boolean translate) {
+    private void loadHomeViewFlipperData(ScreenPart screenPart, boolean translate, int tag) {
         if (screenPart == null || ScreenConstant.LAYOUT_STYLE_VERTICAL_BANNER != screenPart.getLayoutStyle() || screenPart.getChildren() == null) {
             return;
         }
@@ -569,16 +625,31 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
             TourCooLogUtil.e(TAG, "channelList为空");
             return;
         }
-        View viewFlipperRoot = LayoutInflater.from(mContext).inflate(R.layout.view_flipper_layout, null);
-        ImageView ivBulletin = viewFlipperRoot.findViewById(R.id.ivBulletin);
-        View viewLineVertical = viewFlipperRoot.findViewById(R.id.viewLineVertical);
+        View viewFlipperRoot = getViewByViewId(R.id.llViewFlipper, tag);
+        if (viewFlipperRoot == null) {
+            viewFlipperRoot = LayoutInflater.from(mContext).inflate(R.layout.view_flipper_layout, null);
+            cacheView(R.id.llViewFlipper, tag, viewFlipperRoot);
+        }
+        ImageView ivBulletin = getViewByViewId(R.id.ivBulletin, tag);
+        if (ivBulletin == null) {
+            ivBulletin = viewFlipperRoot.findViewById(R.id.ivBulletin);
+            cacheView(R.id.ivBulletin, tag, ivBulletin);
+        }
+        View viewLineVertical = getViewByViewId(R.id.viewLineVertical, tag);
+        if (viewLineVertical == null) {
+            viewLineVertical = viewFlipperRoot.findViewById(R.id.viewLineVertical);
+//            views.put(R.id.viewLineVertical, viewLineVertical);
+            cacheView(R.id.viewLineVertical, tag, viewLineVertical);
+        }
         Drawable defaultDrawable = TourCooUtil.getDrawable(R.mipmap.ic_avatar_default);
         float aspectRatio = (float) defaultDrawable.getIntrinsicHeight() / (float) defaultDrawable.getIntrinsicWidth();
+        View finalViewLineVertical = viewLineVertical;
+        ImageView finalIvBulletin = ivBulletin;
         GlideManager.loadRoundImgByListener(TourCooUtil.getUrl(screenPart.getDetail().getIcon()), ivBulletin, 5, defaultDrawable, false, new RequestListener<Drawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                 TourCooLogUtil.e("图片加载失败", "onLoadFailed:" + e.toString());
-                resetViewLayoutParams(aspectRatio, viewLineVertical, ivBulletin);
+                resetViewLayoutParams(aspectRatio, finalViewLineVertical, finalIvBulletin);
                 return false;
             }
 
@@ -587,7 +658,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
                 TourCooLogUtil.i("图片加载完成", "图片高度:" + resource.getIntrinsicHeight() + "图片宽度:" + resource.getIntrinsicWidth());
                 //图片宽高比
                 float aspectRatio = (float) resource.getIntrinsicHeight() / (float) resource.getIntrinsicWidth();
-                resetViewLayoutParams(aspectRatio, viewLineVertical, ivBulletin);
+                resetViewLayoutParams(aspectRatio, finalViewLineVertical, finalIvBulletin);
                 return false;
             }
         });
@@ -616,10 +687,10 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
             homeViewFlipper.addView(contentLayout);
         }
         viewList.add(viewFlipperRoot);
-        View lineView = createLineView();
+        View lineView = createLineView(tag);
         viewList.add(lineView);
-        llContainer.addView(viewFlipperRoot);
-        llContainer.addView(lineView);
+        addViewToContainer(viewFlipperRoot);
+        addViewToContainer(lineView);
         if (translate) {
             llContainer.setBackgroundColor(TourCooUtil.getColor(R.color.transparent));
         }
@@ -629,12 +700,19 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
     /**
      * 创建分割线
      */
-    private View createLineView() {
-        return LayoutInflater.from(mContext).inflate(R.layout.line_view_verticle_layout, null);
+    private View createLineView(int tag) {
+        View lineView = getViewByViewId(R.id.lLineView, tag);
+        if (lineView == null) {
+            lineView = LayoutInflater.from(mContext).inflate(R.layout.line_view_verticle_layout, null);
+            cacheView(R.id.lLineView, tag, lineView);
+            return lineView;
+        }
+        return lineView;
+
     }
 
 
-    private void loadSecondList(ScreenPart screenPart) {
+    private void loadSecondList(ScreenPart screenPart, int tag) {
         boolean illegal = screenPart == null || ScreenConstant.LAYOUT_STYLE_CONTAINS_SUBLISTS != screenPart.getLayoutStyle() || screenPart.getChildren() == null || screenPart.getDetail() == null;
         if (illegal) {
             return;
@@ -650,21 +728,39 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
             currentChannel.setIcon(TourCooUtil.getUrl(currentChannel.getIcon()));
             channelList.add(currentChannel);
         }
-        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_two_level_layout, null);
-        LinearLayout llServiceHeader = rootView.findViewById(R.id.llServiceHeader);
-        TextView tvGroupName = rootView.findViewById(R.id.tvGroupName);
+        View rootView = getViewByViewId(R.id.llTwoLevel, tag);
+        if (rootView == null) {
+            rootView = LayoutInflater.from(mContext).inflate(R.layout.item_two_level_layout, null);
+            cacheView(R.id.llTwoLevel, tag, rootView);
+        }
+        LinearLayout llServiceHeader = getViewByViewId(R.id.llServiceHeader, tag);
+        if (llServiceHeader == null) {
+            llServiceHeader = rootView.findViewById(R.id.llServiceHeader);
+            cacheView(R.id.llServiceHeader, tag, llServiceHeader);
+        }
+
+        TextView tvGroupName = getViewByViewId(R.id.tvGroupName, tag);
+        if (tvGroupName == null) {
+            tvGroupName = rootView.findViewById(R.id.tvGroupName);
+            cacheView(R.id.tvGroupName, tag, tvGroupName);
+        }
+
         String groupName = screenPart.getDetail().getName();
         tvGroupName.setText(groupName);
-        RecyclerView rvCommonChild = rootView.findViewById(R.id.rvCommonChild);
+        RecyclerView rvCommonChild = getViewByViewId(R.id.rvCommonChild, tag);
+        if (rvCommonChild == null) {
+            rvCommonChild = rootView.findViewById(R.id.rvCommonChild);
+            cacheView(R.id.rvCommonChild, tag, rvCommonChild);
+        }
         TwoLevelChildAdapter adapter = new TwoLevelChildAdapter();
         //二级布局为网格布局
         rvCommonChild.setLayoutManager(new GridLayoutManager(mContext, 2));
         adapter.bindToRecyclerView(rvCommonChild);
         adapter.setNewData(channelList);
-        llContainer.addView(rootView);
+        addViewToContainer(rootView);
         viewList.add(rootView);
-        View lineView = createLineView();
-        llContainer.addView(lineView);
+        View lineView = createLineView(tag);
+        addViewToContainer(lineView);
         viewList.add(lineView);
         rootView.setPadding(0, SizeUtil.dp2px(10f), 0, 0);
         setSecondLevelListClickListener(adapter);
@@ -746,14 +842,22 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
     }
 
 
-    private void loadImageView(ScreenPart screenPart) {
+    private void loadImageView(ScreenPart screenPart, int tag) {
         if (screenPart == null || screenPart.getChildren() == null || LAYOUT_STYLE_IMAGE != screenPart.getLayoutStyle()) {
             return;
         }
         String imageUrl = "";
         List<ChildNode> childNodeList = screenPart.getChildren();
-        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.item_image_layout, null);
-        ImageView imageView = linearLayout.findViewById(R.id.imageView);
+        LinearLayout linearLayout = getViewByViewId(R.id.llImage, tag);
+        if (linearLayout == null) {
+            linearLayout = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.item_image_layout, null);
+            cacheView(R.id.llImage, tag, linearLayout);
+        }
+        ImageView imageView = getViewByViewId(R.id.imageView, tag);
+        if (imageView == null) {
+            imageView = linearLayout.findViewById(R.id.imageView);
+            cacheView(R.id.imageView, tag, imageView);
+        }
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
         layoutParams.setMargins(SizeUtil.dp2px(15), 0, SizeUtil.dp2px(15), 0);
         imageView.setLayoutParams(layoutParams);
@@ -767,7 +871,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
         }
         TourCooLogUtil.i(TAG, "图片地址:" + imageUrl);
         GlideManager.loadRoundImg(TourCooUtil.getUrl(imageUrl), imageView, 5, R.mipmap.ic_avatar_default, true);
-        llContainer.addView(linearLayout);
+        addViewToContainer(linearLayout);
         viewList.add(linearLayout);
     }
 
@@ -901,7 +1005,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
                 getHomeInfo();
             }
         });
-        llContainer.addView(emptyView);
+        addViewToContainer(emptyView);
         viewList.add(emptyView);
     }
 
@@ -931,7 +1035,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
                 getHomeInfo();
             }
         });
-        llContainer.addView(emptyView);
+        addViewToContainer(emptyView);
         viewList.add(emptyView);
     }
 
@@ -1250,12 +1354,22 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
 
 
     @SuppressWarnings("unchecked")
-    private  <T extends View> T getView(@IdRes int viewId) {
-        View view = views.get(viewId);
-        if (view == null) {
-            view = mContentView.findViewById(viewId);
-            views.put(viewId, view);
-        }
+    private <T extends View> T getViewByViewId(int viewId, int tag) {
+        int key = viewId + tag;
+        View view = views.get(key);
         return (T) view;
+    }
+
+
+    private void cacheView(int layoutId, int tag, View view) {
+        if (view != null) {
+            views.put(layoutId + tag, view);
+        }
+    }
+
+    private void addViewToContainer(View view) {
+        if (view != null && llContainer.indexOfChild(view) < 0) {
+            llContainer.addView(view);
+        }
     }
 }

@@ -39,9 +39,9 @@
                 android:id="@+id/tvWeatherDesc"
                 style="@style/Text14spWhiteFFFFFF"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="right"
+                android:layout_height="wrap_content"
+                android:gravity="end"
                 android:text="--" />
         </LinearLayout>
 
@@ -100,10 +100,14 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/ivWeather"
-                    android:layout_width="@dimen/dp_50"
+                    android:maxWidth="@dimen/dp_60"
+                    android:maxHeight="@dimen/dp_60"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:minWidth="@dimen/dp_50"
+                    android:minHeight="@dimen/dp_50"
                     android:src="@mipmap/ic_weather_unknown"
-                    android:scaleType="fitXY"
-                    android:layout_height="@dimen/dp_50"/>
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
         </RelativeLayout>
         <!--分割线-->

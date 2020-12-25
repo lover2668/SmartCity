@@ -14,13 +14,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
 import com.aries.ui.view.tab.BuildConfig;
-import com.frame.library.core.util.ToastUtil;
-import com.tourcool.core.module.WebViewActivity;
+import com.aries.ui.view.tab.CommonTabLayout;
+import com.didichuxing.doraemonkit.util.PermissionUtil;
 import com.frame.library.core.entity.FrameTabEntity;
 import com.frame.library.core.manager.LoggerManager;
 import com.frame.library.core.module.activity.FrameMainActivity;
-import com.aries.ui.view.tab.CommonTabLayout;
-import com.didichuxing.doraemonkit.util.PermissionUtil;
+import com.frame.library.core.util.ToastUtil;
+import com.tourcool.core.module.WebViewActivity;
 import com.tourcool.core.widget.IosAlertDialog;
 import com.tourcool.smartcity.R;
 import com.tourcool.ui.main.MainHomeFragment;
@@ -106,15 +106,6 @@ public class MainTabActivity extends FrameMainActivity  implements EasyPermissio
 
     @Override
     public void initView(Bundle savedInstanceState) {
-    /*    RxJavaManager.getInstance().setTimer(2000)
-                .compose(bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(new BaseObserver<Long>() {
-                    @Override
-                    public void onRequestNext(Long entity) {
-                        requestPermission();
-                    }
-                });*/
-
         checkPermission();
     }
 

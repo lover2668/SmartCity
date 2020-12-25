@@ -227,4 +227,6 @@ dependencies {
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.3'
 
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+
 }

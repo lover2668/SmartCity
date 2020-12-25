@@ -12,15 +12,20 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
-import com.frame.library.core.control.IFrameTitleView;
-import com.frame.library.core.delegate.FrameRefreshDelegate;
-import com.frame.library.core.delegate.FrameTitleDelegate;
+import com.aries.ui.helper.navigation.KeyboardHelper;
+import com.aries.ui.helper.navigation.NavigationViewHelper;
+import com.aries.ui.helper.status.StatusViewHelper;
+import com.aries.ui.util.FindViewUtil;
+import com.aries.ui.view.tab.CommonTabLayout;
 import com.frame.library.core.control.ActivityFragmentControl;
 import com.frame.library.core.control.IFrameRefreshLoadView;
 import com.frame.library.core.control.IFrameRefreshView;
+import com.frame.library.core.control.IFrameTitleView;
 import com.frame.library.core.control.INavigationBar;
 import com.frame.library.core.control.IStatusBar;
 import com.frame.library.core.control.SwipeBackControl;
+import com.frame.library.core.delegate.FrameRefreshDelegate;
+import com.frame.library.core.delegate.FrameTitleDelegate;
 import com.frame.library.core.manager.LoggerManager;
 import com.frame.library.core.manager.RxJavaManager;
 import com.frame.library.core.module.activity.FrameMainActivity;
@@ -30,11 +35,6 @@ import com.frame.library.core.module.fragment.BaseRefreshLoadFragment;
 import com.frame.library.core.retrofit.BaseObserver;
 import com.frame.library.core.util.FrameUtil;
 import com.frame.library.core.util.StackUtil;
-import com.aries.ui.helper.navigation.KeyboardHelper;
-import com.aries.ui.helper.navigation.NavigationViewHelper;
-import com.aries.ui.helper.status.StatusViewHelper;
-import com.aries.ui.util.FindViewUtil;
-import com.aries.ui.view.tab.CommonTabLayout;
 import com.frame.library.core.widget.titlebar.TitleBarView;
 import com.tourcool.library.frame.demo.R;
 
@@ -100,7 +100,7 @@ public class FrameLifecycleCallbacks extends FragmentManager.FragmentLifecycleCa
         //设置状态栏
         setStatusBar(activity);
         //设置虚拟导航栏功能
-        setNavigationBar(activity);
+//        setNavigationBar(activity);
         //设置TitleBarView-先设置TitleBarView避免多状态将布局替换
         if (activity instanceof IFrameTitleView
                 && !(activity instanceof IFrameRefreshLoadView)
