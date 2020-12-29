@@ -367,7 +367,6 @@ public class SecondaryServiceActivity extends BaseCommonTitleActivity {
                 skipDriverScore();
                 break;
             default:
-                skipWebView(link, title);
                 break;
         }
     }

@@ -236,7 +236,7 @@ class CertifyActivity : BaseCommonTitleActivity(), View.OnClickListener {
             EXTRA_CERTIFY_ID_CARD -> {
                 mTitleBar!!.setTitleMainText("身份证认证")
                 tvProgressOne.text = "身份认证"
-                setTextValue(tvNextStep, "认证")
+                setTextValue(tvNextStep, "下一步")
             }
             else -> {
             }

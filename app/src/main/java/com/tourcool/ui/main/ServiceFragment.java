@@ -142,7 +142,7 @@ public class ServiceFragment extends BaseTitleFragment implements OnRefreshListe
     public void setTitleBar(TitleBarView titleBar) {
         titleBar.setBackgroundColor(TourCooUtil.getColor(R.color.blue4287FF));
         TextView mainText = titleBar.getMainTitleTextView();
-        titleBar.setTitleMainText("智慧宜兴");
+        titleBar.setTitleMainText("e宜兴");
         mainText.setText("");
         mainText.setTextColor(TourCooUtil.getColor(R.color.white));
         mainText.setCompoundDrawablesWithIntrinsicBounds(null, null, TourCooUtil.getDrawable(R.mipmap.icon_title_name), null);
@@ -618,7 +618,6 @@ public class ServiceFragment extends BaseTitleFragment implements OnRefreshListe
                 skipDriverScore();
                 break;
             default:
-                skipWebView(link, title);
                 break;
         }
     }

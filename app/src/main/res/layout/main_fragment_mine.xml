@@ -96,7 +96,7 @@
                                 android:includeFontPadding="false"
                                 android:maxEms="10"
                                 android:maxLines="1"
-                                android:text="智慧宜兴12138"
+                                android:text="e宜兴12138"
                                 android:textColor="@color/whiteCommon"
                                 android:textSize="@dimen/sp_16" />
 

@@ -258,7 +258,7 @@
                     android:paddingTop="@dimen/dp_5"
                     android:paddingBottom="@dimen/dp_5"
                     android:paddingEnd="@dimen/dp_5"
-                    android:text="智慧宜兴用户服务协议"
+                    android:text="e宜兴用户服务协议"
                     android:textColor="@color/blue55A9FF"
                     android:textSize="@dimen/sp_12" />
 

@@ -549,7 +549,6 @@ public class SearchActivity extends BaseCommonTitleActivity implements View.OnCl
                 skipDriverScore();
                 break;
             default:
-                skipWebView(link, title);
                 break;
         }
     }

@@ -333,7 +333,7 @@ public class MainMineFragment extends BaseTitleFragment implements OnRefreshList
         mRefreshLayout.setOnRefreshListener(this);
         setMarginTop(titleBar);
         TextView mainText = titleBar.getMainTitleTextView();
-        titleBar.setTitleMainText("智慧宜兴");
+        titleBar.setTitleMainText("e宜兴");
         mainText.setText("");
         titleBar.setRightText("设置");
         titleBar.setRightText("");

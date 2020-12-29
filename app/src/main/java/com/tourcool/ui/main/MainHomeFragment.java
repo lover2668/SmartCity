@@ -873,6 +873,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
         GlideManager.loadRoundImg(TourCooUtil.getUrl(imageUrl), imageView, 5, R.mipmap.ic_avatar_default, true);
         addViewToContainer(linearLayout);
         viewList.add(linearLayout);
+        addLine(tag);
     }
 
 
@@ -962,7 +963,7 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
     private void handleRequestSuccessCallback(BaseResult<Object> result) {
         mRefreshLayout.finishRefresh();
         if (result == null) {
-            ToastUtil.showFailed("请求失败");
+            ToastUtil.showFailed("服务器数据异常");
             return;
         }
         if (result.status != RequestConfig.CODE_REQUEST_SUCCESS) {
@@ -1158,7 +1159,6 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
                 skipDriverScore();
                 break;
             default:
-                skipWebView(link, title);
                 break;
         }
     }
@@ -1371,5 +1371,12 @@ public class MainHomeFragment extends BaseTitleFragment implements View.OnClickL
         if (view != null && llContainer.indexOfChild(view) < 0) {
             llContainer.addView(view);
         }
+    }
+
+
+    private void addLine(int tag){
+        View lineView = createLineView(tag);
+        addViewToContainer(lineView);
+        viewList.add(lineView);
     }
 }
